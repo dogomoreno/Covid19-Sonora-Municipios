@@ -1,0 +1,369 @@
+---
+title: "COVID-19: MUNICIPIOS DE SONORA"
+output: 
+  flexdashboard::flex_dashboard:
+    navbar:
+      - { title: "LUIS ARMANDO MORENO", href: "http://www.luisarmandomoreno.com/", align: right }
+    theme: flatly
+    orientation: columns
+---
+<style>                     
+.navbar {
+  background-color:#58BCBC;
+  border-color:black;
+  hover-color:black;
+}
+navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+  color: black;
+  background-color: white;
+}
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+  color: black;
+  background-color: white;
+}
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+  background-color: black;
+}
+.navbar-inverse .navbar-collapse,
+.navbar-inverse .navbar-form {
+  border-color: black;
+{
+.navbar-brand {
+font-family: Lato Black
+}
+</style>  
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(extrafont)
+library(gganimate)
+library(gifski)
+library(scales)
+library(plotly)
+library(htmlwidgets)
+library(showtext)
+library(tint)
+library(rgdal)
+library(inegiR)
+library(rgeos)
+library(ggiraph)
+library(miniUI)
+library(units)
+library(reactable)
+```
+
+```{r, include=FALSE}
+library(readr)
+Casos <- read_csv("Casosdiarios.csv", 
+    col_types = cols(CASOS = col_integer(), 
+        CVEGEO = col_character(), Fecha = col_date(format = "%d/%m/%Y"), 
+        MUNICIPIO = col_character(), NUEVOS = col_integer()), 
+    locale = locale(encoding = "ISO-8859-1"))
+casosacumdia <- filter(Casos,Fecha==as.Date("2020-06-21"))
+casosacumdiaorder <- arrange(casosacumdia,CASOS, desc(MUNICIPIO))
+casosacumdia2 <- mutate(casosacumdiaorder,id=CVEGEO)
+```
+
+
+```{r, include=FALSE}
+Decesos <- read_csv("Decesosdiarios.csv", 
+     col_types = cols(DECESOS = col_integer(), 
+        CVEGEO = col_character(), Fecha = col_date(format = "%d/%m/%Y"), 
+        MUNICIPIO = col_character(), NUEVOS = col_integer()), 
+    locale = locale(encoding = "ISO-8859-1"))
+decesosacumdia <- filter(Decesos,Fecha==as.Date("2020-06-21"))
+decesosacumdiaorder <- arrange(decesosacumdia,DECESOS, desc(MUNICIPIO))
+decesosacumdia2 <- mutate(decesosacumdiaorder,id=CVEGEO)
+```
+
+
+Casos acumulados
+===================================== 
+
+Column
+-----------------------------------------------------------------------
+### Mapa de casos acumulados {data-width=500}
+
+
+```{r include=FALSE}
+capa_munison <- readOGR("Shapes", layer="MUNSON")
+capa_son <- readOGR("Shapes", layer="ENTSON")
+```
+
+```{r, include=FALSE}
+capa_munison_df <- fortify(capa_munison, region="CVEGEO")
+capa_munison_casos<- inner_join(capa_munison_df, casosacumdia2, by="id")
+```
+
+```{r, include=FALSE}
+capa_munison_casos$tooltip <- c(paste0("<b>",capa_munison_casos$MUNICIPIO, "</b>", "<b>","\n Casos ", "</b>", capa_munison_casos$CASOS,"</b>", "<b>","\n Nuevos ", "</b>", capa_munison_casos$NUEVOS))
+
+Mapa_casos <- ggplot(capa_munison_casos, aes(map_id = id)) +
+               geom_polygon(data=capa_son, aes(x=long, y=lat, group=group), 
+               fill="transparent", color="black", size=1) +
+        geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
+               fill="gray90", color="white", size=0.3) +
+     geom_map_interactive(aes(fill = CASOS, tooltip=capa_munison_casos$tooltip,data_id=id),color = "white",size=0.3, map = capa_munison_df) + 
+    scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,2200), breaks = c(1, 400, 800, 1200, 1600, 2000))+
+    theme_void() +
+   theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
+    legend.position = "left",
+    legend.key.height = unit (2, "cm"), axis.text = element_blank(),
+    legend.text = element_text(family = "Lato Light", size = 6, color = "black"),
+    legend.title = element_blank(),
+    plot.caption = element_text(family = "Lato Light", size = 8, color = "gray50", face = "italic"),
+    axis.title = element_blank()) +
+    labs(axis = NULL, y = NULL, x = NULL, title  = NULL,  fill = NULL, caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora")
+ 
+
+```
+
+```{r, include=FALSE}
+tooltip_css <- "background-color:#01787E; color:white;font-family: Lato, sans-serif;opacity: 0.25; padding:5px"
+Casos_map_ani <- girafe(code = print(Mapa_casos),
+  options = list(opts_tooltip(css = tooltip_css)) )
+```
+
+```{r}
+Casos_map_ani 
+```
+
+Column
+-----------------------------------------------------------------------
+### Casos acumulados al 21 de junio de 2020 {data-width=500}
+
+```{r, include=FALSE}
+CasosCol <- ggplot(casosacumdiaorder) +
+    geom_col(aes(x = fct_inorder(MUNICIPIO), y = `CASOS`, fill = `CASOS`), color = "white") + 
+  geom_text(aes(x = fct_inorder(MUNICIPIO), y = `CASOS`, label=`CASOS`, family="Lato Light"), size=2, vjust=0.4, hjust=-0.4) +
+geom_vline(xintercept=seq(1.5,length(unique(casosacumdiaorder$MUNICIPIO))-0.5, 1),lwd=0.2, colour="gray95") + 
+  coord_flip(clip = "off") + 
+   scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,2200), breaks = c(1, 400, 800, 1200, 1600, 2000 )) +
+       theme_minimal() +
+    theme(plot.title = (element_text(family = "Lato Black", size = 8, color = "#01A2AC")),
+    legend.position = "none",
+    axis.text.y = element_text(family = "Lato Light", size = 6, color = "black"),
+    axis.text.x = element_blank(),axis.line.y = element_line(colour = "black"),
+    panel.background = element_blank(),
+    panel.grid.major.y = element_blank(), 
+    panel.grid.minor.y = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    legend.title = element_text(family = "Lato", size = 8, color = "black"),
+    plot.caption = element_text(family = "Lato Light", size = 8, color = "gray50", face = "italic"),
+    axis.title = element_text(family = "Lato", size = 8),
+    plot.margin=unit(c(0,2,0,0),"cm")) + 
+    labs(y = NULL, x = NULL, title  = NULL,  fill = NULL, caption =NULL) 
+
+```
+
+```{r}
+CasosCol
+```
+
+Decesos acumulados
+===================================== 
+
+Column
+-----------------------------------------------------------------------
+### Mapa de decesos acumulados {data-width=500}
+
+
+```{r, include=FALSE}
+capa_munison_decesos<- inner_join(capa_munison_df, decesosacumdia2, by="id")
+```
+
+```{r, include=FALSE}
+capa_munison_decesos$tooltip <- c(paste0("<b>",capa_munison_decesos$MUNICIPIO, "</b>", "<b>","\n Decesos ", "</b>", capa_munison_decesos$DECESOS,"</b>", "<b>","\n Nuevos ", "</b>", capa_munison_decesos$NUEVOS))
+
+Mapa_decesos <- ggplot(capa_munison_decesos, aes(map_id = id)) +
+               geom_polygon(data=capa_son, aes(x=long, y=lat, group=group), 
+               fill="transparent", color="black", size= 1) +
+        geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
+               fill="gray90", color="white", size=0.3) +
+     geom_map_interactive(aes(fill = DECESOS, tooltip=capa_munison_decesos$tooltip, data_id=id),color = "white",size=0.3, map = capa_munison_df) + 
+    scale_fill_gradient(low= "#993366", high = "black", limits = c(1,150), breaks = c(1, 20, 40, 60, 80, 100, 120, 140))+
+    theme_void() +
+   theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
+    legend.position = "left",
+    legend.key.height = unit (2, "cm"), axis.text = element_blank(),
+    legend.text = element_text(family = "Lato Light", size = 6, color = "black"),
+    legend.title = element_blank(),
+    plot.caption = element_text(family = "Lato Light", size = 8, color = "gray50", face = "italic"),
+    axis.title = element_blank()) +
+    labs(axis = NULL, y = NULL, x = NULL, title  = NULL,  fill = NULL, caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora")
+ 
+
+```
+
+```{r, include=FALSE}
+tooltip_css <- "background-color:#73264D; color:white;font-family: Lato, sans-serif;opacity: 0.25; padding:5px"
+Decesos_map_ani <- girafe(code = print(Mapa_decesos),
+  options = list(opts_tooltip(css = tooltip_css)) )
+```
+
+```{r}
+Decesos_map_ani 
+```
+
+Column
+-----------------------------------------------------------------------
+### Decesos acumulados al 21 de junio de 2020 {data-width=500}
+
+```{r, include=FALSE}
+
+DecesosCol <- ggplot(decesosacumdiaorder) +
+    geom_col(aes(x = fct_inorder(MUNICIPIO), y = `DECESOS`, fill = DECESOS), color = "white") + 
+  geom_text(aes(x = fct_inorder(MUNICIPIO), y = `DECESOS`, label=DECESOS, family="Lato Light"), size=2, vjust=0.4, hjust=-0.4) +
+geom_vline(xintercept=seq(1.5,length(unique(decesosacumdiaorder$MUNICIPIO))-0.5, 1),lwd=0.2, colour="gray95") + 
+  coord_flip(clip = "off") + 
+   scale_fill_gradient(low= "#993366", high = "black", limits = c(1,150), breaks = c(1, 20, 40, 60, 80, 100, 120, 140)) +
+       theme_minimal() +
+    theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
+    legend.position = "none",
+    axis.text.y = element_text(family = "Lato Light", size = 8, color = "black"),
+    axis.text.x = element_blank(), axis.line.y = element_line(colour = "black"),
+    panel.background = element_blank(),
+    panel.grid.major.y = element_blank(), 
+    panel.grid.minor.y = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    legend.title = element_text(family = "Lato", size = 8, color = "black"),
+    plot.caption = element_text(family = "Lato Light", size = 8, color = "gray50", face = "italic"),
+    axis.title = element_text(family = "Lato", size = 8),
+    plot.margin=unit(c(0,2,0,0),"cm")) + 
+    labs(y = NULL, x = NULL, title  = NULL,  fill = NULL, caption =NULL) 
+
+```
+
+```{r}
+DecesosCol
+```
+
+Evolución diaria
+===================================== 
+
+Column {.tabset}
+-----------------------------------------------------------------------
+### Casos diarios
+
+```{r, include=FALSE}
+Casos$NUEVOS[Casos$NUEVOS == 0] <- NA
+Casos_Todos <- ggplot(data = Casos) +
+      geom_tile(mapping = aes(x = Fecha, y = MUNICIPIO, fill = NUEVOS, text = paste(
+               "ACUMULADOS: ", CASOS, "\n")), color = "white") +
+        scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,180), breaks = c(1, 20, 40, 60, 80, 100, 120, 140, 160, 180)) +
+    scale_x_date(date_breaks = "weeks" , date_labels = "%d-%m") +
+     theme_minimal() +
+    theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
+    legend.key.height = unit (2, "cm"),    axis.text.y = element_text(family = "Lato Light", size = 9, color = "black"), 
+    axis.text.x = element_text(family = "Lato Light", size = 8, color = "black"),
+    legend.text = element_text(family = "Lato", size = 8, color = "black"),
+    panel.background = element_rect(fill="gray99") ,
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank(),
+    legend.title = element_text(family = "Lato", size = 8, color = "black"),
+    plot.caption = element_text(family = "Lato Light", size = 8, color = "gray50", face = "italic"),
+    axis.title = element_text(family = "Lato", size = 8)) +
+    labs(y = NULL, x = NULL, title  = NULL,  fill = NULL, caption ="Elaboración propia con información de la Secretaría de Salud del Estado de Sonora")
+Casos_anim <- ggplotly(Casos_Todos)
+```
+
+```{r }
+Casos_anim
+```
+
+### Decesos diarios
+
+```{r, include=FALSE}
+Decesos$NUEVOS[Decesos$NUEVOS == 0] <- NA
+Decesos_Todos <- ggplot(data = Decesos) +
+      geom_tile(mapping = aes(x = Fecha, y = MUNICIPIO, fill = NUEVOS, text = paste(
+               "ACUMULADOS: ", DECESOS, "\n")), color = "white") +
+     scale_fill_gradient(low= "#993366", high = "black", limits = c(0,25), breaks = c(0, 5, 10, 15, 20, 25) ) +
+     scale_x_date(date_breaks = "weeks" , date_labels = "%d-%m")+
+     theme_minimal() +
+    theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#993366", vjust = -0.1, face = "bold")),
+    legend.key.height = unit (2, "cm"), 
+     axis.text.y = element_text(family = "Lato Light", size = 10, color = "black"), 
+    axis.text.x = element_text(family = "Lato Light", size = 10, color = "black"),
+    legend.text = element_text(family = "Lato", size = 8, color = "black"),
+    panel.background = element_rect(fill="gray99") ,
+    panel.grid.major.y = element_line(colour = "white"), 
+    panel.grid.minor.y = element_line(colour = "white"),
+    legend.title = element_text(family = "Lato", size = 8, color = "black"),
+    plot.caption = element_text(family = "Lato Light", size = 8, color = "gray50", face = "italic"),
+    axis.title = element_text(family = "Lato", size = 8)) +
+    labs(y = NULL, x = NULL, title  = NULL,  fill = NULL, caption ="Elaboración propia con información de la Secretaría de Salud del Estado de Sonora")
+Decesos_anim <- ggplotly(Decesos_Todos)
+```
+
+
+```{r}
+Decesos_anim
+```
+
+Tabla
+=====================================
+Al 21/06/2020
+```{r}
+decesosacumdia3 <- rename(decesosacumdia,'DECESOS NUEVOS'=NUEVOS)
+casosacumdia3 <- rename(casosacumdia,'CASOS NUEVOS'=NUEVOS)
+casosdecesos <-left_join(casosacumdia3, decesosacumdia3,by = c("CVEGEO","Fecha","MUNICIPIO"))
+CDSELECT<-select(casosdecesos, "MUNICIPIO","CASOS","CASOS NUEVOS", "DECESOS","DECESOS NUEVOS")
+CDSELECT1 <- CDSELECT %>% mutate(DECESOS = coalesce(DECESOS,0L),`DECESOS NUEVOS` = coalesce(`DECESOS NUEVOS`,0L), `CASOS NUEVOS` = coalesce(`CASOS NUEVOS`,0L))
+reactable(CDSELECT1,searchable = TRUE, highlight = TRUE, defaultSorted = "CASOS", defaultSortOrder = "desc",
+  defaultPageSize = 15, minRows = 15,
+    language = reactableLang(
+    searchPlaceholder = "Búsqueda...",
+    noData = "No encontrado",
+    pageInfo = "{rowStart} a {rowEnd} de {rows} entradas",
+    pagePrevious = "Previa",
+    pageNext = "Siguiente"), 
+   columns = list(
+    MUNICIPIO = colDef(footer = "Total Estatal"),
+    CASOS = colDef(
+      footer = JS("function(colInfo) {
+        var values = colInfo.data.map(function(row) { return row[colInfo.column.id] })
+        var total = values.reduce(function(a, b) { return a + b }, 0)
+        return total.toFixed(0)
+      }"), 
+    ), DECESOS = colDef(
+      footer = JS("function(colInfo) {
+        var values = colInfo.data.map(function(row) { return row[colInfo.column.id] })
+        var total = values.reduce(function(a, b) { return a + b }, 0)
+        return total.toFixed(0)
+      }"), 
+    ), 'CASOS NUEVOS' = colDef(
+      footer = JS("function(colInfo) {
+        var values = colInfo.data.map(function(row) { return row[colInfo.column.id] })
+        var total = values.reduce(function(a, b) { return a + b }, 0)
+        return total.toFixed(0)
+      }"), 
+    ), 'DECESOS NUEVOS' = colDef(
+      footer = JS("function(colInfo) {
+        var values = colInfo.data.map(function(row) { return row[colInfo.column.id] })
+        var total = values.reduce(function(a, b) { return a + b }, 0)
+        return total.toFixed(0)
+      }"), 
+    )
+  ),
+  defaultColDef = colDef(footerStyle = list(fontWeight = "bold")), theme = reactableTheme(
+    highlightColor = "#BBFCFF"))
+```
+
+
+Descarga
+===================================== 
+
+Fuente: Reportes diarios de la Secretaría de Salud del Estado de Sonora
+
+[CSV Casos confirmados municipales](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!25665&authkey=!ABXhqHym9PpPk94)
+
+[CSV Decesos confirmados municipales](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!25666&authkey=!AK_EQ2kVh9sp3Fg)
+
+[www.luisarmandomoreno.com](www.luisarmandomoreno.com)
