@@ -366,4 +366,6 @@ Fuente: Reportes diarios de la Secretaría de Salud del Estado de Sonora
 
 [CSV Decesos confirmados municipales](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!25666&authkey=!AK_EQ2kVh9sp3Fg)
 
+Código del proyecto: [Covid19-Sonora-Municipios](https://github.com/dogomoreno/Covid19-Sonora-Municipios) 
+
 [www.luisarmandomoreno.com](www.luisarmandomoreno.com)
