@@ -283,7 +283,7 @@ Decesos$NUEVOS[Decesos$NUEVOS == 0] <- NA
 Decesos_Todos <- ggplot(data = Decesos) +
       geom_tile(mapping = aes(x = Fecha, y = MUNICIPIO, fill = NUEVOS, text = paste(
                "ACUMULADOS: ", DECESOS, "\n")), color = "white") +
-     scale_fill_gradient(low= "#993366", high = "black", limits = c(0,25), breaks = c(0, 5, 10, 15, 20, 25) ) +
+     scale_fill_gradient(low= "#993366", high = "black", limits = c(0,30), breaks = c(0, 5, 10, 15, 20, 25,30) ) +
      scale_x_date(date_breaks = "weeks" , date_labels = "%d-%m")+
      theme_minimal() +
     theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#993366", vjust = -0.1, face = "bold")),
