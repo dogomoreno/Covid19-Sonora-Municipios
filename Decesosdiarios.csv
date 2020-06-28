@@ -81,8 +81,8 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 22/06/2020,26002,Agua Prieta,12,1
 23/06/2020,26002,Agua Prieta,12,0
 24/06/2020,26002,Agua Prieta,12,0
-25/06/2020,26002,Agua Prieta,12,0
-26/06/2020,26002,Agua Prieta,12,0
+25/06/2020,26002,Agua Prieta,14,2
+26/06/2020,26002,Agua Prieta,14,0
 04/04/2020,26004,Altar,0,0
 05/04/2020,26004,Altar,0,0
 06/04/2020,26004,Altar,0,0
@@ -740,21 +740,21 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 09/06/2020,26019,Cananea,1,0
 10/06/2020,26019,Cananea,1,0
 11/06/2020,26019,Cananea,1,0
-12/06/2020,26019,Cananea,1,0
-13/06/2020,26019,Cananea,1,0
-14/06/2020,26019,Cananea,1,0
-15/06/2020,26019,Cananea,1,0
-16/06/2020,26019,Cananea,1,0
-17/06/2020,26019,Cananea,1,0
-18/06/2020,26019,Cananea,1,0
-19/06/2020,26019,Cananea,2,1
-20/06/2020,26019,Cananea,2,0
-21/06/2020,26019,Cananea,2,0
-22/06/2020,26019,Cananea,2,0
-23/06/2020,26019,Cananea,2,0
-24/06/2020,26019,Cananea,2,0
-25/06/2020,26019,Cananea,2,0
-26/06/2020,26019,Cananea,2,0
+12/06/2020,26019,Cananea,2,1
+13/06/2020,26019,Cananea,2,0
+14/06/2020,26019,Cananea,2,0
+15/06/2020,26019,Cananea,2,0
+16/06/2020,26019,Cananea,2,0
+17/06/2020,26019,Cananea,2,0
+18/06/2020,26019,Cananea,2,0
+19/06/2020,26019,Cananea,3,1
+20/06/2020,26019,Cananea,3,0
+21/06/2020,26019,Cananea,3,0
+22/06/2020,26019,Cananea,3,0
+23/06/2020,26019,Cananea,3,0
+24/06/2020,26019,Cananea,3,0
+25/06/2020,26019,Cananea,3,0
+26/06/2020,26019,Cananea,3,0
 04/04/2020,26020,Carbó,0,0
 05/04/2020,26020,Carbó,0,0
 06/04/2020,26020,Carbó,0,0
@@ -824,21 +824,21 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 09/06/2020,26020,Carbó,0,0
 10/06/2020,26020,Carbó,0,0
 11/06/2020,26020,Carbó,1,1
-12/06/2020,26020,Carbó,2,1
-13/06/2020,26020,Carbó,2,0
-14/06/2020,26020,Carbó,2,0
-15/06/2020,26020,Carbó,2,0
-16/06/2020,26020,Carbó,2,0
-17/06/2020,26020,Carbó,2,0
-18/06/2020,26020,Carbó,2,0
-19/06/2020,26020,Carbó,2,0
-20/06/2020,26020,Carbó,2,0
-21/06/2020,26020,Carbó,2,0
-22/06/2020,26020,Carbó,2,0
-23/06/2020,26020,Carbó,2,0
-24/06/2020,26020,Carbó,2,0
-25/06/2020,26020,Carbó,2,0
-26/06/2020,26020,Carbó,2,0
+12/06/2020,26020,Carbó,1,0
+13/06/2020,26020,Carbó,1,0
+14/06/2020,26020,Carbó,1,0
+15/06/2020,26020,Carbó,1,0
+16/06/2020,26020,Carbó,1,0
+17/06/2020,26020,Carbó,1,0
+18/06/2020,26020,Carbó,1,0
+19/06/2020,26020,Carbó,1,0
+20/06/2020,26020,Carbó,1,0
+21/06/2020,26020,Carbó,1,0
+22/06/2020,26020,Carbó,1,0
+23/06/2020,26020,Carbó,1,0
+24/06/2020,26020,Carbó,1,0
+25/06/2020,26020,Carbó,1,0
+26/06/2020,26020,Carbó,1,0
 04/04/2020,26023,Cumpas,0,0
 05/04/2020,26023,Cumpas,0,0
 06/04/2020,26023,Cumpas,0,0
@@ -2341,16 +2341,16 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 14/06/2020,26072,San Ignacio Río Muerto,1,1
 15/06/2020,26072,San Ignacio Río Muerto,1,0
 16/06/2020,26072,San Ignacio Río Muerto,1,0
-17/06/2020,26072,San Ignacio Río Muerto,1,0
-18/06/2020,26072,San Ignacio Río Muerto,1,0
-19/06/2020,26072,San Ignacio Río Muerto,2,1
-20/06/2020,26072,San Ignacio Río Muerto,2,0
-21/06/2020,26072,San Ignacio Río Muerto,2,0
-22/06/2020,26072,San Ignacio Río Muerto,2,0
-23/06/2020,26072,San Ignacio Río Muerto,3,1
-24/06/2020,26072,San Ignacio Río Muerto,3,0
-25/06/2020,26072,San Ignacio Río Muerto,3,0
-26/06/2020,26072,San Ignacio Río Muerto,3,0
+17/06/2020,26072,San Ignacio Río Muerto,2,1
+18/06/2020,26072,San Ignacio Río Muerto,2,0
+19/06/2020,26072,San Ignacio Río Muerto,3,1
+20/06/2020,26072,San Ignacio Río Muerto,3,0
+21/06/2020,26072,San Ignacio Río Muerto,3,0
+22/06/2020,26072,San Ignacio Río Muerto,3,0
+23/06/2020,26072,San Ignacio Río Muerto,4,1
+24/06/2020,26072,San Ignacio Río Muerto,4,0
+25/06/2020,26072,San Ignacio Río Muerto,4,0
+26/06/2020,26072,San Ignacio Río Muerto,4,0
 04/04/2020,26055,San Luis Río Colorado,0,0
 05/04/2020,26055,San Luis Río Colorado,0,0
 06/04/2020,26055,San Luis Río Colorado,2,2
@@ -2509,16 +2509,16 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 14/06/2020,26056,San Miguel de Horcasitas,0,0
 15/06/2020,26056,San Miguel de Horcasitas,0,0
 16/06/2020,26056,San Miguel de Horcasitas,1,1
-17/06/2020,26056,San Miguel de Horcasitas,2,1
-18/06/2020,26056,San Miguel de Horcasitas,2,0
-19/06/2020,26056,San Miguel de Horcasitas,2,0
-20/06/2020,26056,San Miguel de Horcasitas,2,0
-21/06/2020,26056,San Miguel de Horcasitas,3,1
-22/06/2020,26056,San Miguel de Horcasitas,3,0
-23/06/2020,26056,San Miguel de Horcasitas,3,0
-24/06/2020,26056,San Miguel de Horcasitas,3,0
-25/06/2020,26056,San Miguel de Horcasitas,3,0
-26/06/2020,26056,San Miguel de Horcasitas,3,0
+17/06/2020,26056,San Miguel de Horcasitas,1,0
+18/06/2020,26056,San Miguel de Horcasitas,1,0
+19/06/2020,26056,San Miguel de Horcasitas,1,0
+20/06/2020,26056,San Miguel de Horcasitas,1,0
+21/06/2020,26056,San Miguel de Horcasitas,2,1
+22/06/2020,26056,San Miguel de Horcasitas,2,0
+23/06/2020,26056,San Miguel de Horcasitas,2,0
+24/06/2020,26056,San Miguel de Horcasitas,2,0
+25/06/2020,26056,San Miguel de Horcasitas,2,0
+26/06/2020,26056,San Miguel de Horcasitas,2,0
 04/04/2020,26058,Santa Ana,0,0
 05/04/2020,26058,Santa Ana,0,0
 06/04/2020,26058,Santa Ana,0,0
@@ -2687,3 +2687,35 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 24/06/2020,26060,Sáric,2,0
 25/06/2020,26060,Sáric,2,0
 26/06/2020,26060,Sáric,2,0
+27/06/2020,26018,Cajeme,226,12
+27/06/2020,26030,Hermosillo,171,2
+27/06/2020,26055,San Luis Río Colorado,113,4
+27/06/2020,26043,Nogales,103,3
+27/06/2020,26042,Navojoa,61,10
+27/06/2020,26029,Guaymas,36,2
+27/06/2020,26017,Caborca,23,0
+27/06/2020,26002,Agua Prieta,14,0
+27/06/2020,26036,Magdalena,11,0
+27/06/2020,26026,Etchojoa,12,2
+27/06/2020,26033,Huatabampo,8,0
+27/06/2020,26071,Benito Juárez,8,1
+27/06/2020,26070,General Plutarco Elías Calles,3,0
+27/06/2020,26072,San Ignacio Río Muerto,4,0
+27/06/2020,26056,San Miguel de Horcasitas,2,0
+27/06/2020,26004,Altar,2,0
+27/06/2020,26012,Bácum,2,0
+27/06/2020,26019,Cananea,4,1
+27/06/2020,26020,Carbó,1,0
+27/06/2020,26023,Cumpas,2,0
+27/06/2020,26025,Empalme,2,0
+27/06/2020,26035,Imuris,2,0
+27/06/2020,26052,Sahuaripa,2,0
+27/06/2020,26060,Sáric,2,0
+27/06/2020,26011,Bacoachi,1,0
+27/06/2020,26027,Fronteras,2,0
+27/06/2020,26038,Moctezuma,1,0
+27/06/2020,26045,Opodepe,1,0
+27/06/2020,26047,Pitiquito,1,0
+27/06/2020,26048,Puerto Peñasco,1,0
+27/06/2020,26058,Santa Ana,2,0
+27/06/2020,26016,Benjamín Hill,1,0
