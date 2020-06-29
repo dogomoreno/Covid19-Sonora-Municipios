@@ -325,7 +325,7 @@ reactable(CDSELECT1,searchable = TRUE, highlight = TRUE, defaultSorted = "CASOS"
     pageNext = "Siguiente"), 
    columns = list(
     MUNICIPIO = colDef(footer = "Total Estatal"),
-     POBLACION = colDef(
+     POBLACION = colDef(format = colFormat(separators = TRUE),
       footer = JS("function(colInfo) {
         var values = colInfo.data.map(function(row) { return row[colInfo.column.id] })
         var total = values.reduce(function(a, b) { return a + b }, 0)
