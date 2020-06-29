@@ -62,7 +62,7 @@ Casos <- read_csv("Casosdiarios.csv",
         CVEGEO = col_character(), Fecha = col_date(format = "%d/%m/%Y"), 
         MUNICIPIO = col_character(), NUEVOS = col_integer()), 
     locale = locale(encoding = "ISO-8859-1"))
-casosacumdia <- filter(Casos,Fecha==as.Date("2020-06-27"))
+casosacumdia <- filter(Casos,Fecha==as.Date("2020-06-28"))
 casosacumdiaorder <- arrange(casosacumdia,CASOS, desc(MUNICIPIO))
 casosacumdia2 <- mutate(casosacumdiaorder,id=CVEGEO)
 ```
@@ -74,7 +74,7 @@ Decesos <- read_csv("Decesosdiarios.csv",
         CVEGEO = col_character(), Fecha = col_date(format = "%d/%m/%Y"), 
         MUNICIPIO = col_character(), NUEVOS = col_integer()), 
     locale = locale(encoding = "ISO-8859-1"))
-decesosacumdia <- filter(Decesos,Fecha==as.Date("2020-06-27"))
+decesosacumdia <- filter(Decesos,Fecha==as.Date("2020-06-28"))
 decesosacumdiaorder <- arrange(decesosacumdia,DECESOS, desc(MUNICIPIO))
 decesosacumdia2 <- mutate(decesosacumdiaorder,id=CVEGEO)
 ```
@@ -133,7 +133,7 @@ Casos_map_ani
 
 Column
 -----------------------------------------------------------------------
-### Casos acumulados al 27 de junio de 2020 {data-width=500}
+### Casos acumulados al 28 de junio de 2020 {data-width=500}
 
 ```{r, include=FALSE}
 CasosCol <- ggplot(casosacumdiaorder) +
@@ -183,7 +183,7 @@ Mapa_decesos <- ggplot(capa_munison_decesos, aes(map_id = id)) +
         geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
                fill="gray90", color="white", size=0.3) +
      geom_map_interactive(aes(fill = DECESOS, tooltip=capa_munison_decesos$tooltip, data_id=id),color = "white",size=0.3, map = capa_munison_df) + 
-    scale_fill_gradient(low= "#993366", high = "black", limits = c(1,230), breaks = c(1, 40, 80, 120, 160,200))+
+    scale_fill_gradient(low= "#993366", high = "black", limits = c(1,240), breaks = c(1, 40, 80, 120, 160, 200, 240))+
     theme_void() +
    theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
     legend.position = "left",
@@ -209,7 +209,7 @@ Decesos_map_ani
 
 Column
 -----------------------------------------------------------------------
-### Decesos acumulados al 27 de junio de 2020 {data-width=500}
+### Decesos acumulados al 28 de junio de 2020 {data-width=500}
 
 ```{r, include=FALSE}
 
@@ -218,7 +218,7 @@ DecesosCol <- ggplot(decesosacumdiaorder) +
   geom_text(aes(x = fct_inorder(MUNICIPIO), y = `DECESOS`, label=DECESOS, family="Lato"), size=2, vjust=0.4, hjust=-0.4) +
 geom_vline(xintercept=seq(1.5,length(unique(decesosacumdiaorder$MUNICIPIO))-0.5, 1),lwd=0.2, colour="gray95") + 
   coord_flip(clip = "off") + 
-   scale_fill_gradient(low= "#993366", high = "black", limits = c(1,230), breaks = c(1, 40, 80, 120, 160,200)) +
+   scale_fill_gradient(low= "#993366", high = "black", limits = c(1,240), breaks = c(1, 40, 80, 120, 160, 200, 240)) +
        theme_minimal() +
     theme(
     legend.position = "none",
@@ -304,12 +304,16 @@ Decesos_anim
 
 Tabla
 =====================================
-Al 27/06/2020
+Al 28/06/2020 (Incidencia = Casos por cada 100 mil habs., Mortalidad = Decesos por cada 100 mil habs., Letalidad = Decesos por cada 100 casos)
 ```{r}
+POBMUN <- read_csv("POBMUN.csv", col_types = cols(CVEGEO = col_character()))
 decesosacumdia3 <- rename(decesosacumdia,'DECESOS NUEVOS'=NUEVOS)
 casosacumdia3 <- rename(casosacumdia,'CASOS NUEVOS'=NUEVOS)
 casosdecesos <-left_join(casosacumdia3, decesosacumdia3,by = c("CVEGEO","Fecha","MUNICIPIO"))
-CDSELECT<-select(casosdecesos, "MUNICIPIO","CASOS","CASOS NUEVOS", "DECESOS","DECESOS NUEVOS")
+casosdecesospob <- left_join(casosdecesos, POBMUN, by = "CVEGEO")
+Indicadores <- casosdecesospob %>% mutate (INCIDENCIA = (CASOS*100000)/POB, MORTALIDAD = (DECESOS*100000)/POB, LETALIDAD = DECESOS*100/CASOS)
+Indicadores <- rename(Indicadores, POBLACION=POB)
+CDSELECT<-select(Indicadores, "MUNICIPIO","POBLACION", "CASOS","CASOS NUEVOS", "DECESOS","DECESOS NUEVOS","INCIDENCIA","MORTALIDAD", "LETALIDAD")
 CDSELECT1 <- CDSELECT %>% mutate(DECESOS = coalesce(DECESOS,0L),`DECESOS NUEVOS` = coalesce(`DECESOS NUEVOS`,0L), `CASOS NUEVOS` = coalesce(`CASOS NUEVOS`,0L))
 reactable(CDSELECT1,searchable = TRUE, highlight = TRUE, defaultSorted = "CASOS", defaultSortOrder = "desc",
   defaultPageSize = 15, minRows = 15,
@@ -321,7 +325,13 @@ reactable(CDSELECT1,searchable = TRUE, highlight = TRUE, defaultSorted = "CASOS"
     pageNext = "Siguiente"), 
    columns = list(
     MUNICIPIO = colDef(footer = "Total Estatal"),
-    CASOS = colDef(
+     POBLACION = colDef(
+      footer = JS("function(colInfo) {
+        var values = colInfo.data.map(function(row) { return row[colInfo.column.id] })
+        var total = values.reduce(function(a, b) { return a + b }, 0)
+        return total.toFixed(0)
+      }"), 
+    ), CASOS = colDef(
       footer = JS("function(colInfo) {
         var values = colInfo.data.map(function(row) { return row[colInfo.column.id] })
         var total = values.reduce(function(a, b) { return a + b }, 0)
@@ -345,8 +355,7 @@ reactable(CDSELECT1,searchable = TRUE, highlight = TRUE, defaultSorted = "CASOS"
         var total = values.reduce(function(a, b) { return a + b }, 0)
         return total.toFixed(0)
       }"), 
-    )
-  ),
+    ), INCIDENCIA = colDef(format = colFormat(digits = 1)), MORTALIDAD = colDef(format = colFormat(digits = 1)), LETALIDAD = colDef(format = colFormat(digits = 1))),
   defaultColDef = colDef(footerStyle = list(fontWeight = "bold")), theme = reactableTheme(
     highlightColor = "#BBFCFF"))
 ```
@@ -355,11 +364,13 @@ reactable(CDSELECT1,searchable = TRUE, highlight = TRUE, defaultSorted = "CASOS"
 Descarga
 ===================================== 
 
-Fuente: Reportes diarios de la Secretaría de Salud del Estado de Sonora
+Fuente: Reportes diarios de la Secretaría de Salud del Estado de Sonora y proyecciones de población para los municipios de Sonora a mediados de 2020 del Consejo Nacional de Población.
 
-[CSV Casos confirmados municipales](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!25665&authkey=!ABXhqHym9PpPk94)
+[CSV Casos confirmados municipales](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!31283&authkey=!ALNt9KiLEoT72tU)
 
-[CSV Decesos confirmados municipales](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!25666&authkey=!AK_EQ2kVh9sp3Fg)
+[CSV Decesos confirmados municipales](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!31279&authkey=!AP0vbf3w6i0WUnI)
+
+[CSV Población 2020 de los municipios de Sonora](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!31865&authkey=!AB7AkXFCiIuN1_w)
 
 Código del proyecto: [Covid19-Sonora-Municipios](https://github.com/dogomoreno/Covid19-Sonora-Municipios) 
 
