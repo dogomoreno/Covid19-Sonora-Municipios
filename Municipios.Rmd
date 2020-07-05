@@ -60,7 +60,7 @@ Casos <- read_csv("Casosdiarios.csv",
         CVEGEO = col_character(), Fecha = col_date(format = "%d/%m/%Y"), 
         MUNICIPIO = col_character(), NUEVOS = col_integer()), 
     locale = locale(encoding = "ISO-8859-1"))
-casosacumdia <- filter(Casos,Fecha==as.Date("2020-07-02"))
+casosacumdia <- filter(Casos,Fecha==as.Date("2020-07-04"))
 casosacumdiaorder <- arrange(casosacumdia,CASOS, desc(MUNICIPIO))
 casosacumdia2 <- mutate(casosacumdiaorder,id=CVEGEO)
 ```
@@ -72,7 +72,7 @@ Decesos <- read_csv("Decesosdiarios.csv",
         CVEGEO = col_character(), Fecha = col_date(format = "%d/%m/%Y"), 
         MUNICIPIO = col_character(), NUEVOS = col_integer()), 
     locale = locale(encoding = "ISO-8859-1"))
-decesosacumdia <- filter(Decesos,Fecha==as.Date("2020-07-02"))
+decesosacumdia <- filter(Decesos,Fecha==as.Date("2020-07-04"))
 decesosacumdiaorder <- arrange(decesosacumdia,DECESOS, desc(MUNICIPIO))
 decesosacumdia2 <- mutate(decesosacumdiaorder,id=CVEGEO)
 ```
@@ -105,7 +105,7 @@ Mapa_casos <- ggplot(capa_munison_casos, aes(map_id = id)) +
         geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
                fill="gray90", color="white", size=0.3) +
      geom_map_interactive(aes(fill = CASOS, tooltip=capa_munison_casos$tooltip,data_id=id),color = "white",size=0.3, map = capa_munison_df) + 
-    scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,3200), breaks = c(1, 500, 1000, 1500, 2000, 2500, 3000))+
+    scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,3400), breaks = c(1, 500, 1000, 1500, 2000, 2500, 3000))+
     theme_void() +
    theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
     legend.position = "left",
@@ -131,7 +131,7 @@ Casos_map_ani
 
 Column
 -----------------------------------------------------------------------
-### Casos acumulados al 02 de julio de 2020 {data-width=500}
+### Casos acumulados al 04 de julio de 2020 {data-width=500}
 
 ```{r, include=FALSE}
 CasosCol <- ggplot(casosacumdiaorder) +
@@ -139,7 +139,7 @@ CasosCol <- ggplot(casosacumdiaorder) +
   geom_text(aes(x = fct_inorder(MUNICIPIO), y = `CASOS`, label=`CASOS`, family="Lato"), size=2, vjust=0.4, hjust=-0.4) +
 geom_vline(xintercept=seq(1.5,length(unique(casosacumdiaorder$MUNICIPIO))-0.5, 1),lwd=0.2, colour="gray95") + 
   coord_flip(clip = "off") + 
-   scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,3200), breaks = c(1, 500, 1000, 1500, 2000, 2500, 3000)) +
+   scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,3400), breaks = c(1, 500, 1000, 1500, 2000, 2500, 3000)) +
        theme_minimal() +
     theme(
     legend.position = "none",
@@ -181,7 +181,7 @@ Mapa_decesos <- ggplot(capa_munison_decesos, aes(map_id = id)) +
         geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
                fill="gray90", color="white", size=0.3) +
      geom_map_interactive(aes(fill = DECESOS, tooltip=capa_munison_decesos$tooltip, data_id=id),color = "white",size=0.3, map = capa_munison_df) + 
-    scale_fill_gradient(low= "#993366", high = "black", limits = c(1,280), breaks = c(1, 50, 100, 150, 200, 250))+
+    scale_fill_gradient(low= "#993366", high = "black", limits = c(1,300), breaks = c(1, 50, 100, 150, 200, 250,300))+
     theme_void() +
    theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
     legend.position = "left",
@@ -207,7 +207,7 @@ Decesos_map_ani
 
 Column
 -----------------------------------------------------------------------
-### Decesos acumulados al 02 de julio de 2020 {data-width=500}
+### Decesos acumulados al 03 de julio de 2020 {data-width=500}
 
 ```{r, include=FALSE}
 
@@ -216,7 +216,7 @@ DecesosCol <- ggplot(decesosacumdiaorder) +
   geom_text(aes(x = fct_inorder(MUNICIPIO), y = `DECESOS`, label=DECESOS, family="Lato"), size=2, vjust=0.4, hjust=-0.4) +
 geom_vline(xintercept=seq(1.5,length(unique(decesosacumdiaorder$MUNICIPIO))-0.5, 1),lwd=0.2, colour="gray95") + 
   coord_flip(clip = "off") + 
-   scale_fill_gradient(low= "#993366", high = "black", limits = c(1,280), breaks = c(1, 50, 100, 150, 200, 250)) +
+   scale_fill_gradient(low= "#993366", high = "black", limits = c(1,300), breaks = c(1, 50, 100, 150, 200, 250,300)) +
        theme_minimal() +
     theme(
     legend.position = "none",
@@ -302,7 +302,7 @@ Decesos_anim
 
 Indicadores
 =====================================
-**Al 2 de julio de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 4 de julio de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
 POBMUN <- read_csv("POBMUN.csv", col_types = cols(CVEGEO = col_character()))
 casos_pal <- function(x) rgb(colorRamp(c("#EAF6F6", "#7FCDCB"))(x), maxColorValue = 255)
