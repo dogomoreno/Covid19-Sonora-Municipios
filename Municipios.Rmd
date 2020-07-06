@@ -60,7 +60,7 @@ Casos <- read_csv("Casosdiarios.csv",
         CVEGEO = col_character(), Fecha = col_date(format = "%d/%m/%Y"), 
         MUNICIPIO = col_character(), NUEVOS = col_integer()), 
     locale = locale(encoding = "ISO-8859-1"))
-casosacumdia <- filter(Casos,Fecha==as.Date("2020-07-04"))
+casosacumdia <- filter(Casos,Fecha==Sys.Date())
 casosacumdiaorder <- arrange(casosacumdia,CASOS, desc(MUNICIPIO))
 casosacumdia2 <- mutate(casosacumdiaorder,id=CVEGEO)
 ```
@@ -72,11 +72,19 @@ Decesos <- read_csv("Decesosdiarios.csv",
         CVEGEO = col_character(), Fecha = col_date(format = "%d/%m/%Y"), 
         MUNICIPIO = col_character(), NUEVOS = col_integer()), 
     locale = locale(encoding = "ISO-8859-1"))
-decesosacumdia <- filter(Decesos,Fecha==as.Date("2020-07-04"))
+decesosacumdia <- filter(Decesos,Fecha==Sys.Date())
 decesosacumdiaorder <- arrange(decesosacumdia,DECESOS, desc(MUNICIPIO))
 decesosacumdia2 <- mutate(decesosacumdiaorder,id=CVEGEO)
 ```
 
+```{r, include=FALSE}
+casos_s <- group_by(Casos, CVEGEO, MUNICIPIO)
+casos_ult <- casos_s %>% filter(NUEVOS!=0) %>% arrange(desc(Fecha)) %>% slice(1)
+casos_ult_dias <- mutate(casos_ult, Dias_ult=as.numeric(Sys.Date()-Fecha)) 
+casos_ult_dias <- mutate(casos_ult_dias, clasfdias=if_else(Dias_ult>14,4,(if_else(Dias_ult>7,3,if_else(Dias_ult>0,2,1)))))
+casos_ult_dias <- mutate(casos_ult_dias, clasfdias=as.numeric(clasfdias))
+casos_ult_dias <- mutate(casos_ult_dias,id=CVEGEO)
+```
 
 Casos acumulados
 ===================================== 
@@ -131,7 +139,7 @@ Casos_map_ani
 
 Column
 -----------------------------------------------------------------------
-### Casos acumulados al 04 de julio de 2020 {data-width=500}
+### Casos acumulados al 05 de julio de 2020 {data-width=500}
 
 ```{r, include=FALSE}
 CasosCol <- ggplot(casosacumdiaorder) +
@@ -143,7 +151,7 @@ geom_vline(xintercept=seq(1.5,length(unique(casosacumdiaorder$MUNICIPIO))-0.5, 1
        theme_minimal() +
     theme(
     legend.position = "none",
-    axis.text.y = element_text(family = "Lato Light", size = 6, color = "black"),
+    axis.text.y = element_text(family = "Lato", size = 5, color = "black"),
     axis.text.x = element_blank(),axis.line.y = element_line(colour = "black"),
     panel.background = element_blank(),
     panel.grid.major.y = element_blank(), 
@@ -158,6 +166,86 @@ geom_vline(xintercept=seq(1.5,length(unique(casosacumdiaorder$MUNICIPIO))-0.5, 1
 
 ```{r}
 CasosCol
+```
+
+Último caso confirmado
+===================================== 
+
+Column
+-----------------------------------------------------------------------
+### Mapa de días transcurridos respecto al último caso confirmado {data-width=500}
+
+```{r, include=FALSE}
+capa_ult_dias<- inner_join(capa_munison_df, casos_ult_dias, by="id")
+```
+
+```{r, include=FALSE}
+capa_ult_dias$tooltip <- c(paste0("<b>",capa_ult_dias$MUNICIPIO, "</b>", "<b>","\n Último caso ", "</b>", capa_ult_dias$Fecha,"</b>", "<b>","\n Días ", "</b>", capa_ult_dias$Dias_ult))
+
+discreta <- c("1" = "#772349", "2" = "#F79646","3" = "#FFCC66","4" = "#01787E")
+
+Mapa_ult <- ggplot(capa_ult_dias, aes(map_id = id)) +
+               geom_polygon(data=capa_son, aes(x=long, y=lat, group=group), 
+               fill="transparent", color="black", size=1) +
+    geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
+               fill="gray90", color="white", size=0.3) +
+     geom_map_interactive(aes(fill = factor(clasfdias), tooltip=capa_ult_dias$tooltip,data_id=id),color = "white",size=0.3, map = capa_munison_df) + 
+    scale_fill_manual("Días desde que se \n confirmó el último caso", values = discreta, breaks= c("4", "3", "2", "1"), labels = c( "+14", "8-14","1-7", "0"))+
+    theme_void() +
+   theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
+    legend.position = "left", axis.text = element_blank(), legend.key.height = unit (2, "cm"),
+    legend.text = element_text(family = "Lato Light", size = 6, color = "black"),
+    legend.title = element_text(family = "Lato Black", size = 5, color = "black"),
+    plot.caption = element_text(family = "Lato Light", size = 8, color = "gray50"),
+    axis.title = element_blank()) +
+    labs(axis = NULL, y = NULL, x = NULL, title  = NULL,  fill = NULL, caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora", fill = "Días desde que se confirmó el último caso")
+ 
+
+```
+
+```{r, include=FALSE}
+tooltip_css <- "background-color:#BFBFBF; color:black;font-family: Lato, sans-serif;opacity: 0.25; padding:5px"
+hover_css <- "stroke:black;stroke-width:1.5pt;"
+Casos_ult_ani <- girafe(code = {print(Mapa_ult)}, 
+  options = list(opts_tooltip(css = tooltip_css), opts_hover(hover_css)) )
+```
+
+```{r}
+Casos_ult_ani 
+```
+
+
+Column
+-----------------------------------------------------------------------
+### Días desde el último caso confirmado (corte al 05/07/2020)  {data-width=500}
+
+```{r, include=FALSE}
+casos_ult_dias_order <- arrange(casos_ult_dias,Dias_ult, desc(MUNICIPIO))
+
+Casos_ultCol <- ggplot(casos_ult_dias_order) +
+    geom_col(aes(x = fct_inorder(MUNICIPIO), y = Dias_ult, fill = factor(clasfdias)), color = "white") + 
+  geom_text(aes(x = fct_inorder(MUNICIPIO), y = Dias_ult, label=Dias_ult, family="Lato"), size=2, vjust=0.4, hjust=-0.4) +
+  geom_vline(xintercept=seq(1.5,length(unique(casosacumdiaorder$MUNICIPIO))-0.5, 1),lwd=0.2, colour="gray95") + 
+  coord_flip(clip = "off") + 
+   scale_fill_manual(values = discreta)+
+       theme_minimal() +
+    theme(
+    legend.position = "none",
+    axis.text.y = element_text(family = "Lato", size = 5, color = "black"),
+    axis.text.x = element_blank(),axis.line.y = element_line(colour = "black"),
+    panel.background = element_blank(),
+    panel.grid.major.y = element_blank(), 
+    panel.grid.minor.y = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    axis.title = element_text(family = "Lato", size = 8),
+    plot.margin=unit(c(0,2,0,0),"cm")) + 
+    labs(y = NULL, x = NULL) 
+
+```
+
+```{r}
+Casos_ultCol
 ```
 
 Decesos acumulados
@@ -302,7 +390,7 @@ Decesos_anim
 
 Indicadores
 =====================================
-**Al 4 de julio de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 5 de julio de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
 POBMUN <- read_csv("POBMUN.csv", col_types = cols(CVEGEO = col_character()))
 casos_pal <- function(x) rgb(colorRamp(c("#EAF6F6", "#7FCDCB"))(x), maxColorValue = 255)

@@ -89,6 +89,9 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26002,Agua Prieta,16,1
 01/07/2020,26002,Agua Prieta,16,0
 02/07/2020,26002,Agua Prieta,17,1
+03/07/2020,26002,Agua Prieta,21,4
+04/07/2020,26002,Agua Prieta,22,1
+05/07/2020,26002,Agua Prieta,22,0
 04/04/2020,26004,Altar,0,0
 05/04/2020,26004,Altar,0,0
 06/04/2020,26004,Altar,0,0
@@ -179,6 +182,9 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26004,Altar,2,0
 01/07/2020,26004,Altar,2,0
 02/07/2020,26004,Altar,2,0
+03/07/2020,26004,Altar,2,0
+04/07/2020,26004,Altar,2,0
+05/07/2020,26004,Altar,2,0
 04/04/2020,26011,Bacoachi,0,0
 05/04/2020,26011,Bacoachi,0,0
 06/04/2020,26011,Bacoachi,0,0
@@ -269,6 +275,9 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26011,Bacoachi,1,0
 01/07/2020,26011,Bacoachi,1,0
 02/07/2020,26011,Bacoachi,1,0
+03/07/2020,26011,Bacoachi,1,0
+04/07/2020,26011,Bacoachi,1,0
+05/07/2020,26011,Bacoachi,1,0
 04/04/2020,26012,Bácum,0,0
 05/04/2020,26012,Bácum,0,0
 06/04/2020,26012,Bácum,0,0
@@ -359,6 +368,9 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26012,Bácum,2,0
 01/07/2020,26012,Bácum,2,0
 02/07/2020,26012,Bácum,2,0
+03/07/2020,26012,Bácum,2,0
+04/07/2020,26012,Bácum,2,0
+05/07/2020,26012,Bácum,2,0
 04/04/2020,26071,Benito Juárez,0,0
 05/04/2020,26071,Benito Juárez,0,0
 06/04/2020,26071,Benito Juárez,0,0
@@ -449,6 +461,9 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26071,Benito Juárez,8,0
 01/07/2020,26071,Benito Juárez,8,0
 02/07/2020,26071,Benito Juárez,8,0
+03/07/2020,26071,Benito Juárez,8,0
+04/07/2020,26071,Benito Juárez,8,0
+05/07/2020,26071,Benito Juárez,8,0
 04/04/2020,26016,Benjamín Hill,0,0
 05/04/2020,26016,Benjamín Hill,0,0
 06/04/2020,26016,Benjamín Hill,0,0
@@ -539,6 +554,9 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26016,Benjamín Hill,1,0
 01/07/2020,26016,Benjamín Hill,1,0
 02/07/2020,26016,Benjamín Hill,1,0
+03/07/2020,26016,Benjamín Hill,1,0
+04/07/2020,26016,Benjamín Hill,1,0
+05/07/2020,26016,Benjamín Hill,1,0
 04/04/2020,26017,Caborca,0,0
 05/04/2020,26017,Caborca,0,0
 06/04/2020,26017,Caborca,0,0
@@ -629,6 +647,9 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26017,Caborca,24,1
 01/07/2020,26017,Caborca,24,0
 02/07/2020,26017,Caborca,24,0
+03/07/2020,26017,Caborca,24,0
+04/07/2020,26017,Caborca,24,0
+05/07/2020,26017,Caborca,24,0
 04/04/2020,26018,Cajeme,0,0
 05/04/2020,26018,Cajeme,0,0
 06/04/2020,26018,Cajeme,0,0
@@ -719,6 +740,9 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26018,Cajeme,251,4
 01/07/2020,26018,Cajeme,258,7
 02/07/2020,26018,Cajeme,275,17
+03/07/2020,26018,Cajeme,286,11
+04/07/2020,26018,Cajeme,288,2
+05/07/2020,26018,Cajeme,293,5
 04/04/2020,26019,Cananea,0,0
 05/04/2020,26019,Cananea,0,0
 06/04/2020,26019,Cananea,0,0
@@ -809,6 +833,9 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26019,Cananea,6,0
 01/07/2020,26019,Cananea,6,0
 02/07/2020,26019,Cananea,6,0
+03/07/2020,26019,Cananea,8,2
+04/07/2020,26019,Cananea,8,0
+05/07/2020,26019,Cananea,8,0
 04/04/2020,26020,Carbó,0,0
 05/04/2020,26020,Carbó,0,0
 06/04/2020,26020,Carbó,0,0
@@ -899,6 +926,9 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26020,Carbó,1,0
 01/07/2020,26020,Carbó,1,0
 02/07/2020,26020,Carbó,1,0
+03/07/2020,26020,Carbó,1,0
+04/07/2020,26020,Carbó,1,0
+05/07/2020,26020,Carbó,1,0
 04/04/2020,26023,Cumpas,0,0
 05/04/2020,26023,Cumpas,0,0
 06/04/2020,26023,Cumpas,0,0
@@ -989,6 +1019,9 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26023,Cumpas,2,0
 01/07/2020,26023,Cumpas,2,0
 02/07/2020,26023,Cumpas,2,0
+03/07/2020,26023,Cumpas,2,0
+04/07/2020,26023,Cumpas,2,0
+05/07/2020,26023,Cumpas,2,0
 04/04/2020,26025,Empalme,0,0
 05/04/2020,26025,Empalme,0,0
 06/04/2020,26025,Empalme,0,0
@@ -1079,6 +1112,9 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26025,Empalme,3,0
 01/07/2020,26025,Empalme,3,0
 02/07/2020,26025,Empalme,6,3
+03/07/2020,26025,Empalme,6,0
+04/07/2020,26025,Empalme,7,1
+05/07/2020,26025,Empalme,9,2
 04/04/2020,26026,Etchojoa,0,0
 05/04/2020,26026,Etchojoa,0,0
 06/04/2020,26026,Etchojoa,0,0
@@ -1169,6 +1205,9 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26026,Etchojoa,13,1
 01/07/2020,26026,Etchojoa,13,0
 02/07/2020,26026,Etchojoa,14,1
+03/07/2020,26026,Etchojoa,14,0
+04/07/2020,26026,Etchojoa,14,0
+05/07/2020,26026,Etchojoa,15,1
 04/04/2020,26027,Fronteras,0,0
 05/04/2020,26027,Fronteras,0,0
 06/04/2020,26027,Fronteras,0,0
@@ -1259,6 +1298,9 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26027,Fronteras,2,0
 01/07/2020,26027,Fronteras,2,0
 02/07/2020,26027,Fronteras,2,0
+03/07/2020,26027,Fronteras,2,0
+04/07/2020,26027,Fronteras,2,0
+05/07/2020,26027,Fronteras,2,0
 04/04/2020,26070,General Plutarco Elías Calles,0,0
 05/04/2020,26070,General Plutarco Elías Calles,0,0
 06/04/2020,26070,General Plutarco Elías Calles,0,0
@@ -1349,6 +1391,9 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26070,General Plutarco Elías Calles,3,0
 01/07/2020,26070,General Plutarco Elías Calles,3,0
 02/07/2020,26070,General Plutarco Elías Calles,3,0
+03/07/2020,26070,General Plutarco Elías Calles,3,0
+04/07/2020,26070,General Plutarco Elías Calles,4,1
+05/07/2020,26070,General Plutarco Elías Calles,4,0
 04/04/2020,26029,Guaymas,0,0
 05/04/2020,26029,Guaymas,0,0
 06/04/2020,26029,Guaymas,0,0
@@ -1439,6 +1484,9 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26029,Guaymas,39,2
 01/07/2020,26029,Guaymas,40,1
 02/07/2020,26029,Guaymas,42,2
+03/07/2020,26029,Guaymas,47,5
+04/07/2020,26029,Guaymas,52,5
+05/07/2020,26029,Guaymas,54,2
 04/04/2020,26030,Hermosillo,0,0
 05/04/2020,26030,Hermosillo,0,0
 06/04/2020,26030,Hermosillo,0,0
@@ -1529,6 +1577,9 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26030,Hermosillo,183,4
 01/07/2020,26030,Hermosillo,187,4
 02/07/2020,26030,Hermosillo,196,9
+03/07/2020,26030,Hermosillo,205,9
+04/07/2020,26030,Hermosillo,218,13
+05/07/2020,26030,Hermosillo,219,1
 04/04/2020,26033,Huatabampo,0,0
 05/04/2020,26033,Huatabampo,0,0
 06/04/2020,26033,Huatabampo,0,0
@@ -1619,6 +1670,9 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26033,Huatabampo,10,1
 01/07/2020,26033,Huatabampo,11,1
 02/07/2020,26033,Huatabampo,11,0
+03/07/2020,26033,Huatabampo,12,1
+04/07/2020,26033,Huatabampo,12,0
+05/07/2020,26033,Huatabampo,12,0
 04/04/2020,26035,Imuris,0,0
 05/04/2020,26035,Imuris,0,0
 06/04/2020,26035,Imuris,0,0
@@ -1709,6 +1763,9 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26035,Imuris,3,1
 01/07/2020,26035,Imuris,3,0
 02/07/2020,26035,Imuris,3,0
+03/07/2020,26035,Imuris,3,0
+04/07/2020,26035,Imuris,3,0
+05/07/2020,26035,Imuris,3,0
 04/04/2020,26036,Magdalena,1,1
 05/04/2020,26036,Magdalena,1,0
 06/04/2020,26036,Magdalena,2,1
@@ -1799,6 +1856,9 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26036,Magdalena,12,1
 01/07/2020,26036,Magdalena,12,0
 02/07/2020,26036,Magdalena,12,0
+03/07/2020,26036,Magdalena,12,0
+04/07/2020,26036,Magdalena,12,0
+05/07/2020,26036,Magdalena,12,0
 04/04/2020,26038,Moctezuma,0,0
 05/04/2020,26038,Moctezuma,0,0
 06/04/2020,26038,Moctezuma,0,0
@@ -1889,996 +1949,9 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26038,Moctezuma,1,0
 01/07/2020,26038,Moctezuma,1,0
 02/07/2020,26038,Moctezuma,1,0
-04/04/2020,26042,Navojoa,0,0
-05/04/2020,26042,Navojoa,0,0
-06/04/2020,26042,Navojoa,0,0
-07/04/2020,26042,Navojoa,0,0
-08/04/2020,26042,Navojoa,0,0
-09/04/2020,26042,Navojoa,0,0
-10/04/2020,26042,Navojoa,0,0
-11/04/2020,26042,Navojoa,0,0
-12/04/2020,26042,Navojoa,0,0
-13/04/2020,26042,Navojoa,0,0
-14/04/2020,26042,Navojoa,0,0
-15/04/2020,26042,Navojoa,0,0
-16/04/2020,26042,Navojoa,0,0
-17/04/2020,26042,Navojoa,0,0
-18/04/2020,26042,Navojoa,0,0
-19/04/2020,26042,Navojoa,0,0
-20/04/2020,26042,Navojoa,0,0
-21/04/2020,26042,Navojoa,0,0
-22/04/2020,26042,Navojoa,0,0
-23/04/2020,26042,Navojoa,0,0
-24/04/2020,26042,Navojoa,0,0
-25/04/2020,26042,Navojoa,0,0
-26/04/2020,26042,Navojoa,0,0
-27/04/2020,26042,Navojoa,0,0
-28/04/2020,26042,Navojoa,0,0
-29/04/2020,26042,Navojoa,0,0
-30/04/2020,26042,Navojoa,0,0
-01/05/2020,26042,Navojoa,0,0
-02/05/2020,26042,Navojoa,0,0
-03/05/2020,26042,Navojoa,0,0
-04/05/2020,26042,Navojoa,0,0
-05/05/2020,26042,Navojoa,0,0
-06/05/2020,26042,Navojoa,0,0
-07/05/2020,26042,Navojoa,0,0
-08/05/2020,26042,Navojoa,0,0
-09/05/2020,26042,Navojoa,0,0
-10/05/2020,26042,Navojoa,1,1
-11/05/2020,26042,Navojoa,1,0
-12/05/2020,26042,Navojoa,1,0
-13/05/2020,26042,Navojoa,1,0
-14/05/2020,26042,Navojoa,1,0
-15/05/2020,26042,Navojoa,1,0
-16/05/2020,26042,Navojoa,1,0
-17/05/2020,26042,Navojoa,3,2
-18/05/2020,26042,Navojoa,3,0
-19/05/2020,26042,Navojoa,4,1
-20/05/2020,26042,Navojoa,4,0
-21/05/2020,26042,Navojoa,4,0
-22/05/2020,26042,Navojoa,4,0
-23/05/2020,26042,Navojoa,5,1
-24/05/2020,26042,Navojoa,6,1
-25/05/2020,26042,Navojoa,6,0
-26/05/2020,26042,Navojoa,8,2
-27/05/2020,26042,Navojoa,10,2
-28/05/2020,26042,Navojoa,10,0
-29/05/2020,26042,Navojoa,10,0
-30/05/2020,26042,Navojoa,11,1
-31/05/2020,26042,Navojoa,12,1
-01/06/2020,26042,Navojoa,14,2
-02/06/2020,26042,Navojoa,17,3
-03/06/2020,26042,Navojoa,19,2
-04/06/2020,26042,Navojoa,21,2
-05/06/2020,26042,Navojoa,21,0
-06/06/2020,26042,Navojoa,21,0
-07/06/2020,26042,Navojoa,24,3
-08/06/2020,26042,Navojoa,25,1
-09/06/2020,26042,Navojoa,26,1
-10/06/2020,26042,Navojoa,27,1
-11/06/2020,26042,Navojoa,29,2
-12/06/2020,26042,Navojoa,29,0
-13/06/2020,26042,Navojoa,31,2
-14/06/2020,26042,Navojoa,35,4
-15/06/2020,26042,Navojoa,35,0
-16/06/2020,26042,Navojoa,35,0
-17/06/2020,26042,Navojoa,35,0
-18/06/2020,26042,Navojoa,39,4
-19/06/2020,26042,Navojoa,42,3
-20/06/2020,26042,Navojoa,45,3
-21/06/2020,26042,Navojoa,46,1
-22/06/2020,26042,Navojoa,47,1
-23/06/2020,26042,Navojoa,47,0
-24/06/2020,26042,Navojoa,51,4
-25/06/2020,26042,Navojoa,51,0
-26/06/2020,26042,Navojoa,51,0
-27/06/2020,26042,Navojoa,61,10
-28/06/2020,26042,Navojoa,61,0
-29/06/2020,26042,Navojoa,62,1
-30/06/2020,26042,Navojoa,62,0
-01/07/2020,26042,Navojoa,63,1
-02/07/2020,26042,Navojoa,63,0
-04/04/2020,26043,Nogales,0,0
-05/04/2020,26043,Nogales,0,0
-06/04/2020,26043,Nogales,0,0
-07/04/2020,26043,Nogales,0,0
-08/04/2020,26043,Nogales,0,0
-09/04/2020,26043,Nogales,0,0
-10/04/2020,26043,Nogales,0,0
-11/04/2020,26043,Nogales,0,0
-12/04/2020,26043,Nogales,1,1
-13/04/2020,26043,Nogales,1,0
-14/04/2020,26043,Nogales,1,0
-15/04/2020,26043,Nogales,1,0
-16/04/2020,26043,Nogales,1,0
-17/04/2020,26043,Nogales,1,0
-18/04/2020,26043,Nogales,1,0
-19/04/2020,26043,Nogales,1,0
-20/04/2020,26043,Nogales,2,1
-21/04/2020,26043,Nogales,2,0
-22/04/2020,26043,Nogales,2,0
-23/04/2020,26043,Nogales,2,0
-24/04/2020,26043,Nogales,2,0
-25/04/2020,26043,Nogales,2,0
-26/04/2020,26043,Nogales,2,0
-27/04/2020,26043,Nogales,2,0
-28/04/2020,26043,Nogales,2,0
-29/04/2020,26043,Nogales,2,0
-30/04/2020,26043,Nogales,3,1
-01/05/2020,26043,Nogales,3,0
-02/05/2020,26043,Nogales,3,0
-03/05/2020,26043,Nogales,3,0
-04/05/2020,26043,Nogales,4,1
-05/05/2020,26043,Nogales,4,0
-06/05/2020,26043,Nogales,5,1
-07/05/2020,26043,Nogales,5,0
-08/05/2020,26043,Nogales,5,0
-09/05/2020,26043,Nogales,5,0
-10/05/2020,26043,Nogales,5,0
-11/05/2020,26043,Nogales,5,0
-12/05/2020,26043,Nogales,5,0
-13/05/2020,26043,Nogales,5,0
-14/05/2020,26043,Nogales,5,0
-15/05/2020,26043,Nogales,5,0
-16/05/2020,26043,Nogales,5,0
-17/05/2020,26043,Nogales,5,0
-18/05/2020,26043,Nogales,6,1
-19/05/2020,26043,Nogales,6,0
-20/05/2020,26043,Nogales,7,1
-21/05/2020,26043,Nogales,8,1
-22/05/2020,26043,Nogales,8,0
-23/05/2020,26043,Nogales,12,4
-24/05/2020,26043,Nogales,13,1
-25/05/2020,26043,Nogales,13,0
-26/05/2020,26043,Nogales,14,1
-27/05/2020,26043,Nogales,16,2
-28/05/2020,26043,Nogales,19,3
-29/05/2020,26043,Nogales,20,1
-30/05/2020,26043,Nogales,20,0
-31/05/2020,26043,Nogales,23,3
-01/06/2020,26043,Nogales,23,0
-02/06/2020,26043,Nogales,29,6
-03/06/2020,26043,Nogales,31,2
-04/06/2020,26043,Nogales,33,2
-05/06/2020,26043,Nogales,36,3
-06/06/2020,26043,Nogales,36,0
-07/06/2020,26043,Nogales,36,0
-08/06/2020,26043,Nogales,39,3
-09/06/2020,26043,Nogales,42,3
-10/06/2020,26043,Nogales,45,3
-11/06/2020,26043,Nogales,50,5
-12/06/2020,26043,Nogales,60,10
-13/06/2020,26043,Nogales,60,0
-14/06/2020,26043,Nogales,60,0
-15/06/2020,26043,Nogales,64,4
-16/06/2020,26043,Nogales,68,4
-17/06/2020,26043,Nogales,72,4
-18/06/2020,26043,Nogales,72,0
-19/06/2020,26043,Nogales,75,3
-20/06/2020,26043,Nogales,76,1
-21/06/2020,26043,Nogales,76,0
-22/06/2020,26043,Nogales,78,2
-23/06/2020,26043,Nogales,81,3
-24/06/2020,26043,Nogales,86,5
-25/06/2020,26043,Nogales,90,4
-26/06/2020,26043,Nogales,100,10
-27/06/2020,26043,Nogales,103,3
-28/06/2020,26043,Nogales,104,1
-29/06/2020,26043,Nogales,107,3
-30/06/2020,26043,Nogales,115,8
-01/07/2020,26043,Nogales,115,0
-02/07/2020,26043,Nogales,119,4
-04/04/2020,26045,Opodepe,0,0
-05/04/2020,26045,Opodepe,0,0
-06/04/2020,26045,Opodepe,0,0
-07/04/2020,26045,Opodepe,0,0
-08/04/2020,26045,Opodepe,0,0
-09/04/2020,26045,Opodepe,0,0
-10/04/2020,26045,Opodepe,0,0
-11/04/2020,26045,Opodepe,0,0
-12/04/2020,26045,Opodepe,0,0
-13/04/2020,26045,Opodepe,0,0
-14/04/2020,26045,Opodepe,0,0
-15/04/2020,26045,Opodepe,0,0
-16/04/2020,26045,Opodepe,0,0
-17/04/2020,26045,Opodepe,0,0
-18/04/2020,26045,Opodepe,0,0
-19/04/2020,26045,Opodepe,0,0
-20/04/2020,26045,Opodepe,0,0
-21/04/2020,26045,Opodepe,0,0
-22/04/2020,26045,Opodepe,1,1
-23/04/2020,26045,Opodepe,1,0
-24/04/2020,26045,Opodepe,1,0
-25/04/2020,26045,Opodepe,1,0
-26/04/2020,26045,Opodepe,1,0
-27/04/2020,26045,Opodepe,1,0
-28/04/2020,26045,Opodepe,1,0
-29/04/2020,26045,Opodepe,1,0
-30/04/2020,26045,Opodepe,1,0
-01/05/2020,26045,Opodepe,1,0
-02/05/2020,26045,Opodepe,1,0
-03/05/2020,26045,Opodepe,1,0
-04/05/2020,26045,Opodepe,1,0
-05/05/2020,26045,Opodepe,1,0
-06/05/2020,26045,Opodepe,1,0
-07/05/2020,26045,Opodepe,1,0
-08/05/2020,26045,Opodepe,1,0
-09/05/2020,26045,Opodepe,1,0
-10/05/2020,26045,Opodepe,1,0
-11/05/2020,26045,Opodepe,1,0
-12/05/2020,26045,Opodepe,1,0
-13/05/2020,26045,Opodepe,1,0
-14/05/2020,26045,Opodepe,1,0
-15/05/2020,26045,Opodepe,1,0
-16/05/2020,26045,Opodepe,1,0
-17/05/2020,26045,Opodepe,1,0
-18/05/2020,26045,Opodepe,1,0
-19/05/2020,26045,Opodepe,1,0
-20/05/2020,26045,Opodepe,1,0
-21/05/2020,26045,Opodepe,1,0
-22/05/2020,26045,Opodepe,1,0
-23/05/2020,26045,Opodepe,1,0
-24/05/2020,26045,Opodepe,1,0
-25/05/2020,26045,Opodepe,1,0
-26/05/2020,26045,Opodepe,1,0
-27/05/2020,26045,Opodepe,1,0
-28/05/2020,26045,Opodepe,1,0
-29/05/2020,26045,Opodepe,1,0
-30/05/2020,26045,Opodepe,1,0
-31/05/2020,26045,Opodepe,1,0
-01/06/2020,26045,Opodepe,1,0
-02/06/2020,26045,Opodepe,1,0
-03/06/2020,26045,Opodepe,1,0
-04/06/2020,26045,Opodepe,1,0
-05/06/2020,26045,Opodepe,1,0
-06/06/2020,26045,Opodepe,1,0
-07/06/2020,26045,Opodepe,1,0
-08/06/2020,26045,Opodepe,1,0
-09/06/2020,26045,Opodepe,1,0
-10/06/2020,26045,Opodepe,1,0
-11/06/2020,26045,Opodepe,1,0
-12/06/2020,26045,Opodepe,1,0
-13/06/2020,26045,Opodepe,1,0
-14/06/2020,26045,Opodepe,1,0
-15/06/2020,26045,Opodepe,1,0
-16/06/2020,26045,Opodepe,1,0
-17/06/2020,26045,Opodepe,1,0
-18/06/2020,26045,Opodepe,1,0
-19/06/2020,26045,Opodepe,1,0
-20/06/2020,26045,Opodepe,1,0
-21/06/2020,26045,Opodepe,1,0
-22/06/2020,26045,Opodepe,1,0
-23/06/2020,26045,Opodepe,1,0
-24/06/2020,26045,Opodepe,1,0
-25/06/2020,26045,Opodepe,1,0
-26/06/2020,26045,Opodepe,1,0
-27/06/2020,26045,Opodepe,1,0
-28/06/2020,26045,Opodepe,1,0
-29/06/2020,26045,Opodepe,1,0
-30/06/2020,26045,Opodepe,1,0
-01/07/2020,26045,Opodepe,1,0
-02/07/2020,26045,Opodepe,1,0
-04/04/2020,26047,Pitiquito,0,0
-05/04/2020,26047,Pitiquito,0,0
-06/04/2020,26047,Pitiquito,0,0
-07/04/2020,26047,Pitiquito,0,0
-08/04/2020,26047,Pitiquito,0,0
-09/04/2020,26047,Pitiquito,0,0
-10/04/2020,26047,Pitiquito,0,0
-11/04/2020,26047,Pitiquito,0,0
-12/04/2020,26047,Pitiquito,0,0
-13/04/2020,26047,Pitiquito,0,0
-14/04/2020,26047,Pitiquito,0,0
-15/04/2020,26047,Pitiquito,0,0
-16/04/2020,26047,Pitiquito,0,0
-17/04/2020,26047,Pitiquito,0,0
-18/04/2020,26047,Pitiquito,0,0
-19/04/2020,26047,Pitiquito,0,0
-20/04/2020,26047,Pitiquito,0,0
-21/04/2020,26047,Pitiquito,0,0
-22/04/2020,26047,Pitiquito,0,0
-23/04/2020,26047,Pitiquito,0,0
-24/04/2020,26047,Pitiquito,0,0
-25/04/2020,26047,Pitiquito,0,0
-26/04/2020,26047,Pitiquito,0,0
-27/04/2020,26047,Pitiquito,0,0
-28/04/2020,26047,Pitiquito,0,0
-29/04/2020,26047,Pitiquito,0,0
-30/04/2020,26047,Pitiquito,0,0
-01/05/2020,26047,Pitiquito,0,0
-02/05/2020,26047,Pitiquito,0,0
-03/05/2020,26047,Pitiquito,0,0
-04/05/2020,26047,Pitiquito,0,0
-05/05/2020,26047,Pitiquito,0,0
-06/05/2020,26047,Pitiquito,0,0
-07/05/2020,26047,Pitiquito,0,0
-08/05/2020,26047,Pitiquito,0,0
-09/05/2020,26047,Pitiquito,0,0
-10/05/2020,26047,Pitiquito,0,0
-11/05/2020,26047,Pitiquito,0,0
-12/05/2020,26047,Pitiquito,0,0
-13/05/2020,26047,Pitiquito,0,0
-14/05/2020,26047,Pitiquito,0,0
-15/05/2020,26047,Pitiquito,0,0
-16/05/2020,26047,Pitiquito,0,0
-17/05/2020,26047,Pitiquito,0,0
-18/05/2020,26047,Pitiquito,0,0
-19/05/2020,26047,Pitiquito,0,0
-20/05/2020,26047,Pitiquito,0,0
-21/05/2020,26047,Pitiquito,0,0
-22/05/2020,26047,Pitiquito,0,0
-23/05/2020,26047,Pitiquito,0,0
-24/05/2020,26047,Pitiquito,0,0
-25/05/2020,26047,Pitiquito,0,0
-26/05/2020,26047,Pitiquito,0,0
-27/05/2020,26047,Pitiquito,0,0
-28/05/2020,26047,Pitiquito,0,0
-29/05/2020,26047,Pitiquito,0,0
-30/05/2020,26047,Pitiquito,0,0
-31/05/2020,26047,Pitiquito,0,0
-01/06/2020,26047,Pitiquito,0,0
-02/06/2020,26047,Pitiquito,0,0
-03/06/2020,26047,Pitiquito,0,0
-04/06/2020,26047,Pitiquito,0,0
-05/06/2020,26047,Pitiquito,0,0
-06/06/2020,26047,Pitiquito,0,0
-07/06/2020,26047,Pitiquito,0,0
-08/06/2020,26047,Pitiquito,0,0
-09/06/2020,26047,Pitiquito,0,0
-10/06/2020,26047,Pitiquito,0,0
-11/06/2020,26047,Pitiquito,0,0
-12/06/2020,26047,Pitiquito,0,0
-13/06/2020,26047,Pitiquito,0,0
-14/06/2020,26047,Pitiquito,0,0
-15/06/2020,26047,Pitiquito,0,0
-16/06/2020,26047,Pitiquito,0,0
-17/06/2020,26047,Pitiquito,0,0
-18/06/2020,26047,Pitiquito,0,0
-19/06/2020,26047,Pitiquito,0,0
-20/06/2020,26047,Pitiquito,0,0
-21/06/2020,26047,Pitiquito,0,0
-22/06/2020,26047,Pitiquito,0,0
-23/06/2020,26047,Pitiquito,0,0
-24/06/2020,26047,Pitiquito,1,1
-25/06/2020,26047,Pitiquito,1,0
-26/06/2020,26047,Pitiquito,1,0
-27/06/2020,26047,Pitiquito,1,0
-28/06/2020,26047,Pitiquito,1,0
-29/06/2020,26047,Pitiquito,1,0
-30/06/2020,26047,Pitiquito,1,0
-01/07/2020,26047,Pitiquito,1,0
-02/07/2020,26047,Pitiquito,1,0
-04/04/2020,26048,Puerto Peñasco,0,0
-05/04/2020,26048,Puerto Peñasco,0,0
-06/04/2020,26048,Puerto Peñasco,0,0
-07/04/2020,26048,Puerto Peñasco,0,0
-08/04/2020,26048,Puerto Peñasco,0,0
-09/04/2020,26048,Puerto Peñasco,0,0
-10/04/2020,26048,Puerto Peñasco,0,0
-11/04/2020,26048,Puerto Peñasco,0,0
-12/04/2020,26048,Puerto Peñasco,0,0
-13/04/2020,26048,Puerto Peñasco,0,0
-14/04/2020,26048,Puerto Peñasco,0,0
-15/04/2020,26048,Puerto Peñasco,0,0
-16/04/2020,26048,Puerto Peñasco,0,0
-17/04/2020,26048,Puerto Peñasco,0,0
-18/04/2020,26048,Puerto Peñasco,0,0
-19/04/2020,26048,Puerto Peñasco,0,0
-20/04/2020,26048,Puerto Peñasco,0,0
-21/04/2020,26048,Puerto Peñasco,0,0
-22/04/2020,26048,Puerto Peñasco,0,0
-23/04/2020,26048,Puerto Peñasco,0,0
-24/04/2020,26048,Puerto Peñasco,0,0
-25/04/2020,26048,Puerto Peñasco,0,0
-26/04/2020,26048,Puerto Peñasco,0,0
-27/04/2020,26048,Puerto Peñasco,0,0
-28/04/2020,26048,Puerto Peñasco,0,0
-29/04/2020,26048,Puerto Peñasco,0,0
-30/04/2020,26048,Puerto Peñasco,0,0
-01/05/2020,26048,Puerto Peñasco,0,0
-02/05/2020,26048,Puerto Peñasco,0,0
-03/05/2020,26048,Puerto Peñasco,0,0
-04/05/2020,26048,Puerto Peñasco,0,0
-05/05/2020,26048,Puerto Peñasco,0,0
-06/05/2020,26048,Puerto Peñasco,0,0
-07/05/2020,26048,Puerto Peñasco,0,0
-08/05/2020,26048,Puerto Peñasco,0,0
-09/05/2020,26048,Puerto Peñasco,0,0
-10/05/2020,26048,Puerto Peñasco,0,0
-11/05/2020,26048,Puerto Peñasco,0,0
-12/05/2020,26048,Puerto Peñasco,0,0
-13/05/2020,26048,Puerto Peñasco,0,0
-14/05/2020,26048,Puerto Peñasco,0,0
-15/05/2020,26048,Puerto Peñasco,0,0
-16/05/2020,26048,Puerto Peñasco,0,0
-17/05/2020,26048,Puerto Peñasco,0,0
-18/05/2020,26048,Puerto Peñasco,0,0
-19/05/2020,26048,Puerto Peñasco,0,0
-20/05/2020,26048,Puerto Peñasco,0,0
-21/05/2020,26048,Puerto Peñasco,0,0
-22/05/2020,26048,Puerto Peñasco,0,0
-23/05/2020,26048,Puerto Peñasco,0,0
-24/05/2020,26048,Puerto Peñasco,0,0
-25/05/2020,26048,Puerto Peñasco,0,0
-26/05/2020,26048,Puerto Peñasco,0,0
-27/05/2020,26048,Puerto Peñasco,0,0
-28/05/2020,26048,Puerto Peñasco,0,0
-29/05/2020,26048,Puerto Peñasco,0,0
-30/05/2020,26048,Puerto Peñasco,0,0
-31/05/2020,26048,Puerto Peñasco,0,0
-01/06/2020,26048,Puerto Peñasco,1,1
-02/06/2020,26048,Puerto Peñasco,1,0
-03/06/2020,26048,Puerto Peñasco,1,0
-04/06/2020,26048,Puerto Peñasco,1,0
-05/06/2020,26048,Puerto Peñasco,1,0
-06/06/2020,26048,Puerto Peñasco,1,0
-07/06/2020,26048,Puerto Peñasco,1,0
-08/06/2020,26048,Puerto Peñasco,1,0
-09/06/2020,26048,Puerto Peñasco,1,0
-10/06/2020,26048,Puerto Peñasco,1,0
-11/06/2020,26048,Puerto Peñasco,1,0
-12/06/2020,26048,Puerto Peñasco,1,0
-13/06/2020,26048,Puerto Peñasco,1,0
-14/06/2020,26048,Puerto Peñasco,1,0
-15/06/2020,26048,Puerto Peñasco,1,0
-16/06/2020,26048,Puerto Peñasco,1,0
-17/06/2020,26048,Puerto Peñasco,1,0
-18/06/2020,26048,Puerto Peñasco,1,0
-19/06/2020,26048,Puerto Peñasco,1,0
-20/06/2020,26048,Puerto Peñasco,1,0
-21/06/2020,26048,Puerto Peñasco,1,0
-22/06/2020,26048,Puerto Peñasco,1,0
-23/06/2020,26048,Puerto Peñasco,1,0
-24/06/2020,26048,Puerto Peñasco,1,0
-25/06/2020,26048,Puerto Peñasco,1,0
-26/06/2020,26048,Puerto Peñasco,1,0
-27/06/2020,26048,Puerto Peñasco,1,0
-28/06/2020,26048,Puerto Peñasco,1,0
-29/06/2020,26048,Puerto Peñasco,1,0
-30/06/2020,26048,Puerto Peñasco,1,0
-01/07/2020,26048,Puerto Peñasco,1,0
-02/07/2020,26048,Puerto Peñasco,2,1
-04/04/2020,26052,Sahuaripa,0,0
-05/04/2020,26052,Sahuaripa,0,0
-06/04/2020,26052,Sahuaripa,0,0
-07/04/2020,26052,Sahuaripa,0,0
-08/04/2020,26052,Sahuaripa,0,0
-09/04/2020,26052,Sahuaripa,0,0
-10/04/2020,26052,Sahuaripa,0,0
-11/04/2020,26052,Sahuaripa,0,0
-12/04/2020,26052,Sahuaripa,0,0
-13/04/2020,26052,Sahuaripa,0,0
-14/04/2020,26052,Sahuaripa,0,0
-15/04/2020,26052,Sahuaripa,0,0
-16/04/2020,26052,Sahuaripa,0,0
-17/04/2020,26052,Sahuaripa,0,0
-18/04/2020,26052,Sahuaripa,0,0
-19/04/2020,26052,Sahuaripa,0,0
-20/04/2020,26052,Sahuaripa,0,0
-21/04/2020,26052,Sahuaripa,0,0
-22/04/2020,26052,Sahuaripa,0,0
-23/04/2020,26052,Sahuaripa,0,0
-24/04/2020,26052,Sahuaripa,0,0
-25/04/2020,26052,Sahuaripa,0,0
-26/04/2020,26052,Sahuaripa,0,0
-27/04/2020,26052,Sahuaripa,0,0
-28/04/2020,26052,Sahuaripa,0,0
-29/04/2020,26052,Sahuaripa,0,0
-30/04/2020,26052,Sahuaripa,0,0
-01/05/2020,26052,Sahuaripa,0,0
-02/05/2020,26052,Sahuaripa,0,0
-03/05/2020,26052,Sahuaripa,0,0
-04/05/2020,26052,Sahuaripa,0,0
-05/05/2020,26052,Sahuaripa,0,0
-06/05/2020,26052,Sahuaripa,0,0
-07/05/2020,26052,Sahuaripa,0,0
-08/05/2020,26052,Sahuaripa,0,0
-09/05/2020,26052,Sahuaripa,0,0
-10/05/2020,26052,Sahuaripa,0,0
-11/05/2020,26052,Sahuaripa,0,0
-12/05/2020,26052,Sahuaripa,0,0
-13/05/2020,26052,Sahuaripa,0,0
-14/05/2020,26052,Sahuaripa,0,0
-15/05/2020,26052,Sahuaripa,0,0
-16/05/2020,26052,Sahuaripa,0,0
-17/05/2020,26052,Sahuaripa,0,0
-18/05/2020,26052,Sahuaripa,0,0
-19/05/2020,26052,Sahuaripa,0,0
-20/05/2020,26052,Sahuaripa,0,0
-21/05/2020,26052,Sahuaripa,0,0
-22/05/2020,26052,Sahuaripa,0,0
-23/05/2020,26052,Sahuaripa,0,0
-24/05/2020,26052,Sahuaripa,0,0
-25/05/2020,26052,Sahuaripa,0,0
-26/05/2020,26052,Sahuaripa,0,0
-27/05/2020,26052,Sahuaripa,0,0
-28/05/2020,26052,Sahuaripa,0,0
-29/05/2020,26052,Sahuaripa,0,0
-30/05/2020,26052,Sahuaripa,0,0
-31/05/2020,26052,Sahuaripa,0,0
-01/06/2020,26052,Sahuaripa,0,0
-02/06/2020,26052,Sahuaripa,0,0
-03/06/2020,26052,Sahuaripa,0,0
-04/06/2020,26052,Sahuaripa,0,0
-05/06/2020,26052,Sahuaripa,0,0
-06/06/2020,26052,Sahuaripa,0,0
-07/06/2020,26052,Sahuaripa,0,0
-08/06/2020,26052,Sahuaripa,0,0
-09/06/2020,26052,Sahuaripa,0,0
-10/06/2020,26052,Sahuaripa,0,0
-11/06/2020,26052,Sahuaripa,0,0
-12/06/2020,26052,Sahuaripa,0,0
-13/06/2020,26052,Sahuaripa,0,0
-14/06/2020,26052,Sahuaripa,0,0
-15/06/2020,26052,Sahuaripa,0,0
-16/06/2020,26052,Sahuaripa,1,1
-17/06/2020,26052,Sahuaripa,1,0
-18/06/2020,26052,Sahuaripa,1,0
-19/06/2020,26052,Sahuaripa,1,0
-20/06/2020,26052,Sahuaripa,1,0
-21/06/2020,26052,Sahuaripa,1,0
-22/06/2020,26052,Sahuaripa,1,0
-23/06/2020,26052,Sahuaripa,1,0
-24/06/2020,26052,Sahuaripa,2,1
-25/06/2020,26052,Sahuaripa,2,0
-26/06/2020,26052,Sahuaripa,2,0
-27/06/2020,26052,Sahuaripa,2,0
-28/06/2020,26052,Sahuaripa,2,0
-29/06/2020,26052,Sahuaripa,2,0
-30/06/2020,26052,Sahuaripa,2,0
-01/07/2020,26052,Sahuaripa,2,0
-02/07/2020,26052,Sahuaripa,2,0
-04/04/2020,26072,San Ignacio Río Muerto,0,0
-05/04/2020,26072,San Ignacio Río Muerto,0,0
-06/04/2020,26072,San Ignacio Río Muerto,0,0
-07/04/2020,26072,San Ignacio Río Muerto,0,0
-08/04/2020,26072,San Ignacio Río Muerto,0,0
-09/04/2020,26072,San Ignacio Río Muerto,0,0
-10/04/2020,26072,San Ignacio Río Muerto,0,0
-11/04/2020,26072,San Ignacio Río Muerto,0,0
-12/04/2020,26072,San Ignacio Río Muerto,0,0
-13/04/2020,26072,San Ignacio Río Muerto,0,0
-14/04/2020,26072,San Ignacio Río Muerto,0,0
-15/04/2020,26072,San Ignacio Río Muerto,0,0
-16/04/2020,26072,San Ignacio Río Muerto,0,0
-17/04/2020,26072,San Ignacio Río Muerto,0,0
-18/04/2020,26072,San Ignacio Río Muerto,0,0
-19/04/2020,26072,San Ignacio Río Muerto,0,0
-20/04/2020,26072,San Ignacio Río Muerto,0,0
-21/04/2020,26072,San Ignacio Río Muerto,0,0
-22/04/2020,26072,San Ignacio Río Muerto,0,0
-23/04/2020,26072,San Ignacio Río Muerto,0,0
-24/04/2020,26072,San Ignacio Río Muerto,0,0
-25/04/2020,26072,San Ignacio Río Muerto,0,0
-26/04/2020,26072,San Ignacio Río Muerto,0,0
-27/04/2020,26072,San Ignacio Río Muerto,0,0
-28/04/2020,26072,San Ignacio Río Muerto,0,0
-29/04/2020,26072,San Ignacio Río Muerto,0,0
-30/04/2020,26072,San Ignacio Río Muerto,0,0
-01/05/2020,26072,San Ignacio Río Muerto,0,0
-02/05/2020,26072,San Ignacio Río Muerto,0,0
-03/05/2020,26072,San Ignacio Río Muerto,0,0
-04/05/2020,26072,San Ignacio Río Muerto,0,0
-05/05/2020,26072,San Ignacio Río Muerto,0,0
-06/05/2020,26072,San Ignacio Río Muerto,0,0
-07/05/2020,26072,San Ignacio Río Muerto,0,0
-08/05/2020,26072,San Ignacio Río Muerto,0,0
-09/05/2020,26072,San Ignacio Río Muerto,0,0
-10/05/2020,26072,San Ignacio Río Muerto,0,0
-11/05/2020,26072,San Ignacio Río Muerto,0,0
-12/05/2020,26072,San Ignacio Río Muerto,0,0
-13/05/2020,26072,San Ignacio Río Muerto,0,0
-14/05/2020,26072,San Ignacio Río Muerto,0,0
-15/05/2020,26072,San Ignacio Río Muerto,0,0
-16/05/2020,26072,San Ignacio Río Muerto,0,0
-17/05/2020,26072,San Ignacio Río Muerto,0,0
-18/05/2020,26072,San Ignacio Río Muerto,0,0
-19/05/2020,26072,San Ignacio Río Muerto,0,0
-20/05/2020,26072,San Ignacio Río Muerto,0,0
-21/05/2020,26072,San Ignacio Río Muerto,0,0
-22/05/2020,26072,San Ignacio Río Muerto,0,0
-23/05/2020,26072,San Ignacio Río Muerto,0,0
-24/05/2020,26072,San Ignacio Río Muerto,0,0
-25/05/2020,26072,San Ignacio Río Muerto,0,0
-26/05/2020,26072,San Ignacio Río Muerto,0,0
-27/05/2020,26072,San Ignacio Río Muerto,0,0
-28/05/2020,26072,San Ignacio Río Muerto,0,0
-29/05/2020,26072,San Ignacio Río Muerto,0,0
-30/05/2020,26072,San Ignacio Río Muerto,0,0
-31/05/2020,26072,San Ignacio Río Muerto,0,0
-01/06/2020,26072,San Ignacio Río Muerto,0,0
-02/06/2020,26072,San Ignacio Río Muerto,0,0
-03/06/2020,26072,San Ignacio Río Muerto,0,0
-04/06/2020,26072,San Ignacio Río Muerto,0,0
-05/06/2020,26072,San Ignacio Río Muerto,0,0
-06/06/2020,26072,San Ignacio Río Muerto,0,0
-07/06/2020,26072,San Ignacio Río Muerto,0,0
-08/06/2020,26072,San Ignacio Río Muerto,0,0
-09/06/2020,26072,San Ignacio Río Muerto,0,0
-10/06/2020,26072,San Ignacio Río Muerto,0,0
-11/06/2020,26072,San Ignacio Río Muerto,0,0
-12/06/2020,26072,San Ignacio Río Muerto,0,0
-13/06/2020,26072,San Ignacio Río Muerto,0,0
-14/06/2020,26072,San Ignacio Río Muerto,1,1
-15/06/2020,26072,San Ignacio Río Muerto,1,0
-16/06/2020,26072,San Ignacio Río Muerto,1,0
-17/06/2020,26072,San Ignacio Río Muerto,2,1
-18/06/2020,26072,San Ignacio Río Muerto,2,0
-19/06/2020,26072,San Ignacio Río Muerto,3,1
-20/06/2020,26072,San Ignacio Río Muerto,3,0
-21/06/2020,26072,San Ignacio Río Muerto,3,0
-22/06/2020,26072,San Ignacio Río Muerto,3,0
-23/06/2020,26072,San Ignacio Río Muerto,4,1
-24/06/2020,26072,San Ignacio Río Muerto,4,0
-25/06/2020,26072,San Ignacio Río Muerto,4,0
-26/06/2020,26072,San Ignacio Río Muerto,4,0
-27/06/2020,26072,San Ignacio Río Muerto,4,0
-28/06/2020,26072,San Ignacio Río Muerto,4,0
-29/06/2020,26072,San Ignacio Río Muerto,4,0
-30/06/2020,26072,San Ignacio Río Muerto,4,0
-01/07/2020,26072,San Ignacio Río Muerto,4,0
-02/07/2020,26072,San Ignacio Río Muerto,4,0
-04/04/2020,26055,San Luis Río Colorado,0,0
-05/04/2020,26055,San Luis Río Colorado,0,0
-06/04/2020,26055,San Luis Río Colorado,2,2
-07/04/2020,26055,San Luis Río Colorado,2,0
-08/04/2020,26055,San Luis Río Colorado,2,0
-09/04/2020,26055,San Luis Río Colorado,2,0
-10/04/2020,26055,San Luis Río Colorado,2,0
-11/04/2020,26055,San Luis Río Colorado,2,0
-12/04/2020,26055,San Luis Río Colorado,2,0
-13/04/2020,26055,San Luis Río Colorado,2,0
-14/04/2020,26055,San Luis Río Colorado,2,0
-15/04/2020,26055,San Luis Río Colorado,2,0
-16/04/2020,26055,San Luis Río Colorado,4,2
-17/04/2020,26055,San Luis Río Colorado,4,0
-18/04/2020,26055,San Luis Río Colorado,4,0
-19/04/2020,26055,San Luis Río Colorado,4,0
-20/04/2020,26055,San Luis Río Colorado,4,0
-21/04/2020,26055,San Luis Río Colorado,4,0
-22/04/2020,26055,San Luis Río Colorado,6,2
-23/04/2020,26055,San Luis Río Colorado,6,0
-24/04/2020,26055,San Luis Río Colorado,7,1
-25/04/2020,26055,San Luis Río Colorado,8,1
-26/04/2020,26055,San Luis Río Colorado,8,0
-27/04/2020,26055,San Luis Río Colorado,12,4
-28/04/2020,26055,San Luis Río Colorado,12,0
-29/04/2020,26055,San Luis Río Colorado,12,0
-30/04/2020,26055,San Luis Río Colorado,13,1
-01/05/2020,26055,San Luis Río Colorado,14,1
-02/05/2020,26055,San Luis Río Colorado,14,0
-03/05/2020,26055,San Luis Río Colorado,16,2
-04/05/2020,26055,San Luis Río Colorado,18,2
-05/05/2020,26055,San Luis Río Colorado,18,0
-06/05/2020,26055,San Luis Río Colorado,19,1
-07/05/2020,26055,San Luis Río Colorado,19,0
-08/05/2020,26055,San Luis Río Colorado,19,0
-09/05/2020,26055,San Luis Río Colorado,19,0
-10/05/2020,26055,San Luis Río Colorado,19,0
-11/05/2020,26055,San Luis Río Colorado,20,1
-12/05/2020,26055,San Luis Río Colorado,21,1
-13/05/2020,26055,San Luis Río Colorado,23,2
-14/05/2020,26055,San Luis Río Colorado,23,0
-15/05/2020,26055,San Luis Río Colorado,27,4
-16/05/2020,26055,San Luis Río Colorado,28,1
-17/05/2020,26055,San Luis Río Colorado,28,0
-18/05/2020,26055,San Luis Río Colorado,31,3
-19/05/2020,26055,San Luis Río Colorado,32,1
-20/05/2020,26055,San Luis Río Colorado,32,0
-21/05/2020,26055,San Luis Río Colorado,32,0
-22/05/2020,26055,San Luis Río Colorado,32,0
-23/05/2020,26055,San Luis Río Colorado,32,0
-24/05/2020,26055,San Luis Río Colorado,39,7
-25/05/2020,26055,San Luis Río Colorado,40,1
-26/05/2020,26055,San Luis Río Colorado,41,1
-27/05/2020,26055,San Luis Río Colorado,46,5
-28/05/2020,26055,San Luis Río Colorado,48,2
-29/05/2020,26055,San Luis Río Colorado,50,2
-30/05/2020,26055,San Luis Río Colorado,50,0
-31/05/2020,26055,San Luis Río Colorado,54,4
-01/06/2020,26055,San Luis Río Colorado,59,5
-02/06/2020,26055,San Luis Río Colorado,62,3
-03/06/2020,26055,San Luis Río Colorado,67,5
-04/06/2020,26055,San Luis Río Colorado,68,1
-05/06/2020,26055,San Luis Río Colorado,73,5
-06/06/2020,26055,San Luis Río Colorado,74,1
-07/06/2020,26055,San Luis Río Colorado,74,0
-08/06/2020,26055,San Luis Río Colorado,74,0
-09/06/2020,26055,San Luis Río Colorado,75,1
-10/06/2020,26055,San Luis Río Colorado,78,3
-11/06/2020,26055,San Luis Río Colorado,82,4
-12/06/2020,26055,San Luis Río Colorado,82,0
-13/06/2020,26055,San Luis Río Colorado,82,0
-14/06/2020,26055,San Luis Río Colorado,83,1
-15/06/2020,26055,San Luis Río Colorado,84,1
-16/06/2020,26055,San Luis Río Colorado,94,10
-17/06/2020,26055,San Luis Río Colorado,99,5
-18/06/2020,26055,San Luis Río Colorado,99,0
-19/06/2020,26055,San Luis Río Colorado,99,0
-20/06/2020,26055,San Luis Río Colorado,101,2
-21/06/2020,26055,San Luis Río Colorado,101,0
-22/06/2020,26055,San Luis Río Colorado,101,0
-23/06/2020,26055,San Luis Río Colorado,101,0
-24/06/2020,26055,San Luis Río Colorado,105,4
-25/06/2020,26055,San Luis Río Colorado,107,2
-26/06/2020,26055,San Luis Río Colorado,109,2
-27/06/2020,26055,San Luis Río Colorado,113,4
-28/06/2020,26055,San Luis Río Colorado,116,3
-29/06/2020,26055,San Luis Río Colorado,119,3
-30/06/2020,26055,San Luis Río Colorado,119,0
-01/07/2020,26055,San Luis Río Colorado,119,0
-02/07/2020,26055,San Luis Río Colorado,122,3
-04/04/2020,26056,San Miguel de Horcasitas,0,0
-05/04/2020,26056,San Miguel de Horcasitas,0,0
-06/04/2020,26056,San Miguel de Horcasitas,0,0
-07/04/2020,26056,San Miguel de Horcasitas,0,0
-08/04/2020,26056,San Miguel de Horcasitas,0,0
-09/04/2020,26056,San Miguel de Horcasitas,0,0
-10/04/2020,26056,San Miguel de Horcasitas,0,0
-11/04/2020,26056,San Miguel de Horcasitas,0,0
-12/04/2020,26056,San Miguel de Horcasitas,0,0
-13/04/2020,26056,San Miguel de Horcasitas,0,0
-14/04/2020,26056,San Miguel de Horcasitas,0,0
-15/04/2020,26056,San Miguel de Horcasitas,0,0
-16/04/2020,26056,San Miguel de Horcasitas,0,0
-17/04/2020,26056,San Miguel de Horcasitas,0,0
-18/04/2020,26056,San Miguel de Horcasitas,0,0
-19/04/2020,26056,San Miguel de Horcasitas,0,0
-20/04/2020,26056,San Miguel de Horcasitas,0,0
-21/04/2020,26056,San Miguel de Horcasitas,0,0
-22/04/2020,26056,San Miguel de Horcasitas,0,0
-23/04/2020,26056,San Miguel de Horcasitas,0,0
-24/04/2020,26056,San Miguel de Horcasitas,0,0
-25/04/2020,26056,San Miguel de Horcasitas,0,0
-26/04/2020,26056,San Miguel de Horcasitas,0,0
-27/04/2020,26056,San Miguel de Horcasitas,0,0
-28/04/2020,26056,San Miguel de Horcasitas,0,0
-29/04/2020,26056,San Miguel de Horcasitas,0,0
-30/04/2020,26056,San Miguel de Horcasitas,0,0
-01/05/2020,26056,San Miguel de Horcasitas,0,0
-02/05/2020,26056,San Miguel de Horcasitas,0,0
-03/05/2020,26056,San Miguel de Horcasitas,0,0
-04/05/2020,26056,San Miguel de Horcasitas,0,0
-05/05/2020,26056,San Miguel de Horcasitas,0,0
-06/05/2020,26056,San Miguel de Horcasitas,0,0
-07/05/2020,26056,San Miguel de Horcasitas,0,0
-08/05/2020,26056,San Miguel de Horcasitas,0,0
-09/05/2020,26056,San Miguel de Horcasitas,0,0
-10/05/2020,26056,San Miguel de Horcasitas,0,0
-11/05/2020,26056,San Miguel de Horcasitas,0,0
-12/05/2020,26056,San Miguel de Horcasitas,0,0
-13/05/2020,26056,San Miguel de Horcasitas,0,0
-14/05/2020,26056,San Miguel de Horcasitas,0,0
-15/05/2020,26056,San Miguel de Horcasitas,0,0
-16/05/2020,26056,San Miguel de Horcasitas,0,0
-17/05/2020,26056,San Miguel de Horcasitas,0,0
-18/05/2020,26056,San Miguel de Horcasitas,0,0
-19/05/2020,26056,San Miguel de Horcasitas,0,0
-20/05/2020,26056,San Miguel de Horcasitas,0,0
-21/05/2020,26056,San Miguel de Horcasitas,0,0
-22/05/2020,26056,San Miguel de Horcasitas,0,0
-23/05/2020,26056,San Miguel de Horcasitas,0,0
-24/05/2020,26056,San Miguel de Horcasitas,0,0
-25/05/2020,26056,San Miguel de Horcasitas,0,0
-26/05/2020,26056,San Miguel de Horcasitas,0,0
-27/05/2020,26056,San Miguel de Horcasitas,0,0
-28/05/2020,26056,San Miguel de Horcasitas,0,0
-29/05/2020,26056,San Miguel de Horcasitas,0,0
-30/05/2020,26056,San Miguel de Horcasitas,0,0
-31/05/2020,26056,San Miguel de Horcasitas,0,0
-01/06/2020,26056,San Miguel de Horcasitas,0,0
-02/06/2020,26056,San Miguel de Horcasitas,0,0
-03/06/2020,26056,San Miguel de Horcasitas,0,0
-04/06/2020,26056,San Miguel de Horcasitas,0,0
-05/06/2020,26056,San Miguel de Horcasitas,0,0
-06/06/2020,26056,San Miguel de Horcasitas,0,0
-07/06/2020,26056,San Miguel de Horcasitas,0,0
-08/06/2020,26056,San Miguel de Horcasitas,0,0
-09/06/2020,26056,San Miguel de Horcasitas,0,0
-10/06/2020,26056,San Miguel de Horcasitas,0,0
-11/06/2020,26056,San Miguel de Horcasitas,0,0
-12/06/2020,26056,San Miguel de Horcasitas,0,0
-13/06/2020,26056,San Miguel de Horcasitas,0,0
-14/06/2020,26056,San Miguel de Horcasitas,0,0
-15/06/2020,26056,San Miguel de Horcasitas,0,0
-16/06/2020,26056,San Miguel de Horcasitas,1,1
-17/06/2020,26056,San Miguel de Horcasitas,1,0
-18/06/2020,26056,San Miguel de Horcasitas,1,0
-19/06/2020,26056,San Miguel de Horcasitas,1,0
-20/06/2020,26056,San Miguel de Horcasitas,1,0
-21/06/2020,26056,San Miguel de Horcasitas,2,1
-22/06/2020,26056,San Miguel de Horcasitas,2,0
-23/06/2020,26056,San Miguel de Horcasitas,2,0
-24/06/2020,26056,San Miguel de Horcasitas,2,0
-25/06/2020,26056,San Miguel de Horcasitas,2,0
-26/06/2020,26056,San Miguel de Horcasitas,2,0
-27/06/2020,26056,San Miguel de Horcasitas,2,0
-28/06/2020,26056,San Miguel de Horcasitas,2,0
-29/06/2020,26056,San Miguel de Horcasitas,2,0
-30/06/2020,26056,San Miguel de Horcasitas,2,0
-01/07/2020,26056,San Miguel de Horcasitas,2,0
-02/07/2020,26056,San Miguel de Horcasitas,2,0
-04/04/2020,26058,Santa Ana,0,0
-05/04/2020,26058,Santa Ana,0,0
-06/04/2020,26058,Santa Ana,0,0
-07/04/2020,26058,Santa Ana,0,0
-08/04/2020,26058,Santa Ana,0,0
-09/04/2020,26058,Santa Ana,0,0
-10/04/2020,26058,Santa Ana,0,0
-11/04/2020,26058,Santa Ana,0,0
-12/04/2020,26058,Santa Ana,0,0
-13/04/2020,26058,Santa Ana,0,0
-14/04/2020,26058,Santa Ana,0,0
-15/04/2020,26058,Santa Ana,0,0
-16/04/2020,26058,Santa Ana,0,0
-17/04/2020,26058,Santa Ana,0,0
-18/04/2020,26058,Santa Ana,0,0
-19/04/2020,26058,Santa Ana,0,0
-20/04/2020,26058,Santa Ana,0,0
-21/04/2020,26058,Santa Ana,0,0
-22/04/2020,26058,Santa Ana,0,0
-23/04/2020,26058,Santa Ana,0,0
-24/04/2020,26058,Santa Ana,0,0
-25/04/2020,26058,Santa Ana,0,0
-26/04/2020,26058,Santa Ana,0,0
-27/04/2020,26058,Santa Ana,0,0
-28/04/2020,26058,Santa Ana,0,0
-29/04/2020,26058,Santa Ana,0,0
-30/04/2020,26058,Santa Ana,0,0
-01/05/2020,26058,Santa Ana,0,0
-02/05/2020,26058,Santa Ana,0,0
-03/05/2020,26058,Santa Ana,0,0
-04/05/2020,26058,Santa Ana,0,0
-05/05/2020,26058,Santa Ana,0,0
-06/05/2020,26058,Santa Ana,0,0
-07/05/2020,26058,Santa Ana,1,1
-08/05/2020,26058,Santa Ana,1,0
-09/05/2020,26058,Santa Ana,1,0
-10/05/2020,26058,Santa Ana,1,0
-11/05/2020,26058,Santa Ana,1,0
-12/05/2020,26058,Santa Ana,1,0
-13/05/2020,26058,Santa Ana,1,0
-14/05/2020,26058,Santa Ana,1,0
-15/05/2020,26058,Santa Ana,1,0
-16/05/2020,26058,Santa Ana,1,0
-17/05/2020,26058,Santa Ana,1,0
-18/05/2020,26058,Santa Ana,1,0
-19/05/2020,26058,Santa Ana,1,0
-20/05/2020,26058,Santa Ana,1,0
-21/05/2020,26058,Santa Ana,1,0
-22/05/2020,26058,Santa Ana,1,0
-23/05/2020,26058,Santa Ana,1,0
-24/05/2020,26058,Santa Ana,1,0
-25/05/2020,26058,Santa Ana,1,0
-26/05/2020,26058,Santa Ana,1,0
-27/05/2020,26058,Santa Ana,1,0
-28/05/2020,26058,Santa Ana,1,0
-29/05/2020,26058,Santa Ana,1,0
-30/05/2020,26058,Santa Ana,1,0
-31/05/2020,26058,Santa Ana,1,0
-01/06/2020,26058,Santa Ana,1,0
-02/06/2020,26058,Santa Ana,1,0
-03/06/2020,26058,Santa Ana,1,0
-04/06/2020,26058,Santa Ana,1,0
-05/06/2020,26058,Santa Ana,1,0
-06/06/2020,26058,Santa Ana,1,0
-07/06/2020,26058,Santa Ana,1,0
-08/06/2020,26058,Santa Ana,1,0
-09/06/2020,26058,Santa Ana,1,0
-10/06/2020,26058,Santa Ana,1,0
-11/06/2020,26058,Santa Ana,1,0
-12/06/2020,26058,Santa Ana,1,0
-13/06/2020,26058,Santa Ana,1,0
-14/06/2020,26058,Santa Ana,1,0
-15/06/2020,26058,Santa Ana,1,0
-16/06/2020,26058,Santa Ana,1,0
-17/06/2020,26058,Santa Ana,1,0
-18/06/2020,26058,Santa Ana,1,0
-19/06/2020,26058,Santa Ana,1,0
-20/06/2020,26058,Santa Ana,1,0
-21/06/2020,26058,Santa Ana,1,0
-22/06/2020,26058,Santa Ana,1,0
-23/06/2020,26058,Santa Ana,1,0
-24/06/2020,26058,Santa Ana,1,0
-25/06/2020,26058,Santa Ana,1,0
-26/06/2020,26058,Santa Ana,2,1
-27/06/2020,26058,Santa Ana,2,0
-28/06/2020,26058,Santa Ana,2,0
-29/06/2020,26058,Santa Ana,2,0
-30/06/2020,26058,Santa Ana,2,0
-01/07/2020,26058,Santa Ana,3,1
-02/07/2020,26058,Santa Ana,3,0
-04/04/2020,26060,Sáric,0,0
-05/04/2020,26060,Sáric,0,0
-06/04/2020,26060,Sáric,0,0
-07/04/2020,26060,Sáric,1,1
-08/04/2020,26060,Sáric,1,0
-09/04/2020,26060,Sáric,1,0
-10/04/2020,26060,Sáric,1,0
-11/04/2020,26060,Sáric,1,0
-12/04/2020,26060,Sáric,2,1
-13/04/2020,26060,Sáric,2,0
-14/04/2020,26060,Sáric,2,0
-15/04/2020,26060,Sáric,2,0
-16/04/2020,26060,Sáric,2,0
-17/04/2020,26060,Sáric,2,0
-18/04/2020,26060,Sáric,2,0
-19/04/2020,26060,Sáric,2,0
-20/04/2020,26060,Sáric,2,0
-21/04/2020,26060,Sáric,2,0
-22/04/2020,26060,Sáric,2,0
-23/04/2020,26060,Sáric,2,0
-24/04/2020,26060,Sáric,2,0
-25/04/2020,26060,Sáric,2,0
-26/04/2020,26060,Sáric,2,0
-27/04/2020,26060,Sáric,2,0
-28/04/2020,26060,Sáric,2,0
-29/04/2020,26060,Sáric,2,0
-30/04/2020,26060,Sáric,2,0
-01/05/2020,26060,Sáric,2,0
-02/05/2020,26060,Sáric,2,0
-03/05/2020,26060,Sáric,2,0
-04/05/2020,26060,Sáric,2,0
-05/05/2020,26060,Sáric,2,0
-06/05/2020,26060,Sáric,2,0
-07/05/2020,26060,Sáric,2,0
-08/05/2020,26060,Sáric,2,0
-09/05/2020,26060,Sáric,2,0
-10/05/2020,26060,Sáric,2,0
-11/05/2020,26060,Sáric,2,0
-12/05/2020,26060,Sáric,2,0
-13/05/2020,26060,Sáric,2,0
-14/05/2020,26060,Sáric,2,0
-15/05/2020,26060,Sáric,2,0
-16/05/2020,26060,Sáric,2,0
-17/05/2020,26060,Sáric,2,0
-18/05/2020,26060,Sáric,2,0
-19/05/2020,26060,Sáric,2,0
-20/05/2020,26060,Sáric,2,0
-21/05/2020,26060,Sáric,2,0
-22/05/2020,26060,Sáric,2,0
-23/05/2020,26060,Sáric,2,0
-24/05/2020,26060,Sáric,2,0
-25/05/2020,26060,Sáric,2,0
-26/05/2020,26060,Sáric,2,0
-27/05/2020,26060,Sáric,2,0
-28/05/2020,26060,Sáric,2,0
-29/05/2020,26060,Sáric,2,0
-30/05/2020,26060,Sáric,2,0
-31/05/2020,26060,Sáric,2,0
-01/06/2020,26060,Sáric,2,0
-02/06/2020,26060,Sáric,2,0
-03/06/2020,26060,Sáric,2,0
-04/06/2020,26060,Sáric,2,0
-05/06/2020,26060,Sáric,2,0
-06/06/2020,26060,Sáric,2,0
-07/06/2020,26060,Sáric,2,0
-08/06/2020,26060,Sáric,2,0
-09/06/2020,26060,Sáric,2,0
-10/06/2020,26060,Sáric,2,0
-11/06/2020,26060,Sáric,2,0
-12/06/2020,26060,Sáric,2,0
-13/06/2020,26060,Sáric,2,0
-14/06/2020,26060,Sáric,2,0
-15/06/2020,26060,Sáric,2,0
-16/06/2020,26060,Sáric,2,0
-17/06/2020,26060,Sáric,2,0
-18/06/2020,26060,Sáric,2,0
-19/06/2020,26060,Sáric,2,0
-20/06/2020,26060,Sáric,2,0
-21/06/2020,26060,Sáric,2,0
-22/06/2020,26060,Sáric,2,0
-23/06/2020,26060,Sáric,2,0
-24/06/2020,26060,Sáric,2,0
-25/06/2020,26060,Sáric,2,0
-26/06/2020,26060,Sáric,2,0
-27/06/2020,26060,Sáric,2,0
-28/06/2020,26060,Sáric,2,0
-29/06/2020,26060,Sáric,2,0
-30/06/2020,26060,Sáric,2,0
-01/07/2020,26060,Sáric,2,0
-02/07/2020,26060,Sáric,2,0
+03/07/2020,26038,Moctezuma,1,0
+04/07/2020,26038,Moctezuma,1,0
+05/07/2020,26038,Moctezuma,1,0
 04/04/2020,26040,Nácori Chico,0,0
 05/04/2020,26040,Nácori Chico,0,0
 06/04/2020,26040,Nácori Chico,0,0
@@ -2969,69 +2042,1029 @@ Fecha,CVEGEO,MUNICIPIO,DECESOS,NUEVOS
 30/06/2020,26040,Nácori Chico,0,0
 01/07/2020,26040,Nácori Chico,0,0
 02/07/2020,26040,Nácori Chico,0,0
-03/07/2020,26018,Cajeme,286,11
-03/07/2020,26030,Hermosillo,205,9
-03/07/2020,26055,San Luis Río Colorado,123,1
-03/07/2020,26043,Nogales,124,5
-03/07/2020,26042,Navojoa,64,1
-03/07/2020,26029,Guaymas,47,5
-03/07/2020,26017,Caborca,24,0
-03/07/2020,26002,Agua Prieta,21,4
-03/07/2020,26026,Etchojoa,14,0
-03/07/2020,26036,Magdalena,12,0
-03/07/2020,26033,Huatabampo,12,1
-03/07/2020,26071,Benito Juárez,8,0
-03/07/2020,26019,Cananea,8,2
-03/07/2020,26025,Empalme,6,0
-03/07/2020,26072,San Ignacio Río Muerto,4,0
-03/07/2020,26070,General Plutarco Elías Calles,3,0
-03/07/2020,26035,Imuris,3,0
-03/07/2020,26058,Santa Ana,3,0
-03/07/2020,26004,Altar,2,0
-03/07/2020,26012,Bácum,2,0
-03/07/2020,26023,Cumpas,2,0
-03/07/2020,26027,Fronteras,2,0
-03/07/2020,26048,Puerto Peñasco,2,0
-03/07/2020,26052,Sahuaripa,2,0
-03/07/2020,26056,San Miguel de Horcasitas,2,0
-03/07/2020,26060,Sáric,2,0
-03/07/2020,26011,Bacoachi,1,0
-03/07/2020,26016,Benjamín Hill,1,0
-03/07/2020,26020,Carbó,1,0
-03/07/2020,26038,Moctezuma,1,0
-03/07/2020,26045,Opodepe,1,0
-03/07/2020,26047,Pitiquito,1,0
 03/07/2020,26040,Nácori Chico,1,1
-04/07/2020,26018,Cajeme,288,2
-04/07/2020,26030,Hermosillo,218,13
-04/07/2020,26043,Nogales,126,2
-04/07/2020,26055,San Luis Río Colorado,123,0
-04/07/2020,26042,Navojoa,64,0
-04/07/2020,26029,Guaymas,52,5
-04/07/2020,26017,Caborca,24,0
-04/07/2020,26002,Agua Prieta,22,1
-04/07/2020,26026,Etchojoa,14,0
-04/07/2020,26033,Huatabampo,12,0
-04/07/2020,26036,Magdalena,12,0
-04/07/2020,26071,Benito Juárez,8,0
-04/07/2020,26019,Cananea,8,0
-04/07/2020,26025,Empalme,7,1
-04/07/2020,26072,San Ignacio Río Muerto,5,1
-04/07/2020,26070,General Plutarco Elías Calles,4,1
-04/07/2020,26035,Imuris,3,0
-04/07/2020,26058,Santa Ana,3,0
-04/07/2020,26004,Altar,2,0
-04/07/2020,26012,Bácum,2,0
-04/07/2020,26023,Cumpas,2,0
-04/07/2020,26027,Fronteras,2,0
-04/07/2020,26048,Puerto Peñasco,2,0
-04/07/2020,26052,Sahuaripa,2,0
-04/07/2020,26056,San Miguel de Horcasitas,2,0
-04/07/2020,26060,Sáric,2,0
-04/07/2020,26011,Bacoachi,1,0
-04/07/2020,26016,Benjamín Hill,1,0
-04/07/2020,26020,Carbó,1,0
-04/07/2020,26038,Moctezuma,1,0
 04/07/2020,26040,Nácori Chico,1,0
+05/07/2020,26040,Nácori Chico,1,0
+04/04/2020,26042,Navojoa,0,0
+05/04/2020,26042,Navojoa,0,0
+06/04/2020,26042,Navojoa,0,0
+07/04/2020,26042,Navojoa,0,0
+08/04/2020,26042,Navojoa,0,0
+09/04/2020,26042,Navojoa,0,0
+10/04/2020,26042,Navojoa,0,0
+11/04/2020,26042,Navojoa,0,0
+12/04/2020,26042,Navojoa,0,0
+13/04/2020,26042,Navojoa,0,0
+14/04/2020,26042,Navojoa,0,0
+15/04/2020,26042,Navojoa,0,0
+16/04/2020,26042,Navojoa,0,0
+17/04/2020,26042,Navojoa,0,0
+18/04/2020,26042,Navojoa,0,0
+19/04/2020,26042,Navojoa,0,0
+20/04/2020,26042,Navojoa,0,0
+21/04/2020,26042,Navojoa,0,0
+22/04/2020,26042,Navojoa,0,0
+23/04/2020,26042,Navojoa,0,0
+24/04/2020,26042,Navojoa,0,0
+25/04/2020,26042,Navojoa,0,0
+26/04/2020,26042,Navojoa,0,0
+27/04/2020,26042,Navojoa,0,0
+28/04/2020,26042,Navojoa,0,0
+29/04/2020,26042,Navojoa,0,0
+30/04/2020,26042,Navojoa,0,0
+01/05/2020,26042,Navojoa,0,0
+02/05/2020,26042,Navojoa,0,0
+03/05/2020,26042,Navojoa,0,0
+04/05/2020,26042,Navojoa,0,0
+05/05/2020,26042,Navojoa,0,0
+06/05/2020,26042,Navojoa,0,0
+07/05/2020,26042,Navojoa,0,0
+08/05/2020,26042,Navojoa,0,0
+09/05/2020,26042,Navojoa,0,0
+10/05/2020,26042,Navojoa,1,1
+11/05/2020,26042,Navojoa,1,0
+12/05/2020,26042,Navojoa,1,0
+13/05/2020,26042,Navojoa,1,0
+14/05/2020,26042,Navojoa,1,0
+15/05/2020,26042,Navojoa,1,0
+16/05/2020,26042,Navojoa,1,0
+17/05/2020,26042,Navojoa,3,2
+18/05/2020,26042,Navojoa,3,0
+19/05/2020,26042,Navojoa,4,1
+20/05/2020,26042,Navojoa,4,0
+21/05/2020,26042,Navojoa,4,0
+22/05/2020,26042,Navojoa,4,0
+23/05/2020,26042,Navojoa,5,1
+24/05/2020,26042,Navojoa,6,1
+25/05/2020,26042,Navojoa,6,0
+26/05/2020,26042,Navojoa,8,2
+27/05/2020,26042,Navojoa,10,2
+28/05/2020,26042,Navojoa,10,0
+29/05/2020,26042,Navojoa,10,0
+30/05/2020,26042,Navojoa,11,1
+31/05/2020,26042,Navojoa,12,1
+01/06/2020,26042,Navojoa,14,2
+02/06/2020,26042,Navojoa,17,3
+03/06/2020,26042,Navojoa,19,2
+04/06/2020,26042,Navojoa,21,2
+05/06/2020,26042,Navojoa,21,0
+06/06/2020,26042,Navojoa,21,0
+07/06/2020,26042,Navojoa,24,3
+08/06/2020,26042,Navojoa,25,1
+09/06/2020,26042,Navojoa,26,1
+10/06/2020,26042,Navojoa,27,1
+11/06/2020,26042,Navojoa,29,2
+12/06/2020,26042,Navojoa,29,0
+13/06/2020,26042,Navojoa,31,2
+14/06/2020,26042,Navojoa,35,4
+15/06/2020,26042,Navojoa,35,0
+16/06/2020,26042,Navojoa,35,0
+17/06/2020,26042,Navojoa,35,0
+18/06/2020,26042,Navojoa,39,4
+19/06/2020,26042,Navojoa,42,3
+20/06/2020,26042,Navojoa,45,3
+21/06/2020,26042,Navojoa,46,1
+22/06/2020,26042,Navojoa,47,1
+23/06/2020,26042,Navojoa,47,0
+24/06/2020,26042,Navojoa,51,4
+25/06/2020,26042,Navojoa,51,0
+26/06/2020,26042,Navojoa,51,0
+27/06/2020,26042,Navojoa,61,10
+28/06/2020,26042,Navojoa,61,0
+29/06/2020,26042,Navojoa,62,1
+30/06/2020,26042,Navojoa,62,0
+01/07/2020,26042,Navojoa,63,1
+02/07/2020,26042,Navojoa,63,0
+03/07/2020,26042,Navojoa,64,1
+04/07/2020,26042,Navojoa,64,0
+05/07/2020,26042,Navojoa,66,2
+04/04/2020,26043,Nogales,0,0
+05/04/2020,26043,Nogales,0,0
+06/04/2020,26043,Nogales,0,0
+07/04/2020,26043,Nogales,0,0
+08/04/2020,26043,Nogales,0,0
+09/04/2020,26043,Nogales,0,0
+10/04/2020,26043,Nogales,0,0
+11/04/2020,26043,Nogales,0,0
+12/04/2020,26043,Nogales,1,1
+13/04/2020,26043,Nogales,1,0
+14/04/2020,26043,Nogales,1,0
+15/04/2020,26043,Nogales,1,0
+16/04/2020,26043,Nogales,1,0
+17/04/2020,26043,Nogales,1,0
+18/04/2020,26043,Nogales,1,0
+19/04/2020,26043,Nogales,1,0
+20/04/2020,26043,Nogales,2,1
+21/04/2020,26043,Nogales,2,0
+22/04/2020,26043,Nogales,2,0
+23/04/2020,26043,Nogales,2,0
+24/04/2020,26043,Nogales,2,0
+25/04/2020,26043,Nogales,2,0
+26/04/2020,26043,Nogales,2,0
+27/04/2020,26043,Nogales,2,0
+28/04/2020,26043,Nogales,2,0
+29/04/2020,26043,Nogales,2,0
+30/04/2020,26043,Nogales,3,1
+01/05/2020,26043,Nogales,3,0
+02/05/2020,26043,Nogales,3,0
+03/05/2020,26043,Nogales,3,0
+04/05/2020,26043,Nogales,4,1
+05/05/2020,26043,Nogales,4,0
+06/05/2020,26043,Nogales,5,1
+07/05/2020,26043,Nogales,5,0
+08/05/2020,26043,Nogales,5,0
+09/05/2020,26043,Nogales,5,0
+10/05/2020,26043,Nogales,5,0
+11/05/2020,26043,Nogales,5,0
+12/05/2020,26043,Nogales,5,0
+13/05/2020,26043,Nogales,5,0
+14/05/2020,26043,Nogales,5,0
+15/05/2020,26043,Nogales,5,0
+16/05/2020,26043,Nogales,5,0
+17/05/2020,26043,Nogales,5,0
+18/05/2020,26043,Nogales,6,1
+19/05/2020,26043,Nogales,6,0
+20/05/2020,26043,Nogales,7,1
+21/05/2020,26043,Nogales,8,1
+22/05/2020,26043,Nogales,8,0
+23/05/2020,26043,Nogales,12,4
+24/05/2020,26043,Nogales,13,1
+25/05/2020,26043,Nogales,13,0
+26/05/2020,26043,Nogales,14,1
+27/05/2020,26043,Nogales,16,2
+28/05/2020,26043,Nogales,19,3
+29/05/2020,26043,Nogales,20,1
+30/05/2020,26043,Nogales,20,0
+31/05/2020,26043,Nogales,23,3
+01/06/2020,26043,Nogales,23,0
+02/06/2020,26043,Nogales,29,6
+03/06/2020,26043,Nogales,31,2
+04/06/2020,26043,Nogales,33,2
+05/06/2020,26043,Nogales,36,3
+06/06/2020,26043,Nogales,36,0
+07/06/2020,26043,Nogales,36,0
+08/06/2020,26043,Nogales,39,3
+09/06/2020,26043,Nogales,42,3
+10/06/2020,26043,Nogales,45,3
+11/06/2020,26043,Nogales,50,5
+12/06/2020,26043,Nogales,60,10
+13/06/2020,26043,Nogales,60,0
+14/06/2020,26043,Nogales,60,0
+15/06/2020,26043,Nogales,64,4
+16/06/2020,26043,Nogales,68,4
+17/06/2020,26043,Nogales,72,4
+18/06/2020,26043,Nogales,72,0
+19/06/2020,26043,Nogales,75,3
+20/06/2020,26043,Nogales,76,1
+21/06/2020,26043,Nogales,76,0
+22/06/2020,26043,Nogales,78,2
+23/06/2020,26043,Nogales,81,3
+24/06/2020,26043,Nogales,86,5
+25/06/2020,26043,Nogales,90,4
+26/06/2020,26043,Nogales,100,10
+27/06/2020,26043,Nogales,103,3
+28/06/2020,26043,Nogales,104,1
+29/06/2020,26043,Nogales,107,3
+30/06/2020,26043,Nogales,115,8
+01/07/2020,26043,Nogales,115,0
+02/07/2020,26043,Nogales,119,4
+03/07/2020,26043,Nogales,124,5
+04/07/2020,26043,Nogales,126,2
+05/07/2020,26043,Nogales,130,4
+04/04/2020,26045,Opodepe,0,0
+05/04/2020,26045,Opodepe,0,0
+06/04/2020,26045,Opodepe,0,0
+07/04/2020,26045,Opodepe,0,0
+08/04/2020,26045,Opodepe,0,0
+09/04/2020,26045,Opodepe,0,0
+10/04/2020,26045,Opodepe,0,0
+11/04/2020,26045,Opodepe,0,0
+12/04/2020,26045,Opodepe,0,0
+13/04/2020,26045,Opodepe,0,0
+14/04/2020,26045,Opodepe,0,0
+15/04/2020,26045,Opodepe,0,0
+16/04/2020,26045,Opodepe,0,0
+17/04/2020,26045,Opodepe,0,0
+18/04/2020,26045,Opodepe,0,0
+19/04/2020,26045,Opodepe,0,0
+20/04/2020,26045,Opodepe,0,0
+21/04/2020,26045,Opodepe,0,0
+22/04/2020,26045,Opodepe,1,1
+23/04/2020,26045,Opodepe,1,0
+24/04/2020,26045,Opodepe,1,0
+25/04/2020,26045,Opodepe,1,0
+26/04/2020,26045,Opodepe,1,0
+27/04/2020,26045,Opodepe,1,0
+28/04/2020,26045,Opodepe,1,0
+29/04/2020,26045,Opodepe,1,0
+30/04/2020,26045,Opodepe,1,0
+01/05/2020,26045,Opodepe,1,0
+02/05/2020,26045,Opodepe,1,0
+03/05/2020,26045,Opodepe,1,0
+04/05/2020,26045,Opodepe,1,0
+05/05/2020,26045,Opodepe,1,0
+06/05/2020,26045,Opodepe,1,0
+07/05/2020,26045,Opodepe,1,0
+08/05/2020,26045,Opodepe,1,0
+09/05/2020,26045,Opodepe,1,0
+10/05/2020,26045,Opodepe,1,0
+11/05/2020,26045,Opodepe,1,0
+12/05/2020,26045,Opodepe,1,0
+13/05/2020,26045,Opodepe,1,0
+14/05/2020,26045,Opodepe,1,0
+15/05/2020,26045,Opodepe,1,0
+16/05/2020,26045,Opodepe,1,0
+17/05/2020,26045,Opodepe,1,0
+18/05/2020,26045,Opodepe,1,0
+19/05/2020,26045,Opodepe,1,0
+20/05/2020,26045,Opodepe,1,0
+21/05/2020,26045,Opodepe,1,0
+22/05/2020,26045,Opodepe,1,0
+23/05/2020,26045,Opodepe,1,0
+24/05/2020,26045,Opodepe,1,0
+25/05/2020,26045,Opodepe,1,0
+26/05/2020,26045,Opodepe,1,0
+27/05/2020,26045,Opodepe,1,0
+28/05/2020,26045,Opodepe,1,0
+29/05/2020,26045,Opodepe,1,0
+30/05/2020,26045,Opodepe,1,0
+31/05/2020,26045,Opodepe,1,0
+01/06/2020,26045,Opodepe,1,0
+02/06/2020,26045,Opodepe,1,0
+03/06/2020,26045,Opodepe,1,0
+04/06/2020,26045,Opodepe,1,0
+05/06/2020,26045,Opodepe,1,0
+06/06/2020,26045,Opodepe,1,0
+07/06/2020,26045,Opodepe,1,0
+08/06/2020,26045,Opodepe,1,0
+09/06/2020,26045,Opodepe,1,0
+10/06/2020,26045,Opodepe,1,0
+11/06/2020,26045,Opodepe,1,0
+12/06/2020,26045,Opodepe,1,0
+13/06/2020,26045,Opodepe,1,0
+14/06/2020,26045,Opodepe,1,0
+15/06/2020,26045,Opodepe,1,0
+16/06/2020,26045,Opodepe,1,0
+17/06/2020,26045,Opodepe,1,0
+18/06/2020,26045,Opodepe,1,0
+19/06/2020,26045,Opodepe,1,0
+20/06/2020,26045,Opodepe,1,0
+21/06/2020,26045,Opodepe,1,0
+22/06/2020,26045,Opodepe,1,0
+23/06/2020,26045,Opodepe,1,0
+24/06/2020,26045,Opodepe,1,0
+25/06/2020,26045,Opodepe,1,0
+26/06/2020,26045,Opodepe,1,0
+27/06/2020,26045,Opodepe,1,0
+28/06/2020,26045,Opodepe,1,0
+29/06/2020,26045,Opodepe,1,0
+30/06/2020,26045,Opodepe,1,0
+01/07/2020,26045,Opodepe,1,0
+02/07/2020,26045,Opodepe,1,0
+03/07/2020,26045,Opodepe,1,0
 04/07/2020,26045,Opodepe,1,0
+05/07/2020,26045,Opodepe,1,0
+04/04/2020,26047,Pitiquito,0,0
+05/04/2020,26047,Pitiquito,0,0
+06/04/2020,26047,Pitiquito,0,0
+07/04/2020,26047,Pitiquito,0,0
+08/04/2020,26047,Pitiquito,0,0
+09/04/2020,26047,Pitiquito,0,0
+10/04/2020,26047,Pitiquito,0,0
+11/04/2020,26047,Pitiquito,0,0
+12/04/2020,26047,Pitiquito,0,0
+13/04/2020,26047,Pitiquito,0,0
+14/04/2020,26047,Pitiquito,0,0
+15/04/2020,26047,Pitiquito,0,0
+16/04/2020,26047,Pitiquito,0,0
+17/04/2020,26047,Pitiquito,0,0
+18/04/2020,26047,Pitiquito,0,0
+19/04/2020,26047,Pitiquito,0,0
+20/04/2020,26047,Pitiquito,0,0
+21/04/2020,26047,Pitiquito,0,0
+22/04/2020,26047,Pitiquito,0,0
+23/04/2020,26047,Pitiquito,0,0
+24/04/2020,26047,Pitiquito,0,0
+25/04/2020,26047,Pitiquito,0,0
+26/04/2020,26047,Pitiquito,0,0
+27/04/2020,26047,Pitiquito,0,0
+28/04/2020,26047,Pitiquito,0,0
+29/04/2020,26047,Pitiquito,0,0
+30/04/2020,26047,Pitiquito,0,0
+01/05/2020,26047,Pitiquito,0,0
+02/05/2020,26047,Pitiquito,0,0
+03/05/2020,26047,Pitiquito,0,0
+04/05/2020,26047,Pitiquito,0,0
+05/05/2020,26047,Pitiquito,0,0
+06/05/2020,26047,Pitiquito,0,0
+07/05/2020,26047,Pitiquito,0,0
+08/05/2020,26047,Pitiquito,0,0
+09/05/2020,26047,Pitiquito,0,0
+10/05/2020,26047,Pitiquito,0,0
+11/05/2020,26047,Pitiquito,0,0
+12/05/2020,26047,Pitiquito,0,0
+13/05/2020,26047,Pitiquito,0,0
+14/05/2020,26047,Pitiquito,0,0
+15/05/2020,26047,Pitiquito,0,0
+16/05/2020,26047,Pitiquito,0,0
+17/05/2020,26047,Pitiquito,0,0
+18/05/2020,26047,Pitiquito,0,0
+19/05/2020,26047,Pitiquito,0,0
+20/05/2020,26047,Pitiquito,0,0
+21/05/2020,26047,Pitiquito,0,0
+22/05/2020,26047,Pitiquito,0,0
+23/05/2020,26047,Pitiquito,0,0
+24/05/2020,26047,Pitiquito,0,0
+25/05/2020,26047,Pitiquito,0,0
+26/05/2020,26047,Pitiquito,0,0
+27/05/2020,26047,Pitiquito,0,0
+28/05/2020,26047,Pitiquito,0,0
+29/05/2020,26047,Pitiquito,0,0
+30/05/2020,26047,Pitiquito,0,0
+31/05/2020,26047,Pitiquito,0,0
+01/06/2020,26047,Pitiquito,0,0
+02/06/2020,26047,Pitiquito,0,0
+03/06/2020,26047,Pitiquito,0,0
+04/06/2020,26047,Pitiquito,0,0
+05/06/2020,26047,Pitiquito,0,0
+06/06/2020,26047,Pitiquito,0,0
+07/06/2020,26047,Pitiquito,0,0
+08/06/2020,26047,Pitiquito,0,0
+09/06/2020,26047,Pitiquito,0,0
+10/06/2020,26047,Pitiquito,0,0
+11/06/2020,26047,Pitiquito,0,0
+12/06/2020,26047,Pitiquito,0,0
+13/06/2020,26047,Pitiquito,0,0
+14/06/2020,26047,Pitiquito,0,0
+15/06/2020,26047,Pitiquito,0,0
+16/06/2020,26047,Pitiquito,0,0
+17/06/2020,26047,Pitiquito,0,0
+18/06/2020,26047,Pitiquito,0,0
+19/06/2020,26047,Pitiquito,0,0
+20/06/2020,26047,Pitiquito,0,0
+21/06/2020,26047,Pitiquito,0,0
+22/06/2020,26047,Pitiquito,0,0
+23/06/2020,26047,Pitiquito,0,0
+24/06/2020,26047,Pitiquito,1,1
+25/06/2020,26047,Pitiquito,1,0
+26/06/2020,26047,Pitiquito,1,0
+27/06/2020,26047,Pitiquito,1,0
+28/06/2020,26047,Pitiquito,1,0
+29/06/2020,26047,Pitiquito,1,0
+30/06/2020,26047,Pitiquito,1,0
+01/07/2020,26047,Pitiquito,1,0
+02/07/2020,26047,Pitiquito,1,0
+03/07/2020,26047,Pitiquito,1,0
 04/07/2020,26047,Pitiquito,1,0
+05/07/2020,26047,Pitiquito,1,0
+04/04/2020,26048,Puerto Peñasco,0,0
+05/04/2020,26048,Puerto Peñasco,0,0
+06/04/2020,26048,Puerto Peñasco,0,0
+07/04/2020,26048,Puerto Peñasco,0,0
+08/04/2020,26048,Puerto Peñasco,0,0
+09/04/2020,26048,Puerto Peñasco,0,0
+10/04/2020,26048,Puerto Peñasco,0,0
+11/04/2020,26048,Puerto Peñasco,0,0
+12/04/2020,26048,Puerto Peñasco,0,0
+13/04/2020,26048,Puerto Peñasco,0,0
+14/04/2020,26048,Puerto Peñasco,0,0
+15/04/2020,26048,Puerto Peñasco,0,0
+16/04/2020,26048,Puerto Peñasco,0,0
+17/04/2020,26048,Puerto Peñasco,0,0
+18/04/2020,26048,Puerto Peñasco,0,0
+19/04/2020,26048,Puerto Peñasco,0,0
+20/04/2020,26048,Puerto Peñasco,0,0
+21/04/2020,26048,Puerto Peñasco,0,0
+22/04/2020,26048,Puerto Peñasco,0,0
+23/04/2020,26048,Puerto Peñasco,0,0
+24/04/2020,26048,Puerto Peñasco,0,0
+25/04/2020,26048,Puerto Peñasco,0,0
+26/04/2020,26048,Puerto Peñasco,0,0
+27/04/2020,26048,Puerto Peñasco,0,0
+28/04/2020,26048,Puerto Peñasco,0,0
+29/04/2020,26048,Puerto Peñasco,0,0
+30/04/2020,26048,Puerto Peñasco,0,0
+01/05/2020,26048,Puerto Peñasco,0,0
+02/05/2020,26048,Puerto Peñasco,0,0
+03/05/2020,26048,Puerto Peñasco,0,0
+04/05/2020,26048,Puerto Peñasco,0,0
+05/05/2020,26048,Puerto Peñasco,0,0
+06/05/2020,26048,Puerto Peñasco,0,0
+07/05/2020,26048,Puerto Peñasco,0,0
+08/05/2020,26048,Puerto Peñasco,0,0
+09/05/2020,26048,Puerto Peñasco,0,0
+10/05/2020,26048,Puerto Peñasco,0,0
+11/05/2020,26048,Puerto Peñasco,0,0
+12/05/2020,26048,Puerto Peñasco,0,0
+13/05/2020,26048,Puerto Peñasco,0,0
+14/05/2020,26048,Puerto Peñasco,0,0
+15/05/2020,26048,Puerto Peñasco,0,0
+16/05/2020,26048,Puerto Peñasco,0,0
+17/05/2020,26048,Puerto Peñasco,0,0
+18/05/2020,26048,Puerto Peñasco,0,0
+19/05/2020,26048,Puerto Peñasco,0,0
+20/05/2020,26048,Puerto Peñasco,0,0
+21/05/2020,26048,Puerto Peñasco,0,0
+22/05/2020,26048,Puerto Peñasco,0,0
+23/05/2020,26048,Puerto Peñasco,0,0
+24/05/2020,26048,Puerto Peñasco,0,0
+25/05/2020,26048,Puerto Peñasco,0,0
+26/05/2020,26048,Puerto Peñasco,0,0
+27/05/2020,26048,Puerto Peñasco,0,0
+28/05/2020,26048,Puerto Peñasco,0,0
+29/05/2020,26048,Puerto Peñasco,0,0
+30/05/2020,26048,Puerto Peñasco,0,0
+31/05/2020,26048,Puerto Peñasco,0,0
+01/06/2020,26048,Puerto Peñasco,1,1
+02/06/2020,26048,Puerto Peñasco,1,0
+03/06/2020,26048,Puerto Peñasco,1,0
+04/06/2020,26048,Puerto Peñasco,1,0
+05/06/2020,26048,Puerto Peñasco,1,0
+06/06/2020,26048,Puerto Peñasco,1,0
+07/06/2020,26048,Puerto Peñasco,1,0
+08/06/2020,26048,Puerto Peñasco,1,0
+09/06/2020,26048,Puerto Peñasco,1,0
+10/06/2020,26048,Puerto Peñasco,1,0
+11/06/2020,26048,Puerto Peñasco,1,0
+12/06/2020,26048,Puerto Peñasco,1,0
+13/06/2020,26048,Puerto Peñasco,1,0
+14/06/2020,26048,Puerto Peñasco,1,0
+15/06/2020,26048,Puerto Peñasco,1,0
+16/06/2020,26048,Puerto Peñasco,1,0
+17/06/2020,26048,Puerto Peñasco,1,0
+18/06/2020,26048,Puerto Peñasco,1,0
+19/06/2020,26048,Puerto Peñasco,1,0
+20/06/2020,26048,Puerto Peñasco,1,0
+21/06/2020,26048,Puerto Peñasco,1,0
+22/06/2020,26048,Puerto Peñasco,1,0
+23/06/2020,26048,Puerto Peñasco,1,0
+24/06/2020,26048,Puerto Peñasco,1,0
+25/06/2020,26048,Puerto Peñasco,1,0
+26/06/2020,26048,Puerto Peñasco,1,0
+27/06/2020,26048,Puerto Peñasco,1,0
+28/06/2020,26048,Puerto Peñasco,1,0
+29/06/2020,26048,Puerto Peñasco,1,0
+30/06/2020,26048,Puerto Peñasco,1,0
+01/07/2020,26048,Puerto Peñasco,1,0
+02/07/2020,26048,Puerto Peñasco,2,1
+03/07/2020,26048,Puerto Peñasco,2,0
+04/07/2020,26048,Puerto Peñasco,2,0
+05/07/2020,26048,Puerto Peñasco,2,0
+04/04/2020,26052,Sahuaripa,0,0
+05/04/2020,26052,Sahuaripa,0,0
+06/04/2020,26052,Sahuaripa,0,0
+07/04/2020,26052,Sahuaripa,0,0
+08/04/2020,26052,Sahuaripa,0,0
+09/04/2020,26052,Sahuaripa,0,0
+10/04/2020,26052,Sahuaripa,0,0
+11/04/2020,26052,Sahuaripa,0,0
+12/04/2020,26052,Sahuaripa,0,0
+13/04/2020,26052,Sahuaripa,0,0
+14/04/2020,26052,Sahuaripa,0,0
+15/04/2020,26052,Sahuaripa,0,0
+16/04/2020,26052,Sahuaripa,0,0
+17/04/2020,26052,Sahuaripa,0,0
+18/04/2020,26052,Sahuaripa,0,0
+19/04/2020,26052,Sahuaripa,0,0
+20/04/2020,26052,Sahuaripa,0,0
+21/04/2020,26052,Sahuaripa,0,0
+22/04/2020,26052,Sahuaripa,0,0
+23/04/2020,26052,Sahuaripa,0,0
+24/04/2020,26052,Sahuaripa,0,0
+25/04/2020,26052,Sahuaripa,0,0
+26/04/2020,26052,Sahuaripa,0,0
+27/04/2020,26052,Sahuaripa,0,0
+28/04/2020,26052,Sahuaripa,0,0
+29/04/2020,26052,Sahuaripa,0,0
+30/04/2020,26052,Sahuaripa,0,0
+01/05/2020,26052,Sahuaripa,0,0
+02/05/2020,26052,Sahuaripa,0,0
+03/05/2020,26052,Sahuaripa,0,0
+04/05/2020,26052,Sahuaripa,0,0
+05/05/2020,26052,Sahuaripa,0,0
+06/05/2020,26052,Sahuaripa,0,0
+07/05/2020,26052,Sahuaripa,0,0
+08/05/2020,26052,Sahuaripa,0,0
+09/05/2020,26052,Sahuaripa,0,0
+10/05/2020,26052,Sahuaripa,0,0
+11/05/2020,26052,Sahuaripa,0,0
+12/05/2020,26052,Sahuaripa,0,0
+13/05/2020,26052,Sahuaripa,0,0
+14/05/2020,26052,Sahuaripa,0,0
+15/05/2020,26052,Sahuaripa,0,0
+16/05/2020,26052,Sahuaripa,0,0
+17/05/2020,26052,Sahuaripa,0,0
+18/05/2020,26052,Sahuaripa,0,0
+19/05/2020,26052,Sahuaripa,0,0
+20/05/2020,26052,Sahuaripa,0,0
+21/05/2020,26052,Sahuaripa,0,0
+22/05/2020,26052,Sahuaripa,0,0
+23/05/2020,26052,Sahuaripa,0,0
+24/05/2020,26052,Sahuaripa,0,0
+25/05/2020,26052,Sahuaripa,0,0
+26/05/2020,26052,Sahuaripa,0,0
+27/05/2020,26052,Sahuaripa,0,0
+28/05/2020,26052,Sahuaripa,0,0
+29/05/2020,26052,Sahuaripa,0,0
+30/05/2020,26052,Sahuaripa,0,0
+31/05/2020,26052,Sahuaripa,0,0
+01/06/2020,26052,Sahuaripa,0,0
+02/06/2020,26052,Sahuaripa,0,0
+03/06/2020,26052,Sahuaripa,0,0
+04/06/2020,26052,Sahuaripa,0,0
+05/06/2020,26052,Sahuaripa,0,0
+06/06/2020,26052,Sahuaripa,0,0
+07/06/2020,26052,Sahuaripa,0,0
+08/06/2020,26052,Sahuaripa,0,0
+09/06/2020,26052,Sahuaripa,0,0
+10/06/2020,26052,Sahuaripa,0,0
+11/06/2020,26052,Sahuaripa,0,0
+12/06/2020,26052,Sahuaripa,0,0
+13/06/2020,26052,Sahuaripa,0,0
+14/06/2020,26052,Sahuaripa,0,0
+15/06/2020,26052,Sahuaripa,0,0
+16/06/2020,26052,Sahuaripa,1,1
+17/06/2020,26052,Sahuaripa,1,0
+18/06/2020,26052,Sahuaripa,1,0
+19/06/2020,26052,Sahuaripa,1,0
+20/06/2020,26052,Sahuaripa,1,0
+21/06/2020,26052,Sahuaripa,1,0
+22/06/2020,26052,Sahuaripa,1,0
+23/06/2020,26052,Sahuaripa,1,0
+24/06/2020,26052,Sahuaripa,2,1
+25/06/2020,26052,Sahuaripa,2,0
+26/06/2020,26052,Sahuaripa,2,0
+27/06/2020,26052,Sahuaripa,2,0
+28/06/2020,26052,Sahuaripa,2,0
+29/06/2020,26052,Sahuaripa,2,0
+30/06/2020,26052,Sahuaripa,2,0
+01/07/2020,26052,Sahuaripa,2,0
+02/07/2020,26052,Sahuaripa,2,0
+03/07/2020,26052,Sahuaripa,2,0
+04/07/2020,26052,Sahuaripa,2,0
+05/07/2020,26052,Sahuaripa,2,0
+04/04/2020,26072,San Ignacio Río Muerto,0,0
+05/04/2020,26072,San Ignacio Río Muerto,0,0
+06/04/2020,26072,San Ignacio Río Muerto,0,0
+07/04/2020,26072,San Ignacio Río Muerto,0,0
+08/04/2020,26072,San Ignacio Río Muerto,0,0
+09/04/2020,26072,San Ignacio Río Muerto,0,0
+10/04/2020,26072,San Ignacio Río Muerto,0,0
+11/04/2020,26072,San Ignacio Río Muerto,0,0
+12/04/2020,26072,San Ignacio Río Muerto,0,0
+13/04/2020,26072,San Ignacio Río Muerto,0,0
+14/04/2020,26072,San Ignacio Río Muerto,0,0
+15/04/2020,26072,San Ignacio Río Muerto,0,0
+16/04/2020,26072,San Ignacio Río Muerto,0,0
+17/04/2020,26072,San Ignacio Río Muerto,0,0
+18/04/2020,26072,San Ignacio Río Muerto,0,0
+19/04/2020,26072,San Ignacio Río Muerto,0,0
+20/04/2020,26072,San Ignacio Río Muerto,0,0
+21/04/2020,26072,San Ignacio Río Muerto,0,0
+22/04/2020,26072,San Ignacio Río Muerto,0,0
+23/04/2020,26072,San Ignacio Río Muerto,0,0
+24/04/2020,26072,San Ignacio Río Muerto,0,0
+25/04/2020,26072,San Ignacio Río Muerto,0,0
+26/04/2020,26072,San Ignacio Río Muerto,0,0
+27/04/2020,26072,San Ignacio Río Muerto,0,0
+28/04/2020,26072,San Ignacio Río Muerto,0,0
+29/04/2020,26072,San Ignacio Río Muerto,0,0
+30/04/2020,26072,San Ignacio Río Muerto,0,0
+01/05/2020,26072,San Ignacio Río Muerto,0,0
+02/05/2020,26072,San Ignacio Río Muerto,0,0
+03/05/2020,26072,San Ignacio Río Muerto,0,0
+04/05/2020,26072,San Ignacio Río Muerto,0,0
+05/05/2020,26072,San Ignacio Río Muerto,0,0
+06/05/2020,26072,San Ignacio Río Muerto,0,0
+07/05/2020,26072,San Ignacio Río Muerto,0,0
+08/05/2020,26072,San Ignacio Río Muerto,0,0
+09/05/2020,26072,San Ignacio Río Muerto,0,0
+10/05/2020,26072,San Ignacio Río Muerto,0,0
+11/05/2020,26072,San Ignacio Río Muerto,0,0
+12/05/2020,26072,San Ignacio Río Muerto,0,0
+13/05/2020,26072,San Ignacio Río Muerto,0,0
+14/05/2020,26072,San Ignacio Río Muerto,0,0
+15/05/2020,26072,San Ignacio Río Muerto,0,0
+16/05/2020,26072,San Ignacio Río Muerto,0,0
+17/05/2020,26072,San Ignacio Río Muerto,0,0
+18/05/2020,26072,San Ignacio Río Muerto,0,0
+19/05/2020,26072,San Ignacio Río Muerto,0,0
+20/05/2020,26072,San Ignacio Río Muerto,0,0
+21/05/2020,26072,San Ignacio Río Muerto,0,0
+22/05/2020,26072,San Ignacio Río Muerto,0,0
+23/05/2020,26072,San Ignacio Río Muerto,0,0
+24/05/2020,26072,San Ignacio Río Muerto,0,0
+25/05/2020,26072,San Ignacio Río Muerto,0,0
+26/05/2020,26072,San Ignacio Río Muerto,0,0
+27/05/2020,26072,San Ignacio Río Muerto,0,0
+28/05/2020,26072,San Ignacio Río Muerto,0,0
+29/05/2020,26072,San Ignacio Río Muerto,0,0
+30/05/2020,26072,San Ignacio Río Muerto,0,0
+31/05/2020,26072,San Ignacio Río Muerto,0,0
+01/06/2020,26072,San Ignacio Río Muerto,0,0
+02/06/2020,26072,San Ignacio Río Muerto,0,0
+03/06/2020,26072,San Ignacio Río Muerto,0,0
+04/06/2020,26072,San Ignacio Río Muerto,0,0
+05/06/2020,26072,San Ignacio Río Muerto,0,0
+06/06/2020,26072,San Ignacio Río Muerto,0,0
+07/06/2020,26072,San Ignacio Río Muerto,0,0
+08/06/2020,26072,San Ignacio Río Muerto,0,0
+09/06/2020,26072,San Ignacio Río Muerto,0,0
+10/06/2020,26072,San Ignacio Río Muerto,0,0
+11/06/2020,26072,San Ignacio Río Muerto,0,0
+12/06/2020,26072,San Ignacio Río Muerto,0,0
+13/06/2020,26072,San Ignacio Río Muerto,0,0
+14/06/2020,26072,San Ignacio Río Muerto,1,1
+15/06/2020,26072,San Ignacio Río Muerto,1,0
+16/06/2020,26072,San Ignacio Río Muerto,1,0
+17/06/2020,26072,San Ignacio Río Muerto,2,1
+18/06/2020,26072,San Ignacio Río Muerto,2,0
+19/06/2020,26072,San Ignacio Río Muerto,3,1
+20/06/2020,26072,San Ignacio Río Muerto,3,0
+21/06/2020,26072,San Ignacio Río Muerto,3,0
+22/06/2020,26072,San Ignacio Río Muerto,3,0
+23/06/2020,26072,San Ignacio Río Muerto,4,1
+24/06/2020,26072,San Ignacio Río Muerto,4,0
+25/06/2020,26072,San Ignacio Río Muerto,4,0
+26/06/2020,26072,San Ignacio Río Muerto,4,0
+27/06/2020,26072,San Ignacio Río Muerto,4,0
+28/06/2020,26072,San Ignacio Río Muerto,4,0
+29/06/2020,26072,San Ignacio Río Muerto,4,0
+30/06/2020,26072,San Ignacio Río Muerto,4,0
+01/07/2020,26072,San Ignacio Río Muerto,4,0
+02/07/2020,26072,San Ignacio Río Muerto,4,0
+03/07/2020,26072,San Ignacio Río Muerto,4,0
+04/07/2020,26072,San Ignacio Río Muerto,5,1
+05/07/2020,26072,San Ignacio Río Muerto,5,0
+04/04/2020,26055,San Luis Río Colorado,0,0
+05/04/2020,26055,San Luis Río Colorado,0,0
+06/04/2020,26055,San Luis Río Colorado,2,2
+07/04/2020,26055,San Luis Río Colorado,2,0
+08/04/2020,26055,San Luis Río Colorado,2,0
+09/04/2020,26055,San Luis Río Colorado,2,0
+10/04/2020,26055,San Luis Río Colorado,2,0
+11/04/2020,26055,San Luis Río Colorado,2,0
+12/04/2020,26055,San Luis Río Colorado,2,0
+13/04/2020,26055,San Luis Río Colorado,2,0
+14/04/2020,26055,San Luis Río Colorado,2,0
+15/04/2020,26055,San Luis Río Colorado,2,0
+16/04/2020,26055,San Luis Río Colorado,4,2
+17/04/2020,26055,San Luis Río Colorado,4,0
+18/04/2020,26055,San Luis Río Colorado,4,0
+19/04/2020,26055,San Luis Río Colorado,4,0
+20/04/2020,26055,San Luis Río Colorado,4,0
+21/04/2020,26055,San Luis Río Colorado,4,0
+22/04/2020,26055,San Luis Río Colorado,6,2
+23/04/2020,26055,San Luis Río Colorado,6,0
+24/04/2020,26055,San Luis Río Colorado,7,1
+25/04/2020,26055,San Luis Río Colorado,8,1
+26/04/2020,26055,San Luis Río Colorado,8,0
+27/04/2020,26055,San Luis Río Colorado,12,4
+28/04/2020,26055,San Luis Río Colorado,12,0
+29/04/2020,26055,San Luis Río Colorado,12,0
+30/04/2020,26055,San Luis Río Colorado,13,1
+01/05/2020,26055,San Luis Río Colorado,14,1
+02/05/2020,26055,San Luis Río Colorado,14,0
+03/05/2020,26055,San Luis Río Colorado,16,2
+04/05/2020,26055,San Luis Río Colorado,18,2
+05/05/2020,26055,San Luis Río Colorado,18,0
+06/05/2020,26055,San Luis Río Colorado,19,1
+07/05/2020,26055,San Luis Río Colorado,19,0
+08/05/2020,26055,San Luis Río Colorado,19,0
+09/05/2020,26055,San Luis Río Colorado,19,0
+10/05/2020,26055,San Luis Río Colorado,19,0
+11/05/2020,26055,San Luis Río Colorado,20,1
+12/05/2020,26055,San Luis Río Colorado,21,1
+13/05/2020,26055,San Luis Río Colorado,23,2
+14/05/2020,26055,San Luis Río Colorado,23,0
+15/05/2020,26055,San Luis Río Colorado,27,4
+16/05/2020,26055,San Luis Río Colorado,28,1
+17/05/2020,26055,San Luis Río Colorado,28,0
+18/05/2020,26055,San Luis Río Colorado,31,3
+19/05/2020,26055,San Luis Río Colorado,32,1
+20/05/2020,26055,San Luis Río Colorado,32,0
+21/05/2020,26055,San Luis Río Colorado,32,0
+22/05/2020,26055,San Luis Río Colorado,32,0
+23/05/2020,26055,San Luis Río Colorado,32,0
+24/05/2020,26055,San Luis Río Colorado,39,7
+25/05/2020,26055,San Luis Río Colorado,40,1
+26/05/2020,26055,San Luis Río Colorado,41,1
+27/05/2020,26055,San Luis Río Colorado,46,5
+28/05/2020,26055,San Luis Río Colorado,48,2
+29/05/2020,26055,San Luis Río Colorado,50,2
+30/05/2020,26055,San Luis Río Colorado,50,0
+31/05/2020,26055,San Luis Río Colorado,54,4
+01/06/2020,26055,San Luis Río Colorado,59,5
+02/06/2020,26055,San Luis Río Colorado,62,3
+03/06/2020,26055,San Luis Río Colorado,67,5
+04/06/2020,26055,San Luis Río Colorado,68,1
+05/06/2020,26055,San Luis Río Colorado,73,5
+06/06/2020,26055,San Luis Río Colorado,74,1
+07/06/2020,26055,San Luis Río Colorado,74,0
+08/06/2020,26055,San Luis Río Colorado,74,0
+09/06/2020,26055,San Luis Río Colorado,75,1
+10/06/2020,26055,San Luis Río Colorado,78,3
+11/06/2020,26055,San Luis Río Colorado,82,4
+12/06/2020,26055,San Luis Río Colorado,82,0
+13/06/2020,26055,San Luis Río Colorado,82,0
+14/06/2020,26055,San Luis Río Colorado,83,1
+15/06/2020,26055,San Luis Río Colorado,84,1
+16/06/2020,26055,San Luis Río Colorado,94,10
+17/06/2020,26055,San Luis Río Colorado,99,5
+18/06/2020,26055,San Luis Río Colorado,99,0
+19/06/2020,26055,San Luis Río Colorado,99,0
+20/06/2020,26055,San Luis Río Colorado,101,2
+21/06/2020,26055,San Luis Río Colorado,101,0
+22/06/2020,26055,San Luis Río Colorado,101,0
+23/06/2020,26055,San Luis Río Colorado,101,0
+24/06/2020,26055,San Luis Río Colorado,105,4
+25/06/2020,26055,San Luis Río Colorado,107,2
+26/06/2020,26055,San Luis Río Colorado,109,2
+27/06/2020,26055,San Luis Río Colorado,113,4
+28/06/2020,26055,San Luis Río Colorado,116,3
+29/06/2020,26055,San Luis Río Colorado,119,3
+30/06/2020,26055,San Luis Río Colorado,119,0
+01/07/2020,26055,San Luis Río Colorado,119,0
+02/07/2020,26055,San Luis Río Colorado,122,3
+03/07/2020,26055,San Luis Río Colorado,123,1
+04/07/2020,26055,San Luis Río Colorado,123,0
+05/07/2020,26055,San Luis Río Colorado,124,1
+04/04/2020,26056,San Miguel de Horcasitas,0,0
+05/04/2020,26056,San Miguel de Horcasitas,0,0
+06/04/2020,26056,San Miguel de Horcasitas,0,0
+07/04/2020,26056,San Miguel de Horcasitas,0,0
+08/04/2020,26056,San Miguel de Horcasitas,0,0
+09/04/2020,26056,San Miguel de Horcasitas,0,0
+10/04/2020,26056,San Miguel de Horcasitas,0,0
+11/04/2020,26056,San Miguel de Horcasitas,0,0
+12/04/2020,26056,San Miguel de Horcasitas,0,0
+13/04/2020,26056,San Miguel de Horcasitas,0,0
+14/04/2020,26056,San Miguel de Horcasitas,0,0
+15/04/2020,26056,San Miguel de Horcasitas,0,0
+16/04/2020,26056,San Miguel de Horcasitas,0,0
+17/04/2020,26056,San Miguel de Horcasitas,0,0
+18/04/2020,26056,San Miguel de Horcasitas,0,0
+19/04/2020,26056,San Miguel de Horcasitas,0,0
+20/04/2020,26056,San Miguel de Horcasitas,0,0
+21/04/2020,26056,San Miguel de Horcasitas,0,0
+22/04/2020,26056,San Miguel de Horcasitas,0,0
+23/04/2020,26056,San Miguel de Horcasitas,0,0
+24/04/2020,26056,San Miguel de Horcasitas,0,0
+25/04/2020,26056,San Miguel de Horcasitas,0,0
+26/04/2020,26056,San Miguel de Horcasitas,0,0
+27/04/2020,26056,San Miguel de Horcasitas,0,0
+28/04/2020,26056,San Miguel de Horcasitas,0,0
+29/04/2020,26056,San Miguel de Horcasitas,0,0
+30/04/2020,26056,San Miguel de Horcasitas,0,0
+01/05/2020,26056,San Miguel de Horcasitas,0,0
+02/05/2020,26056,San Miguel de Horcasitas,0,0
+03/05/2020,26056,San Miguel de Horcasitas,0,0
+04/05/2020,26056,San Miguel de Horcasitas,0,0
+05/05/2020,26056,San Miguel de Horcasitas,0,0
+06/05/2020,26056,San Miguel de Horcasitas,0,0
+07/05/2020,26056,San Miguel de Horcasitas,0,0
+08/05/2020,26056,San Miguel de Horcasitas,0,0
+09/05/2020,26056,San Miguel de Horcasitas,0,0
+10/05/2020,26056,San Miguel de Horcasitas,0,0
+11/05/2020,26056,San Miguel de Horcasitas,0,0
+12/05/2020,26056,San Miguel de Horcasitas,0,0
+13/05/2020,26056,San Miguel de Horcasitas,0,0
+14/05/2020,26056,San Miguel de Horcasitas,0,0
+15/05/2020,26056,San Miguel de Horcasitas,0,0
+16/05/2020,26056,San Miguel de Horcasitas,0,0
+17/05/2020,26056,San Miguel de Horcasitas,0,0
+18/05/2020,26056,San Miguel de Horcasitas,0,0
+19/05/2020,26056,San Miguel de Horcasitas,0,0
+20/05/2020,26056,San Miguel de Horcasitas,0,0
+21/05/2020,26056,San Miguel de Horcasitas,0,0
+22/05/2020,26056,San Miguel de Horcasitas,0,0
+23/05/2020,26056,San Miguel de Horcasitas,0,0
+24/05/2020,26056,San Miguel de Horcasitas,0,0
+25/05/2020,26056,San Miguel de Horcasitas,0,0
+26/05/2020,26056,San Miguel de Horcasitas,0,0
+27/05/2020,26056,San Miguel de Horcasitas,0,0
+28/05/2020,26056,San Miguel de Horcasitas,0,0
+29/05/2020,26056,San Miguel de Horcasitas,0,0
+30/05/2020,26056,San Miguel de Horcasitas,0,0
+31/05/2020,26056,San Miguel de Horcasitas,0,0
+01/06/2020,26056,San Miguel de Horcasitas,0,0
+02/06/2020,26056,San Miguel de Horcasitas,0,0
+03/06/2020,26056,San Miguel de Horcasitas,0,0
+04/06/2020,26056,San Miguel de Horcasitas,0,0
+05/06/2020,26056,San Miguel de Horcasitas,0,0
+06/06/2020,26056,San Miguel de Horcasitas,0,0
+07/06/2020,26056,San Miguel de Horcasitas,0,0
+08/06/2020,26056,San Miguel de Horcasitas,0,0
+09/06/2020,26056,San Miguel de Horcasitas,0,0
+10/06/2020,26056,San Miguel de Horcasitas,0,0
+11/06/2020,26056,San Miguel de Horcasitas,0,0
+12/06/2020,26056,San Miguel de Horcasitas,0,0
+13/06/2020,26056,San Miguel de Horcasitas,0,0
+14/06/2020,26056,San Miguel de Horcasitas,0,0
+15/06/2020,26056,San Miguel de Horcasitas,0,0
+16/06/2020,26056,San Miguel de Horcasitas,1,1
+17/06/2020,26056,San Miguel de Horcasitas,1,0
+18/06/2020,26056,San Miguel de Horcasitas,1,0
+19/06/2020,26056,San Miguel de Horcasitas,1,0
+20/06/2020,26056,San Miguel de Horcasitas,1,0
+21/06/2020,26056,San Miguel de Horcasitas,2,1
+22/06/2020,26056,San Miguel de Horcasitas,2,0
+23/06/2020,26056,San Miguel de Horcasitas,2,0
+24/06/2020,26056,San Miguel de Horcasitas,2,0
+25/06/2020,26056,San Miguel de Horcasitas,2,0
+26/06/2020,26056,San Miguel de Horcasitas,2,0
+27/06/2020,26056,San Miguel de Horcasitas,2,0
+28/06/2020,26056,San Miguel de Horcasitas,2,0
+29/06/2020,26056,San Miguel de Horcasitas,2,0
+30/06/2020,26056,San Miguel de Horcasitas,2,0
+01/07/2020,26056,San Miguel de Horcasitas,2,0
+02/07/2020,26056,San Miguel de Horcasitas,2,0
+03/07/2020,26056,San Miguel de Horcasitas,2,0
+04/07/2020,26056,San Miguel de Horcasitas,2,0
+05/07/2020,26056,San Miguel de Horcasitas,2,0
+04/04/2020,26058,Santa Ana,0,0
+05/04/2020,26058,Santa Ana,0,0
+06/04/2020,26058,Santa Ana,0,0
+07/04/2020,26058,Santa Ana,0,0
+08/04/2020,26058,Santa Ana,0,0
+09/04/2020,26058,Santa Ana,0,0
+10/04/2020,26058,Santa Ana,0,0
+11/04/2020,26058,Santa Ana,0,0
+12/04/2020,26058,Santa Ana,0,0
+13/04/2020,26058,Santa Ana,0,0
+14/04/2020,26058,Santa Ana,0,0
+15/04/2020,26058,Santa Ana,0,0
+16/04/2020,26058,Santa Ana,0,0
+17/04/2020,26058,Santa Ana,0,0
+18/04/2020,26058,Santa Ana,0,0
+19/04/2020,26058,Santa Ana,0,0
+20/04/2020,26058,Santa Ana,0,0
+21/04/2020,26058,Santa Ana,0,0
+22/04/2020,26058,Santa Ana,0,0
+23/04/2020,26058,Santa Ana,0,0
+24/04/2020,26058,Santa Ana,0,0
+25/04/2020,26058,Santa Ana,0,0
+26/04/2020,26058,Santa Ana,0,0
+27/04/2020,26058,Santa Ana,0,0
+28/04/2020,26058,Santa Ana,0,0
+29/04/2020,26058,Santa Ana,0,0
+30/04/2020,26058,Santa Ana,0,0
+01/05/2020,26058,Santa Ana,0,0
+02/05/2020,26058,Santa Ana,0,0
+03/05/2020,26058,Santa Ana,0,0
+04/05/2020,26058,Santa Ana,0,0
+05/05/2020,26058,Santa Ana,0,0
+06/05/2020,26058,Santa Ana,0,0
+07/05/2020,26058,Santa Ana,1,1
+08/05/2020,26058,Santa Ana,1,0
+09/05/2020,26058,Santa Ana,1,0
+10/05/2020,26058,Santa Ana,1,0
+11/05/2020,26058,Santa Ana,1,0
+12/05/2020,26058,Santa Ana,1,0
+13/05/2020,26058,Santa Ana,1,0
+14/05/2020,26058,Santa Ana,1,0
+15/05/2020,26058,Santa Ana,1,0
+16/05/2020,26058,Santa Ana,1,0
+17/05/2020,26058,Santa Ana,1,0
+18/05/2020,26058,Santa Ana,1,0
+19/05/2020,26058,Santa Ana,1,0
+20/05/2020,26058,Santa Ana,1,0
+21/05/2020,26058,Santa Ana,1,0
+22/05/2020,26058,Santa Ana,1,0
+23/05/2020,26058,Santa Ana,1,0
+24/05/2020,26058,Santa Ana,1,0
+25/05/2020,26058,Santa Ana,1,0
+26/05/2020,26058,Santa Ana,1,0
+27/05/2020,26058,Santa Ana,1,0
+28/05/2020,26058,Santa Ana,1,0
+29/05/2020,26058,Santa Ana,1,0
+30/05/2020,26058,Santa Ana,1,0
+31/05/2020,26058,Santa Ana,1,0
+01/06/2020,26058,Santa Ana,1,0
+02/06/2020,26058,Santa Ana,1,0
+03/06/2020,26058,Santa Ana,1,0
+04/06/2020,26058,Santa Ana,1,0
+05/06/2020,26058,Santa Ana,1,0
+06/06/2020,26058,Santa Ana,1,0
+07/06/2020,26058,Santa Ana,1,0
+08/06/2020,26058,Santa Ana,1,0
+09/06/2020,26058,Santa Ana,1,0
+10/06/2020,26058,Santa Ana,1,0
+11/06/2020,26058,Santa Ana,1,0
+12/06/2020,26058,Santa Ana,1,0
+13/06/2020,26058,Santa Ana,1,0
+14/06/2020,26058,Santa Ana,1,0
+15/06/2020,26058,Santa Ana,1,0
+16/06/2020,26058,Santa Ana,1,0
+17/06/2020,26058,Santa Ana,1,0
+18/06/2020,26058,Santa Ana,1,0
+19/06/2020,26058,Santa Ana,1,0
+20/06/2020,26058,Santa Ana,1,0
+21/06/2020,26058,Santa Ana,1,0
+22/06/2020,26058,Santa Ana,1,0
+23/06/2020,26058,Santa Ana,1,0
+24/06/2020,26058,Santa Ana,1,0
+25/06/2020,26058,Santa Ana,1,0
+26/06/2020,26058,Santa Ana,2,1
+27/06/2020,26058,Santa Ana,2,0
+28/06/2020,26058,Santa Ana,2,0
+29/06/2020,26058,Santa Ana,2,0
+30/06/2020,26058,Santa Ana,2,0
+01/07/2020,26058,Santa Ana,3,1
+02/07/2020,26058,Santa Ana,3,0
+03/07/2020,26058,Santa Ana,3,0
+04/07/2020,26058,Santa Ana,3,0
+05/07/2020,26058,Santa Ana,3,0
+04/04/2020,26060,Sáric,0,0
+05/04/2020,26060,Sáric,0,0
+06/04/2020,26060,Sáric,0,0
+07/04/2020,26060,Sáric,1,1
+08/04/2020,26060,Sáric,1,0
+09/04/2020,26060,Sáric,1,0
+10/04/2020,26060,Sáric,1,0
+11/04/2020,26060,Sáric,1,0
+12/04/2020,26060,Sáric,2,1
+13/04/2020,26060,Sáric,2,0
+14/04/2020,26060,Sáric,2,0
+15/04/2020,26060,Sáric,2,0
+16/04/2020,26060,Sáric,2,0
+17/04/2020,26060,Sáric,2,0
+18/04/2020,26060,Sáric,2,0
+19/04/2020,26060,Sáric,2,0
+20/04/2020,26060,Sáric,2,0
+21/04/2020,26060,Sáric,2,0
+22/04/2020,26060,Sáric,2,0
+23/04/2020,26060,Sáric,2,0
+24/04/2020,26060,Sáric,2,0
+25/04/2020,26060,Sáric,2,0
+26/04/2020,26060,Sáric,2,0
+27/04/2020,26060,Sáric,2,0
+28/04/2020,26060,Sáric,2,0
+29/04/2020,26060,Sáric,2,0
+30/04/2020,26060,Sáric,2,0
+01/05/2020,26060,Sáric,2,0
+02/05/2020,26060,Sáric,2,0
+03/05/2020,26060,Sáric,2,0
+04/05/2020,26060,Sáric,2,0
+05/05/2020,26060,Sáric,2,0
+06/05/2020,26060,Sáric,2,0
+07/05/2020,26060,Sáric,2,0
+08/05/2020,26060,Sáric,2,0
+09/05/2020,26060,Sáric,2,0
+10/05/2020,26060,Sáric,2,0
+11/05/2020,26060,Sáric,2,0
+12/05/2020,26060,Sáric,2,0
+13/05/2020,26060,Sáric,2,0
+14/05/2020,26060,Sáric,2,0
+15/05/2020,26060,Sáric,2,0
+16/05/2020,26060,Sáric,2,0
+17/05/2020,26060,Sáric,2,0
+18/05/2020,26060,Sáric,2,0
+19/05/2020,26060,Sáric,2,0
+20/05/2020,26060,Sáric,2,0
+21/05/2020,26060,Sáric,2,0
+22/05/2020,26060,Sáric,2,0
+23/05/2020,26060,Sáric,2,0
+24/05/2020,26060,Sáric,2,0
+25/05/2020,26060,Sáric,2,0
+26/05/2020,26060,Sáric,2,0
+27/05/2020,26060,Sáric,2,0
+28/05/2020,26060,Sáric,2,0
+29/05/2020,26060,Sáric,2,0
+30/05/2020,26060,Sáric,2,0
+31/05/2020,26060,Sáric,2,0
+01/06/2020,26060,Sáric,2,0
+02/06/2020,26060,Sáric,2,0
+03/06/2020,26060,Sáric,2,0
+04/06/2020,26060,Sáric,2,0
+05/06/2020,26060,Sáric,2,0
+06/06/2020,26060,Sáric,2,0
+07/06/2020,26060,Sáric,2,0
+08/06/2020,26060,Sáric,2,0
+09/06/2020,26060,Sáric,2,0
+10/06/2020,26060,Sáric,2,0
+11/06/2020,26060,Sáric,2,0
+12/06/2020,26060,Sáric,2,0
+13/06/2020,26060,Sáric,2,0
+14/06/2020,26060,Sáric,2,0
+15/06/2020,26060,Sáric,2,0
+16/06/2020,26060,Sáric,2,0
+17/06/2020,26060,Sáric,2,0
+18/06/2020,26060,Sáric,2,0
+19/06/2020,26060,Sáric,2,0
+20/06/2020,26060,Sáric,2,0
+21/06/2020,26060,Sáric,2,0
+22/06/2020,26060,Sáric,2,0
+23/06/2020,26060,Sáric,2,0
+24/06/2020,26060,Sáric,2,0
+25/06/2020,26060,Sáric,2,0
+26/06/2020,26060,Sáric,2,0
+27/06/2020,26060,Sáric,2,0
+28/06/2020,26060,Sáric,2,0
+29/06/2020,26060,Sáric,2,0
+30/06/2020,26060,Sáric,2,0
+01/07/2020,26060,Sáric,2,0
+02/07/2020,26060,Sáric,2,0
+03/07/2020,26060,Sáric,2,0
+04/07/2020,26060,Sáric,2,0
+05/07/2020,26060,Sáric,2,0
