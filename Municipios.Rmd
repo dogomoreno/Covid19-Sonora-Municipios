@@ -81,7 +81,7 @@ decesosacumdia2 <- mutate(decesosacumdiaorder,id=CVEGEO)
 casos_s <- group_by(Casos, CVEGEO, MUNICIPIO)
 casos_ult <- casos_s %>% filter(NUEVOS!=0) %>% arrange(desc(Fecha)) %>% slice(1)
 casos_ult_dias <- mutate(casos_ult, Dias_ult=as.numeric(Sys.Date()-Fecha)) 
-casos_ult_dias <- mutate(casos_ult_dias, clasfdias=if_else(Dias_ult>14,4,(if_else(Dias_ult>7,3,if_else(Dias_ult>0,2,1)))))
+casos_ult_dias <- mutate(casos_ult_dias, clasfdias=if_else(Dias_ult>30,5, if_else(Dias_ult>14,4, if_else(Dias_ult>7,3,if_else(Dias_ult>0,2,1)))))
 casos_ult_dias <- mutate(casos_ult_dias, clasfdias=as.numeric(clasfdias))
 casos_ult_dias <- mutate(casos_ult_dias,id=CVEGEO)
 ```
@@ -113,7 +113,7 @@ Mapa_casos <- ggplot(capa_munison_casos, aes(map_id = id)) +
         geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
                fill="gray90", color="white", size=0.3) +
      geom_map_interactive(aes(fill = CASOS, tooltip=capa_munison_casos$tooltip,data_id=id),color = "white",size=0.3, map = capa_munison_df) + 
-    scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,3800), breaks = c(1, 500, 1000, 1500, 2000, 2500, 3000, 3500))+
+    scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,4000), breaks = c(1, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000))+
     theme_void() +
    theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
     legend.position = "left",
@@ -139,7 +139,7 @@ Casos_map_ani
 
 Column
 -----------------------------------------------------------------------
-### Casos acumulados al 07 de julio de 2020 {data-width=500}
+### Casos acumulados al 09 de julio de 2020 {data-width=500}
 
 ```{r, include=FALSE}
 CasosCol <- ggplot(casosacumdiaorder) +
@@ -147,7 +147,7 @@ CasosCol <- ggplot(casosacumdiaorder) +
   geom_text(aes(x = fct_inorder(MUNICIPIO), y = `CASOS`, label=`CASOS`, family="Lato"), size=2, vjust=0.4, hjust=-0.4) +
 geom_vline(xintercept=seq(1.5,length(unique(casosacumdiaorder$MUNICIPIO))-0.5, 1),lwd=0.2, colour="gray95") + 
   coord_flip(clip = "off") + 
-   scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,3800), breaks = c(1, 500, 1000, 1500, 2000, 2500, 3000, 3500)) +
+   scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,4000), breaks = c(1, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000)) +
        theme_minimal() +
     theme(
     legend.position = "none",
@@ -182,7 +182,7 @@ capa_ult_dias<- inner_join(capa_munison_df, casos_ult_dias, by="id")
 ```{r, include=FALSE}
 capa_ult_dias$tooltip <- c(paste0("<b>",capa_ult_dias$MUNICIPIO, "</b>", "<b>","\n Último caso ", "</b>", capa_ult_dias$Fecha,"</b>", "<b>","\n Días ", "</b>", capa_ult_dias$Dias_ult))
 
-discreta <- c("1" = "#A04A69", "2" = "#ECA48E","3" = "#FECF7D","4" = "#0397A1")
+discreta <- c("1" = "#A04A69", "2" = "#ECA48E","3" = "#FECF7D","4" = "#0397A1", "5" = "#215968")
 
 Mapa_ult <- ggplot(capa_ult_dias, aes(map_id = id)) +
                geom_polygon(data=capa_son, aes(x=long, y=lat, group=group), 
@@ -190,7 +190,7 @@ Mapa_ult <- ggplot(capa_ult_dias, aes(map_id = id)) +
     geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
                fill="gray90", color="white", size=0.3) +
      geom_map_interactive(aes(fill = factor(clasfdias), tooltip=capa_ult_dias$tooltip,data_id=id),color = "white",size=0.3, map = capa_munison_df) + 
-    scale_fill_manual("Días desde que se \n confirmó el último caso", values = discreta, breaks= c("4", "3", "2", "1"), labels = c( "+14", "8-14","1-7", "0"))+
+    scale_fill_manual("Días desde que se \n confirmó el último caso", values = discreta, breaks= c("5", "4", "3", "2", "1"), labels = c( "+30", "15-30", "8-14","1-7", "0"))+
     theme_void() +
    theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
     legend.position = "left", axis.text = element_blank(), legend.key.height = unit (2, "cm"),
@@ -217,7 +217,7 @@ Casos_ult_ani
 
 Column
 -----------------------------------------------------------------------
-### Días desde el último caso confirmado (corte al 07/07/2020)  {data-width=500}
+### Días desde el último caso confirmado (corte al 09/07/2020)  {data-width=500}
 
 ```{r, include=FALSE}
 casos_ult_dias_order <- arrange(casos_ult_dias,Dias_ult, desc(MUNICIPIO))
@@ -269,7 +269,7 @@ Mapa_decesos <- ggplot(capa_munison_decesos, aes(map_id = id)) +
         geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
                fill="gray90", color="white", size=0.3) +
      geom_map_interactive(aes(fill = DECESOS, tooltip=capa_munison_decesos$tooltip, data_id=id),color = "white",size=0.3, map = capa_munison_df) + 
-    scale_fill_gradient(low= "#993366", high = "black", limits = c(1,320), breaks = c(1, 50, 100, 150, 200, 250,300))+
+    scale_fill_gradient(low= "#993366", high = "black", limits = c(1,350), breaks = c(1, 50, 100, 150, 200, 250,300,350))+
     theme_void() +
    theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
     legend.position = "left",
@@ -295,7 +295,7 @@ Decesos_map_ani
 
 Column
 -----------------------------------------------------------------------
-### Decesos acumulados al 07 de julio de 2020 {data-width=500}
+### Decesos acumulados al 09 de julio de 2020 {data-width=500}
 
 ```{r, include=FALSE}
 
@@ -304,7 +304,7 @@ DecesosCol <- ggplot(decesosacumdiaorder) +
   geom_text(aes(x = fct_inorder(MUNICIPIO), y = `DECESOS`, label=DECESOS, family="Lato"), size=2, vjust=0.4, hjust=-0.4) +
 geom_vline(xintercept=seq(1.5,length(unique(decesosacumdiaorder$MUNICIPIO))-0.5, 1),lwd=0.2, colour="gray95") + 
   coord_flip(clip = "off") + 
-   scale_fill_gradient(low= "#993366", high = "black", limits = c(1,320), breaks = c(1, 50, 100, 150, 200, 250,300)) +
+   scale_fill_gradient(low= "#993366", high = "black", limits = c(1,350), breaks = c(1, 50, 100, 150, 200, 250,300,350)) +
        theme_minimal() +
     theme(
     legend.position = "none",
@@ -390,7 +390,7 @@ Decesos_anim
 
 Indicadores
 =====================================
-**Al 7 de julio de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 9 de julio de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
 POBMUN <- read_csv("POBMUN.csv", col_types = cols(CVEGEO = col_character()))
 casos_pal <- function(x) rgb(colorRamp(c("#EAF6F6", "#7FCDCB"))(x), maxColorValue = 255)
