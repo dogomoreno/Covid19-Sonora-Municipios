@@ -113,7 +113,7 @@ Mapa_casos <- ggplot(capa_munison_casos, aes(map_id = id)) +
         geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
                fill="gray90", color="white", size=0.3) +
      geom_map_interactive(aes(fill = CASOS, tooltip=capa_munison_casos$tooltip,data_id=id),color = "white",size=0.3, map = capa_munison_df) + 
-    scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,5100), breaks = c(1, 1000, 2000, 3000, 4000, 5000))+
+    scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,5200), breaks = c(1, 1000, 2000, 3000, 4000, 5000))+
     theme_void() +
    theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
     legend.position = "left",
@@ -139,7 +139,7 @@ Casos_map_ani
 
 Column
 -----------------------------------------------------------------------
-### Casos acumulados al 14 de julio de 2020 {data-width=500}
+### Casos acumulados al 15 de julio de 2020 {data-width=500}
 
 ```{r, include=FALSE}
 CasosCol <- ggplot(casosacumdiaorder) +
@@ -147,7 +147,7 @@ CasosCol <- ggplot(casosacumdiaorder) +
   geom_text(aes(x = fct_inorder(MUNICIPIO), y = `CASOS`, label=`CASOS`, family="Lato"), size=2, vjust=0.4, hjust=-0.4) +
 geom_vline(xintercept=seq(1.5,length(unique(casosacumdiaorder$MUNICIPIO))-0.5, 1),lwd=0.2, colour="gray95") + 
   coord_flip(clip = "off") + 
-   scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,5100), breaks = c(1, 1000, 2000, 3000, 4000, 5000)) +
+   scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,5200), breaks = c(1, 1000, 2000, 3000, 4000, 5000)) +
        theme_minimal() +
     theme(
     legend.position = "none",
@@ -173,7 +173,7 @@ CasosCol
 
 Column
 -----------------------------------------------------------------------
-### Mapa de días transcurridos respecto al último caso confirmado {data-width=500}
+### ¿Cuántos días han pasado desde que se confirmó el último caso en tu municipio? {data-width=500}
 
 ```{r, include=FALSE}
 capa_ult_dias<- inner_join(capa_munison_df, casos_ult_dias, by="id")
@@ -217,7 +217,7 @@ Casos_ult_ani
 
 Column
 -----------------------------------------------------------------------
-### Días desde el último caso confirmado (corte al 14/07/2020)  {data-width=500}
+### Días desde el último caso confirmado (corte al 15/07/2020)  {data-width=500}
 
 ```{r, include=FALSE}
 casos_ult_dias_order <- arrange(casos_ult_dias,Dias_ult, desc(MUNICIPIO))
@@ -269,7 +269,7 @@ Mapa_decesos <- ggplot(capa_munison_decesos, aes(map_id = id)) +
         geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
                fill="gray90", color="white", size=0.3) +
      geom_map_interactive(aes(fill = DECESOS, tooltip=capa_munison_decesos$tooltip, data_id=id),color = "white",size=0.3, map = capa_munison_df) + 
-    scale_fill_gradient(low= "#993366", high = "black", limits = c(1,370), breaks = c(1, 50, 100, 150, 200, 250,300,350))+
+    scale_fill_gradient(low= "#993366", high = "black", limits = c(1,390), breaks = c(1, 50, 100, 150, 200, 250,300,350))+
     theme_void() +
    theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
     legend.position = "left",
@@ -295,7 +295,7 @@ Decesos_map_ani
 
 Column
 -----------------------------------------------------------------------
-### Decesos acumulados al 14 de julio de 2020 {data-width=500}
+### Decesos acumulados al 15 de julio de 2020 {data-width=500}
 
 ```{r, include=FALSE}
 
@@ -304,7 +304,7 @@ DecesosCol <- ggplot(decesosacumdiaorder) +
   geom_text(aes(x = fct_inorder(MUNICIPIO), y = `DECESOS`, label=DECESOS, family="Lato"), size=2, vjust=0.4, hjust=-0.4) +
 geom_vline(xintercept=seq(1.5,length(unique(decesosacumdiaorder$MUNICIPIO))-0.5, 1),lwd=0.2, colour="gray95") + 
   coord_flip(clip = "off") + 
-   scale_fill_gradient(low= "#993366", high = "black", limits = c(1,370), breaks = c(1, 50, 100, 150, 200, 250,300,350)) +
+   scale_fill_gradient(low= "#993366", high = "black", limits = c(1,390), breaks = c(1, 50, 100, 150, 200, 250,300,350)) +
        theme_minimal() +
     theme(
     legend.position = "none",
@@ -390,7 +390,7 @@ Decesos_anim
 
 Indicadores
 =====================================
-**Al 14 de julio de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 15 de julio de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
 POBMUN <- read_csv("POBMUN.csv", col_types = cols(CVEGEO = col_character()))
 casos_pal <- function(x) rgb(colorRamp(c("#EAF6F6", "#7FCDCB"))(x), maxColorValue = 255)
@@ -475,7 +475,7 @@ write.csv(CDSELECT1,'Indicadores-Municipios-Sonora.csv')
 Fuentes
 ===================================== 
 
-Fuente: Reportes diarios de la Secretaría de Salud del Estado de Sonora y proyecciones de población para los municipios de Sonora a mediados de 2020 del Consejo Nacional de Población.
+**Fuente:** Reportes diarios de la Secretaría de Salud del Estado de Sonora y proyecciones de población para los municipios de Sonora a mediados de 2020 del Consejo Nacional de Población.
 
 [CSV Casos confirmados municipales](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!31283&authkey=!ALNt9KiLEoT72tU)
 
@@ -484,5 +484,7 @@ Fuente: Reportes diarios de la Secretaría de Salud del Estado de Sonora y proye
 [CSV Población 2020 de los municipios de Sonora](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!31865&authkey=!AB7AkXFCiIuN1_w)
 
 Código del proyecto: [Covid19-Sonora-Municipios](https://github.com/dogomoreno/Covid19-Sonora-Municipios) 
+
+[Plataforma Covid-19 del Departamento de Matemáticas de la Universidad de Sonora] (https://covid19data.unison.mx/)
 
 [www.luisarmandomoreno.com](www.luisarmandomoreno.com)
