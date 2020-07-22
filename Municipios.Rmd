@@ -56,6 +56,7 @@ library(zoo)
 ```
 
 ```{r, include=FALSE}
+POBMUN <- read_csv("POBMUN.csv", col_types = cols(CVEGEO = col_character()))
 Sonora.DF <- read_csv("ST_SonoraInformesCOVID.csv", 
     col_types = cols(Fecha = col_date(format = "%d/%m/%Y")))
 Sonora.DF <- mutate(Sonora.DF, Casos.diarios= Confirmados - lag(Confirmados, default = Confirmados[1]))
@@ -104,6 +105,19 @@ casos_ult_dias <- mutate(casos_ult_dias, clasfdias=as.numeric(clasfdias))
 casos_ult_dias <- mutate(casos_ult_dias,id=CVEGEO)
 ```
 
+```{r}
+casos_pal <- function(x) rgb(colorRamp(c("#EAF6F6", "#7FCDCB"))(x), maxColorValue = 255)
+decesos_pal <- function(x) rgb(colorRamp(c("#FBF3F7", "#E0A3C1"))(x), maxColorValue = 255)
+decesosacumdia3 <- rename(decesosacumdia,'DECESOS NUEVOS'=NUEVOS)
+casosacumdia3 <- rename(casosacumdia,'CASOS NUEVOS'=NUEVOS)
+casosdecesos <-left_join(casosacumdia3, decesosacumdia3,by = c("CVEGEO","Fecha","MUNICIPIO"))
+casosdecesospob <- left_join(casosdecesos, POBMUN, by = "CVEGEO")
+Indicadores <- casosdecesospob %>% mutate (INCIDENCIA = round((CASOS*100000)/POB,1), MORTALIDAD = round((DECESOS*100000)/POB,1), LETALIDAD = round((DECESOS*100/CASOS),1))
+Indicadores <- rename(Indicadores, POBLACION=POB)
+Indicadores <- mutate(Indicadores,id=CVEGEO)
+```
+
+
 Resumen Estatal
 ===================================== 
 
@@ -113,7 +127,7 @@ Row
 CasosSonora = function(...) return(Sonora.dia$Confirmados)
 DecesosSonora = function(...) return(Sonora.dia$Decesos)
 HospSonora = function(...) return(Sonora.dia$Hospitalizados)
-RecuperadosSonora = function(...) return(11056)
+RecuperadosSonora = function(...) return(Sonora.dia$Recuperados)
 IncidenciaSonora= function(...) return(Sonora.dia$Incidencia)
 LetalidadSonora= function(...) return(Sonora.dia$Letalidad)
 GravedadSonora= function(...) return(Sonora.dia$Gravedad)
@@ -301,8 +315,7 @@ Casos acumulados
 
 Row
 -----------------------------------------------------------------------
-### **Mapa de casos acumulados**
-
+### **Mapa de Incidencia**
 
 ```{r include=FALSE}
 capa_munison <- readOGR("Shapes", layer="MUNSON")
@@ -311,28 +324,27 @@ capa_son <- readOGR("Shapes", layer="ENTSON")
 
 ```{r, include=FALSE}
 capa_munison_df <- fortify(capa_munison, region="CVEGEO")
-capa_munison_casos<- inner_join(capa_munison_df, casosacumdia2, by="id")
+capa_munison_casos<- inner_join(capa_munison_df, Indicadores, by="id")
 ```
 
 ```{r, include=FALSE}
-capa_munison_casos$tooltip <- c(paste0("<b>",capa_munison_casos$MUNICIPIO, "</b>", "<b>","\n Casos ", "</b>", capa_munison_casos$CASOS,"</b>", "<b>","\n Nuevos ", "</b>", capa_munison_casos$NUEVOS))
+capa_munison_casos$tooltip <- c(paste0("<b>",capa_munison_casos$MUNICIPIO, "</b>", "<b>","\n Casos ", "</b>", capa_munison_casos$CASOS,"</b>", "<b>","\n Incidencia ", "</b>", capa_munison_casos$INCIDENCIA))
 Mapa_casos <- ggplot(capa_munison_casos, aes(map_id = id)) +
                geom_polygon(data=capa_son, aes(x=long, y=lat, group=group), 
                fill="transparent", color="black", size=1) +
         geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
                fill="gray90", color="white", size=0.3) +
-     geom_map_interactive(aes(fill = CASOS, tooltip=capa_munison_casos$tooltip,data_id=id),color = "white",size=0.3, map = capa_munison_df) + 
-    scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,6500), breaks = c(1, 1000, 2000, 3000, 4000, 5000, 6000))+
+     geom_map_interactive(aes(fill = INCIDENCIA, tooltip=capa_munison_casos$tooltip,data_id=id),color = "white",size=0.3, map = capa_munison_df) + 
+    scale_fill_gradient(low = "#58BCBC", high = "black")+
     theme_void() +
    theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
     legend.position = "left",
     legend.key.height = unit (2, "cm"), axis.text = element_blank(),
     legend.text = element_text(family = "Lato Light", size = 6, color = "black"),
-    legend.title = element_blank(),
+    legend.title = element_text(family = "Lato Black", size = 5, color = "black"),
     plot.caption = element_text(family = "Lato Light", size = 8, color = "gray50"),
     axis.title = element_blank()) +
-    labs(axis = NULL, y = NULL, x = NULL, title  = NULL,  fill = NULL, caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora")
- 
+    labs(axis = NULL, y = NULL, x = NULL, title  = NULL, caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora", fill = "INCIDENCIA\n(casos por 100 mil habs.)")
 ```
 
 ```{r, include=FALSE}
@@ -345,15 +357,16 @@ Casos_map_ani <- girafe(code = print(Mapa_casos),
 Casos_map_ani 
 ```
 
-### **Casos acumulados al 20 de julio de 2020**
+### **Casos acumulados al 21 de julio de 2020**
 
 ```{r, include=FALSE}
-CasosCol <- ggplot(casosacumdiaorder) +
-    geom_col(aes(x = fct_inorder(MUNICIPIO), y = `CASOS`, fill = `CASOS`), color = "white") + 
+Indicadoresord1 <- arrange(Indicadores,CASOS, desc(MUNICIPIO))
+CasosCol <- ggplot(Indicadoresord1) +
+    geom_col(aes(x = fct_inorder(MUNICIPIO), y = `CASOS`, fill = INCIDENCIA), color = "white") + 
   geom_text(aes(x = fct_inorder(MUNICIPIO), y = `CASOS`, label=`CASOS`, family="Lato"), size=2, vjust=0.4, hjust=-0.4) +
-geom_vline(xintercept=seq(1.5,length(unique(casosacumdiaorder$MUNICIPIO))-0.5, 1),lwd=0.2, colour="gray95") + 
+geom_vline(xintercept=seq(1.5,length(unique(Indicadoresord1$MUNICIPIO))-0.5, 1),lwd=0.2, colour="gray95") + 
   coord_flip(clip = "off") + 
-   scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,6500), breaks = c(1, 1000, 2000, 3000, 4000, 5000, 6000)) +
+   scale_fill_gradient(low = "#58BCBC", high = "black") +
        theme_minimal() +
     theme(
     legend.position = "none",
@@ -401,7 +414,7 @@ Mapa_ult <- ggplot(capa_ult_dias, aes(map_id = id)) +
     legend.title = element_text(family = "Lato Black", size = 5, color = "black"),
     plot.caption = element_text(family = "Lato Light", size = 8, color = "gray50"),
     axis.title = element_blank()) +
-    labs(axis = NULL, y = NULL, x = NULL, title  = NULL,  fill = NULL, caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora", fill = "Días desde que se confirmó el último caso")
+    labs(axis = NULL, y = NULL, x = NULL, title  = NULL, caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora", fill = "Días desde que se confirmó el último caso")
  
 ```
 
@@ -416,7 +429,7 @@ Casos_ult_ani <- girafe(code = {print(Mapa_ult)},
 Casos_ult_ani 
 ```
 
-### **Días desde el último caso confirmado (corte al 20/07/2020)**  {data-width=500}
+### **Días desde el último caso confirmado (corte al 21/07/2020)**  {data-width=500}
 
 ```{r, include=FALSE}
 casos_ult_dias_order <- arrange(casos_ult_dias,Dias_ult, desc(MUNICIPIO))
@@ -432,6 +445,7 @@ Casos_ultCol <- ggplot(casos_ult_dias_order) +
     axis.text.y = element_text(family = "Lato", size = 5, color = "black"),
     axis.text.x = element_blank(),axis.line.y = element_line(colour = "black"),
     panel.background = element_blank(),
+    legend.title = element_text(family = "Lato Black", size = 5, color = "black"),
     panel.grid.major.y = element_blank(), 
     panel.grid.minor.y = element_blank(),
     panel.grid.major.x = element_blank(),
@@ -450,31 +464,32 @@ Decesos acumulados
 
 Row
 -----------------------------------------------------------------------
-### **Mapa de decesos acumulados** {data-width=500}
+### **Mapa de Mortalidad** {data-width=500}
 
 
 ```{r, include=FALSE}
-capa_munison_decesos<- inner_join(capa_munison_df, decesosacumdia2, by="id")
+Indicadores2<- Indicadores %>% mutate(DECESOS = coalesce(DECESOS,0L)) %>% filter(DECESOS>"0")
+capa_munison_decesos<- inner_join(capa_munison_df, Indicadores2, by="id")
 ```
 
 ```{r, include=FALSE}
-capa_munison_decesos$tooltip <- c(paste0("<b>",capa_munison_decesos$MUNICIPIO, "</b>", "<b>","\n Decesos ", "</b>", capa_munison_decesos$DECESOS,"</b>", "<b>","\n Nuevos ", "</b>", capa_munison_decesos$NUEVOS))
+capa_munison_decesos$tooltip <- c(paste0("<b>",capa_munison_decesos$MUNICIPIO, "</b>", "<b>","\n Decesos ", "</b>", capa_munison_decesos$DECESOS,"</b>", "<b>","\n Mortalidad ", "</b>", capa_munison_decesos$MORTALIDAD))
 Mapa_decesos <- ggplot(capa_munison_decesos, aes(map_id = id)) +
                geom_polygon(data=capa_son, aes(x=long, y=lat, group=group), 
                fill="transparent", color="black", size= 1) +
         geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
                fill="gray90", color="white", size=0.3) +
-     geom_map_interactive(aes(fill = DECESOS, tooltip=capa_munison_decesos$tooltip, data_id=id),color = "white",size=0.3, map = capa_munison_df) + 
-    scale_fill_gradient(low= "#993366", high = "black", limits = c(1,410), breaks = c(1, 50, 100, 150, 200, 250,300,350,400))+
+     geom_map_interactive(aes(fill = MORTALIDAD, tooltip=capa_munison_decesos$tooltip, data_id=id),color = "white",size=0.3, map = capa_munison_df) + 
+    scale_fill_gradient(low= "#993366", high = "black")+
     theme_void() +
    theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
     legend.position = "left",
     legend.key.height = unit (2, "cm"), axis.text = element_blank(),
     legend.text = element_text(family = "Lato Light", size = 6, color = "black"),
-    legend.title = element_blank(),
+    legend.title = element_text(family = "Lato Black", size = 5, color = "black"),
     plot.caption = element_text(family = "Lato Light", size = 8, color = "gray50"),
     axis.title = element_blank()) +
-    labs(axis = NULL, y = NULL, x = NULL, title  = NULL,  fill = NULL, caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora")
+    labs(axis = NULL, y = NULL, x = NULL, title  = NULL, caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora", fill = "MORTALIDAD\n(decesos por 100 mil habs.)")
  
 ```
 
@@ -488,15 +503,16 @@ Decesos_map_ani <- girafe(code = print(Mapa_decesos),
 Decesos_map_ani 
 ```
 
-### **Decesos acumulados al 20 de julio de 2020** {data-width=500}
+### **Decesos acumulados al 21 de julio de 2020** {data-width=500}
 
 ```{r, include=FALSE}
-DecesosCol <- ggplot(decesosacumdiaorder) +
-    geom_col(aes(x = fct_inorder(MUNICIPIO), y = `DECESOS`, fill = DECESOS), color = "white") + 
+Indicadoresord2 <- arrange(Indicadores2,DECESOS, desc(MUNICIPIO))
+DecesosCol <- ggplot(Indicadoresord2) +
+    geom_col(aes(x = fct_inorder(MUNICIPIO), y = `DECESOS`, fill = MORTALIDAD), color = "white") + 
   geom_text(aes(x = fct_inorder(MUNICIPIO), y = `DECESOS`, label=DECESOS, family="Lato"), size=2, vjust=0.4, hjust=-0.4) +
-geom_vline(xintercept=seq(1.5,length(unique(decesosacumdiaorder$MUNICIPIO))-0.5, 1),lwd=0.2, colour="gray95") + 
+geom_vline(xintercept=seq(1.5,length(unique(Indicadores2$MUNICIPIO))-0.5, 1),lwd=0.2, colour="gray95") + 
   coord_flip(clip = "off") + 
-   scale_fill_gradient(low= "#993366", high = "black", limits = c(1,410), breaks = c(1, 50, 100, 150, 200, 250,300,350,400)) +
+   scale_fill_gradient(low= "#993366", high = "black") +
        theme_minimal() +
     theme(
     legend.position = "none",
@@ -613,17 +629,8 @@ ggplotly(Decesos_Todos)
 
 Indicadores
 =====================================
-**Al 19 de julio de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 21 de julio de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
-POBMUN <- read_csv("POBMUN.csv", col_types = cols(CVEGEO = col_character()))
-casos_pal <- function(x) rgb(colorRamp(c("#EAF6F6", "#7FCDCB"))(x), maxColorValue = 255)
-decesos_pal <- function(x) rgb(colorRamp(c("#FBF3F7", "#E0A3C1"))(x), maxColorValue = 255)
-decesosacumdia3 <- rename(decesosacumdia,'DECESOS NUEVOS'=NUEVOS)
-casosacumdia3 <- rename(casosacumdia,'CASOS NUEVOS'=NUEVOS)
-casosdecesos <-left_join(casosacumdia3, decesosacumdia3,by = c("CVEGEO","Fecha","MUNICIPIO"))
-casosdecesospob <- left_join(casosdecesos, POBMUN, by = "CVEGEO")
-Indicadores <- casosdecesospob %>% mutate (INCIDENCIA = (CASOS*100000)/POB, MORTALIDAD = (DECESOS*100000)/POB, LETALIDAD = DECESOS*100/CASOS)
-Indicadores <- rename(Indicadores, POBLACION=POB)
 CDSELECT<-select(Indicadores, "MUNICIPIO","POBLACION", "CASOS","CASOS NUEVOS","INCIDENCIA", "DECESOS","DECESOS NUEVOS","MORTALIDAD", "LETALIDAD")
 CDSELECT1 <- CDSELECT %>% mutate(DECESOS = coalesce(DECESOS,0L),`DECESOS NUEVOS` = coalesce(`DECESOS NUEVOS`,0L), `CASOS NUEVOS` = coalesce(`CASOS NUEVOS`,0L), MORTALIDAD = coalesce(MORTALIDAD, 0), LETALIDAD = coalesce(LETALIDAD, 0))
 reactable(CDSELECT1,searchable = TRUE, highlight = TRUE, defaultSorted = "CASOS", defaultSortOrder = "desc",
