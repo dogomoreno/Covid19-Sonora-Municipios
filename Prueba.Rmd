@@ -1,11 +1,11 @@
 ---
-title: "COVID-19: MUNICIPIOS DE SONORA"
+title: "COVID-19 EN SONORA"
 output: 
   flexdashboard::flex_dashboard:
     navbar:
-      - { title: "LUIS ARMANDO MORENO", href: "http://www.luisarmandomoreno.com/", align: right }
+      - { title: "LAMP", href: "http://www.luisarmandomoreno.com/", align: right }
     theme: flatly
-    orientation: columns
+    orientation: rows
 ---
 <style>                     
 .navbar {
@@ -51,16 +51,36 @@ library(ggiraph)
 library(miniUI)
 library(units)
 library(reactable)
+library(lubridate)
+library(zoo)
+library(treemapify)
 ```
 
 ```{r, include=FALSE}
-library(readr)
+POBMUN <- read_csv("POBMUN.csv", col_types = cols(CVEGEO = col_character()))
+Sonora.DF <- read_csv("ST_SonoraInformesCOVID.csv", 
+    col_types = cols(Fecha = col_date(format = "%d/%m/%Y")))
+Sonora.DF <- mutate(Sonora.DF, Casos.diarios= Confirmados - lag(Confirmados, default = Confirmados[1]))
+Sonora.DF <- mutate(Sonora.DF, Decesos.diarios= Decesos - lag(Decesos, default = Confirmados[1]))
+Sonora.DF <- mutate(Sonora.DF, Casos.media.7d=round(rollmeanr(x=Casos.diarios, 7, fill = NA),1))
+Sonora.DF <- mutate(Sonora.DF, Decesos.media.7d=round(rollmeanr(x=Decesos.diarios,7, fill=NA),1))
+Sonora.DF <- mutate(Sonora.DF, Pruebas.diarias= Pruebas - lag(Pruebas, default = Pruebas[1]))
+Sonora.DF <- mutate(Sonora.DF, Pruebas.media.7d=round(rollmeanr(x=Pruebas.diarias,7, fill=NA),1))
+Sonora.DF <- mutate(Sonora.DF, Incidencia= round((Confirmados / 30.74745),2))
+Sonora.DF <- mutate(Sonora.DF, Letalidad= round((Decesos / Confirmados)*100,2))
+Sonora.DF <- mutate(Sonora.DF, Mortalidad= round((Decesos / 30.74745)*100,2))
+Sonora.DF <- mutate(Sonora.DF, Positividad= round((Pruebas / Confirmados)*100,2))
+Sonora.DF <- mutate(Sonora.DF, Gravedad= round((Graves / Hospitalizados)*100,1))
+Sonora.dia <- filter(Sonora.DF,Fecha==Sys.Date())
+```
+
+```{r, include=FALSE}
 Casos <- read_csv("Casosdiarios.csv", 
     col_types = cols(CASOS = col_integer(), 
         CVEGEO = col_character(), Fecha = col_date(format = "%d/%m/%Y"), 
         MUNICIPIO = col_character(), NUEVOS = col_integer()), 
     locale = locale(encoding = "ISO-8859-1"))
-casosacumdia <- filter(Casos,Fecha==as.Date("2020-07-04"))
+casosacumdia <- filter(Casos,Fecha==Sys.Date())
 casosacumdiaorder <- arrange(casosacumdia,CASOS, desc(MUNICIPIO))
 casosacumdia2 <- mutate(casosacumdiaorder,id=CVEGEO)
 ```
@@ -72,7 +92,7 @@ Decesos <- read_csv("Decesosdiarios.csv",
         CVEGEO = col_character(), Fecha = col_date(format = "%d/%m/%Y"), 
         MUNICIPIO = col_character(), NUEVOS = col_integer()), 
     locale = locale(encoding = "ISO-8859-1"))
-decesosacumdia <- filter(Decesos,Fecha==as.Date("2020-07-04"))
+decesosacumdia <- filter(Decesos,Fecha==Sys.Date())
 decesosacumdiaorder <- arrange(decesosacumdia,DECESOS, desc(MUNICIPIO))
 decesosacumdia2 <- mutate(decesosacumdiaorder,id=CVEGEO)
 ```
@@ -81,18 +101,221 @@ decesosacumdia2 <- mutate(decesosacumdiaorder,id=CVEGEO)
 casos_s <- group_by(Casos, CVEGEO, MUNICIPIO)
 casos_ult <- casos_s %>% filter(NUEVOS!=0) %>% arrange(desc(Fecha)) %>% slice(1)
 casos_ult_dias <- mutate(casos_ult, Dias_ult=as.numeric(Sys.Date()-Fecha)) 
-casos_ult_dias <- mutate(casos_ult_dias, clasfdias=if_else(Dias_ult>14,4,(if_else(Dias_ult>7,3,if_else(Dias_ult>0,2,1)))))
+casos_ult_dias <- mutate(casos_ult_dias, clasfdias=if_else(Dias_ult>30,5, if_else(Dias_ult>14,4, if_else(Dias_ult>7,3,if_else(Dias_ult>0,2,1)))))
 casos_ult_dias <- mutate(casos_ult_dias, clasfdias=as.numeric(clasfdias))
 casos_ult_dias <- mutate(casos_ult_dias,id=CVEGEO)
+```
+
+```{r}
+casos_pal <- function(x) rgb(colorRamp(c("#EAF6F6", "#7FCDCB"))(x), maxColorValue = 255)
+decesos_pal <- function(x) rgb(colorRamp(c("#FBF3F7", "#E0A3C1"))(x), maxColorValue = 255)
+decesosacumdia3 <- rename(decesosacumdia,'DECESOS NUEVOS'=NUEVOS)
+casosacumdia3 <- rename(casosacumdia,'CASOS NUEVOS'=NUEVOS)
+casosdecesos <-left_join(casosacumdia3, decesosacumdia3,by = c("CVEGEO","Fecha","MUNICIPIO"))
+casosdecesospob <- left_join(casosdecesos, POBMUN, by = "CVEGEO")
+Indicadores <- casosdecesospob %>% mutate (INCIDENCIA = round((CASOS*100000)/POB,1), MORTALIDAD = round((DECESOS*100000)/POB,1), LETALIDAD = round((DECESOS*100/CASOS),1))
+Indicadores <- rename(Indicadores, POBLACION=POB)
+Indicadores <- mutate(Indicadores,id=CVEGEO)
+```
+
+
+Resumen Estatal
+===================================== 
+
+Row
+-----------------------------------------------------------------------
+```{r, include=FALSE}
+CasosSonora = function(...) return(Sonora.dia$Confirmados)
+DecesosSonora = function(...) return(Sonora.dia$Decesos)
+HospSonora = function(...) return(Sonora.dia$Hospitalizados)
+RecuperadosSonora = function(...) return(Sonora.dia$Recuperados)
+IncidenciaSonora= function(...) return(Sonora.dia$Incidencia)
+LetalidadSonora= function(...) return(Sonora.dia$Letalidad)
+GravedadSonora= function(...) return(Sonora.dia$Gravedad)
+Recup100Sonora= function(...) return(67)
+```
+
+### **Casos acumulados**
+
+```{r}
+CasosSon = CasosSonora()
+valueBox(comma(CasosSon), icon = "fa-certificate", color = "#01787E")
+```
+
+### **Decesos acumulados**
+
+```{r}
+DecesosSon = DecesosSonora()
+valueBox(comma(DecesosSon), icon= "fa-plus", color = "#993366")
+```
+
+### **Hospitalizados**
+```{r}
+Hospitalizados = HospSonora()
+valueBox(  comma(Hospitalizados), icon = "fa-hospital-o", color = "#F79646")
+```
+
+### **Recuperados**
+```{r}
+Recuperados = RecuperadosSonora()
+valueBox(comma(Recuperados), icon = "fa-arrow-circle-up", color = "#4F81BD")
+```
+
+
+Row {data-height=650}
+-----------------------------------------------------------------------
+### **Casos confirmados diariamente**
+```{r, include=FALSE}
+CasosSon <- ggplot(Sonora.DF) +
+  geom_col(aes(x= Fecha, y= Casos.diarios, fill= "Casos diarios"), color = "white", size = 0.1) +
+   geom_line(aes(x= Fecha, y= Casos.media.7d, color= "Promedio móvil 7d"), linetype= "solid", size=1)+
+   scale_fill_manual(name="", values= c("Casos diarios" = "#58bcbc")) + 
+   scale_color_manual(name="", values= c("Promedio móvil 7d" = "#005155")) +
+      scale_y_continuous(expand = c(0, 0)) +
+      scale_x_date(expand=c(0,0)) +
+       theme_minimal() +
+    theme(
+    legend.position = "none",
+     panel.background = element_rect(fill= "gray95"),
+    axis.text.y = element_text(family = "Lato", size = 10, color = "black"),
+    axis.text.x = element_text(family = "Lato", size = 10, color = "black"),axis.line = element_line(colour = "black"),
+    panel.grid.major.y = element_line(color="white"), 
+    panel.grid.minor.y = element_line(color="white"),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    axis.title = element_text(family = "Lato", size = 8)) + 
+    labs(y = NULL, x = NULL) 
+```
+
+```{r}
+ggplotly(CasosSon, tooltip = c("x", "y")) %>%
+  layout(legend = list(orientation = "h",
+                   y = 80, x = 0))
+```
+
+### **Decesos confirmados diariamente**
+```{r, include=FALSE}
+DecesosSon <- ggplot(Sonora.DF) +
+  geom_col(aes(x= Fecha, y= Decesos.diarios, fill= "Decesos diarios"), color = "white", size = 0.1) +
+   geom_line(aes(x= Fecha, y= Decesos.media.7d, color= "Promedio móvil 7d"), linetype= "solid", size=1)+
+   scale_fill_manual(name="", values= c("Decesos diarios" = "#E0A3C1")) + 
+   scale_color_manual(name="", values= c("Promedio móvil 7d" = "#4D1A33")) +
+      scale_y_continuous(expand = c(0, 0)) +
+      scale_x_date(expand=c(0,0)) +
+       theme_minimal() +
+    theme(
+    legend.position = "none",
+     panel.background = element_rect(fill= "gray95"),
+    axis.text.y = element_text(family = "Lato", size = 10, color = "black"),
+    axis.text.x = element_text(family = "Lato", size = 10, color = "black"),axis.line = element_line(colour = "black"),
+    panel.grid.major.y = element_line(color="white"), 
+    panel.grid.minor.y = element_line(color="white"),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    axis.title = element_text(family = "Lato", size = 8)) + 
+    labs(y = NULL, x = NULL) 
+```
+
+```{r}
+ggplotly(DecesosSon, tooltip = c("x", "y")) %>%
+  layout(legend = list(orientation = "h",
+                   y = 80, x = 0))
+```
+
+Row  {data-height=350}
+-----------------------------------------------------------------------
+
+### **Estatus de los casos confirmados**
+```{r, include=FALSE}
+Sonora.DF.hoy <- filter(Sonora.DF, Fecha == as.Date("2020-07-29"))
+Sonora.DF.hoy <- select(Sonora.DF.hoy, Hospitalizados, Ambulatorios.Activos, Decesos, Recuperados)
+Sonora.DF.hoy <- rename(Sonora.DF.hoy, "Ambulatorios activos"= Ambulatorios.Activos)
+Sonora.DF.hoy <- gather(Sonora.DF.hoy, key= Estatus, value= Casos.confirmados) 
+Sonora.DF.hoy$label <- c(paste0(Sonora.DF.hoy$Estatus, "\n ",  Sonora.DF.hoy$Casos.confirmados, "\n ", (round((Sonora.DF.hoy$Casos.confirmados/(sum(Sonora.DF.hoy$Casos.confirmados))*100), digits = 1)),"%"))
+Estatustree <- ggplot(Sonora.DF.hoy, aes(area = Casos.confirmados, fill= Estatus, label= Sonora.DF.hoy$label)) + geom_treemap(color = "white", size=5) +
+   scale_fill_manual(values= c("#9BD7D7", "#D175A3", "#FAC090", "#95B3D7")) +
+geom_treemap_text(family = "Lato", colour = "white", place = "topleft",
+                    grow = FALSE) +
+   theme_void() +
+   theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")), rect = element_rect(fill = "transparent"),
+    legend.position = "none",
+     plot.background = element_rect(fill = "transparent", color = NA),
+    legend.key.height = unit (2, "cm"), axis.text = element_blank(),
+    legend.text = element_text(family = "Lato Light", size = 6, color = "black"),
+    legend.title = element_blank(),
+    plot.caption = element_text(family = "Lato Light", size = 8, color = "gray50"),
+    axis.title = element_blank()) +
+    labs(axis = NULL, y = NULL, x = NULL, title  = NULL,  fill = NULL, caption = NULL)
+```
+
+```{r}
+Estatustree
+```
+
+### **Hospitalizados**
+```{r, include=FALSE}
+Gravgraf <- ggplot(Sonora.DF) +
+  geom_area(aes(x= Fecha, y= Hospitalizados, fill = "Hospitalizados"), color = "#E26B0A", size= 1, alpha=0.75) +
+  geom_area(aes(x= Fecha, y= Graves, fill= "Graves")) +
+    geom_area(aes(x= Fecha, y= Intubado, fill= "Intubados")) +
+    scale_fill_manual(name="", values= c("Hospitalizados" = "#FABF8F", "Graves" = "#E26B0A", "Intubados" = "#974706"  )) +
+      scale_y_continuous(expand = c(0, 40)) +
+      scale_x_date(expand=c(0,0)) +
+       theme_minimal() +
+    theme(
+    legend.position = "top",
+     panel.background = element_rect(fill= "gray95"),
+    axis.text.y = element_text(family = "Lato", size = 10, color = "black"),
+    axis.text.x = element_text(family = "Lato", size = 10, color = "black"),axis.line = element_line(colour = "black"),
+    panel.grid.major.y = element_line(color="white"), 
+    panel.grid.minor.y = element_line(color="white"),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    axis.title = element_text(family = "Lato", size = 8)) + 
+    labs(y = NULL, x = NULL)
+```
+
+```{r}
+ggplotly(Gravgraf, tooltip = c("x", "y")) %>%
+  layout(legend = list(orientation = "h",
+                   y = 80, x = 0))
+```
+
+### **Pruebas diarias**
+```{r, include=FALSE}
+Pruebasdiarias <- ggplot(Sonora.DF) +
+  geom_col(aes(x= Fecha, y= Pruebas.diarias, fill= "Pruebas diarias"), color = "white", size= 0.2) +
+  geom_line(aes(x= Fecha, y= Pruebas.media.7d, color= "Promedio móvil 7d"), linetype= "solid", size=1)+
+   scale_fill_manual(name="", values= c("Pruebas diarias" = "#4BACC6")) + 
+   scale_color_manual(name="", values= c("Promedio móvil 7d" = "#31869B")) +    
+  scale_y_continuous(expand = c(0, 40)) +
+      scale_x_date(expand=c(0,0)) +
+       theme_minimal() +
+    theme(
+    legend.position = "none",
+     panel.background = element_rect(fill= "gray95"),
+    axis.text.y = element_text(family = "Lato", size = 10, color = "black"),
+    axis.text.x = element_text(family = "Lato", size = 10, color = "black"),axis.line = element_line(colour = "black"),
+    panel.grid.major.y = element_line(color="white"), 
+    panel.grid.minor.y = element_line(color="white"),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    axis.title = element_text(family = "Lato", size = 8)) + 
+    labs(y = NULL, x = NULL) 
+```
+
+```{r}
+ggplotly(Pruebasdiarias, tooltip = c("x", "y")) %>%
+  layout(legend = list(orientation = "h",
+                   y = 80, x = 0))
 ```
 
 Casos acumulados
 ===================================== 
 
-Column
+Row
 -----------------------------------------------------------------------
-### Mapa de casos acumulados {data-width=500}
-
+### **Mapa de Incidencia**
 
 ```{r include=FALSE}
 capa_munison <- readOGR("Shapes", layer="MUNSON")
@@ -101,30 +324,27 @@ capa_son <- readOGR("Shapes", layer="ENTSON")
 
 ```{r, include=FALSE}
 capa_munison_df <- fortify(capa_munison, region="CVEGEO")
-capa_munison_casos<- inner_join(capa_munison_df, casosacumdia2, by="id")
+capa_munison_casos<- inner_join(capa_munison_df, Indicadores, by="id")
 ```
 
 ```{r, include=FALSE}
-capa_munison_casos$tooltip <- c(paste0("<b>",capa_munison_casos$MUNICIPIO, "</b>", "<b>","\n Casos ", "</b>", capa_munison_casos$CASOS,"</b>", "<b>","\n Nuevos ", "</b>", capa_munison_casos$NUEVOS))
-
+capa_munison_casos$tooltip <- c(paste0("<b>",capa_munison_casos$MUNICIPIO, "</b>", "<b>","\n Casos ", "</b>", capa_munison_casos$CASOS,"</b>", "<b>","\n Incidencia ", "</b>", capa_munison_casos$INCIDENCIA))
 Mapa_casos <- ggplot(capa_munison_casos, aes(map_id = id)) +
                geom_polygon(data=capa_son, aes(x=long, y=lat, group=group), 
                fill="transparent", color="black", size=1) +
         geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
                fill="gray90", color="white", size=0.3) +
-     geom_map_interactive(aes(fill = CASOS, tooltip=capa_munison_casos$tooltip,data_id=id),color = "white",size=0.3, map = capa_munison_df) + 
-    scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,3400), breaks = c(1, 500, 1000, 1500, 2000, 2500, 3000))+
+     geom_map_interactive(aes(fill = INCIDENCIA, tooltip=capa_munison_casos$tooltip,data_id=id),color = "white",size=0.3, map = capa_munison_df) + 
+    scale_fill_gradient(low = "#58BCBC", high = "black")+
     theme_void() +
    theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
     legend.position = "left",
     legend.key.height = unit (2, "cm"), axis.text = element_blank(),
     legend.text = element_text(family = "Lato Light", size = 6, color = "black"),
-    legend.title = element_blank(),
+    legend.title = element_text(family = "Lato Black", size = 5, color = "black"),
     plot.caption = element_text(family = "Lato Light", size = 8, color = "gray50"),
     axis.title = element_blank()) +
-    labs(axis = NULL, y = NULL, x = NULL, title  = NULL,  fill = NULL, caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora")
- 
-
+    labs(axis = NULL, y = NULL, x = NULL, title  = NULL, caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora", fill = "INCIDENCIA\n(casos por 100 mil habs.)")
 ```
 
 ```{r, include=FALSE}
@@ -137,17 +357,16 @@ Casos_map_ani <- girafe(code = print(Mapa_casos),
 Casos_map_ani 
 ```
 
-Column
------------------------------------------------------------------------
-### Casos acumulados al 04 de julio de 2020 {data-width=500}
+### **Casos acumulados al 29 de julio de 2020**
 
 ```{r, include=FALSE}
-CasosCol <- ggplot(casosacumdiaorder) +
-    geom_col(aes(x = fct_inorder(MUNICIPIO), y = `CASOS`, fill = `CASOS`), color = "white") + 
+Indicadoresord1 <- arrange(Indicadores,CASOS, desc(MUNICIPIO))
+CasosCol <- ggplot(Indicadoresord1) +
+    geom_col(aes(x = fct_inorder(MUNICIPIO), y = `CASOS`, fill = INCIDENCIA), color = "white") + 
   geom_text(aes(x = fct_inorder(MUNICIPIO), y = `CASOS`, label=`CASOS`, family="Lato"), size=2, vjust=0.4, hjust=-0.4) +
-geom_vline(xintercept=seq(1.5,length(unique(casosacumdiaorder$MUNICIPIO))-0.5, 1),lwd=0.2, colour="gray95") + 
+geom_vline(xintercept=seq(1.5,length(unique(Indicadoresord1$MUNICIPIO))-0.5, 1),lwd=0.2, colour="gray95") + 
   coord_flip(clip = "off") + 
-   scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,3400), breaks = c(1, 500, 1000, 1500, 2000, 2500, 3000)) +
+   scale_fill_gradient(low = "#58BCBC", high = "black") +
        theme_minimal() +
     theme(
     legend.position = "none",
@@ -161,7 +380,6 @@ geom_vline(xintercept=seq(1.5,length(unique(casosacumdiaorder$MUNICIPIO))-0.5, 1
     axis.title = element_text(family = "Lato", size = 8),
     plot.margin=unit(c(0,2,0,0),"cm")) + 
     labs(y = NULL, x = NULL) 
-
 ```
 
 ```{r}
@@ -171,9 +389,9 @@ CasosCol
 Último caso confirmado
 ===================================== 
 
-Column
+Row
 -----------------------------------------------------------------------
-### Mapa de días transcurridos respecto al último caso confirmado {data-width=500}
+### **¿Cuántos días han pasado desde que se confirmó el último caso en tu municipio?** {data-width=500}
 
 ```{r, include=FALSE}
 capa_ult_dias<- inner_join(capa_munison_df, casos_ult_dias, by="id")
@@ -181,16 +399,14 @@ capa_ult_dias<- inner_join(capa_munison_df, casos_ult_dias, by="id")
 
 ```{r, include=FALSE}
 capa_ult_dias$tooltip <- c(paste0("<b>",capa_ult_dias$MUNICIPIO, "</b>", "<b>","\n Último caso ", "</b>", capa_ult_dias$Fecha,"</b>", "<b>","\n Días ", "</b>", capa_ult_dias$Dias_ult))
-
-discreta <- c("1" = "#56002B", "2" = "#F79646","3" = "#FFCC66","4" = "#01787E")
-
+discreta <- c("1" = "#A04A69", "2" = "#ECA48E","3" = "#FECF7D","4" = "#0397A1", "5" = "#215968")
 Mapa_ult <- ggplot(capa_ult_dias, aes(map_id = id)) +
                geom_polygon(data=capa_son, aes(x=long, y=lat, group=group), 
                fill="transparent", color="black", size=1) +
     geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
                fill="gray90", color="white", size=0.3) +
      geom_map_interactive(aes(fill = factor(clasfdias), tooltip=capa_ult_dias$tooltip,data_id=id),color = "white",size=0.3, map = capa_munison_df) + 
-    scale_fill_manual("Días desde que se \n confirmó el último caso", values = discreta, breaks= c("4", "3", "2", "1"), labels = c( "+14", "8-14","1-7", "0"))+
+    scale_fill_manual("Días desde que se \n confirmó el último caso", values = discreta, breaks= c("5", "4", "3", "2", "1"), labels = c( "+30", "15-30", "8-14","1-7", "0"))+
     theme_void() +
    theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
     legend.position = "left", axis.text = element_blank(), legend.key.height = unit (2, "cm"),
@@ -198,14 +414,13 @@ Mapa_ult <- ggplot(capa_ult_dias, aes(map_id = id)) +
     legend.title = element_text(family = "Lato Black", size = 5, color = "black"),
     plot.caption = element_text(family = "Lato Light", size = 8, color = "gray50"),
     axis.title = element_blank()) +
-    labs(axis = NULL, y = NULL, x = NULL, title  = NULL,  fill = NULL, caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora", fill = "Días desde que se confirmó el último caso")
+    labs(axis = NULL, y = NULL, x = NULL, title  = NULL, caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora", fill = "Días desde que se confirmó el último caso")
  
-
 ```
 
 ```{r, include=FALSE}
 tooltip_css <- "background-color:#BFBFBF; color:black;font-family: Lato, sans-serif;opacity: 0.25; padding:5px"
-hover_css <- "stroke:black;stroke-width:1.5pt;"
+hover_css <- "stroke:black;stroke-width:0.5pt;"
 Casos_ult_ani <- girafe(code = {print(Mapa_ult)}, 
   options = list(opts_tooltip(css = tooltip_css), opts_hover(hover_css)) )
 ```
@@ -214,14 +429,10 @@ Casos_ult_ani <- girafe(code = {print(Mapa_ult)},
 Casos_ult_ani 
 ```
 
-
-Column
------------------------------------------------------------------------
-### Días desde el último caso confirmado  {data-width=500}
+### **Días desde el último caso confirmado (corte al 29/07/2020)**  {data-width=500}
 
 ```{r, include=FALSE}
 casos_ult_dias_order <- arrange(casos_ult_dias,Dias_ult, desc(MUNICIPIO))
-
 Casos_ultCol <- ggplot(casos_ult_dias_order) +
     geom_col(aes(x = fct_inorder(MUNICIPIO), y = Dias_ult, fill = factor(clasfdias)), color = "white") + 
   geom_text(aes(x = fct_inorder(MUNICIPIO), y = Dias_ult, label=Dias_ult, family="Lato"), size=2, vjust=0.4, hjust=-0.4) +
@@ -234,6 +445,7 @@ Casos_ultCol <- ggplot(casos_ult_dias_order) +
     axis.text.y = element_text(family = "Lato", size = 5, color = "black"),
     axis.text.x = element_blank(),axis.line.y = element_line(colour = "black"),
     panel.background = element_blank(),
+    legend.title = element_text(family = "Lato Black", size = 5, color = "black"),
     panel.grid.major.y = element_blank(), 
     panel.grid.minor.y = element_blank(),
     panel.grid.major.x = element_blank(),
@@ -241,7 +453,6 @@ Casos_ultCol <- ggplot(casos_ult_dias_order) +
     axis.title = element_text(family = "Lato", size = 8),
     plot.margin=unit(c(0,2,0,0),"cm")) + 
     labs(y = NULL, x = NULL) 
-
 ```
 
 ```{r}
@@ -251,36 +462,35 @@ Casos_ultCol
 Decesos acumulados
 ===================================== 
 
-Column
+Row
 -----------------------------------------------------------------------
-### Mapa de decesos acumulados {data-width=500}
+### **Mapa de Mortalidad** {data-width=500}
 
 
 ```{r, include=FALSE}
-capa_munison_decesos<- inner_join(capa_munison_df, decesosacumdia2, by="id")
+Indicadores2<- Indicadores %>% mutate(DECESOS = coalesce(DECESOS,0L)) %>% filter(DECESOS>"0")
+capa_munison_decesos<- inner_join(capa_munison_df, Indicadores2, by="id")
 ```
 
 ```{r, include=FALSE}
-capa_munison_decesos$tooltip <- c(paste0("<b>",capa_munison_decesos$MUNICIPIO, "</b>", "<b>","\n Decesos ", "</b>", capa_munison_decesos$DECESOS,"</b>", "<b>","\n Nuevos ", "</b>", capa_munison_decesos$NUEVOS))
-
+capa_munison_decesos$tooltip <- c(paste0("<b>",capa_munison_decesos$MUNICIPIO, "</b>", "<b>","\n Decesos ", "</b>", capa_munison_decesos$DECESOS,"</b>", "<b>","\n Mortalidad ", "</b>", capa_munison_decesos$MORTALIDAD))
 Mapa_decesos <- ggplot(capa_munison_decesos, aes(map_id = id)) +
                geom_polygon(data=capa_son, aes(x=long, y=lat, group=group), 
                fill="transparent", color="black", size= 1) +
         geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
                fill="gray90", color="white", size=0.3) +
-     geom_map_interactive(aes(fill = DECESOS, tooltip=capa_munison_decesos$tooltip, data_id=id),color = "white",size=0.3, map = capa_munison_df) + 
-    scale_fill_gradient(low= "#993366", high = "black", limits = c(1,300), breaks = c(1, 50, 100, 150, 200, 250,300))+
+     geom_map_interactive(aes(fill = MORTALIDAD, tooltip=capa_munison_decesos$tooltip, data_id=id),color = "white",size=0.3, map = capa_munison_df) + 
+    scale_fill_gradient(low= "#993366", high = "black")+
     theme_void() +
    theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
     legend.position = "left",
     legend.key.height = unit (2, "cm"), axis.text = element_blank(),
     legend.text = element_text(family = "Lato Light", size = 6, color = "black"),
-    legend.title = element_blank(),
+    legend.title = element_text(family = "Lato Black", size = 5, color = "black"),
     plot.caption = element_text(family = "Lato Light", size = 8, color = "gray50"),
     axis.title = element_blank()) +
-    labs(axis = NULL, y = NULL, x = NULL, title  = NULL,  fill = NULL, caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora")
+    labs(axis = NULL, y = NULL, x = NULL, title  = NULL, caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora", fill = "MORTALIDAD\n(decesos por 100 mil habs.)")
  
-
 ```
 
 ```{r, include=FALSE}
@@ -293,18 +503,16 @@ Decesos_map_ani <- girafe(code = print(Mapa_decesos),
 Decesos_map_ani 
 ```
 
-Column
------------------------------------------------------------------------
-### Decesos acumulados al 03 de julio de 2020 {data-width=500}
+### **Decesos acumulados al 29 de julio de 2020** {data-width=500}
 
 ```{r, include=FALSE}
-
-DecesosCol <- ggplot(decesosacumdiaorder) +
-    geom_col(aes(x = fct_inorder(MUNICIPIO), y = `DECESOS`, fill = DECESOS), color = "white") + 
+Indicadoresord2 <- arrange(Indicadores2,DECESOS, desc(MUNICIPIO))
+DecesosCol <- ggplot(Indicadoresord2) +
+    geom_col(aes(x = fct_inorder(MUNICIPIO), y = `DECESOS`, fill = MORTALIDAD), color = "white") + 
   geom_text(aes(x = fct_inorder(MUNICIPIO), y = `DECESOS`, label=DECESOS, family="Lato"), size=2, vjust=0.4, hjust=-0.4) +
-geom_vline(xintercept=seq(1.5,length(unique(decesosacumdiaorder$MUNICIPIO))-0.5, 1),lwd=0.2, colour="gray95") + 
+geom_vline(xintercept=seq(1.5,length(unique(Indicadores2$MUNICIPIO))-0.5, 1),lwd=0.2, colour="gray95") + 
   coord_flip(clip = "off") + 
-   scale_fill_gradient(low= "#993366", high = "black", limits = c(1,300), breaks = c(1, 50, 100, 150, 200, 250,300)) +
+   scale_fill_gradient(low= "#993366", high = "black") +
        theme_minimal() +
     theme(
     legend.position = "none",
@@ -318,26 +526,66 @@ geom_vline(xintercept=seq(1.5,length(unique(decesosacumdiaorder$MUNICIPIO))-0.5,
     axis.title = element_text(family = "Lato", size = 8),
     plot.margin=unit(c(0,2,0,0),"cm")) + 
     labs(y = NULL, x = NULL) 
-
 ```
 
 ```{r}
 DecesosCol
 ```
 
-Evolución diaria
+Evolución
 ===================================== 
 
-Column {.tabset}
+Row {.tabset}
 -----------------------------------------------------------------------
-### Casos diarios
+### **Casos semanales**
+```{r}
+Casossemana <- Casos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% mutate (Reporte=max(as.Date(Fecha))) %>% ungroup()
+Casossem <- group_by(Casossemana, MUNICIPIO, Reporte, Semana) %>% summarise('CASOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(CASOS)) %>% filter(Semana!=31)
+Casos_Semanales <- ggplot(subset(Casossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme"))) +
+    geom_col(mapping = aes(x = Reporte, y = `CASOS SEMANALES`, fill = `CASOS SEMANALES`, label= ACUMULADOS)) +
+    scale_fill_gradient(low = "#58BCBC", high = "black") + 
+    facet_wrap(~ MUNICIPIO, scales = "free_y") + 
+    theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 3, 1, 3, "cm"),
+          plot.title = (element_text(family = "Lato Black", size = 30)),
+          strip.text = element_text(family = "Lato Black", size = 16),
+          axis.text = element_text(family = "Lato", size =10),
+          panel.grid.major = element_line(colour = "white"), 
+          panel.grid.minor = element_line(colour = "white"), 
+          axis.title = element_text(family = "Lato", size = 15),
+          panel.background = element_rect(fill = "gray95"), 
+          legend.position = "none") +labs(y = NULL, x = NULL, title  = NULL) + 
+  theme(panel.grid.major = element_line(colour = "white"), panel.grid.minor = element_line(colour = "white"),                                   panel.background = element_rect(fill = "gray95"),legend.position = "none")
+ggplotly(Casos_Semanales, tooltip = c("y","label", "x"))
+```
 
-```{r, include=FALSE}
+### **Decesos semanales**
+```{r}
+Decesossemana <- Decesos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% mutate (Reporte=max(as.Date(Fecha))) %>% ungroup()
+Decesossem <- group_by(Decesossemana, MUNICIPIO, Reporte, Semana) %>% summarise('DECESOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(DECESOS)) %>% filter(Semana!=31)
+Decesos_Semanales <- ggplot(subset(Decesossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme"))) +
+    geom_col(mapping = aes(x = Reporte, y = `DECESOS SEMANALES`, fill = `DECESOS SEMANALES`, label= ACUMULADOS)) +
+    scale_fill_gradient(low = "#993366", high = "black") +
+    facet_wrap(~ MUNICIPIO, scales = "free_y") + 
+    theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 3, 1, 3, "cm"), 
+          plot.title = (element_text(family = "Lato Black", size = 30)),
+          strip.text = element_text(family = "Lato Black", size = 16),
+          axis.text = element_text(family = "Lato", size =10),
+          panel.grid.major = element_line(colour = "white"), 
+          panel.grid.minor = element_line(colour = "white"), 
+          axis.title = element_text(family = "Lato", size = 15),
+          panel.background = element_rect(fill = "gray95"), 
+          legend.position = "none") +labs(y = NULL, x = NULL, title  = NULL) + 
+  theme(panel.grid.major = element_line(colour = "white"), panel.grid.minor = element_line(colour = "white"),                                   panel.background = element_rect(fill = "gray95"),legend.position = "none")
+ggplotly(Decesos_Semanales, tooltip = c("y", "label", "x"))
+```
+
+### **Casos diarios**
+```{r }
 Casos$NUEVOS[Casos$NUEVOS == 0] <- NA
 Casos_Todos <- ggplot(data = Casos) +
       geom_tile(mapping = aes(x = Fecha, y = MUNICIPIO, fill = NUEVOS, text = paste(
                "ACUMULADOS: ", CASOS, "\n")), color = "white") +
-        scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,180), breaks = c(1, 20, 40, 60, 80, 100, 120, 140, 160, 180)) +
+        scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,310), breaks = c(1, 50, 100, 150, 200, 250, 300)) +
     scale_x_date(date_breaks = "weeks" , date_labels = "%d-%m") +
      theme_minimal() +
     theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
@@ -351,16 +599,12 @@ Casos_Todos <- ggplot(data = Casos) +
     plot.caption = element_text(family = "Lato Light", size = 8, color = "gray50", face = "italic"),
     axis.title = element_text(family = "Lato", size = 8)) +
     labs(y = NULL, x = NULL, title  = NULL,  fill = NULL, caption ="Elaboración propia con información de la Secretaría de Salud del Estado de Sonora")
-Casos_anim <- ggplotly(Casos_Todos)
+ggplotly(Casos_Todos)
 ```
+
+### **Decesos diarios**
 
 ```{r }
-Casos_anim
-```
-
-### Decesos diarios
-
-```{r, include=FALSE}
 Decesos$NUEVOS[Decesos$NUEVOS == 0] <- NA
 Decesos_Todos <- ggplot(data = Decesos) +
       geom_tile(mapping = aes(x = Fecha, y = MUNICIPIO, fill = NUEVOS, text = paste(
@@ -380,28 +624,13 @@ Decesos_Todos <- ggplot(data = Decesos) +
     plot.caption = element_text(family = "Lato Light", size = 8, color = "gray50", face = "italic"),
     axis.title = element_text(family = "Lato", size = 8)) +
     labs(y = NULL, x = NULL, title  = NULL,  fill = NULL, caption ="Elaboración propia con información de la Secretaría de Salud del Estado de Sonora")
-Decesos_anim <- ggplotly(Decesos_Todos)
-```
-
-
-```{r}
-Decesos_anim
+ggplotly(Decesos_Todos)
 ```
 
 Indicadores
 =====================================
-**Al 4 de julio de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 29 de julio de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
-POBMUN <- read_csv("POBMUN.csv", col_types = cols(CVEGEO = col_character()))
-casos_pal <- function(x) rgb(colorRamp(c("#EAF6F6", "#7FCDCB"))(x), maxColorValue = 255)
-decesos_pal <- function(x) rgb(colorRamp(c("#FBF3F7", "#E0A3C1"))(x), maxColorValue = 255)
-
-decesosacumdia3 <- rename(decesosacumdia,'DECESOS NUEVOS'=NUEVOS)
-casosacumdia3 <- rename(casosacumdia,'CASOS NUEVOS'=NUEVOS)
-casosdecesos <-left_join(casosacumdia3, decesosacumdia3,by = c("CVEGEO","Fecha","MUNICIPIO"))
-casosdecesospob <- left_join(casosdecesos, POBMUN, by = "CVEGEO")
-Indicadores <- casosdecesospob %>% mutate (INCIDENCIA = (CASOS*100000)/POB, MORTALIDAD = (DECESOS*100000)/POB, LETALIDAD = DECESOS*100/CASOS)
-Indicadores <- rename(Indicadores, POBLACION=POB)
 CDSELECT<-select(Indicadores, "MUNICIPIO","POBLACION", "CASOS","CASOS NUEVOS","INCIDENCIA", "DECESOS","DECESOS NUEVOS","MORTALIDAD", "LETALIDAD")
 CDSELECT1 <- CDSELECT %>% mutate(DECESOS = coalesce(DECESOS,0L),`DECESOS NUEVOS` = coalesce(`DECESOS NUEVOS`,0L), `CASOS NUEVOS` = coalesce(`CASOS NUEVOS`,0L), MORTALIDAD = coalesce(MORTALIDAD, 0), LETALIDAD = coalesce(LETALIDAD, 0))
 reactable(CDSELECT1,searchable = TRUE, highlight = TRUE, defaultSorted = "CASOS", defaultSortOrder = "desc",
@@ -472,34 +701,10 @@ reactable(CDSELECT1,searchable = TRUE, highlight = TRUE, defaultSorted = "CASOS"
 write.csv(CDSELECT1,'Indicadores-Municipios-Sonora.csv')
 ```
 
-```{r}
-Casossem <- group_by(Casos, MUNICIPIO, Semana = isoweek(Fecha)) %>% summarise('CASOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(CASOS))
-Casos_Semanales <- ggplot(subset(Casossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta"))) +
-    geom_col(mapping = aes(x = Semana, y = `CASOS SEMANALES`, fill = `CASOS SEMANALES`, label= ACUMULADOS)) +
-    scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,1500)) + 
-    facet_wrap(~ MUNICIPIO, scales = "free") + 
-    theme(axis.line = element_line(linetype = "solid"),
-          plot.title = (element_text(family = "Lato Black", size = 30)),
-          strip.text = element_text(family = "Lato Black", size = 20),
-          axis.text = element_text(family = "Lato", size =10),
-          panel.grid.major = element_line(colour = "white"), 
-          panel.grid.minor = element_line(colour = "white"), 
-          axis.title = element_text(family = "Lato", size = 15),
-          panel.background = element_rect(fill = "gray95", size = 1), 
-          legend.position = "none") +labs(y = "Casos semanales", x = NULL, title  = "Casos semanales") + 
-  theme(panel.grid.major = element_line(colour = "white"), panel.grid.minor = element_line(colour = "white"),                                   panel.background = element_rect(fill = "gray95"),legend.position = "none") +labs(y = "Casos diarios", fill = NULL)
-ggplotly(Casos_Semanales, tooltip = c("y", "label"))
-saveWidget(ggplotly(Casos_Semanales, tooltip = c("y", "label")), file = "Casossem4.html")
-```
-
-
-
-
-
 Fuentes
 ===================================== 
 
-Fuente: Reportes diarios de la Secretaría de Salud del Estado de Sonora y proyecciones de población para los municipios de Sonora a mediados de 2020 del Consejo Nacional de Población.
+**Fuente:** Reportes diarios de la Secretaría de Salud del Estado de Sonora y proyecciones de población para los municipios de Sonora a mediados de 2020 del Consejo Nacional de Población.
 
 [CSV Casos confirmados municipales](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!31283&authkey=!ALNt9KiLEoT72tU)
 
@@ -509,4 +714,7 @@ Fuente: Reportes diarios de la Secretaría de Salud del Estado de Sonora y proye
 
 Código del proyecto: [Covid19-Sonora-Municipios](https://github.com/dogomoreno/Covid19-Sonora-Municipios) 
 
+[Plataforma Covid-19 del Departamento de Matemáticas de la Universidad de Sonora](https://covid19data.unison.mx/)
+
 [www.luisarmandomoreno.com](www.luisarmandomoreno.com)
+
