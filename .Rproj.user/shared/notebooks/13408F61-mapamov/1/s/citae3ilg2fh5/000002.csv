@@ -1,0 +1,5 @@
+"0","ggplotly(Casosd, tooltip = c(""y"",""label"", ""x""))  %>%"
+"0","  layout(legend = list(orientation = ""h"","
+"0","                   y = 80, x = 0))"
+"2","Transformation introduced infinite values in continuous x-axis"
+"2","Transformation introduced infinite values in continuous y-axis"

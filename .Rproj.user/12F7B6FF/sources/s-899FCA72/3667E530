@@ -1,0 +1,33 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1596169484950.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "3667E530",
+    "lastKnownWriteTime" : 7954892334483857268,
+    "last_content_update" : 1596169484950,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "F200A099",
+        "caption" : "Sonora.DF",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=Sonora.DF&cache_key=F200A099",
+        "displayedObservations" : 136,
+        "environment" : "",
+        "expression" : "Sonora.DF",
+        "object" : "Sonora.DF",
+        "preview" : 0,
+        "totalObservations" : 136,
+        "variables" : 19
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 8,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
