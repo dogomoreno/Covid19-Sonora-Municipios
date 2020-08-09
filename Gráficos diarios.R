@@ -121,7 +121,7 @@ Casosd <- ggplot(subset(Casosprom, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nog
         legend.position = "top", legend.justification="left") +
   labs(y = "Casos diarios\n(promedio móvil 7 días, log)", 
        x = "Casos acumulados (log)",legend= NULL, title  = "Casos de Covid-19\nen los municipios de Sonora", 
-       subtitle= "Corte al 02 de agosto de 2020", caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com") + 
+       subtitle= "Corte al 08 de agosto de 2020", caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com") + 
   scale_x_continuous(trans = "log10") + scale_y_continuous(trans = "log10")
 
 ggsave("Gráficos/casosdacum.png",Casosd, bg = "transparent", height = 25, width = 25, units = "cm")
@@ -148,8 +148,86 @@ Decesosd <- ggplot(subset(Decesosprom, MUNICIPIO %in% c("Hermosillo", "Cajeme", 
   labs(y = "Decesos diarios\n(promedio móvil 7 días)", 
        x = "Decesos acumulados",legend= NULL, 
        title  = "Decesos de Covid-19\nen los municipios de Sonora", 
-       subtitle= "Corte al 02 de agosto de 2020", 
+       subtitle= "Corte al 08 de agosto de 2020", 
        caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com") + 
-  scale_y_continuous (expand = c(0, 0)) + scale_x_continuous (expand = c(0, 0))
+  scale_y_continuous (expand = c(0, 0), limit = c(0, 20)) + 
+  scale_x_continuous (expand = c(0, 0), limit = c(0, 600))
 
 ggsave("Gráficos/decesosdacum.png",Decesosd, bg = "transparent", height = 25, width = 25, units = "cm")
+
+Gravgraf <- ggplot(Sonora.DF) +
+  geom_area(aes(x= Fecha, y= Hospitalizados, fill = "Hospitalizados"), color = "#E26B0A", size= 1, alpha=0.75) +
+  geom_area(aes(x= Fecha, y= Graves, fill= "Graves")) +
+  geom_area(aes(x= Fecha, y= Intubado, fill= "Intubados")) +
+  scale_fill_manual(name="", values= c("Hospitalizados" = "#FABF8F", "Graves" = "#E26B0A", "Intubados" = "#974706"  ), 
+                    breaks = c("Hospitalizados", "Graves", "Intubados")) +
+  scale_y_continuous(expand = c(0, 40)) +
+  theme_minimal() +
+  theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
+        plot.title = element_text(family = "Lato Black", size = 40,color = "#E26B0A"), 
+        plot.subtitle = element_text(family = "Lato Light", size = 16, color = "black"), legend.title = element_blank(),
+        strip.text = element_text(family = "Lato Black", size = 16),
+        axis.text = element_text(family = "Lato", size =10),
+        panel.grid.major = element_line(colour = "white", size= 1), 
+        panel.grid.minor = element_line(colour = "white", size=0.2), 
+        plot.background = element_rect(fill = "white", color = "black", size = 5),
+        axis.title.x = element_text(family = "Lato Light", size = 12, hjust=1),
+        axis.title.y = element_text(family = "Lato Light", size = 12, hjust=1), plot.caption = element_text(family = "Lato", size = 10, color = "#E26B0A"),
+        panel.background = element_rect(fill = "gray95"), legend.text = element_text(family = "Lato", size = 12),
+        legend.position = "top", legend.justification="left") + 
+  labs(legend= NULL, 
+       title  = "Hospitalizados", 
+       subtitle= "Corte al 08 de agosto de 2020", 
+       caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com")
+ggsave("Gráficos/hospitalizados.png",Gravgraf, bg = "transparent", height = 25, width = 25, units = "cm")
+
+Casosd2 <- ggplot(subset(Casosprom, MUNICIPIO %in% c("Empalme","Huatabampo", "Etchojoa", "San Ignacio Río Muerto", "Benito Juárez", "Bácum"))) +
+  geom_line(mapping = aes(x = CASOS, y = Casos.media.7d, color= MUNICIPIO, label= MUNICIPIO), size=1.5, alpha=0.6, arrow=arrow(type="open", length=unit(0.20,"cm"))) +
+  scale_color_locuszoom() +
+  theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
+        plot.title = element_text(family = "Lato Black", size = 40,color = "#01A2AC"),  
+        plot.subtitle = element_text(family = "Lato Light", size = 16, color = "black"), legend.title = element_blank(),
+        strip.text = element_text(family = "Lato Black", size = 16),
+        axis.text = element_text(family = "Lato", size =10),
+        panel.grid.major = element_line(colour = "white", size= 1), 
+        panel.grid.minor = element_line(colour = "white", size=0.2), plot.background = element_rect(fill = "white", color = "black", size = 5),
+        axis.title.x = element_text(family = "Lato Light", size = 12, hjust=1),
+        axis.title.y = element_text(family = "Lato Light", size = 12, hjust=1), 
+        plot.caption = element_text(family = "Lato", size = 10, color = "#01A2AC"),
+        panel.background = element_rect(fill = "gray95"), 
+        legend.text = element_text(family = "Lato", size = 12),
+        legend.position = "top", legend.justification="left") +
+  labs(y = "Casos diarios\n(promedio móvil 7 días)", 
+       x = "Casos acumulados",legend= NULL, title  = "Casos de Covid-19\nen los municipios de Sonora", 
+       subtitle= "Corte al 08 de agosto de 2020", caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com")
+
+ggsave("Gráficos/casosdacum2.png",Casosd2, bg = "transparent", height = 25, width = 25, units = "cm")
+
+#Decesos trayectoria Promedio vs Acumulado
+
+Decesosprom <- Decesos %>% group_by(MUNICIPIO) %>% mutate(Decesos.media.7d=round(rollmeanr(x=NUEVOS, 7, fill = 0),1)) 
+
+Decesosd2 <- ggplot(subset(Decesosprom, MUNICIPIO %in% c("Empalme", "Huatabampo", "Etchojoa", "San Ignacio Río Muerto", "Benito Juárez", "Bácum"))) +
+  geom_line(mapping = aes(x = DECESOS, y = Decesos.media.7d, color= MUNICIPIO, label= MUNICIPIO), size=1.5, alpha=0.6, arrow=arrow(type="open", length=unit(0.20,"cm"))) +
+  scale_color_locuszoom() +
+  theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
+        plot.title = element_text(family = "Lato Black", size = 40,color = "#993366"), 
+        plot.subtitle = element_text(family = "Lato Light", size = 16, color = "black"), legend.title = element_blank(),
+        strip.text = element_text(family = "Lato Black", size = 16),
+        axis.text = element_text(family = "Lato", size =10),
+        panel.grid.major = element_line(colour = "white", size= 1), 
+        panel.grid.minor = element_line(colour = "white", size=0.2), 
+        plot.background = element_rect(fill = "white", color = "black", size = 5),
+        axis.title.x = element_text(family = "Lato Light", size = 12, hjust=1),
+        axis.title.y = element_text(family = "Lato Light", size = 12, hjust=1), plot.caption = element_text(family = "Lato", size = 10, color = "#993366"),
+        panel.background = element_rect(fill = "gray95"), legend.text = element_text(family = "Lato", size = 12),
+        legend.position = "top", legend.justification="left") +
+  labs(y = "Decesos diarios\n(promedio móvil 7 días)", 
+       x = "Decesos acumulados",legend= NULL, 
+       title  = "Decesos de Covid-19\nen los municipios de Sonora", 
+       subtitle= "Corte al 08 de agosto de 2020", 
+       caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com") + 
+  scale_y_continuous (expand = c(0, 0), limit = c(0, 3)) + 
+  scale_x_continuous (expand = c(0, 0), limit = c(0, 50))
+
+ggsave("Gráficos/decesosdacum2.png",Decesosd2, bg = "transparent", height = 25, width = 25, units = "cm")

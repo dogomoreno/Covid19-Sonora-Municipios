@@ -358,7 +358,7 @@ Casos_map_ani <- girafe(code = print(Mapa_casos),
 Casos_map_ani 
 ```
 
-### **Casos acumulados al 02 de agosto de 2020**
+### **Casos acumulados al 08 de agosto de 2020**
 
 ```{r, include=FALSE}
 Indicadoresord1 <- arrange(Indicadores,CASOS, desc(MUNICIPIO))
@@ -430,7 +430,7 @@ Casos_ult_ani <- girafe(code = {print(Mapa_ult)},
 Casos_ult_ani 
 ```
 
-### **Días desde el último caso confirmado (corte al 02/08/2020)**  {data-width=500}
+### **Días desde el último caso confirmado (corte al 08/08/2020)**  {data-width=500}
 
 ```{r, include=FALSE}
 casos_ult_dias_order <- arrange(casos_ult_dias,Dias_ult, desc(MUNICIPIO))
@@ -504,7 +504,7 @@ Decesos_map_ani <- girafe(code = print(Mapa_decesos),
 Decesos_map_ani 
 ```
 
-### **Decesos acumulados al 02 de agosto de 2020** {data-width=500}
+### **Decesos acumulados al 08 de agosto de 2020** {data-width=500}
 
 ```{r, include=FALSE}
 Indicadoresord2 <- arrange(Indicadores2,DECESOS, desc(MUNICIPIO))
@@ -541,7 +541,7 @@ Row {.tabset}
 ### **Casos semanales**
 ```{r}
 Casossemana <- Casos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% mutate (Reporte=max(as.Date(Fecha))) %>% ungroup()
-Casossem <- group_by(Casossemana, MUNICIPIO, Reporte, Semana) %>% summarise('CASOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(CASOS))
+Casossem <- group_by(Casossemana, MUNICIPIO, Reporte, Semana) %>% summarise('CASOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(CASOS)) %>% filter(Semana!=32)
 Casos_Semanales <- ggplot(subset(Casossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme"))) +
     geom_col(mapping = aes(x = Reporte, y = `CASOS SEMANALES`, fill = `CASOS SEMANALES`, label= ACUMULADOS)) +
     scale_fill_gradient(low = "#58BCBC", high = "black") + 
@@ -562,7 +562,7 @@ ggplotly(Casos_Semanales, tooltip = c("y","label", "x"))
 ### **Decesos semanales**
 ```{r}
 Decesossemana <- Decesos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% mutate (Reporte=max(as.Date(Fecha))) %>% ungroup()
-Decesossem <- group_by(Decesossemana, MUNICIPIO, Reporte, Semana) %>% summarise('DECESOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(DECESOS))
+Decesossem <- group_by(Decesossemana, MUNICIPIO, Reporte, Semana) %>% summarise('DECESOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(DECESOS)) %>% filter(Semana!=32)
 Decesos_Semanales <- ggplot(subset(Decesossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme"))) +
     geom_col(mapping = aes(x = Reporte, y = `DECESOS SEMANALES`, fill = `DECESOS SEMANALES`, label= ACUMULADOS)) +
     scale_fill_gradient(low = "#993366", high = "black") +
@@ -610,7 +610,7 @@ Decesos$NUEVOS[Decesos$NUEVOS == 0] <- NA
 Decesos_Todos <- ggplot(data = Decesos) +
       geom_tile(mapping = aes(x = Fecha, y = MUNICIPIO, fill = NUEVOS, text = paste(
                "ACUMULADOS: ", DECESOS, "\n")), color = "white") +
-     scale_fill_gradient(low= "#993366", high = "black", limits = c(0,30), breaks = c(0, 5, 10, 15, 20, 25,30) ) +
+     scale_fill_gradient(low= "#993366", high = "black", limits = c(0,40), breaks = c(0, 10, 20, 30, 40) ) +
      scale_x_date(date_breaks = "weeks" , date_labels = "%d-%m")+
      theme_minimal() +
     theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#993366", vjust = -0.1, face = "bold")),
@@ -630,7 +630,7 @@ ggplotly(Decesos_Todos)
 
 Indicadores
 =====================================
-**Al 02 de agosto de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 08 de agosto de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
 CDSELECT<-select(Indicadores, "MUNICIPIO","POBLACION", "CASOS","CASOS NUEVOS","INCIDENCIA", "DECESOS","DECESOS NUEVOS","MORTALIDAD", "LETALIDAD")
 CDSELECT1 <- CDSELECT %>% mutate(DECESOS = coalesce(DECESOS,0L),`DECESOS NUEVOS` = coalesce(`DECESOS NUEVOS`,0L), `CASOS NUEVOS` = coalesce(`CASOS NUEVOS`,0L), MORTALIDAD = coalesce(MORTALIDAD, 0), LETALIDAD = coalesce(LETALIDAD, 0))
@@ -705,7 +705,17 @@ write.csv(CDSELECT1,'ResultadoCSV/Indicadores-Municipios-Sonora.csv')
 Fuentes
 ===================================== 
 
-**Fuente:** Reportes diarios de la Secretaría de Salud del Estado de Sonora y proyecciones de población para los municipios de Sonora a mediados de 2020 del Consejo Nacional de Población.
+**Fuente:** Captura propia de los reportes diarios de la Secretaría de Salud del Estado de Sonora | Proyecciones de población para los municipios de Sonora a mediados de 2020 del Consejo Nacional de Población.
+
+
+
+Repositorio del proyecto: [Covid19-Sonora-Municipios](https://github.com/dogomoreno/Covid19-Sonora-Municipios) 
+
+
+
+[Plataforma Covid-19 del Departamento de Matemáticas de la Universidad de Sonora](https://covid19data.unison.mx/)
+
+
 
 [CSV Casos confirmados municipales](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!40221&authkey=!AHWUE_EQfhvGRm4)
 
@@ -715,9 +725,8 @@ Fuentes
 
 [CSV Población 2020 de los municipios de Sonora](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!40218&authkey=!AARItLcji8-QS-Q)
 
-Código del proyecto: [Covid19-Sonora-Municipios](https://github.com/dogomoreno/Covid19-Sonora-Municipios) 
 
-[Plataforma Covid-19 del Departamento de Matemáticas de la Universidad de Sonora](https://covid19data.unison.mx/)
+
 
 [www.luisarmandomoreno.com](www.luisarmandomoreno.com)
 
