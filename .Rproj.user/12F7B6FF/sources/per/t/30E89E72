@@ -5,16 +5,16 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "2788522515",
+    "hash" : "583302392",
     "id" : "30E89E72",
-    "lastKnownWriteTime" : 1596947784,
-    "last_content_update" : 1596947784884,
+    "lastKnownWriteTime" : 1597384264,
+    "last_content_update" : 1597384264691,
     "path" : "C:/Users/luism/OneDrive/R/COVID/Municipios/Municipios.Rmd",
     "project_path" : "Municipios.Rmd",
     "properties" : {
-        "cursorPosition" : "360,28",
+        "cursorPosition" : "236,30",
         "last_setup_crc32" : "",
-        "scrollLine" : "326"
+        "scrollLine" : "222"
     },
     "read_only" : false,
     "read_only_alternatives" : [
