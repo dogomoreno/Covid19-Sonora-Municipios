@@ -362,7 +362,7 @@ Casos_map_ani <- girafe(code = print(Mapa_casos),
 Casos_map_ani 
 ```
 
-### **Casos acumulados al 23 de agosto de 2020**
+### **Casos acumulados al 28 de agosto de 2020**
 
 ```{r, include=FALSE}
 Indicadoresord1 <- arrange(Indicadores,CASOS, desc(MUNICIPIO))
@@ -434,7 +434,7 @@ Casos_ult_ani <- girafe(code = {print(Mapa_ult)},
 Casos_ult_ani 
 ```
 
-### **Días desde el último caso confirmado (corte al 23/08/2020)**  {data-width=500}
+### **Días desde el último caso confirmado (corte al 28/08/2020)**  {data-width=500}
 
 ```{r, include=FALSE}
 casos_ult_dias_order <- arrange(casos_ult_dias,Dias_ult, desc(MUNICIPIO))
@@ -508,7 +508,7 @@ Decesos_map_ani <- girafe(code = print(Mapa_decesos),
 Decesos_map_ani 
 ```
 
-### **Decesos acumulados al 23 de agosto de 2020** {data-width=500}
+### **Decesos acumulados al 28 de agosto de 2020** {data-width=500}
 
 ```{r, include=FALSE}
 Indicadoresord2 <- arrange(Indicadores2,DECESOS, desc(MUNICIPIO))
@@ -633,7 +633,7 @@ ggplotly(Decesos_Todos)
 
 Indicadores
 =====================================
-**Al 23 de agosto de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 28 de agosto de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
 CDSELECT<-select(Indicadores, "MUNICIPIO","POBLACION", "CASOS","CASOS NUEVOS","INCIDENCIA", "DECESOS","DECESOS NUEVOS","MORTALIDAD", "LETALIDAD")
 CDSELECT1 <- CDSELECT %>% mutate(DECESOS = coalesce(DECESOS,0L),`DECESOS NUEVOS` = coalesce(`DECESOS NUEVOS`,0L), `CASOS NUEVOS` = coalesce(`CASOS NUEVOS`,0L), MORTALIDAD = coalesce(MORTALIDAD, 0), LETALIDAD = coalesce(LETALIDAD, 0))
