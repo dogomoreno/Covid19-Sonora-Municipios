@@ -1,4 +1,0 @@
-"0","Nacionalsem <- group_by(Nacionalsemana, Reporte, Semana) %>% summarise('CASOS SEMANALES' = sum(Casos.Nuevos), ACUMULADOS=max(Casos), 'DECESOS SEMANALES' = sum(Decesos.Nuevos), DECESOS.ACUMULADOS=max(Decesos)) "
-"2","Error in group_by(Nacionalsemana, Reporte, Semana) : 
-  objeto 'Nacionalsemana' no encontrado
-"
