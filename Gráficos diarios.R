@@ -101,6 +101,8 @@ ggsave("Gráficos/movimientos.png",Mapa_mov, bg = "transparent", height = 25.9, 
 
 #Casos trayectoria Promedio vs Acumulado
 
+Fechahoy<- "Corte al 04 de octubre de 2020"
+
 Casosprom <- Casos %>% group_by(MUNICIPIO) %>% mutate(Casos.media.7d=round(rollmeanr(x=NUEVOS, 7, fill = 0),1)) 
 
 Casosd <- ggplot(subset(Casosprom, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Caborca", "Guaymas"))) +
@@ -121,7 +123,7 @@ Casosd <- ggplot(subset(Casosprom, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nog
         legend.position = "top", legend.justification="left") +
   labs(y = "Casos diarios\n(promedio móvil 7 días, log)", 
        x = "Casos acumulados (log)",legend= NULL, title  = "Casos de Covid-19\nen los municipios de Sonora", 
-       subtitle= "Corte al 27 de septiembre de 2020", caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com") + 
+       subtitle= Fechahoy, caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com") + 
   scale_x_continuous(trans = "log10") + scale_y_continuous(trans = "log10")
 
 ggsave("Gráficos/casosdacum.png",Casosd, bg = "transparent", height = 25, width = 25, units = "cm")
@@ -148,7 +150,7 @@ Decesosd <- ggplot(subset(Decesosprom, MUNICIPIO %in% c("Hermosillo", "Cajeme", 
   labs(y = "Decesos diarios\n(promedio móvil 7 días)", 
        x = "Decesos acumulados",legend= NULL, 
        title  = "Decesos de Covid-19\nen los municipios de Sonora", 
-       subtitle= "Corte al 27 de septiembre de 2020", 
+       subtitle= Fechahoy, 
        caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com") + 
   scale_y_continuous (expand = c(0, 0), limit = c(0, 30)) + 
   scale_x_continuous (expand = c(0, 0), limit = c(0, 1000))
@@ -177,7 +179,7 @@ Gravgraf <- ggplot(Sonora.DF) +
         legend.position = "top", legend.justification="left") + 
   labs(legend= NULL, 
        title  = "Hospitalizados", 
-       subtitle= "Corte al 27 de septiembre de 2020", 
+       subtitle= Fechahoy, 
        caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com")
 ggsave("Gráficos/hospitalizados.png",Gravgraf, bg = "transparent", height = 25, width = 25, units = "cm")
 
@@ -199,7 +201,7 @@ Casosd2 <- ggplot(subset(Casosprom, MUNICIPIO %in% c("Empalme","Huatabampo", "Et
         legend.position = "top", legend.justification="left") +
   labs(y = "Casos diarios\n(promedio móvil 7 días)", 
        x = "Casos acumulados",legend= NULL, title  = "Casos de Covid-19\nen los municipios de Sonora", 
-       subtitle= "Corte al 27 de septiembre de 2020", caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com")
+       subtitle= Fechahoy, caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com")
 
 ggsave("Gráficos/casosdacum2.png",Casosd2, bg = "transparent", height = 25, width = 25, units = "cm")
 
@@ -225,7 +227,7 @@ Decesosd2 <- ggplot(subset(Decesosprom, MUNICIPIO %in% c("Empalme", "Huatabampo"
   labs(y = "Decesos diarios\n(promedio móvil 7 días)", 
        x = "Decesos acumulados",legend= NULL, 
        title  = "Decesos de Covid-19\nen los municipios de Sonora", 
-       subtitle= "Corte al 27 de septiembre de 2020", 
+       subtitle= Fechahoy, 
        caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com") + 
   scale_y_continuous (expand = c(0, 0), limit = c(0, 3)) + 
   scale_x_continuous (expand = c(0, 0), limit = c(0, 50))
