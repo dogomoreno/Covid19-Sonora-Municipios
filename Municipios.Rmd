@@ -237,13 +237,13 @@ Row  {data-height=350}
 Sonora.SS <- Sonora.dia %>% select (IMSS, SSA, ISSSTESON, ISSSTE, SEDENA, SEMAR) %>% gather(key= SS, value= Letalidad)
 Sonora.SS$SS <- factor(Sonora.SS$SS ,levels = c("IMSS","SEMAR","ISSSTE",  "ISSSTESON", "SSA", "SEDENA"))
 LetalidadSS <- ggplot(Sonora.SS) +
-   geom_col(aes(x= Letalidad, y= SS, color= "Pacientes curados"), fill= "#E0A3C1", color= "black", size= 0.3)+
+   geom_col(aes(x= Letalidad, y= SS), fill= "#993366", color= "white", size= 0.3)+
           theme_minimal() +
     theme(
     legend.position = "left",
      panel.background = element_rect(fill= "white"),
     axis.text.y = element_text(family = "Lato", size = 10, color = "black"),
-    axis.text.x = element_text(family = "Lato", size = 10, color = "black"),axis.line = element_line(colour = "black"),
+    axis.text.x = element_text(family = "Lato", size = 10, color = "black"),axis.line = element_line(colour = "white"),
     panel.grid.major.y = element_line(color="white"), 
     panel.grid.minor.y = element_line(color="white"),
     panel.grid.major.x = element_blank(),
@@ -263,8 +263,8 @@ ggplotly(LetalidadSS, tooltip = c("x", "y")) %>%
 Gravgraf <- ggplot(Sonora.DF) +
   geom_area(aes(x= Fecha, y= Hospitalizados, fill = "Hospitalizados"), color = "#E26B0A", size= 1, alpha=0.75) +
   geom_area(aes(x= Fecha, y= Graves, fill= "Graves")) +
-    geom_area(aes(x= Fecha, y= Intubado, fill= "Intubados")) +
-    scale_fill_manual(name="", values= c("Hospitalizados" = "#FABF8F", "Graves" = "#E26B0A", "Intubados" = "#974706"  )) +
+    geom_area(aes(x= Fecha, y= Criticos, fill= "Críticos")) +
+    scale_fill_manual(name="", values= c("Hospitalizados" = "#FABF8F", "Graves" = "#E26B0A", "Críticos" = "#974706"  )) +
       scale_y_continuous(expand = c(0, 40)) +
       scale_x_date(expand=c(0,0)) +
        theme_minimal() +
@@ -363,7 +363,7 @@ Casos_map_ani <- girafe(code = print(Mapa_casos),
 Casos_map_ani 
 ```
 
-### **Casos acumulados al 11 de octubre de 2020**
+### **Casos acumulados al 18 de octubre de 2020**
 
 ```{r, include=FALSE}
 Indicadoresord1 <- arrange(Indicadores,CASOS, desc(MUNICIPIO))
@@ -376,7 +376,7 @@ geom_vline(xintercept=seq(1.5,length(unique(Indicadoresord1$MUNICIPIO))-0.5, 1),
        theme_minimal() +
     theme(
     legend.position = "none",
-    axis.text.y = element_text(family = "Lato", size = 5, color = "black"),
+    axis.text.y = element_text(family = "Lato", size = 4, color = "black"),
     axis.text.x = element_blank(),axis.line.y = element_line(colour = "black"),
     panel.background = element_blank(),
     panel.grid.major.y = element_blank(), 
@@ -435,7 +435,7 @@ Casos_ult_ani <- girafe(code = {print(Mapa_ult)},
 Casos_ult_ani 
 ```
 
-### **Días desde el último caso confirmado (corte al 11/10/2020)**  {data-width=500}
+### **Días desde el último caso confirmado (corte al 18/10/2020)**  {data-width=500}
 
 ```{r, include=FALSE}
 casos_ult_dias_order <- arrange(casos_ult_dias,Dias_ult, desc(MUNICIPIO))
@@ -448,7 +448,7 @@ Casos_ultCol <- ggplot(casos_ult_dias_order) +
        theme_minimal() +
     theme(
     legend.position = "none",
-    axis.text.y = element_text(family = "Lato", size = 5, color = "black"),
+    axis.text.y = element_text(family = "Lato", size = 4, color = "black"),
     axis.text.x = element_blank(),axis.line.y = element_line(colour = "black"),
     panel.background = element_blank(),
     legend.title = element_text(family = "Lato Black", size = 5, color = "black"),
@@ -509,7 +509,7 @@ Decesos_map_ani <- girafe(code = print(Mapa_decesos),
 Decesos_map_ani 
 ```
 
-### **Decesos acumulados al 11 de octubre de 2020* {data-width=500}
+### **Decesos acumulados al 18 de octubre de 2020* {data-width=500}
 
 ```{r, include=FALSE}
 Indicadoresord2 <- arrange(Indicadores2,DECESOS, desc(MUNICIPIO))
@@ -522,7 +522,7 @@ geom_vline(xintercept=seq(1.5,length(unique(Indicadores2$MUNICIPIO))-0.5, 1),lwd
        theme_minimal() +
     theme(
     legend.position = "none",
-    axis.text.y = element_text(family = "Lato Light", size = 8, color = "black"),
+    axis.text.y = element_text(family = "Lato Light", size = 7, color = "black"),
     axis.text.x = element_blank(), axis.line.y = element_line(colour = "black"),
     panel.background = element_blank(),
     panel.grid.major.y = element_blank(), 
@@ -546,7 +546,7 @@ Row {.tabset}
 ### **Casos semanales**
 ```{r}
 Casossemana <- Casos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% mutate (Reporte=max(as.Date(Fecha))) %>% ungroup()
-Casossem <- group_by(Casossemana, MUNICIPIO, Reporte, Semana) %>% summarise('CASOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(CASOS)) %>% filter(Semana!=42)
+Casossem <- group_by(Casossemana, MUNICIPIO, Reporte, Semana) %>% summarise('CASOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(CASOS)) %>% filter(Semana!=43)
 Casos_Semanales <- ggplot(subset(Casossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme"))) +
     geom_col(mapping = aes(x = Reporte, y = `CASOS SEMANALES`, fill = `CASOS SEMANALES`, label= ACUMULADOS)) +
     scale_fill_gradient(low = "#58BCBC", high = "black") + 
@@ -567,7 +567,7 @@ ggplotly(Casos_Semanales, tooltip = c("y","label", "x"))
 ### **Decesos semanales**
 ```{r}
 Decesossemana <- Decesos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% mutate (Reporte=max(as.Date(Fecha))) %>% ungroup()
-Decesossem <- group_by(Decesossemana, MUNICIPIO, Reporte, Semana) %>% summarise('DECESOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(DECESOS)) %>% filter(Semana!=42)
+Decesossem <- group_by(Decesossemana, MUNICIPIO, Reporte, Semana) %>% summarise('DECESOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(DECESOS)) %>% filter(Semana!=43)
 Decesos_Semanales <- ggplot(subset(Decesossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme"))) +
     geom_col(mapping = aes(x = Reporte, y = `DECESOS SEMANALES`, fill = `DECESOS SEMANALES`, label= ACUMULADOS)) +
     scale_fill_gradient(low = "#993366", high = "black") +
@@ -595,8 +595,8 @@ Casos_Todos <- ggplot(data = Casos) +
     scale_x_date(date_breaks = "weeks" , date_labels = "%d-%m") +
      theme_minimal() +
     theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
-    legend.key.height = unit (2, "cm"),    axis.text.y = element_text(family = "Lato Light", size = 9, color = "black"), 
-    axis.text.x = element_text(family = "Lato Light", size = 8, color = "black"),
+    legend.key.height = unit (2, "cm"),    axis.text.y = element_text(family = "Lato Light", size = 7, color = "black"), 
+    axis.text.x = element_text(family = "Lato Light", size = 6, color = "black"),
     legend.text = element_text(family = "Lato", size = 8, color = "black"),
     panel.background = element_rect(fill="gray99") ,
     panel.grid.major.y = element_blank(),
@@ -619,8 +619,8 @@ Decesos_Todos <- ggplot(data = Decesos) +
      theme_minimal() +
     theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#993366", vjust = -0.1, face = "bold")),
     legend.key.height = unit (2, "cm"), 
-     axis.text.y = element_text(family = "Lato Light", size = 10, color = "black"), 
-    axis.text.x = element_text(family = "Lato Light", size = 10, color = "black"),
+     axis.text.y = element_text(family = "Lato Light", size = 8, color = "black"), 
+    axis.text.x = element_text(family = "Lato Light", size = 8, color = "black"),
     legend.text = element_text(family = "Lato", size = 8, color = "black"),
     panel.background = element_rect(fill="gray99") ,
     panel.grid.major.y = element_line(colour = "white"), 
@@ -634,7 +634,7 @@ ggplotly(Decesos_Todos)
 
 Indicadores
 =====================================
-**Al 04 de octubre de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 18 de octubre de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
 CDSELECT<-select(Indicadores, "MUNICIPIO","POBLACION", "CASOS","CASOS NUEVOS","INCIDENCIA", "DECESOS","DECESOS NUEVOS","MORTALIDAD", "LETALIDAD")
 CDSELECT1 <- CDSELECT %>% mutate(DECESOS = coalesce(DECESOS,0L),`DECESOS NUEVOS` = coalesce(`DECESOS NUEVOS`,0L), `CASOS NUEVOS` = coalesce(`CASOS NUEVOS`,0L), MORTALIDAD = coalesce(MORTALIDAD, 0), LETALIDAD = coalesce(LETALIDAD, 0))
