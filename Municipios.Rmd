@@ -174,10 +174,11 @@ Row {data-height=650}
 ### **Casos confirmados diariamente**
 ```{r, include=FALSE}
 CasosSon <- ggplot(Sonora.DF) +
-  geom_col(aes(x= Fecha, y= Casos.diarios, fill= "Casos diarios"), color = "white", size = 0.1) +
-   geom_line(aes(x= Fecha, y= Casos.media.7d, color= "Promedio móvil 7d"), linetype= "solid", size=1)+
-   scale_fill_manual(name="", values= c("Casos diarios" = "#58bcbc")) + 
-   scale_color_manual(name="", values= c("Promedio móvil 7d" = "#005155")) +
+  geom_area(aes(x= Fecha, y= Casos.media.7d, fill= "Promedio móvil 7d"), alpha=0.6)+
+  geom_line(aes(x= Fecha, y= Casos.media.7d, color= "Promedio móvil 7d"), linetype= "solid", size=1)+
+  geom_point(aes(x= Fecha, y= Casos.diarios, fill= "Casos diarios"), color = "#01787E", size = 1.2) +
+   scale_fill_manual(name="", values= c("Promedio móvil 7d" = "#BCE4E4", "Casos diarios" = "#BCE4E4")) + 
+   scale_color_manual(name="", values= c("Promedio móvil 7d" = "#01787E")) +
       scale_y_continuous(expand = c(0, 0)) +
       scale_x_date(expand=c(0,0)) +
        theme_minimal() +
@@ -197,16 +198,30 @@ CasosSon <- ggplot(Sonora.DF) +
 ```{r}
 ggplotly(CasosSon, tooltip = c("x", "y")) %>%
   layout(legend = list(orientation = "h",
-                   y = 80, x = 0))
+                   y = 80, x = 0)) %>%  config(displaylogo = FALSE,
+modeBarButtonsToRemove = list(
+    'sendDataToCloud',
+    'toImage',
+    'pan2d',
+    'lasso2d',
+    'hoverClosestCartesian',
+    'hoverCompareCartesian',
+    'toggleSpikelines',
+    'select2d',
+    'zoomIn2d',
+    'zoomOut2d',
+    'resetScale2d'
+))
 ```
 
 ### **Decesos confirmados diariamente**
 ```{r, include=FALSE}
 DecesosSon <- ggplot(Sonora.DF) +
-  geom_col(aes(x= Fecha, y= Decesos.diarios, fill= "Decesos diarios"), color = "white", size = 0.1) +
-   geom_line(aes(x= Fecha, y= Decesos.media.7d, color= "Promedio móvil 7d"), linetype= "solid", size=1)+
-   scale_fill_manual(name="", values= c("Decesos diarios" = "#E0A3C1")) + 
-   scale_color_manual(name="", values= c("Promedio móvil 7d" = "#4D1A33")) +
+  geom_area(aes(x= Fecha, y= Decesos.media.7d, fill = "Promedio móvil 7d"), alpha= 0.4)+
+  geom_line(aes(x= Fecha, y= Decesos.media.7d, color= "Promedio móvil 7d"), linetype= "solid", size=1)+
+  geom_point(aes(x= Fecha, y= Decesos.diarios, fill= "Decesos diarios"), color = "#73264D", size = 1.2) +
+   scale_fill_manual(name="", values= c("Decesos diarios" = "#E4B2CB", "Promedio móvil 7d" = "#E4B2CB")) + 
+   scale_color_manual(name="", values= c("Promedio móvil 7d" = "#73264D")) +
       scale_y_continuous(expand = c(0, 0)) +
       scale_x_date(expand=c(0,0)) +
        theme_minimal() +
@@ -226,7 +241,20 @@ DecesosSon <- ggplot(Sonora.DF) +
 ```{r}
 ggplotly(DecesosSon, tooltip = c("x", "y")) %>%
   layout(legend = list(orientation = "h",
-                   y = 80, x = 0))
+                   y = 80, x = 0)) %>%  config(displaylogo = FALSE,
+modeBarButtonsToRemove = list(
+    'sendDataToCloud',
+    'toImage',
+    'pan2d',
+    'lasso2d',
+    'hoverClosestCartesian',
+    'hoverCompareCartesian',
+    'toggleSpikelines',
+    'select2d',
+    'zoomIn2d',
+    'zoomOut2d',
+    'resetScale2d'
+))
 ```
 
 Row  {data-height=350}
@@ -249,18 +277,33 @@ LetalidadSS <- ggplot(Sonora.SS) +
     panel.grid.major.x = element_blank(),
     panel.grid.minor.x = element_blank(),
     axis.title = element_text(family = "Lato", size = 8)) + 
-    labs(y = NULL, x = NULL) 
+    labs(y = NULL, x = "Decesos por cada 100 casos") 
 ```
 
 ```{r}
 ggplotly(LetalidadSS, tooltip = c("x", "y")) %>%
   layout(legend = list(orientation = "h",
-                   y = 80, x = 0))
+                   y = 80, x = 0)) %>%  config(displaylogo = FALSE,
+modeBarButtonsToRemove = list(
+    'sendDataToCloud',
+    'toImage',
+    'pan2d',
+    'lasso2d',
+    'hoverClosestCartesian',
+    'hoverCompareCartesian',
+    'toggleSpikelines',
+    'select2d',
+    'zoomIn2d',
+    'zoomOut2d',
+    'resetScale2d'
+))
 ```
 
 ### **Hospitalizados**
 ```{r, include=FALSE}
-Gravgraf <- ggplot(Sonora.DF) +
+Sonora.Hosp <-Sonora.DF %>%  
+  filter(Fecha >= as.Date('2020-08-05') & Fecha <= Sys.Date())
+Gravgraf <- ggplot(Sonora.Hosp) +
   geom_area(aes(x= Fecha, y= Hospitalizados, fill = "Hospitalizados"), color = "#E26B0A", size= 1, alpha=0.75) +
   geom_area(aes(x= Fecha, y= Graves, fill= "Graves")) +
     geom_area(aes(x= Fecha, y= Criticos, fill= "Críticos")) +
@@ -284,10 +327,23 @@ Gravgraf <- ggplot(Sonora.DF) +
 ```{r}
 ggplotly(Gravgraf, tooltip = c("x", "y")) %>%
   layout(legend = list(orientation = "h",
-                   y = 80, x = 0))
+                   y = 80, x = 0))%>%  config(displaylogo = FALSE,
+modeBarButtonsToRemove = list(
+    'sendDataToCloud',
+    'toImage',
+    'pan2d',
+    'lasso2d',
+    'hoverClosestCartesian',
+    'hoverCompareCartesian',
+    'toggleSpikelines',
+    'select2d',
+    'zoomIn2d',
+    'zoomOut2d',
+    'resetScale2d'
+))
 ```
 
-### **Pruebas diarias**
+### **Resultados de pruebas (promedio móvil 7 días)**
 ```{r, include=FALSE}
 Pruebasdiarias <- ggplot(Sonora.DF) +
   geom_col(aes(x= Fecha, y= Pruebas.diarias, fill= "Pruebas diarias"), color = "white", size= 0.2) +
@@ -313,7 +369,20 @@ Pruebasdiarias <- ggplot(Sonora.DF) +
 ```{r}
 ggplotly(Pruebasdiarias, tooltip = c("x", "y")) %>%
   layout(legend = list(orientation = "h",
-                   y = 80, x = 0))
+                   y = 80, x = 0))%>%  config(displaylogo = FALSE,
+modeBarButtonsToRemove = list(
+    'sendDataToCloud',
+    'toImage',
+    'pan2d',
+    'lasso2d',
+    'hoverClosestCartesian',
+    'hoverCompareCartesian',
+    'toggleSpikelines',
+    'select2d',
+    'zoomIn2d',
+    'zoomOut2d',
+    'resetScale2d'
+))
 ```
 
 Casos acumulados
@@ -363,7 +432,7 @@ Casos_map_ani <- girafe(code = print(Mapa_casos),
 Casos_map_ani 
 ```
 
-### **Casos acumulados al 18 de octubre de 2020**
+### **Casos acumulados al 25 de octubre de 2020**
 
 ```{r, include=FALSE}
 Indicadoresord1 <- arrange(Indicadores,CASOS, desc(MUNICIPIO))
@@ -435,7 +504,7 @@ Casos_ult_ani <- girafe(code = {print(Mapa_ult)},
 Casos_ult_ani 
 ```
 
-### **Días desde el último caso confirmado (corte al 18/10/2020)**  {data-width=500}
+### **Días desde el último caso confirmado (corte al 25/10/2020)**  {data-width=500}
 
 ```{r, include=FALSE}
 casos_ult_dias_order <- arrange(casos_ult_dias,Dias_ult, desc(MUNICIPIO))
@@ -509,7 +578,7 @@ Decesos_map_ani <- girafe(code = print(Mapa_decesos),
 Decesos_map_ani 
 ```
 
-### **Decesos acumulados al 18 de octubre de 2020* {data-width=500}
+### **Decesos acumulados al 25 de octubre de 2020** {data-width=500}
 
 ```{r, include=FALSE}
 Indicadoresord2 <- arrange(Indicadores2,DECESOS, desc(MUNICIPIO))
@@ -546,8 +615,9 @@ Row {.tabset}
 ### **Casos semanales**
 ```{r}
 Casossemana <- Casos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% mutate (Reporte=max(as.Date(Fecha))) %>% ungroup()
-Casossem <- group_by(Casossemana, MUNICIPIO, Reporte, Semana) %>% summarise('CASOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(CASOS)) %>% filter(Semana!=43)
-Casos_Semanales <- ggplot(subset(Casossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme"))) +
+Casossem <- group_by(Casossemana, MUNICIPIO, Reporte, Semana) %>% summarise('CASOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(CASOS)) %>% filter(Semana!=44)
+write.csv(Casossem, 'ResultadoCSV/casossem.csv')
+Casos_Semanales <- ggplot(subset(Casossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme", "Cananea","Magdalena", "Álamos", "Bácum"))) +
     geom_col(mapping = aes(x = Reporte, y = `CASOS SEMANALES`, fill = `CASOS SEMANALES`, label= ACUMULADOS)) +
     scale_fill_gradient(low = "#58BCBC", high = "black") + 
     facet_wrap(~ MUNICIPIO, scales = "free_y") + 
@@ -561,14 +631,28 @@ Casos_Semanales <- ggplot(subset(Casossem, MUNICIPIO %in% c("Hermosillo", "Cajem
           panel.background = element_rect(fill = "gray95"), 
           legend.position = "none") +labs(y = NULL, x = NULL, title  = NULL) + 
   theme(panel.grid.major = element_line(colour = "white"), panel.grid.minor = element_line(colour = "white"),                                   panel.background = element_rect(fill = "gray95"),legend.position = "none")
-ggplotly(Casos_Semanales, tooltip = c("y","label", "x"))
+ggplotly(Casos_Semanales, tooltip = c("y","label", "x")) %>%  config(displaylogo = FALSE,
+modeBarButtonsToRemove = list(
+    'sendDataToCloud',
+    'toImage',
+    'pan2d',
+    'lasso2d',
+    'hoverClosestCartesian',
+    'hoverCompareCartesian',
+    'toggleSpikelines',
+    'select2d',
+    'zoomIn2d',
+    'zoomOut2d',
+    'resetScale2d'
+))
 ```
 
 ### **Decesos semanales**
 ```{r}
 Decesossemana <- Decesos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% mutate (Reporte=max(as.Date(Fecha))) %>% ungroup()
-Decesossem <- group_by(Decesossemana, MUNICIPIO, Reporte, Semana) %>% summarise('DECESOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(DECESOS)) %>% filter(Semana!=43)
-Decesos_Semanales <- ggplot(subset(Decesossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme"))) +
+Decesossem <- group_by(Decesossemana, MUNICIPIO, Reporte, Semana) %>% summarise('DECESOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(DECESOS)) %>% filter(Semana!=44)
+write.csv(Decesossem, 'ResultadoCSV/decesossem.csv')
+Decesos_Semanales <- ggplot(subset(Decesossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme", "Cananea","Magdalena", "Álamos", "Bácum"))) +
     geom_col(mapping = aes(x = Reporte, y = `DECESOS SEMANALES`, fill = `DECESOS SEMANALES`, label= ACUMULADOS)) +
     scale_fill_gradient(low = "#993366", high = "black") +
     facet_wrap(~ MUNICIPIO, scales = "free_y") + 
@@ -582,7 +666,20 @@ Decesos_Semanales <- ggplot(subset(Decesossem, MUNICIPIO %in% c("Hermosillo", "C
           panel.background = element_rect(fill = "gray95"), 
           legend.position = "none") +labs(y = NULL, x = NULL, title  = NULL) + 
   theme(panel.grid.major = element_line(colour = "white"), panel.grid.minor = element_line(colour = "white"),                                   panel.background = element_rect(fill = "gray95"),legend.position = "none")
-ggplotly(Decesos_Semanales, tooltip = c("y", "label", "x"))
+ggplotly(Decesos_Semanales, tooltip = c("y", "label", "x")) %>%  config(displaylogo = FALSE,
+modeBarButtonsToRemove = list(
+    'sendDataToCloud',
+    'toImage',
+    'pan2d',
+    'lasso2d',
+    'hoverClosestCartesian',
+    'hoverCompareCartesian',
+    'toggleSpikelines',
+    'select2d',
+    'zoomIn2d',
+    'zoomOut2d',
+    'resetScale2d'
+))
 ```
 
 ### **Casos diarios**
@@ -605,7 +702,20 @@ Casos_Todos <- ggplot(data = Casos) +
     plot.caption = element_text(family = "Lato Light", size = 8, color = "gray50", face = "italic"),
     axis.title = element_text(family = "Lato", size = 8)) +
     labs(y = NULL, x = NULL, title  = NULL,  fill = NULL, caption ="Elaboración propia con información de la Secretaría de Salud del Estado de Sonora")
-ggplotly(Casos_Todos)
+ggplotly(Casos_Todos) %>%  config(displaylogo = FALSE,
+modeBarButtonsToRemove = list(
+    'sendDataToCloud',
+    'toImage',
+    'pan2d',
+    'lasso2d',
+    'hoverClosestCartesian',
+    'hoverCompareCartesian',
+    'toggleSpikelines',
+    'select2d',
+    'zoomIn2d',
+    'zoomOut2d',
+    'resetScale2d'
+))
 ```
 
 ### **Decesos diarios**
@@ -629,12 +739,25 @@ Decesos_Todos <- ggplot(data = Decesos) +
     plot.caption = element_text(family = "Lato Light", size = 8, color = "gray50", face = "italic"),
     axis.title = element_text(family = "Lato", size = 8)) +
     labs(y = NULL, x = NULL, title  = NULL,  fill = NULL, caption ="Elaboración propia con información de la Secretaría de Salud del Estado de Sonora")
-ggplotly(Decesos_Todos)
+ggplotly(Decesos_Todos) %>%  config(displaylogo = FALSE,
+modeBarButtonsToRemove = list(
+    'sendDataToCloud',
+    'toImage',
+    'pan2d',
+    'lasso2d',
+    'hoverClosestCartesian',
+    'hoverCompareCartesian',
+    'toggleSpikelines',
+    'select2d',
+    'zoomIn2d',
+    'zoomOut2d',
+    'resetScale2d'
+))
 ```
 
 Indicadores
 =====================================
-**Al 18 de octubre de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 25 de octubre de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
 CDSELECT<-select(Indicadores, "MUNICIPIO","POBLACION", "CASOS","CASOS NUEVOS","INCIDENCIA", "DECESOS","DECESOS NUEVOS","MORTALIDAD", "LETALIDAD")
 CDSELECT1 <- CDSELECT %>% mutate(DECESOS = coalesce(DECESOS,0L),`DECESOS NUEVOS` = coalesce(`DECESOS NUEVOS`,0L), `CASOS NUEVOS` = coalesce(`CASOS NUEVOS`,0L), MORTALIDAD = coalesce(MORTALIDAD, 0), LETALIDAD = coalesce(LETALIDAD, 0))
