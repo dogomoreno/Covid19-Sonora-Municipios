@@ -101,7 +101,7 @@ ggsave("Gráficos/movimientos.png",Mapa_mov, bg = "transparent", height = 25.9, 
 
 #Casos trayectoria Promedio vs Acumulado
 
-Fechahoy<- "Corte al 18 de octubre de 2020"
+Fechahoy<- "Corte al 08 de noviembre de 2020"
 
 Casosprom <- Casos %>% group_by(MUNICIPIO) %>% mutate(Casos.media.7d=round(rollmeanr(x=NUEVOS, 7, fill = 0),1)) 
 
@@ -160,9 +160,9 @@ ggsave("Gráficos/decesosdacum.png",Decesosd, bg = "transparent", height = 25, w
 Gravgraf <- ggplot(Sonora.DF) +
   geom_area(aes(x= Fecha, y= Hospitalizados, fill = "Hospitalizados"), color = "#E26B0A", size= 1, alpha=0.75) +
   geom_area(aes(x= Fecha, y= Graves, fill= "Graves")) +
-  geom_area(aes(x= Fecha, y= Intubado, fill= "Intubados")) +
-  scale_fill_manual(name="", values= c("Hospitalizados" = "#FABF8F", "Graves" = "#E26B0A", "Intubados" = "#974706"  ), 
-                    breaks = c("Hospitalizados", "Graves", "Intubados")) +
+  geom_area(aes(x= Fecha, y= Intubado, fill= "Críticos")) +
+  scale_fill_manual(name="", values= c("Hospitalizados" = "#FABF8F", "Graves" = "#E26B0A", "Críticos" = "#974706"  ), 
+                    breaks = c("Hospitalizados", "Graves", "Críticos")) +
   scale_y_continuous(expand = c(0, 40)) +
   theme_minimal() +
   theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),

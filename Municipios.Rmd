@@ -345,7 +345,9 @@ modeBarButtonsToRemove = list(
 
 ### **Resultados de pruebas (promedio móvil 7 días)**
 ```{r, include=FALSE}
-Pruebasdiarias <- ggplot(Sonora.DF) +
+Sonora.pruebas <-Sonora.DF %>%  
+  filter(Fecha >= as.Date('2020-08-05') & Fecha <= Sys.Date())
+Pruebasdiarias <- ggplot(Sonora.pruebas) +
   geom_col(aes(x= Fecha, y= Pruebas.diarias, fill= "Pruebas diarias"), color = "white", size= 0.2) +
   geom_line(aes(x= Fecha, y= Pruebas.media.7d, color= "Promedio móvil 7d"), linetype= "solid", size=1)+
    scale_fill_manual(name="", values= c("Pruebas diarias" = "#4BACC6")) + 
@@ -432,7 +434,7 @@ Casos_map_ani <- girafe(code = print(Mapa_casos),
 Casos_map_ani 
 ```
 
-### **Casos acumulados al 25 de octubre de 2020**
+### **Casos acumulados al 08 de noviembre de 2020**
 
 ```{r, include=FALSE}
 Indicadoresord1 <- arrange(Indicadores,CASOS, desc(MUNICIPIO))
@@ -504,7 +506,7 @@ Casos_ult_ani <- girafe(code = {print(Mapa_ult)},
 Casos_ult_ani 
 ```
 
-### **Días desde el último caso confirmado (corte al 25/10/2020)**  {data-width=500}
+### **Días desde el último caso confirmado (corte al 08/11/2020)**  {data-width=500}
 
 ```{r, include=FALSE}
 casos_ult_dias_order <- arrange(casos_ult_dias,Dias_ult, desc(MUNICIPIO))
@@ -578,7 +580,7 @@ Decesos_map_ani <- girafe(code = print(Mapa_decesos),
 Decesos_map_ani 
 ```
 
-### **Decesos acumulados al 25 de octubre de 2020** {data-width=500}
+### **Decesos acumulados al 08 de noviembre de 2020** {data-width=500}
 
 ```{r, include=FALSE}
 Indicadoresord2 <- arrange(Indicadores2,DECESOS, desc(MUNICIPIO))
@@ -615,7 +617,7 @@ Row {.tabset}
 ### **Casos semanales**
 ```{r}
 Casossemana <- Casos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% mutate (Reporte=max(as.Date(Fecha))) %>% ungroup()
-Casossem <- group_by(Casossemana, MUNICIPIO, Reporte, Semana) %>% summarise('CASOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(CASOS)) %>% filter(Semana!=44)
+Casossem <- group_by(Casossemana, MUNICIPIO, Reporte, Semana) %>% summarise('CASOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(CASOS)) %>% filter(Semana!=46)
 write.csv(Casossem, 'ResultadoCSV/casossem.csv')
 Casos_Semanales <- ggplot(subset(Casossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme", "Cananea","Magdalena", "Álamos", "Bácum"))) +
     geom_col(mapping = aes(x = Reporte, y = `CASOS SEMANALES`, fill = `CASOS SEMANALES`, label= ACUMULADOS)) +
@@ -650,7 +652,7 @@ modeBarButtonsToRemove = list(
 ### **Decesos semanales**
 ```{r}
 Decesossemana <- Decesos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% mutate (Reporte=max(as.Date(Fecha))) %>% ungroup()
-Decesossem <- group_by(Decesossemana, MUNICIPIO, Reporte, Semana) %>% summarise('DECESOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(DECESOS)) %>% filter(Semana!=44)
+Decesossem <- group_by(Decesossemana, MUNICIPIO, Reporte, Semana) %>% summarise('DECESOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(DECESOS)) %>% filter(Semana!=46)
 write.csv(Decesossem, 'ResultadoCSV/decesossem.csv')
 Decesos_Semanales <- ggplot(subset(Decesossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme", "Cananea","Magdalena", "Álamos", "Bácum"))) +
     geom_col(mapping = aes(x = Reporte, y = `DECESOS SEMANALES`, fill = `DECESOS SEMANALES`, label= ACUMULADOS)) +
@@ -688,7 +690,7 @@ Casos$NUEVOS[Casos$NUEVOS == 0] <- NA
 Casos_Todos <- ggplot(data = Casos) +
       geom_tile(mapping = aes(x = Fecha, y = MUNICIPIO, fill = NUEVOS, text = paste(
                "ACUMULADOS: ", CASOS, "\n")), color = "white") +
-        scale_fill_gradient(low = "#58BCBC", high = "black", limits = c(1,400), breaks = c(1, 100, 200, 300, 400)) +
+        scale_fill_gradient(low = "#58BCBC", high = "black") +
     scale_x_date(date_breaks = "weeks" , date_labels = "%d-%m") +
      theme_minimal() +
     theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
@@ -724,7 +726,7 @@ Decesos$NUEVOS[Decesos$NUEVOS == 0] <- NA
 Decesos_Todos <- ggplot(data = Decesos) +
       geom_tile(mapping = aes(x = Fecha, y = MUNICIPIO, fill = NUEVOS, text = paste(
                "ACUMULADOS: ", DECESOS, "\n")), color = "white") +
-     scale_fill_gradient(low= "#993366", high = "black", limits = c(0,60), breaks = c(0, 10, 20, 30, 40, 50, 60) ) +
+     scale_fill_gradient(low= "#993366", high = "black") +
      scale_x_date(date_breaks = "weeks" , date_labels = "%d-%m")+
      theme_minimal() +
     theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#993366", vjust = -0.1, face = "bold")),
@@ -757,12 +759,12 @@ modeBarButtonsToRemove = list(
 
 Indicadores
 =====================================
-**Al 25 de octubre de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 08 de noviembre de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
 CDSELECT<-select(Indicadores, "MUNICIPIO","POBLACION", "CASOS","CASOS NUEVOS","INCIDENCIA", "DECESOS","DECESOS NUEVOS","MORTALIDAD", "LETALIDAD")
 CDSELECT1 <- CDSELECT %>% mutate(DECESOS = coalesce(DECESOS,0L),`DECESOS NUEVOS` = coalesce(`DECESOS NUEVOS`,0L), `CASOS NUEVOS` = coalesce(`CASOS NUEVOS`,0L), MORTALIDAD = coalesce(MORTALIDAD, 0), LETALIDAD = coalesce(LETALIDAD, 0))
 reactable(CDSELECT1,searchable = TRUE, highlight = TRUE, defaultSorted = "CASOS", defaultSortOrder = "desc",
-  defaultPageSize = 15, minRows = 15, borderless = FALSE, striped = FALSE,
+  defaultPageSize = 20, minRows = 10, borderless = FALSE, striped = FALSE,
     language = reactableLang(
     searchPlaceholder = "Búsqueda...",
     noData = "No encontrado",
