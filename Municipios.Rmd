@@ -53,6 +53,7 @@ library(units)
 library(reactable)
 library(lubridate)
 library(zoo)
+library(Cairo)
 ```
 
 ```{r, include=FALSE}
@@ -400,7 +401,7 @@ capa_son <- readOGR("Shapes", layer="ENTSON")
 ```
 
 ```{r, include=FALSE}
-capa_munison_df <- fortify(capa_munison, region="CVEGEO")
+capa_munison_df <- fortify(capa_munison, region="concat")
 capa_munison_casos<- inner_join(capa_munison_df, Indicadores, by="id")
 ```
 
@@ -434,7 +435,7 @@ Casos_map_ani <- girafe(code = print(Mapa_casos),
 Casos_map_ani 
 ```
 
-### **Casos acumulados al 08 de noviembre de 2020**
+### **Casos acumulados al 15 de noviembre de 2020**
 
 ```{r, include=FALSE}
 Indicadoresord1 <- arrange(Indicadores,CASOS, desc(MUNICIPIO))
@@ -506,7 +507,7 @@ Casos_ult_ani <- girafe(code = {print(Mapa_ult)},
 Casos_ult_ani 
 ```
 
-### **Días desde el último caso confirmado (corte al 08/11/2020)**  {data-width=500}
+### **Días desde el último caso confirmado (corte al 15/11/2020)**  {data-width=500}
 
 ```{r, include=FALSE}
 casos_ult_dias_order <- arrange(casos_ult_dias,Dias_ult, desc(MUNICIPIO))
@@ -580,7 +581,7 @@ Decesos_map_ani <- girafe(code = print(Mapa_decesos),
 Decesos_map_ani 
 ```
 
-### **Decesos acumulados al 08 de noviembre de 2020** {data-width=500}
+### **Decesos acumulados al 15 de noviembre de 2020** {data-width=500}
 
 ```{r, include=FALSE}
 Indicadoresord2 <- arrange(Indicadores2,DECESOS, desc(MUNICIPIO))
@@ -617,7 +618,7 @@ Row {.tabset}
 ### **Casos semanales**
 ```{r}
 Casossemana <- Casos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% mutate (Reporte=max(as.Date(Fecha))) %>% ungroup()
-Casossem <- group_by(Casossemana, MUNICIPIO, Reporte, Semana) %>% summarise('CASOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(CASOS)) %>% filter(Semana!=46)
+Casossem <- group_by(Casossemana, MUNICIPIO, Reporte, Semana) %>% summarise('CASOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(CASOS)) %>% filter(Semana!=47)
 write.csv(Casossem, 'ResultadoCSV/casossem.csv')
 Casos_Semanales <- ggplot(subset(Casossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme", "Cananea","Magdalena", "Álamos", "Bácum"))) +
     geom_col(mapping = aes(x = Reporte, y = `CASOS SEMANALES`, fill = `CASOS SEMANALES`, label= ACUMULADOS)) +
@@ -652,7 +653,7 @@ modeBarButtonsToRemove = list(
 ### **Decesos semanales**
 ```{r}
 Decesossemana <- Decesos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% mutate (Reporte=max(as.Date(Fecha))) %>% ungroup()
-Decesossem <- group_by(Decesossemana, MUNICIPIO, Reporte, Semana) %>% summarise('DECESOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(DECESOS)) %>% filter(Semana!=46)
+Decesossem <- group_by(Decesossemana, MUNICIPIO, Reporte, Semana) %>% summarise('DECESOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(DECESOS)) %>% filter(Semana!=47)
 write.csv(Decesossem, 'ResultadoCSV/decesossem.csv')
 Decesos_Semanales <- ggplot(subset(Decesossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme", "Cananea","Magdalena", "Álamos", "Bácum"))) +
     geom_col(mapping = aes(x = Reporte, y = `DECESOS SEMANALES`, fill = `DECESOS SEMANALES`, label= ACUMULADOS)) +

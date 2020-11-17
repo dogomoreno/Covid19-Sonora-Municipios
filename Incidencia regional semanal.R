@@ -7,11 +7,13 @@ library(miniUI)
 library(units)
 library(lubridate)
 library(zoo)
+library(Cairo)
 #library(wesanderson)
 #library(ggsci)
 #library(RColorBrewer)
 library(rcartocolor)
 #library(NineteenEightyR)
+
 
 #discreta <- c("5" = "#893F59", "4" = "#ECA48E","3" = "#FECF7D","2" = "#9BD7D7", "1" = "gray80")
 #discreta <- c("5" = "black", "4" = "#005155","3" = "#01787E","2" = "#01A2AC", "1" = "#58BCBC")
@@ -44,7 +46,8 @@ paragraf <- theme(plot.title = (element_text(family = "Lato Black", size = 32, c
                   legend.title = element_text(family = "Lato Black", size = 8, color = "black"),
                   plot.caption = element_text(family = "Lato Light", size =10, color = "gray50"),
                   axis.title = element_text(family = "Lato", size = 12))
-subtitulo <- "Incidencia semanal de casos de covid-19\nCorte al 08/11/2020 | Semana 45"
+subtitulo <- "Incidencia semanal de casos de covid-19\nCorte al 15/11/2020 | Semana 46"
+marcas <- c( "+143", "59-143", "30-59","15-30", "0-15")
 
 #Río Sonora
 Region <- "Río Sonora"
@@ -63,17 +66,17 @@ IncidenciaG <- ggplot(data = casossempob) +
   geom_tile(mapping = aes(x = Semana, y = reorder(MUNICIPIO, desc(MUNICIPIO)), fill = as.factor(IS)), color = "white", size=0.5) +
   scale_fill_manual("INCIDENCIA\n(casos por 100 mil habs.)", 
                     values = discreta, 
-                    breaks= c("5", "4", "3", "2", "1"), 
-                    labels = c( "+143", "59-143", "30-59","15-30", "0-15"))+
+                    breaks= breaks= c("5", "4", "3", "2", "1"), 
+                    labels = marcas)+
   #scale_x_date(date_breaks = "month" , date_labels = "%d-%m") +
-  scale_x_continuous(breaks = seq(from = 11, to = 46, by = 1))+
+  scale_x_continuous(breaks = seq(from = 11, to = 47, by = 1))+
   theme_minimal() +
   labs(y = NULL, x = "Semana (lunes-domingo)", title  = paste("Región", Region), 
        subtitle = subtitulo,  fill = NULL, 
        caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora") +
   paragraf 
 
-ggsave(paste("Gráficos/",Region,".png", sep = ""),IncidenciaG, bg = "white", height = 15, width = 30, units = "cm", dpi = 800)
+ggsave(paste("Gráficos/",Region,".png", sep = ""),IncidenciaG, bg = "white", height = 15, width = 30, units = "cm", dpi = 800, type = "cairo")
 
 
 # Sierra Alta
@@ -94,17 +97,16 @@ IncidenciaG <- ggplot(data = casossempob) +
   scale_fill_manual("INCIDENCIA\n(casos por 100 mil habs.)", 
                     values = discreta, 
                     breaks= c("5", "4", "3", "2", "1"), 
-                    labels = c( "+143", "59-143", "30-59","15-30", "0-15"))+
+                    labels = marcas)+
   #scale_x_date(date_breaks = "month" , date_labels = "%d-%m") +
-  scale_x_continuous(breaks = seq(from = 11, to = 46, by = 1))+
+  scale_x_continuous(breaks = seq(from = 11, to = 47, by = 1))+
   theme_minimal() +
   labs(y = NULL, x = "Semana (lunes-domingo)", title  = paste("Región", Region), 
        subtitle = subtitulo,  fill = NULL, 
        caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora") +
   paragraf 
 
-ggsave(paste("Gráficos/",Region,".png", sep = ""),IncidenciaG, bg = "white", height = 15, width = 30, units = "cm", dpi = 800)
-
+ggsave(paste("Gráficos/",Region,".png", sep = ""),IncidenciaG, bg = "white", height = 15, width = 30, units = "cm", dpi = 800, type = "cairo")
 
 # Sierra Centro
 Region <- "Sierra Centro"
@@ -124,17 +126,16 @@ IncidenciaG <- ggplot(data = casossempob) +
   scale_fill_manual("INCIDENCIA\n(casos por 100 mil habs.)", 
                     values = discreta, 
                     breaks= c("5", "4", "3", "2", "1"), 
-                    labels = c( "+143", "59-143", "30-59","15-30", "0-15"))+
+                    labels = marcas)+
   #scale_x_date(date_breaks = "month" , date_labels = "%d-%m") +
-  scale_x_continuous(breaks = seq(from = 11, to = 46, by = 1))+
+  scale_x_continuous(breaks = seq(from = 11, to = 47, by = 1))+
   theme_minimal() +
   labs(y = NULL, x = "Semana (lunes-domingo)", title  = paste("Región", Region), 
        subtitle = subtitulo,  fill = NULL, 
        caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora") +
   paragraf 
 
-ggsave(paste("Gráficos/",Region,".png", sep = ""),IncidenciaG, bg = "white", height = 15, width = 30, units = "cm", dpi = 800)
-
+ggsave(paste("Gráficos/",Region,".png", sep = ""),IncidenciaG, bg = "white", height = 15, width = 30, units = "cm", dpi = 800, type = "cairo")
 
 #Sur
 Region <- "Sur"
@@ -154,16 +155,16 @@ IncidenciaG <- ggplot(data = casossempob) +
   scale_fill_manual("INCIDENCIA\n(casos por 100 mil habs.)", 
                     values = discreta, 
                     breaks= c("5", "4", "3", "2", "1"), 
-                    labels = c( "+143", "59-143", "30-59","15-30", "0-15"))+
+                    labels = marcas)+
   #scale_x_date(date_breaks = "month" , date_labels = "%d-%m") +
-  scale_x_continuous(breaks = seq(from = 11, to = 46, by = 1))+
+  scale_x_continuous(breaks = seq(from = 11, to = 47, by = 1))+
   theme_minimal() +
   labs(y = NULL, x = "Semana (lunes-domingo)", title  = paste("Región", Region), 
        subtitle = subtitulo,  fill = NULL, 
        caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora") +
   paragraf 
 
-ggsave(paste("Gráficos/",Region,".png", sep = ""),IncidenciaG, bg = "white", height = 15, width = 30, units = "cm", dpi = 800)
+ggsave(paste("Gráficos/",Region,".png", sep = ""),IncidenciaG, bg = "white", height = 15, width = 30, units = "cm", dpi = 800, type = "cairo")
 
 
 #Centro Norte
@@ -184,16 +185,16 @@ IncidenciaG <- ggplot(data = casossempob) +
   scale_fill_manual("INCIDENCIA\n(casos por 100 mil habs.)", 
                     values = discreta, 
                     breaks= c("5", "4", "3", "2", "1"), 
-                    labels = c( "+143", "59-143", "30-59","15-30", "0-15"))+
+                    labels = marcas)+
   #scale_x_date(date_breaks = "month" , date_labels = "%d-%m") +
-  scale_x_continuous(breaks = seq(from = 11, to = 46, by = 1))+
+  scale_x_continuous(breaks = seq(from = 11, to = 47, by = 1))+
   theme_minimal() +
   labs(y = NULL, x = "Semana (lunes-domingo)", title  = paste("Región", Region), 
        subtitle = subtitulo,  fill = NULL, 
        caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora") +
   paragraf 
 
-ggsave(paste("Gráficos/",Region,".png", sep = ""),IncidenciaG, bg = "white", height = 15, width = 30, units = "cm", dpi = 800)
+ggsave(paste("Gráficos/",Region,".png", sep = ""),IncidenciaG, bg = "white", height = 15, width = 30, units = "cm", dpi = 800, type = "cairo")
 
 
 
@@ -215,16 +216,16 @@ IncidenciaG <- ggplot(data = casossempob) +
   scale_fill_manual("INCIDENCIA\n(casos por 100 mil habs.)", 
                     values = discreta, 
                     breaks= c("5", "4", "3", "2", "1"), 
-                    labels = c( "+143", "59-143", "30-59","15-30", "0-15"))+
+                    labels = marcas)+
   #scale_x_date(date_breaks = "month" , date_labels = "%d-%m") +
-  scale_x_continuous(breaks = seq(from = 11, to = 46, by = 1))+
+  scale_x_continuous(breaks = seq(from = 11, to = 47, by = 1))+
   theme_minimal() +
   labs(y = NULL, x = "Semana (lunes-domingo)", title  = paste("Región", Region), 
        subtitle = subtitulo,  fill = NULL, 
        caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora") +
   paragraf 
 
-ggsave(paste("Gráficos/",Region,".png", sep = ""),IncidenciaG, bg = "white", height = 15, width = 30, units = "cm", dpi = 800)
+ggsave(paste("Gráficos/",Region,".png", sep = ""),IncidenciaG, bg = "white", height = 15, width = 30, units = "cm", dpi = 800, type = "cairo")
 
 
 #Río Sonora
@@ -245,14 +246,14 @@ IncidenciaG <- ggplot(data = casossempob) +
   scale_fill_manual("INCIDENCIA\n(casos por 100 mil habs.)", 
                     values = discreta, 
                     breaks= c("5", "4", "3", "2", "1"), 
-                    labels = c( "+143", "59-143", "30-59","15-30", "0-15"))+
+                    labels = marcas)+
   #scale_x_date(date_breaks = "month" , date_labels = "%d-%m") +
-  scale_x_continuous(breaks = seq(from = 11, to = 46, by = 1))+
+  scale_x_continuous(breaks = seq(from = 11, to = 47, by = 1))+
   theme_minimal() +
   labs(y = NULL, x = "Semana (lunes-domingo)", title  = paste("Región", Region), 
        subtitle = subtitulo,  fill = NULL, 
        caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora") +
   paragraf 
 
-ggsave(paste("Gráficos/",Region,".png", sep = ""),IncidenciaG, bg = "white", height = 15, width = 30, units = "cm", dpi = 800)
+ggsave(paste("Gráficos/",Region,".png", sep = ""),IncidenciaG, bg = "white", height = 15, width = 30, units = "cm", dpi = 800, type = "cairo")
 
