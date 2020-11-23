@@ -46,7 +46,7 @@ paragraf <- theme(plot.title = (element_text(family = "Lato Black", size = 32, c
                   legend.title = element_text(family = "Lato Black", size = 8, color = "black"),
                   plot.caption = element_text(family = "Lato Light", size =10, color = "gray50"),
                   axis.title = element_text(family = "Lato", size = 12))
-subtitulo <- "Incidencia semanal de casos de covid-19\nCorte al 15/11/2020 | Semana 46"
+subtitulo <- "Incidencia semanal de casos de covid-19\nCorte al 22/11/2020 | Semana 47"
 marcas <- c( "+143", "59-143", "30-59","15-30", "0-15")
 
 #Río Sonora
