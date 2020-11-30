@@ -396,7 +396,7 @@ Mapa municipal
 
 Row
 -----------------------------------------------------------------------
-### **Incidencia y mortalidad municipal al 28/11/2020**
+### **Incidencia y mortalidad municipal al 29/11/2020**
 
 ```{r include=FALSE}
 Casossemana <- Casos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% 
@@ -406,7 +406,7 @@ Casossem <- group_by(Casossemana, CVEGEO, MUNICIPIO, Reporte, Semana) %>%
 casossempob <- left_join(Casossem, POBMUN, by = "CVEGEO") 
 casossempob  <- casossempob %>% mutate (INCIDENCIASEM= round((`CASOS SEMANALES`*100000)/POB,1))
 casossempob$INCIDENCIASEM[casossempob$INCIDENCIASEM==0] <- NA
-casossempob  <- casossempob %>% filter(Semana==47)
+casossempob  <- casossempob %>% filter(Semana==48)
 casossempob   <- mutate(casossempob , IS=if_else(INCIDENCIASEM>143,5, if_else(INCIDENCIASEM>59,4, if_else(INCIDENCIASEM>30,3,if_else(INCIDENCIASEM>15,2,1)))))
 Casossemanales <- casossempob %>% select(CVEGEO, MUNICIPIO, 'CASOS SEMANALES', INCIDENCIASEM, IS)
 
@@ -417,7 +417,7 @@ Decesossem <- group_by(Decesossemana, CVEGEO, MUNICIPIO, Reporte, Semana) %>%
 Decesossempob <- left_join(Decesossem, POBMUN, by = "CVEGEO") 
 Decesossempob  <- Decesossempob %>% mutate (MORTALIDADSEM= round((`DECESOS SEMANALES`*100000)/POB,1))
 Decesossempob$MORTALIDADSEM[Decesossempob$MORTALIDADSEM==0] <- NA
-Decesossempob  <- Decesossempob %>% filter(Semana==47)
+Decesossempob  <- Decesossempob %>% filter(Semana==48)
 Decesossempob   <- mutate(Decesossempob , MS=if_else(MORTALIDADSEM>22,5, if_else(MORTALIDADSEM>9,4, if_else(MORTALIDADSEM>4,3,if_else(MORTALIDADSEM>2,2,1)))))
 Decesossemanales <- Decesossempob %>% select(CVEGEO, MUNICIPIO, 'DECESOS SEMANALES', MORTALIDADSEM, MS)
 
@@ -723,7 +723,7 @@ modeBarButtonsToRemove = list(
 
 Indicadores
 =====================================
-**Al 28 de noviembre de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 29 de noviembre de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
 CDSELECT<- Mapa %>% select("MUNICIPIO","POBLACION", "CASOS","CASOS SEMANALES","INCIDENCIAACUM", "DECESOS","DECESOS SEMANALES","MORTALIDADACUM", "LETALIDAD") %>% rename(INCIDENCIA=INCIDENCIAACUM, MORTALIDAD=MORTALIDADACUM)
 CDSELECT1 <- CDSELECT %>% mutate(DECESOS = coalesce(DECESOS,0L),`DECESOS SEMANALES` = coalesce(`DECESOS SEMANALES`,0L), `CASOS SEMANALES` = coalesce(`CASOS SEMANALES`,0L), MORTALIDAD = coalesce(MORTALIDAD, 0), LETALIDAD = coalesce(LETALIDAD, 0))
