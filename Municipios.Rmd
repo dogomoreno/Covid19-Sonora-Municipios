@@ -183,8 +183,8 @@ CasosSon <- ggplot(Sonora.DF) +
   geom_point(aes(x= Fecha, y= Casos.diarios, fill= "Casos diarios"), color = "white", size = 1.8, stroke=0.5, alpha=0.6) +
    scale_fill_manual(name="", values= c("Promedio móvil 7d" = "#58BCBC", "Casos diarios" = "#01787E")) + 
    scale_color_manual(name="", values= c("Promedio móvil 7d" = "#01787E")) +
-      scale_y_continuous(expand = c(0, 0)) +
-      scale_x_date(expand=c(0,0)) +
+      scale_y_continuous(expand = c(0, 5)) +
+      scale_x_date(expand=c(0,5)) +
        theme_minimal() +
     theme(
     legend.position = "none",
@@ -226,8 +226,8 @@ DecesosSon <- ggplot(Sonora.DF) +
   geom_point(aes(x= Fecha, y= Decesos.diarios, fill= "Decesos diarios"), color = "white", size = 1.8, stroke=0.5, alpha=0.6) +
    scale_fill_manual(name="", values= c("Decesos diarios" = "#73264D", "Promedio móvil 7d" = "#D075A3")) + 
    scale_color_manual(name="", values= c("Promedio móvil 7d" = "#73264D")) +
-      scale_y_continuous(expand = c(0, 0)) +
-      scale_x_date(expand=c(0,0)) +
+      scale_y_continuous(expand = c(0, 5)) +
+      scale_x_date(expand=c(0,5)) +
        theme_minimal() +
     theme(
     legend.position = "none",
@@ -313,7 +313,7 @@ Gravgraf <- ggplot(Sonora.Hosp) +
     geom_area(aes(x= Fecha, y= Criticos, fill= "Críticos")) +
     scale_fill_manual(name="", values= c("Hospitalizados" = "#FABF8F", "Graves" = "#E26B0A", "Críticos" = "#974706"  )) +
       scale_y_continuous(expand = c(0, 40)) +
-      scale_x_date(expand=c(0,0)) +
+      scale_x_date(expand=c(0,5)) +
        theme_minimal() +
     theme(
     legend.position = "top",
@@ -357,7 +357,7 @@ Pruebasdiarias <- ggplot(Sonora.pruebas) +
    scale_fill_manual(name="", values= c("Pruebas diarias" = "#4BACC6")) + 
    scale_color_manual(name="", values= c("Promedio móvil 7d" = "#31869B")) +    
   scale_y_continuous(expand = c(0, 40)) +
-      scale_x_date(expand=c(0,0)) +
+      scale_x_date(expand=c(0,5)) +
        theme_minimal() +
     theme(
     legend.position = "none",
@@ -396,7 +396,7 @@ Mapa municipal
 
 Row
 -----------------------------------------------------------------------
-### **Incidencia y mortalidad municipal al 29/11/2020**
+### **Incidencia y mortalidad municipal al 05/12/2020 (capas semanales al domingo más reciente**
 
 ```{r include=FALSE}
 Casossemana <- Casos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% 
@@ -723,7 +723,7 @@ modeBarButtonsToRemove = list(
 
 Indicadores
 =====================================
-**Al 29 de noviembre de 2020**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 05 de diciembre de 2020** (casos semanales al domingo más reciente)  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
 CDSELECT<- Mapa %>% select("MUNICIPIO","POBLACION", "CASOS","CASOS SEMANALES","INCIDENCIAACUM", "DECESOS","DECESOS SEMANALES","MORTALIDADACUM", "LETALIDAD") %>% rename(INCIDENCIA=INCIDENCIAACUM, MORTALIDAD=MORTALIDADACUM)
 CDSELECT1 <- CDSELECT %>% mutate(DECESOS = coalesce(DECESOS,0L),`DECESOS SEMANALES` = coalesce(`DECESOS SEMANALES`,0L), `CASOS SEMANALES` = coalesce(`CASOS SEMANALES`,0L), MORTALIDAD = coalesce(MORTALIDAD, 0), LETALIDAD = coalesce(LETALIDAD, 0))
