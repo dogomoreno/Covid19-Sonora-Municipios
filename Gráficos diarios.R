@@ -102,7 +102,7 @@ ggsave("Gráficos/movimientos.png",Mapa_mov, bg = "transparent", height = 25.9, 
 
 #Casos trayectoria Promedio vs Acumulado
 
-Fechahoy<- "Corte al 03 de diciembre de 2020"
+Fechahoy<- "Corte al 06 de diciembre de 2020"
 
 Casosprom <- Casos %>% group_by(MUNICIPIO) %>% mutate(Casos.media.7d=round(rollmeanr(x=NUEVOS, 7, fill = 0),1)) 
 
@@ -241,7 +241,7 @@ Decesosd2 <- ggplot(subset(Decesosprom, MUNICIPIO %in% c("Empalme", "Huatabampo"
 ggsave("Gráficos/decesosdacum2.png",Decesosd2, bg = "transparent", height = 25, width = 25, units = "cm", type = "cairo")
 
 
-#discrete <- c("5" = "black", "4" = "#005155","3" = "#01787E","2" = "#01A2AC", "1" = "#58BCBC")
+discrete <- c("5" = "black", "4" = "#005155","3" = "#01787E","2" = "#01A2AC", "1" = "#58BCBC")
 
 Casossemana <- Casos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% 
   mutate (Reporte=max(as.Date(Fecha))) %>% ungroup()
@@ -251,7 +251,7 @@ casossempob <- left_join(Casossem, POBMUN, by = "CVEGEO")
 casossempob  <- casossempob %>% mutate (INCIDENCIA= round((`CASOS SEMANALES`*100000)/POB,1))
 casossempob$INCIDENCIA[casossempob$INCIDENCIA==0] <- NA
 casossempob  <- casossempob %>% filter(Semana==49)
-casossempob   <- mutate(casossempob , IS=if_else(INCIDENCIA>158,5, if_else(INCIDENCIA>59,4, if_else(INCIDENCIA>30,3,if_else(INCIDENCIA>15,2,1)))))
+casossempob   <- mutate(casossempob , IS=if_else(INCIDENCIA>162,5, if_else(INCIDENCIA>59,4, if_else(INCIDENCIA>30,3,if_else(INCIDENCIA>15,2,1)))))
 casossempob <-casossempob %>%  mutate(id=CVEGEO)
 
 capa_munison <- readOGR("Shapes", layer="MUNSON")
@@ -260,10 +260,9 @@ capa_munison_df <- fortify(capa_munison, region="concat")
 capa_munison_inci<- inner_join(capa_munison_df, casossempob, by="id")
 
 
-discrete <-  rev(carto_pal(5, "Temps"))
-marcas <- c( "+143", "59-143", "30-59","15-30", "0-15")
-subtitulo <- "Casos de covid-19 por 100 mil habitantes\nCorte al 03/12/2020 | Semana 48"
-marcas <- c( "+158", "59-158", "30-59","15-30", "0-15")
+#discrete <-  rev(carto_pal(5, "Temps"))
+subtitulo <- "Casos de covid-19 por 100 mil habitantes\nCorte al 06/12/2020 | Semana 49"
+marcas <- c( "+162", "59-162", "30-59","15-30", "0-15")
 
 Mapa_incidencia<- ggplot(capa_munison_inci, aes(map_id = id)) +
   geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
@@ -346,18 +345,18 @@ CasosSon <- ggplot(Sonora.DF) +
   scale_color_manual(name="", values= c("Promedio móvil 7d" = "#01787E")) +
   scale_y_continuous(expand = c(0, 5)) +
   scale_x_date(expand=c(0,5), date_breaks = "1 month", date_labels = "%B") +
-  geom_curve(aes(x = as.Date("2020-08-27"), y = 510, xend = as.Date("2020-08-07"), yend = 520),
-             size = 1.5, color = "black",
-             arrow = arrow(length = unit(0.02, "npc"))) +
-  geom_curve(aes(x = as.Date("2020-11-02"), y = 437, xend = as.Date("2020-12-02"), yend = 435),
-             size = 1.5, color = "black",
-             arrow = arrow(length = unit(0.02, "npc"))) +
-  geom_text(aes(x = as.Date("2020-11-02"), y = 462,
-                label = "03/12/2020\n439 casos"), stat = "unique", family = "Lato Black",
-            size = 5, color = "black")+
-  geom_text(aes(x = as.Date("2020-09-08"), y = 480,
-                label = "05/08/2020\n518 casos"), stat = "unique", family = "Lato Black",
-            size = 5, color = "black")+
+  # geom_curve(aes(x = as.Date("2020-08-27"), y = 510, xend = as.Date("2020-08-07"), yend = 520),
+  #            size = 1.5, color = "black",
+  #            arrow = arrow(length = unit(0.02, "npc"))) +
+  # geom_curve(aes(x = as.Date("2020-11-02"), y = 437, xend = as.Date("2020-12-02"), yend = 435),
+  #            size = 1.5, color = "black",
+  #            arrow = arrow(length = unit(0.02, "npc"))) +
+  # geom_text(aes(x = as.Date("2020-11-02"), y = 462,
+  #               label = "03/12/2020\n439 casos"), stat = "unique", family = "Lato Black",
+  #           size = 5, color = "black")+
+  # geom_text(aes(x = as.Date("2020-09-08"), y = 480,
+  #               label = "05/08/2020\n518 casos"), stat = "unique", family = "Lato Black",
+  #           size = 5, color = "black")+
   theme_bw() +
   theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
         plot.title = element_text(family = "Lato Black", size = 40,color = "#01A2AC"),  
@@ -393,7 +392,7 @@ Casosconfd <-Casos %>% group_by(MUNICIPIO) %>%
   rename(Casos.diarios=NUEVOS) %>% 
   mutate(Casos.media.7d=round(rollmeanr(x=Casos.diarios, 7, fill = NA),1))
 
-CasosMun <- Casosconfd %>% filter(MUNICIPIO=="Cajeme") %>%  ggplot() +
+CasosMun <- Casosconfd %>% filter(MUNICIPIO=="Hermosillo") %>%  ggplot() +
   geom_area(aes(x= Fecha, y= Casos.media.7d, fill= "Promedio móvil 7d"), alpha=0.3)+
   geom_line(aes(x= Fecha, y= Casos.media.7d, color= "Promedio móvil 7d"), linetype= "solid", size=1.5)+
   geom_point(aes(x= Fecha, y= Casos.diarios), fill= "#01787E", color = "white", size = 1.7, stroke=0.8, alpha=0.65, shape = 21) +
@@ -426,7 +425,7 @@ CasosMun <- Casosconfd %>% filter(MUNICIPIO=="Cajeme") %>%  ggplot() +
         legend.text = element_blank(),
         legend.position = "none") +
   labs(y = "Casos confirmados", 
-       x = NULL,legend= NULL, title  = "Casos diarios\n de Covid-19 en Cajeme", 
+       x = NULL,legend= NULL, title  = "Casos diarios\n de Covid-19 en Hermosillo", 
        subtitle= Fechahoy, caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com")
 CasosMun
 
