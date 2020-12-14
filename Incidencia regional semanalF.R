@@ -47,7 +47,7 @@ paragraf <- theme(plot.title = (element_text(family = "Lato Black", size = 32, c
                   plot.subtitle = (element_text(family = "Lato Light", size = 12, color = "#01787E")),
                   legend.key.height = unit (1, "cm"), legend.position = "right",   
                   axis.text.y = element_text(family = "Lato Light", size = 15, color = "black"), 
-                  axis.text.x = element_text(family = "Lato Light", size =11, color = "black"),
+                  axis.text.x = element_text(family = "Lato Light", size =10, color = "black"),
                   legend.text = element_text(family = "Lato", size = 8, color = "black"),
                   panel.background = element_rect(fill="gray97") ,
                   panel.grid.major.y = element_blank(),
@@ -57,7 +57,7 @@ paragraf <- theme(plot.title = (element_text(family = "Lato Black", size = 32, c
                   legend.title = element_text(family = "Lato Black", size = 8, color = "black"),
                   plot.caption = element_text(family = "Lato Light", size =10, color = "gray50"),
                   axis.title = element_text(family = "Lato", size = 12))
-subtitulo <- "Incidencia semanal de casos de covid-19\nCorte al 06/12/2020 | Semana 49"
+subtitulo <- "Incidencia semanal de casos de covid-19\nCorte al 13/12/2020 | Semana 50"
 marcas <- c( "+162", "59-162", "30-59","15-30", "0-15")
 
 #Río Sonora
@@ -71,7 +71,7 @@ IncidenciaG <- ggplot(data = casossempobF) +
                     breaks= c("5", "4", "3", "2", "1"), 
                     labels = marcas)+
   #scale_x_date(date_breaks = "month" , date_labels = "%d-%m") +
-  scale_x_continuous(breaks = seq(from = 12, to = 49, by = 1))+
+  scale_x_continuous(breaks = seq(from = 12, to = 50, by = 1))+
   theme_minimal() +
   labs(y = NULL, x = "Semana (lunes-domingo)", title  = paste("Región", Region), 
        subtitle = subtitulo,  fill = NULL, 
@@ -92,7 +92,7 @@ IncidenciaG <- ggplot(data = casossempobF) +
                     breaks= c("5", "4", "3", "2", "1"), 
                     labels = marcas)+
   #scale_x_date(date_breaks = "month" , date_labels = "%d-%m") +
-  scale_x_continuous(breaks = seq(from = 12, to = 49, by = 1))+
+  scale_x_continuous(breaks = seq(from = 12, to = 50, by = 1))+
   theme_minimal() +
   labs(y = NULL, x = "Semana (lunes-domingo)", title  = paste("Región", Region), 
        subtitle = subtitulo,  fill = NULL, 
@@ -113,7 +113,7 @@ IncidenciaG <- ggplot(data = casossempobF) +
                     breaks= c("5", "4", "3", "2", "1"), 
                     labels = marcas)+
   #scale_x_date(date_breaks = "month" , date_labels = "%d-%m") +
-  scale_x_continuous(breaks = seq(from = 12, to = 49, by = 1))+
+  scale_x_continuous(breaks = seq(from = 12, to = 50, by = 1))+
   theme_minimal() +
   labs(y = NULL, x = "Semana (lunes-domingo)", title  = paste("Región", Region), 
        subtitle = subtitulo,  fill = NULL, 
@@ -133,7 +133,7 @@ IncidenciaG <- ggplot(data = casossempobF) +
                     breaks= c("5", "4", "3", "2", "1"), 
                     labels = marcas)+
   #scale_x_date(date_breaks = "month" , date_labels = "%d-%m") +
-  scale_x_continuous(breaks = seq(from = 12, to = 49, by = 1))+
+  scale_x_continuous(breaks = seq(from = 12, to = 50, by = 1))+
   theme_minimal() +
   labs(y = NULL, x = "Semana (lunes-domingo)", title  = paste("Región", Region), 
        subtitle = subtitulo,  fill = NULL, 
@@ -154,7 +154,7 @@ IncidenciaG <- ggplot(data = casossempobF) +
                     breaks= c("5", "4", "3", "2", "1"), 
                     labels = marcas)+
   #scale_x_date(date_breaks = "month" , date_labels = "%d-%m") +
-  scale_x_continuous(breaks = seq(from = 12, to = 49, by = 1))+
+  scale_x_continuous(breaks = seq(from = 12, to = 50, by = 1))+
   theme_minimal() +
   labs(y = NULL, x = "Semana (lunes-domingo)", title  = paste("Región", Region), 
        subtitle = subtitulo,  fill = NULL, 
@@ -176,7 +176,7 @@ IncidenciaG <- ggplot(data = casossempobF) +
                     breaks= c("5", "4", "3", "2", "1"), 
                     labels = marcas)+
   #scale_x_date(date_breaks = "month" , date_labels = "%d-%m") +
-  scale_x_continuous(breaks = seq(from = 12, to = 49, by = 1))+
+  scale_x_continuous(breaks = seq(from = 12, to = 50, by = 1))+
   theme_minimal() +
   labs(y = NULL, x = "Semana (lunes-domingo)", title  = paste("Región", Region), 
        subtitle = subtitulo,  fill = NULL, 

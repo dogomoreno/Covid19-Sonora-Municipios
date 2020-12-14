@@ -102,7 +102,7 @@ ggsave("Gráficos/movimientos.png",Mapa_mov, bg = "transparent", height = 25.9, 
 
 #Casos trayectoria Promedio vs Acumulado
 
-Fechahoy<- "Corte al 06 de diciembre de 2020"
+Fechahoy<- "Corte al 13 de diciembre de 2020"
 
 Casosprom <- Casos %>% group_by(MUNICIPIO) %>% mutate(Casos.media.7d=round(rollmeanr(x=NUEVOS, 7, fill = 0),1)) 
 
@@ -250,7 +250,7 @@ Casossem <- group_by(Casossemana, CVEGEO, MUNICIPIO, Reporte, Semana) %>%
 casossempob <- left_join(Casossem, POBMUN, by = "CVEGEO") 
 casossempob  <- casossempob %>% mutate (INCIDENCIA= round((`CASOS SEMANALES`*100000)/POB,1))
 casossempob$INCIDENCIA[casossempob$INCIDENCIA==0] <- NA
-casossempob  <- casossempob %>% filter(Semana==49)
+casossempob  <- casossempob %>% filter(Semana==50)
 casossempob   <- mutate(casossempob , IS=if_else(INCIDENCIA>162,5, if_else(INCIDENCIA>59,4, if_else(INCIDENCIA>30,3,if_else(INCIDENCIA>15,2,1)))))
 casossempob <-casossempob %>%  mutate(id=CVEGEO)
 
@@ -261,7 +261,7 @@ capa_munison_inci<- inner_join(capa_munison_df, casossempob, by="id")
 
 
 #discrete <-  rev(carto_pal(5, "Temps"))
-subtitulo <- "Casos de covid-19 por 100 mil habitantes\nCorte al 06/12/2020 | Semana 49"
+subtitulo <- "Casos de covid-19 por 100 mil habitantes\nCorte al 13/12/2020 | Semana 50"
 marcas <- c( "+162", "59-162", "30-59","15-30", "0-15")
 
 Mapa_incidencia<- ggplot(capa_munison_inci, aes(map_id = id)) +
@@ -336,7 +336,7 @@ Sonora.DF <- mutate(Sonora.DF, SEDENA= round((D_SEDENA / C_SEDENA)*100,1))
 Sonora.DF <- mutate(Sonora.DF, SEMAR= round((D_SEMAR / C_SEMAR)*100,1))
 
 
-
+# Casos diarios Estatal
 CasosSon <- ggplot(Sonora.DF) +
   geom_area(aes(x= Fecha, y= Casos.media.7d, fill= "Promedio móvil 7d"), alpha=0.3)+
   geom_line(aes(x= Fecha, y= Casos.media.7d, color= "Promedio móvil 7d"), linetype= "solid", size=1.5)+
@@ -372,10 +372,49 @@ CasosSon <- ggplot(Sonora.DF) +
   labs(y = "Casos confirmados", 
        x = NULL,legend= NULL, title  = "Casos diarios\n de Covid-19 en Sonora", 
        subtitle= Fechahoy, caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com")
+CasosSon
 
+ggsave("Gráficos/Casosdiarios.png",CasosSon, bg = "transparent", height = 25, width = 30, units = "cm", dpi = 400, type = 'cairo')
 
   
-  
+DecesosSon <- ggplot(Sonora.DF) +
+  geom_area(aes(x= Fecha, y= Decesos.media.7d, fill= "Promedio móvil 7d"), alpha=0.3)+
+  geom_line(aes(x= Fecha, y= Decesos.media.7d, color= "Promedio móvil 7d"), linetype= "solid", size=1.5)+
+  geom_point(aes(x= Fecha, y= Decesos.diarios, fill= "Decesos diarios"), color = "white", size = 1.7, stroke=0.8, alpha=0.65, shape = 21) +
+  scale_fill_manual(name="", values= c("Decesos diarios" = "#73264D", "Promedio móvil 7d" = "#D075A3")) + 
+  scale_color_manual(name="", values= c("Promedio móvil 7d" = "#73264D")) +
+  scale_y_continuous(expand = c(0, 0), limits= c(0,80)) +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2020-12-15")), date_breaks = "1 month", date_labels = "%B") +
+geom_curve(aes(x = as.Date("2020-09-04"), y = 64, xend = as.Date("2020-08-14"), yend = 78),
+           size = 1.5, color = "black",
+           arrow = arrow(length = unit(0.02, "npc"))) +
+geom_curve(aes(x = as.Date("2020-11-20"), y = 55, xend = as.Date("2020-12-11"), yend = 44),
+           size = 1.5, color = "black",
+           arrow = arrow(length = unit(0.02, "npc"))) +
+geom_text(aes(x = as.Date("2020-11-20"), y = 58,
+              label = "44 decesos\n12/12/2020"), stat = "unique", family = "Lato Black",
+          size = 5, color = "black")+
+geom_text(aes(x = as.Date("2020-08-30"), y = 61,
+              label = "78 decesos\n13/08/2020"), stat = "unique", family = "Lato Black",
+          size = 5, color = "black")+
+  geom_text(aes(x = as.Date("2020-11-20"), y = 65,
+                label = "Mayor cantidad\nen 121 días"), stat = "unique", family = "Lato Black",
+            size = 5, color = "#993366")+
+theme_bw() +
+  theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
+        plot.title = element_text(family = "Lato Black", size = 40,color = "#993366"),  
+        plot.subtitle = element_text(family = "Lato Light", size = 16, color = "black"), legend.title = element_blank(),
+        strip.text = element_text(family = "Lato Black", size = 16),
+        axis.text = element_text(family = "Lato", size =10),
+        plot.background = element_rect(fill = "white", color = "black", size = 5),
+        axis.title.x = element_text(family = "Lato Light", size = 12, hjust=1),
+        axis.title.y = element_text(family = "Lato Light", size = 12, hjust=1), 
+        plot.caption = element_text(family = "Lato", size = 10, color = "#993366"),
+        legend.text = element_blank(),
+        legend.position = "none") +
+  labs(y = "Decesos confirmados", 
+       x = NULL,legend= NULL, title  = "Decesos confirmados diarios\n por Covid-19 en Sonora", 
+       subtitle= Fechahoy, caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com")  
   
   # #theme(
   #   #legend.position = "none",
@@ -384,9 +423,9 @@ CasosSon <- ggplot(Sonora.DF) +
   #   axis.text.x = element_text(family = "Lato", size = 10, color = "black"),axis.line = element_line(colour = "black"),
   #   axis.title = element_text(family = "Lato", size = 8)) + 
   # labs(y = NULL, x = NULL) 
-CasosSon
+DecesosSon
 
-ggsave("Gráficos/diario.png",CasosSon, bg = "transparent", height = 25, width = 30, units = "cm", dpi = 400, type = 'cairo')
+ggsave("Gráficos/Decesosdiarios.png",DecesosSon, bg = "transparent", height = 25, width = 30, units = "cm", dpi = 400, type = 'cairo')
 
 Casosconfd <-Casos %>% group_by(MUNICIPIO) %>% 
   rename(Casos.diarios=NUEVOS) %>% 
@@ -398,8 +437,8 @@ CasosMun <- Casosconfd %>% filter(MUNICIPIO=="Hermosillo") %>%  ggplot() +
   geom_point(aes(x= Fecha, y= Casos.diarios), fill= "#01787E", color = "white", size = 1.7, stroke=0.8, alpha=0.65, shape = 21) +
   scale_fill_manual(name="", values= c("Promedio móvil 7d" = "#58BCBC", "Casos diarios" = "#01787E")) + 
   scale_color_manual(name="", values= c("Promedio móvil 7d" = "#01787E")) +
-  scale_y_continuous(expand = c(0, 5)) +
-  scale_x_date(expand=c(0,5), date_breaks = "1 month", date_labels = "%B") +
+  scale_y_continuous(expand = c(0, 0), limits= c(0,80)) +
+  scale_x_date(expand=c(0,0), limits = c(as.date("2020-04-01"), as.Date("2020-12-15")), date_breaks = "1 month", date_labels = "%B") +
   # geom_curve(aes(x = as.Date("2020-08-26"), y = 260, xend = as.Date("2020-08-06"), yend = 272),
   #            size = 1.5, color = "black",
   #            arrow = arrow(length = unit(0.02, "npc"))) +
@@ -431,3 +470,57 @@ CasosMun
 
 ggsave("Gráficos/diarioMun2.png",CasosMun, bg = "transparent", height = 25, width = 30, units = "cm", dpi = 400, type = 'cairo')
 
+# DEcesos Hermosillo
+Decesosconfd <-Decesos %>% group_by(MUNICIPIO) %>% 
+  rename(Decesos.diarios=NUEVOS) %>% 
+  mutate(Decesos.media.7d=round(rollmeanr(x=Decesos.diarios, 7, fill = NA),1))
+
+DecesosSon <- Decesosconfd %>% filter(MUNICIPIO=="Hermosillo") %>% ggplot() +
+  geom_area(aes(x= Fecha, y= Decesos.media.7d, fill= "Promedio móvil 7d"), alpha=0.3)+
+  geom_line(aes(x= Fecha, y= Decesos.media.7d, color= "Promedio móvil 7d"), linetype= "solid", size=1.5)+
+  geom_point(aes(x= Fecha, y= Decesos.diarios, fill= "Decesos diarios"), color = "white", size = 1.7, stroke=0.8, alpha=0.65, shape = 21) +
+  scale_fill_manual(name="", values= c("Decesos diarios" = "#73264D", "Promedio móvil 7d" = "#D075A3")) + 
+  scale_color_manual(name="", values= c("Promedio móvil 7d" = "#73264D")) +
+  scale_y_continuous(expand = c(0, 0), limits= c(0,55)) +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2020-12-15")), date_breaks = "1 month", date_labels = "%B") +
+  # geom_curve(aes(x = as.Date("2020-09-04"), y = 64, xend = as.Date("2020-08-14"), yend = 78),
+  #            size = 1.5, color = "black",
+  #            arrow = arrow(length = unit(0.02, "npc"))) +
+  # geom_curve(aes(x = as.Date("2020-11-20"), y = 55, xend = as.Date("2020-12-11"), yend = 44),
+  #            size = 1.5, color = "black",
+  #            arrow = arrow(length = unit(0.02, "npc"))) +
+  # geom_text(aes(x = as.Date("2020-11-20"), y = 58,
+  #               label = "44 decesos\n12/12/2020"), stat = "unique", family = "Lato Black",
+  #           size = 5, color = "black")+
+  # geom_text(aes(x = as.Date("2020-08-30"), y = 61,
+  #               label = "78 decesos\n13/08/2020"), stat = "unique", family = "Lato Black",
+  #           size = 5, color = "black")+
+  # geom_text(aes(x = as.Date("2020-11-20"), y = 65,
+  #               label = "Mayor cantidad\nen 121 días"), stat = "unique", family = "Lato Black",
+  #           size = 5, color = "#993366")+
+  theme_bw() +
+  theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
+        plot.title = element_text(family = "Lato Black", size = 40,color = "#993366"),  
+        plot.subtitle = element_text(family = "Lato Light", size = 16, color = "black"), legend.title = element_blank(),
+        strip.text = element_text(family = "Lato Black", size = 16),
+        axis.text = element_text(family = "Lato", size =10),
+        plot.background = element_rect(fill = "white", color = "black", size = 5),
+        axis.title.x = element_text(family = "Lato Light", size = 12, hjust=1),
+        axis.title.y = element_text(family = "Lato Light", size = 12, hjust=1), 
+        plot.caption = element_text(family = "Lato", size = 10, color = "#993366"),
+        legend.text = element_blank(),
+        legend.position = "none") +
+  labs(y = "Decesos confirmados", 
+       x = NULL,legend= NULL, title  = "Decesos diarios\n de Covid-19 en Sonora", 
+       subtitle= Fechahoy, caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com")  
+
+# #theme(
+#   #legend.position = "none",
+#   #panel.background = element_rect(fill= "white"),
+#   axis.text.y = element_text(family = "Lato", size = 10, color = "black"),
+#   axis.text.x = element_text(family = "Lato", size = 10, color = "black"),axis.line = element_line(colour = "black"),
+#   axis.title = element_text(family = "Lato", size = 8)) + 
+# labs(y = NULL, x = NULL) 
+DecesosSon
+
+ggsave("Gráficos/Decesosdiarios.png",DecesosSon, bg = "transparent", height = 25, width = 30, units = "cm", dpi = 400, type = 'cairo')
