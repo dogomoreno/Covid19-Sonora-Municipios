@@ -102,7 +102,7 @@ ggsave("Gráficos/movimientos.png",Mapa_mov, bg = "transparent", height = 25.9, 
 
 #Casos trayectoria Promedio vs Acumulado
 
-Fechahoy<- "Corte al 13 de diciembre de 2020"
+Fechahoy<- "Corte al 20 de diciembre de 2020"
 
 Casosprom <- Casos %>% group_by(MUNICIPIO) %>% mutate(Casos.media.7d=round(rollmeanr(x=NUEVOS, 7, fill = 0),1)) 
 
@@ -260,7 +260,7 @@ capa_munison_df <- fortify(capa_munison, region="concat")
 capa_munison_inci<- inner_join(capa_munison_df, casossempob, by="id")
 
 
-discrete <-  rev(carto_pal(5, "Temps"))
+#discrete <-  rev(carto_pal(5, "Temps"))
 subtitulo <- "Casos de covid-19 por 100 mil habitantes\nCorte al 13/12/2020 | Semana 50"
 marcas <- c( "+162", "59-162", "30-59","15-30", "0-15")
 
