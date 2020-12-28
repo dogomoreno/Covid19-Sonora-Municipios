@@ -16,11 +16,11 @@ library(rcartocolor)
 
 
 #discreta <- c("5" = "#893F59", "4" = "#ECA48E","3" = "#FECF7D","2" = "#9BD7D7", "1" = "gray80")
-discreta <- c("5" = "black", "4" = "#005155","3" = "#01787E","2" = "#01A2AC", "1" = "#58BCBC")
+#discreta <- c("5" = "black", "4" = "#005155","3" = "#01787E","2" = "#01A2AC", "1" = "#58BCBC")
 #discreta <- wes_palette("Zissou1", 5, type = "discrete")
 #discreta <- pal_ucscgb("default", alpha=0.5)(5)
 #discreta <- brewer.pal(5, "Spectral")
-#discreta <- rev(carto_pal(5, "Temps"))
+discreta <- rev(carto_pal(5, "Temps"))
 #discreta <- miami1(n = 5, alpha = 0.9)
 
 Casos <- read_csv("Bases/Casosdiarios.csv", 

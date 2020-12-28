@@ -241,7 +241,7 @@ Decesosd2 <- ggplot(subset(Decesosprom, MUNICIPIO %in% c("Empalme", "Huatabampo"
 ggsave("Gráficos/decesosdacum2.png",Decesosd2, bg = "transparent", height = 25, width = 25, units = "cm", type = "cairo")
 
 
-discrete <- c("5" = "black", "4" = "#005155","3" = "#01787E","2" = "#01A2AC", "1" = "#58BCBC")
+#discrete <- c("5" = "black", "4" = "#005155","3" = "#01787E","2" = "#01A2AC", "1" = "#58BCBC")
 
 Casossemana <- Casos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% 
   mutate (Reporte=max(as.Date(Fecha))) %>% ungroup()
@@ -250,7 +250,7 @@ Casossem <- group_by(Casossemana, CVEGEO, MUNICIPIO, Reporte, Semana) %>%
 casossempob <- left_join(Casossem, POBMUN, by = "CVEGEO") 
 casossempob  <- casossempob %>% mutate (INCIDENCIA= round((`CASOS SEMANALES`*100000)/POB,1))
 casossempob$INCIDENCIA[casossempob$INCIDENCIA==0] <- NA
-casossempob  <- casossempob %>% filter(Semana==50)
+casossempob  <- casossempob %>% filter(Semana==51)
 casossempob   <- mutate(casossempob , IS=if_else(INCIDENCIA>162,5, if_else(INCIDENCIA>59,4, if_else(INCIDENCIA>30,3,if_else(INCIDENCIA>15,2,1)))))
 casossempob <-casossempob %>%  mutate(id=CVEGEO)
 
@@ -260,8 +260,8 @@ capa_munison_df <- fortify(capa_munison, region="concat")
 capa_munison_inci<- inner_join(capa_munison_df, casossempob, by="id")
 
 
-#discrete <-  rev(carto_pal(5, "Temps"))
-subtitulo <- "Casos de covid-19 por 100 mil habitantes\nCorte al 13/12/2020 | Semana 50"
+discrete <-  rev(carto_pal(5, "Temps"))
+subtitulo <- "Casos de covid-19 por 100 mil habitantes\nCorte al 20/12/2020 | Semana 51"
 marcas <- c( "+162", "59-162", "30-59","15-30", "0-15")
 
 Mapa_incidencia<- ggplot(capa_munison_inci, aes(map_id = id)) +
