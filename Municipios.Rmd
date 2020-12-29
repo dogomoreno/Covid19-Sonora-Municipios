@@ -396,7 +396,7 @@ Mapa municipal
 
 Row
 -----------------------------------------------------------------------
-### **Incidencia y mortalidad municipal al 27/12/2020 (capas semanales al domingo más reciente)**
+### **Incidencia y mortalidad municipal al 28/12/2020 (capas semanales al domingo más reciente)**
 
 ```{r include=FALSE}
 Casossemana <- Casos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% 
@@ -651,14 +651,15 @@ modeBarButtonsToRemove = list(
 ### **Casos diarios**
 ```{r }
 Casos$NUEVOS[Casos$NUEVOS == 0] <- NA
-Casos_Todos <- ggplot(data = Casos) +
+Casos_Todos <- Casos %>% dplyr::group_by(MUNICIPIO) %>% dplyr::filter(max(CASOS)>50) %>% ungroup() %>% 
+  ggplot() +
       geom_tile(mapping = aes(x = Fecha, y = MUNICIPIO, fill = NUEVOS, text = paste(
                "ACUMULADOS: ", CASOS, "\n")), color = "white") +
         scale_fill_gradient(low = "#58BCBC", high = "black") +
     scale_x_date(date_breaks = "weeks" , date_labels = "%d-%m") +
      theme_minimal() +
     theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")),
-    legend.key.height = unit (2, "cm"),    axis.text.y = element_text(family = "Lato Light", size = 7, color = "black"), 
+    legend.key.height = unit (2, "cm"),    axis.text.y = element_text(family = "Lato Light", size = 12, color = "black"), 
     axis.text.x = element_text(family = "Lato Light", size = 6, color = "black"),
     legend.text = element_text(family = "Lato", size = 8, color = "black"),
     panel.background = element_rect(fill="gray99") ,
@@ -687,7 +688,8 @@ modeBarButtonsToRemove = list(
 ### **Decesos diarios**
 ```{r }
 Decesos$NUEVOS[Decesos$NUEVOS == 0] <- NA
-Decesos_Todos <- ggplot(data = Decesos) +
+Decesos_Todos <- Decesos %>% dplyr::group_by(MUNICIPIO) %>% dplyr::filter(max(DECESOS)>10) %>% ungroup() %>% 
+  ggplot() +
       geom_tile(mapping = aes(x = Fecha, y = MUNICIPIO, fill = NUEVOS, text = paste(
                "ACUMULADOS: ", DECESOS, "\n")), color = "white") +
      scale_fill_gradient(low= "#993366", high = "black") +
@@ -695,7 +697,7 @@ Decesos_Todos <- ggplot(data = Decesos) +
      theme_minimal() +
     theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#993366", vjust = -0.1, face = "bold")),
     legend.key.height = unit (2, "cm"), 
-     axis.text.y = element_text(family = "Lato Light", size = 8, color = "black"), 
+     axis.text.y = element_text(family = "Lato Light", size = 12, color = "black"), 
     axis.text.x = element_text(family = "Lato Light", size = 8, color = "black"),
     legend.text = element_text(family = "Lato", size = 8, color = "black"),
     panel.background = element_rect(fill="gray99") ,
@@ -723,7 +725,7 @@ modeBarButtonsToRemove = list(
 
 Indicadores
 =====================================
-**Al 27 de diciembre de 2020** (casos semanales al domingo más reciente)  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 28 de diciembre de 2020** (casos semanales al domingo más reciente)  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
 CDSELECT<- Mapa %>% select("MUNICIPIO","POBLACION", "CASOS","CASOS SEMANALES","INCIDENCIAACUM", "DECESOS","DECESOS SEMANALES","MORTALIDADACUM", "LETALIDAD") %>% rename(INCIDENCIA=INCIDENCIAACUM, MORTALIDAD=MORTALIDADACUM)
 CDSELECT1 <- CDSELECT %>% mutate(DECESOS = coalesce(DECESOS,0L),`DECESOS SEMANALES` = coalesce(`DECESOS SEMANALES`,0L), `CASOS SEMANALES` = coalesce(`CASOS SEMANALES`,0L), MORTALIDAD = coalesce(MORTALIDAD, 0), LETALIDAD = coalesce(LETALIDAD, 0))
