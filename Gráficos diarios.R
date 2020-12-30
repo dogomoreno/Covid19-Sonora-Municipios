@@ -102,7 +102,7 @@ ggsave("Gráficos/movimientos.png",Mapa_mov, bg = "transparent", height = 25.9, 
 
 #Casos trayectoria Promedio vs Acumulado
 
-Fechahoy<- "Corte al 28 de diciembre de 2020"
+Fechahoy<- "Corte al 29 de diciembre de 2020"
 
 Casosprom <- Casos %>% group_by(MUNICIPIO) %>% mutate(Casos.media.7d=round(rollmeanr(x=NUEVOS, 7, fill = 0),1)) 
 
@@ -348,11 +348,11 @@ CasosSon <- ggplot(Sonora.DF) +
   # geom_curve(aes(x = as.Date("2020-08-27"), y = 510, xend = as.Date("2020-08-07"), yend = 520),
   #            size = 1.5, color = "black",
   #            arrow = arrow(length = unit(0.02, "npc"))) +
-  geom_curve(aes(x = as.Date("2020-11-01"), y = 340, xend = as.Date("2020-12-27"), yend = 297),
+  geom_curve(aes(x = as.Date("2020-11-01"), y = 360, xend = as.Date("2020-12-28"), yend = 239),
              size = 1.5, color = "black",
              arrow = arrow(length = unit(0.02, "npc"))) +
-  geom_text(aes(x = as.Date("2020-11-01"), y = 360,
-                label = "28/12/2020\n298 casos"), stat = "unique", family = "Lato Black",
+  geom_text(aes(x = as.Date("2020-11-01"), y = 380,
+                label = "29/12/2020\n298 casos"), stat = "unique", family = "Lato Black",
             size = 5, color = "black")+
   # geom_text(aes(x = as.Date("2020-09-08"), y = 480,
   #               label = "05/08/2020\n518 casos"), stat = "unique", family = "Lato Black",
@@ -388,11 +388,11 @@ DecesosSon <- ggplot(Sonora.DF) +
 # geom_curve(aes(x = as.Date("2020-09-04"), y = 64, xend = as.Date("2020-08-14"), yend = 78),
 #            size = 1.5, color = "black",
 #            arrow = arrow(length = unit(0.02, "npc"))) +
-geom_curve(aes(x = as.Date("2020-11-11"), y = 35, xend = as.Date("2020-12-27"), yend = 19),
+geom_curve(aes(x = as.Date("2020-11-11"), y = 40, xend = as.Date("2020-12-28"), yend = 32),
            size = 1.5, color = "black",
            arrow = arrow(length = unit(0.02, "npc"))) +
-geom_text(aes(x = as.Date("2020-11-11"), y = 38,
-              label = "28/12/2020\n19 decesos"), stat = "unique", family = "Lato Black",
+geom_text(aes(x = as.Date("2020-11-11"), y = 43,
+              label = "29/12/2020\n32 decesos"), stat = "unique", family = "Lato Black",
           size = 5, color = "black")+
 # geom_text(aes(x = as.Date("2020-08-30"), y = 61,
 #               label = "78 decesos\n13/08/2020"), stat = "unique", family = "Lato Black",
@@ -482,22 +482,22 @@ DecesosSon <- Decesosconfd %>% filter(MUNICIPIO=="Hermosillo") %>% ggplot() +
   scale_fill_manual(name="", values= c("Decesos diarios" = "#73264D", "Promedio móvil 7d" = "#D075A3")) + 
   scale_color_manual(name="", values= c("Promedio móvil 7d" = "#73264D")) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,55)) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2020-12-15")), date_breaks = "1 month", date_labels = "%B") +
-  # geom_curve(aes(x = as.Date("2020-09-04"), y = 64, xend = as.Date("2020-08-14"), yend = 78),
-  #            size = 1.5, color = "black",
-  #            arrow = arrow(length = unit(0.02, "npc"))) +
-  # geom_curve(aes(x = as.Date("2020-11-20"), y = 55, xend = as.Date("2020-12-11"), yend = 44),
-  #            size = 1.5, color = "black",
-  #            arrow = arrow(length = unit(0.02, "npc"))) +
-  # geom_text(aes(x = as.Date("2020-11-20"), y = 58,
-  #               label = "44 decesos\n12/12/2020"), stat = "unique", family = "Lato Black",
-  #           size = 5, color = "black")+
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2020-12-31")), date_breaks = "1 month", date_labels = "%B") +
+   #geom_curve(aes(x = as.Date("2020-11-11"), y = 42, xend = as.Date("2020-08-14"), yend = 49),
+              #size = 1.5, color = "black",
+              #arrow = arrow(length = unit(0.02, "npc"))) +
+  geom_curve(aes(x = as.Date("2020-11-11"), y = 30, xend = as.Date("2020-12-28"), yend = 22),
+             size = 1.5, color = "black",
+             arrow = arrow(length = unit(0.02, "npc"))) +
+  geom_text(aes(x = as.Date("2020-11-11"), y = 33,
+                label = "29/12/2020\n22 decesos"), stat = "unique", family = "Lato Black",
+            size = 5, color = "black")+
   # geom_text(aes(x = as.Date("2020-08-30"), y = 61,
   #               label = "78 decesos\n13/08/2020"), stat = "unique", family = "Lato Black",
   #           size = 5, color = "black")+
-  # geom_text(aes(x = as.Date("2020-11-20"), y = 65,
-  #               label = "Mayor cantidad\nen 121 días"), stat = "unique", family = "Lato Black",
-  #           size = 5, color = "#993366")+
+  geom_text(aes(x = as.Date("2020-11-11"), y = 38,
+                label = "Mayor cantidad\nen 138 días"), stat = "unique", family = "Lato Black",
+            size = 5, color = "#993366")+
   theme_bw() +
   theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
         plot.title = element_text(family = "Lato Black", size = 40,color = "#993366"),  
@@ -511,7 +511,7 @@ DecesosSon <- Decesosconfd %>% filter(MUNICIPIO=="Hermosillo") %>% ggplot() +
         legend.text = element_blank(),
         legend.position = "none") +
   labs(y = "Decesos confirmados", 
-       x = NULL,legend= NULL, title  = "Decesos diarios\n de Covid-19 en Sonora", 
+       x = NULL,legend= NULL, title  = "Decesos diarios\n de Covid-19 en Hermosillo", 
        subtitle= Fechahoy, caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com")  
 
 # #theme(
@@ -524,3 +524,4 @@ DecesosSon <- Decesosconfd %>% filter(MUNICIPIO=="Hermosillo") %>% ggplot() +
 DecesosSon
 
 ggsave("Gráficos/Decesosdiarios.png",DecesosSon, bg = "transparent", height = 25, width = 30, units = "cm", dpi = 400, type = 'cairo')
+
