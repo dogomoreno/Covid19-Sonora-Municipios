@@ -227,7 +227,7 @@ DecesosSon <- ggplot(Sonora.DF) +
    scale_fill_manual(name="", values= c("Decesos diarios" = "#73264D", "Promedio móvil 7d" = "#D075A3")) + 
    scale_color_manual(name="", values= c("Promedio móvil 7d" = "#73264D")) +
       scale_y_continuous(expand = c(0, 0), limits= c(0,80)) +
-      scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2020-12-31"))) +
+      scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-01-10"))) +
        theme_minimal() +
     theme(
     legend.position = "none",
@@ -396,7 +396,7 @@ Mapa municipal
 
 Row
 -----------------------------------------------------------------------
-### **Incidencia y mortalidad municipal al 30/12/2020 (capas semanales al domingo más reciente)**
+### **Incidencia y mortalidad municipal al 03/01/2021 (capas semanales al domingo más reciente)**
 
 ```{r include=FALSE}
 Casossemana <- Casos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% 
@@ -406,7 +406,7 @@ Casossem <- group_by(Casossemana, CVEGEO, MUNICIPIO, Reporte, Semana) %>%
 casossempob <- left_join(Casossem, POBMUN, by = "CVEGEO") 
 casossempob  <- casossempob %>% mutate (INCIDENCIASEM= round((`CASOS SEMANALES`*100000)/POB,1))
 casossempob$INCIDENCIASEM[casossempob$INCIDENCIASEM==0] <- NA
-casossempob  <- casossempob %>% filter(Semana==52)
+casossempob  <- casossempob %>% filter(Semana==53)
 casossempob   <- mutate(casossempob , IS=if_else(INCIDENCIASEM>162,5, if_else(INCIDENCIASEM>59,4, if_else(INCIDENCIASEM>30,3,if_else(INCIDENCIASEM>15,2,1)))))
 Casossemanales <- casossempob %>% select(CVEGEO, MUNICIPIO, 'CASOS SEMANALES', INCIDENCIASEM, IS)
 
@@ -417,7 +417,7 @@ Decesossem <- group_by(Decesossemana, CVEGEO, MUNICIPIO, Reporte, Semana) %>%
 Decesossempob <- left_join(Decesossem, POBMUN, by = "CVEGEO") 
 Decesossempob  <- Decesossempob %>% mutate (MORTALIDADSEM= round((`DECESOS SEMANALES`*100000)/POB,1))
 Decesossempob$MORTALIDADSEM[Decesossempob$MORTALIDADSEM==0] <- NA
-Decesossempob  <- Decesossempob %>% filter(Semana==52)
+Decesossempob  <- Decesossempob %>% filter(Semana==53)
 Decesossempob   <- mutate(Decesossempob , MS=if_else(MORTALIDADSEM>22,5, if_else(MORTALIDADSEM>9,4, if_else(MORTALIDADSEM>4,3,if_else(MORTALIDADSEM>2,2,1)))))
 Decesossemanales <- Decesossempob %>% select(CVEGEO, MUNICIPIO, 'DECESOS SEMANALES', MORTALIDADSEM, MS)
 
@@ -581,7 +581,7 @@ Row {.tabset}
 ### **Casos semanales**
 ```{r}
 Casossemana <- Casos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% mutate (Reporte=max(as.Date(Fecha))) %>% ungroup()
-Casossem <- group_by(Casossemana, MUNICIPIO, Reporte, Semana) %>% summarise('CASOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(CASOS)) %>% filter(Semana!=53)
+Casossem <- group_by(Casossemana, MUNICIPIO, Reporte, Semana) %>% summarise('CASOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(CASOS))
 write.csv(Casossem, 'ResultadoCSV/casossem.csv')
 Casos_Semanales <- ggplot(subset(Casossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme", "Cananea","Magdalena", "Álamos", "Bácum"))) +
     geom_col(mapping = aes(x = Reporte, y = `CASOS SEMANALES`, fill = `CASOS SEMANALES`, label= ACUMULADOS)) +
@@ -616,7 +616,7 @@ modeBarButtonsToRemove = list(
 ### **Decesos semanales**
 ```{r}
 Decesossemana <- Decesos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% mutate (Reporte=max(as.Date(Fecha))) %>% ungroup()
-Decesossem <- group_by(Decesossemana, MUNICIPIO, Reporte, Semana) %>% summarise('DECESOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(DECESOS)) %>% filter(Semana!=53)
+Decesossem <- group_by(Decesossemana, MUNICIPIO, Reporte, Semana) %>% summarise('DECESOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(DECESOS))
 write.csv(Decesossem, 'ResultadoCSV/decesossem.csv')
 Decesos_Semanales <- ggplot(subset(Decesossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme", "Cananea","Magdalena", "Álamos", "Bácum"))) +
     geom_col(mapping = aes(x = Reporte, y = `DECESOS SEMANALES`, fill = `DECESOS SEMANALES`, label= ACUMULADOS)) +
@@ -725,7 +725,7 @@ modeBarButtonsToRemove = list(
 
 Indicadores
 =====================================
-**Al 30 de diciembre de 2020** (casos semanales al domingo más reciente)  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 03 de enero de 2021** (casos semanales al domingo más reciente)  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
 CDSELECT<- Mapa %>% select("MUNICIPIO","POBLACION", "CASOS","CASOS SEMANALES","INCIDENCIAACUM", "DECESOS","DECESOS SEMANALES","MORTALIDADACUM", "LETALIDAD") %>% rename(INCIDENCIA=INCIDENCIAACUM, MORTALIDAD=MORTALIDADACUM)
 CDSELECT1 <- CDSELECT %>% mutate(DECESOS = coalesce(DECESOS,0L),`DECESOS SEMANALES` = coalesce(`DECESOS SEMANALES`,0L), `CASOS SEMANALES` = coalesce(`CASOS SEMANALES`,0L), MORTALIDAD = coalesce(MORTALIDAD, 0), LETALIDAD = coalesce(LETALIDAD, 0))

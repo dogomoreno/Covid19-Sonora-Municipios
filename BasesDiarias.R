@@ -10,7 +10,7 @@ Casosdiarios[is.na(Casosdiarios)] <- 0
 Casosdiarios<- Casosdiarios %>% 
   select( -POBLACIÓN) %>% 
   rename(CVEGEO=CVE_MUN, MUNICIPIO = NOM_MUN) %>% 
-  gather( key= "Fecha", value= "CASOS", ends_with("2020")) %>%
+  gather( key= "Fecha", value= "CASOS", ends_with(c("2020","2021"))) %>%
   mutate(Fecha = as.Date(Fecha,format = "%d/%m/%Y")) %>% 
   group_by(MUNICIPIO, CVEGEO) %>% 
   mutate(NUEVOS= (CASOS - lag(CASOS, default = 0, order_by=Fecha)))%>% 
@@ -24,7 +24,7 @@ Decesosdiarios[is.na(Decesosdiarios)] <- 0
 Decesosdiarios<- Decesosdiarios %>% 
   select( -POBLACIÓN) %>% 
   rename(CVEGEO=CVE_MUN, MUNICIPIO = NOM_MUN) %>% 
-  gather( key= "Fecha", value= "DECESOS", ends_with("2020")) %>%
+  gather( key= "Fecha", value= "DECESOS", ends_with(c("2020","2021"))) %>%
   mutate(Fecha = as.Date(Fecha,format = "%d/%m/%Y")) %>% 
   group_by(MUNICIPIO, CVEGEO) %>% 
   mutate(NUEVOS= DECESOS - lag(DECESOS, default = 0, order_by=Fecha)) %>% 
