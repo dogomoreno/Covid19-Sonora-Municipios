@@ -396,28 +396,28 @@ Mapa municipal
 
 Row
 -----------------------------------------------------------------------
-### **Incidencia y mortalidad municipal al 03/01/2021 (capas semanales al domingo más reciente)**
+### **Incidencia y mortalidad municipal al 04/01/2021 (capas semanales al domingo más reciente)**
 
 ```{r include=FALSE}
-Casossemana <- Casos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% 
-  mutate (Reporte=max(as.Date(Fecha))) %>% ungroup()
+Casossemana <- Casos %>% mutate(w = isoweek(Fecha)) %>% group_by(w) %>% mutate (Reporte=max(as.Date(Fecha))) %>%  
+  mutate(Semana = paste(year(Reporte), isoweek(Reporte), sep="-"))
 Casossem <- group_by(Casossemana, CVEGEO, MUNICIPIO, Reporte, Semana) %>% 
   summarise('CASOS SEMANALES' = sum(NUEVOS)) 
 casossempob <- left_join(Casossem, POBMUN, by = "CVEGEO") 
 casossempob  <- casossempob %>% mutate (INCIDENCIASEM= round((`CASOS SEMANALES`*100000)/POB,1))
 casossempob$INCIDENCIASEM[casossempob$INCIDENCIASEM==0] <- NA
-casossempob  <- casossempob %>% filter(Semana==53)
+casossempob  <- casossempob %>% filter(Semana=="2021-53")
 casossempob   <- mutate(casossempob , IS=if_else(INCIDENCIASEM>162,5, if_else(INCIDENCIASEM>59,4, if_else(INCIDENCIASEM>30,3,if_else(INCIDENCIASEM>15,2,1)))))
 Casossemanales <- casossempob %>% select(CVEGEO, MUNICIPIO, 'CASOS SEMANALES', INCIDENCIASEM, IS)
 
-Decesossemana <- Decesos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% 
-  mutate (Reporte=max(as.Date(Fecha))) %>% ungroup()
+Decesossemana <- Decesos %>% mutate(w = isoweek(Fecha)) %>% group_by(w) %>% mutate (Reporte=max(as.Date(Fecha))) %>%  
+  mutate(Semana = paste(year(Reporte), isoweek(Reporte), sep="-"))
 Decesossem <- group_by(Decesossemana, CVEGEO, MUNICIPIO, Reporte, Semana) %>% 
   summarise('DECESOS SEMANALES' = sum(NUEVOS)) 
 Decesossempob <- left_join(Decesossem, POBMUN, by = "CVEGEO") 
 Decesossempob  <- Decesossempob %>% mutate (MORTALIDADSEM= round((`DECESOS SEMANALES`*100000)/POB,1))
 Decesossempob$MORTALIDADSEM[Decesossempob$MORTALIDADSEM==0] <- NA
-Decesossempob  <- Decesossempob %>% filter(Semana==53)
+Decesossempob  <- Decesossempob %>% filter(Semana=="2021-53")
 Decesossempob   <- mutate(Decesossempob , MS=if_else(MORTALIDADSEM>22,5, if_else(MORTALIDADSEM>9,4, if_else(MORTALIDADSEM>4,3,if_else(MORTALIDADSEM>2,2,1)))))
 Decesossemanales <- Decesossempob %>% select(CVEGEO, MUNICIPIO, 'DECESOS SEMANALES', MORTALIDADSEM, MS)
 
@@ -580,7 +580,8 @@ Row {.tabset}
 -----------------------------------------------------------------------
 ### **Casos semanales**
 ```{r}
-Casossemana <- Casos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% mutate (Reporte=max(as.Date(Fecha))) %>% ungroup()
+Casossemana <- Casos %>% mutate(w = isoweek(Fecha)) %>% group_by(w) %>% mutate (Reporte=max(as.Date(Fecha)))  %>%  
+  mutate(Semana = paste(year(Reporte), isoweek(Reporte), sep="-")) %>% filter(Semana!="2021-1")
 Casossem <- group_by(Casossemana, MUNICIPIO, Reporte, Semana) %>% summarise('CASOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(CASOS))
 write.csv(Casossem, 'ResultadoCSV/casossem.csv')
 Casos_Semanales <- ggplot(subset(Casossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme", "Cananea","Magdalena", "Álamos", "Bácum"))) +
@@ -615,7 +616,8 @@ modeBarButtonsToRemove = list(
 
 ### **Decesos semanales**
 ```{r}
-Decesossemana <- Decesos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% mutate (Reporte=max(as.Date(Fecha))) %>% ungroup()
+Decesossemana <- Decesos %>% mutate(w = isoweek(Fecha)) %>% group_by(w) %>% mutate (Reporte=max(as.Date(Fecha)))  %>%  
+  mutate(Semana = paste(year(Reporte), isoweek(Reporte), sep="-")) %>% filter(Semana!="2021-1")
 Decesossem <- group_by(Decesossemana, MUNICIPIO, Reporte, Semana) %>% summarise('DECESOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(DECESOS))
 write.csv(Decesossem, 'ResultadoCSV/decesossem.csv')
 Decesos_Semanales <- ggplot(subset(Decesossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme", "Cananea","Magdalena", "Álamos", "Bácum"))) +
@@ -725,7 +727,7 @@ modeBarButtonsToRemove = list(
 
 Indicadores
 =====================================
-**Al 03 de enero de 2021** (casos semanales al domingo más reciente)  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 04 de enero de 2021** (casos semanales al domingo más reciente)  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
 CDSELECT<- Mapa %>% select("MUNICIPIO","POBLACION", "CASOS","CASOS SEMANALES","INCIDENCIAACUM", "DECESOS","DECESOS SEMANALES","MORTALIDADACUM", "LETALIDAD") %>% rename(INCIDENCIA=INCIDENCIAACUM, MORTALIDAD=MORTALIDADACUM)
 CDSELECT1 <- CDSELECT %>% mutate(DECESOS = coalesce(DECESOS,0L),`DECESOS SEMANALES` = coalesce(`DECESOS SEMANALES`,0L), `CASOS SEMANALES` = coalesce(`CASOS SEMANALES`,0L), MORTALIDAD = coalesce(MORTALIDAD, 0), LETALIDAD = coalesce(LETALIDAD, 0))

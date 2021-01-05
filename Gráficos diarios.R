@@ -102,7 +102,7 @@ ggsave("Gráficos/movimientos.png",Mapa_mov, bg = "transparent", height = 25.9, 
 
 #Casos trayectoria Promedio vs Acumulado
 
-Fechahoy<- "Corte al 03 de enero de 2021"
+Fechahoy<- "Corte al 04 de enero de 2021"
 
 Casosprom <- Casos %>% group_by(MUNICIPIO) %>% mutate(Casos.media.7d=round(rollmeanr(x=NUEVOS, 7, fill = 0),1)) 
 
@@ -243,14 +243,14 @@ ggsave("Gráficos/decesosdacum2.png",Decesosd2, bg = "transparent", height = 25,
 
 discrete <- c("5" = "black", "4" = "#005155","3" = "#01787E","2" = "#01A2AC", "1" = "#58BCBC")
 
-Casossemana <- Casos %>% mutate(Semana = isoweek(Fecha)) %>% group_by(Semana) %>% 
-  mutate (Reporte=max(as.Date(Fecha))) %>% ungroup()
+Casossemana <- Casos %>% mutate(w = isoweek(Fecha)) %>% group_by(w) %>% 
+  mutate (Reporte=max(as.Date(Fecha))) %>%  mutate(Semana = paste(year(Reporte), isoweek(Reporte), sep="-")) %>% ungroup()
 Casossem <- group_by(Casossemana, CVEGEO, MUNICIPIO, Reporte, Semana) %>% 
   summarise('CASOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(CASOS)) 
 casossempob <- left_join(Casossem, POBMUN, by = "CVEGEO") 
 casossempob  <- casossempob %>% mutate (INCIDENCIA= round((`CASOS SEMANALES`*100000)/POB,1))
 casossempob$INCIDENCIA[casossempob$INCIDENCIA==0] <- NA
-casossempob  <- casossempob %>% filter(Semana==53)
+casossempob  <- casossempob %>% filter(Semana=="2021-53")
 casossempob   <- mutate(casossempob , IS=if_else(INCIDENCIA>162,5, if_else(INCIDENCIA>59,4, if_else(INCIDENCIA>30,3,if_else(INCIDENCIA>15,2,1)))))
 casossempob <-casossempob %>%  mutate(id=CVEGEO)
 
@@ -261,7 +261,7 @@ capa_munison_inci<- inner_join(capa_munison_df, casossempob, by="id")
 
 
 #discrete <-  rev(carto_pal(5, "Temps"))
-subtitulo <- "Casos de covid-19 por 100 mil habitantes\nCorte al 03/01/2021 | Semana 53"
+subtitulo <- "Casos de covid-19 por 100 mil habitantes\nCorte al 04/01/2021 | Semana 2021-1"
 marcas <- c( "+162", "59-162", "30-59","15-30", "0-15")
 
 Mapa_incidencia<- ggplot(capa_munison_inci, aes(map_id = id)) +
