@@ -31,17 +31,15 @@ Casos <- read_csv("Bases/Casosdiarios.csv",
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
 
-Casossemana <- Casos %>% mutate(w = isoweek(Fecha)) %>% group_by(w) %>% 
-  mutate (Reporte=max(as.Date(Fecha))) %>%  mutate(Semana = paste(year(Reporte), isoweek(Reporte), sep="-")) %>% ungroup()
-Casossem <- group_by(Casossemana, CVEGEO, MUNICIPIO, Reporte, Semana) %>% 
-  summarise('CASOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(CASOS)) 
-casossempob <- left_join(Casossem, POBMUN, by = "CVEGEO") 
-casossempob  <- casossempob %>% mutate (INCIDENCIA= round((`CASOS SEMANALES`*100000)/POB,1))
-casossempob$INCIDENCIA[casossempob$INCIDENCIA==0] <- NA
-quantile(casossempob$INCIDENCIA, seq(0,1, 0.05), na.rm=TRUE)
-casossempob  <- casossempob %>% filter(Semana!="2021-1")
-casossempob   <- mutate(casossempob , IS=if_else(INCIDENCIA>162,5, if_else(INCIDENCIA>59,4, if_else(INCIDENCIA>30,3,if_else(INCIDENCIA>15,2,1)))))
-
+Casossemana <- Casos %>% group_by(MUNICIPIO) %>% 
+  mutate(diasemana = weekdays(Fecha), Casossemana = rollsum(NUEVOS, 7, align="right", fill = 0)) %>% 
+  filter(diasemana==weekdays(Sys.Date())) %>% 
+  left_join(POBMUN, by = "CVEGEO") 
+Casossemana <- Casossemana %>% mutate (INCIDENCIA= round((Casossemana*100000)/POB,1))
+Casossemana$INCIDENCIA[Casossemana$INCIDENCIA==0] <- NA
+quantile(Casossemana$INCIDENCIA, seq(0,1, 0.05), na.rm=TRUE)
+casossempob <- Casossemana %>% mutate(IS=if_else(INCIDENCIA>162,5, if_else(INCIDENCIA>59,4, if_else(INCIDENCIA>30,3,if_else(INCIDENCIA>15,2,1)))))
+  
 #Estilo del gráfico
 paragraf <- theme(plot.title = (element_text(family = "Lato Black", size = 32, color = "black")),
                   plot.subtitle = (element_text(family = "Lato Light", size = 12, color = "#01787E")),
@@ -57,7 +55,8 @@ paragraf <- theme(plot.title = (element_text(family = "Lato Black", size = 32, c
                   legend.title = element_text(family = "Lato Black", size = 8, color = "black"),
                   plot.caption = element_text(family = "Lato Light", size =10, color = "gray50"),
                   axis.title = element_text(family = "Lato", size = 12))
-subtitulo <- "Incidencia semanal de casos de covid-19\nCorte al 03/01/2021 | Semana 53"
+subtitulo <- "Incidencia semanal de casos de covid-19\nCorte al viernes 09/01/2021"
+Semanalab <- "Semana de domingo a sábado"
 marcas <- c( "+162", "59-162", "30-59","15-30", "0-15")
 
 #Río Sonora
@@ -65,7 +64,7 @@ Region <- "Río Sonora"
 casossempobF  <- casossempob %>% filter(CLAS_REG==Region)
 
 IncidenciaG <- ggplot(data = casossempobF) + 
-  geom_tile(mapping = aes(x = Reporte, y = reorder(MUNICIPIO, desc(MUNICIPIO)), fill = as.factor(IS)), color = "white", size=0.5) +
+  geom_tile(mapping = aes(x = Fecha, y = reorder(MUNICIPIO, desc(MUNICIPIO)), fill = as.factor(IS)), color = "white", size=0.5) +
   scale_fill_manual("INCIDENCIA\n(casos por 100 mil habs.)", 
                     values = discreta, 
                     breaks= c("5", "4", "3", "2", "1"), 
@@ -73,7 +72,7 @@ IncidenciaG <- ggplot(data = casossempobF) +
   #scale_x_date(date_breaks = "month" , date_labels = "%d-%m") +
   scale_x_date(date_breaks = "1 month", date_labels = "%B") +
   theme_minimal() +
-  labs(y = NULL, x = "Semana (lunes-domingo)", title  = paste("Región", Region), 
+  labs(y = NULL, x = Semanalab, title  = paste("Región", Region), 
        subtitle = subtitulo,  fill = NULL, 
        caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora") +
   paragraf 
@@ -86,7 +85,7 @@ Region <- "Sierra Alta"
 casossempobF  <- casossempob %>% filter(CLAS_REG==Region)
 
 IncidenciaG <- ggplot(data = casossempobF) + 
-  geom_tile(mapping = aes(x = Reporte, y = reorder(MUNICIPIO, desc(MUNICIPIO)), fill = as.factor(IS)), color = "white", size=0.5) +
+  geom_tile(mapping = aes(x = Fecha, y = reorder(MUNICIPIO, desc(MUNICIPIO)), fill = as.factor(IS)), color = "white", size=0.5) +
   scale_fill_manual("INCIDENCIA\n(casos por 100 mil habs.)", 
                     values = discreta, 
                     breaks= c("5", "4", "3", "2", "1"), 
@@ -94,7 +93,7 @@ IncidenciaG <- ggplot(data = casossempobF) +
   #scale_x_date(date_breaks = "month" , date_labels = "%d-%m") +
   scale_x_date(date_breaks = "1 month", date_labels = "%B") +
   theme_minimal() +
-  labs(y = NULL, x = "Semana (lunes-domingo)", title  = paste("Región", Region), 
+  labs(y = NULL, x = Semanalab, title  = paste("Región", Region), 
        subtitle = subtitulo,  fill = NULL, 
        caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora") +
   paragraf 
@@ -107,7 +106,7 @@ Region <- "Sierra Centro"
 casossempobF  <- casossempob %>% filter(CLAS_REG==Region)
 
 IncidenciaG <- ggplot(data = casossempobF) + 
-  geom_tile(mapping = aes(x = Reporte, y = reorder(MUNICIPIO, desc(MUNICIPIO)), fill = as.factor(IS)), color = "white", size=0.5) +
+  geom_tile(mapping = aes(x = Fecha, y = reorder(MUNICIPIO, desc(MUNICIPIO)), fill = as.factor(IS)), color = "white", size=0.5) +
   scale_fill_manual("INCIDENCIA\n(casos por 100 mil habs.)", 
                     values = discreta, 
                     breaks= c("5", "4", "3", "2", "1"), 
@@ -115,7 +114,7 @@ IncidenciaG <- ggplot(data = casossempobF) +
   #scale_x_date(date_breaks = "month" , date_labels = "%d-%m") +
   scale_x_date(date_breaks = "1 month", date_labels = "%B") +
   theme_minimal() +
-  labs(y = NULL, x = "Semana (lunes-domingo)", title  = paste("Región", Region), 
+  labs(y = NULL, x = Semanalab, title  = paste("Región", Region), 
        subtitle = subtitulo,  fill = NULL, 
        caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora") +
   paragraf 
@@ -127,7 +126,7 @@ Region <- "Sur"
 casossempobF  <- casossempob %>% filter(CLAS_REG==Region)
 
 IncidenciaG <- ggplot(data = casossempobF) + 
-  geom_tile(mapping = aes(x = Reporte, y = reorder(MUNICIPIO, desc(MUNICIPIO)), fill = as.factor(IS)), color = "white", size=0.5) +
+  geom_tile(mapping = aes(x = Fecha, y = reorder(MUNICIPIO, desc(MUNICIPIO)), fill = as.factor(IS)), color = "white", size=0.5) +
   scale_fill_manual("INCIDENCIA\n(casos por 100 mil habs.)", 
                     values = discreta, 
                     breaks= c("5", "4", "3", "2", "1"), 
@@ -135,7 +134,7 @@ IncidenciaG <- ggplot(data = casossempobF) +
   #scale_x_date(date_breaks = "month" , date_labels = "%d-%m") +
   scale_x_date(date_breaks = "1 month", date_labels = "%B") +
   theme_minimal() +
-  labs(y = NULL, x = "Semana (lunes-domingo)", title  = paste("Región", Region), 
+  labs(y = NULL, x = Semanalab, title  = paste("Región", Region), 
        subtitle = subtitulo,  fill = NULL, 
        caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora") +
   paragraf 
@@ -148,7 +147,7 @@ Region <- "Centro Norte"
 casossempobF  <- casossempob %>% filter(CLAS_REG==Region)
 
 IncidenciaG <- ggplot(data = casossempobF) + 
-  geom_tile(mapping = aes(x = Reporte, y = reorder(MUNICIPIO, desc(MUNICIPIO)), fill = as.factor(IS)), color = "white", size=0.5) +
+  geom_tile(mapping = aes(x = Fecha, y = reorder(MUNICIPIO, desc(MUNICIPIO)), fill = as.factor(IS)), color = "white", size=0.5) +
   scale_fill_manual("INCIDENCIA\n(casos por 100 mil habs.)", 
                     values = discreta, 
                     breaks= c("5", "4", "3", "2", "1"), 
@@ -156,7 +155,7 @@ IncidenciaG <- ggplot(data = casossempobF) +
   #scale_x_date(date_breaks = "month" , date_labels = "%d-%m") +
   scale_x_date(date_breaks = "1 month", date_labels = "%B") +
   theme_minimal() +
-  labs(y = NULL, x = "Semana (lunes-domingo)", title  = paste("Región", Region), 
+  labs(y = NULL, x = Semanalab, title  = paste("Región", Region), 
        subtitle = subtitulo,  fill = NULL, 
        caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora") +
   paragraf 
@@ -170,7 +169,7 @@ Region <- "Noroeste"
 casossempobF  <- casossempob %>% filter(CLAS_REG==Region)
 
 IncidenciaG <- ggplot(data = casossempobF) + 
-  geom_tile(mapping = aes(x = Reporte, y = reorder(MUNICIPIO, desc(MUNICIPIO)), fill = as.factor(IS)), color = "white", size=0.5) +
+  geom_tile(mapping = aes(x = Fecha, y = reorder(MUNICIPIO, desc(MUNICIPIO)), fill = as.factor(IS)), color = "white", size=0.5) +
   scale_fill_manual("INCIDENCIA\n(casos por 100 mil habs.)", 
                     values = discreta, 
                     breaks= c("5", "4", "3", "2", "1"), 
@@ -178,7 +177,7 @@ IncidenciaG <- ggplot(data = casossempobF) +
   #scale_x_date(date_breaks = "month" , date_labels = "%d-%m") +
   scale_x_date(date_breaks = "1 month", date_labels = "%B") +
   theme_minimal() +
-  labs(y = NULL, x = "Semana (lunes-domingo)", title  = paste("Región", Region), 
+  labs(y = NULL, x = Semanalab, title  = paste("Región", Region), 
        subtitle = subtitulo,  fill = NULL, 
        caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora") +
   paragraf  

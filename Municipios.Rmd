@@ -396,31 +396,29 @@ Mapa municipal
 
 Row
 -----------------------------------------------------------------------
-### **Incidencia y mortalidad municipal al 08/01/2021 (capas semanales al domingo más reciente)**
+### **Incidencia y mortalidad municipal al 09/01/2021**
 
 ```{r include=FALSE}
-Casossemana <- Casos %>% mutate(w = isoweek(Fecha)) %>% group_by(w) %>% mutate (Reporte=max(as.Date(Fecha))) %>%  
-  mutate(Semana = paste(year(Reporte), isoweek(Reporte), sep="-"))
-Casossem <- group_by(Casossemana, CVEGEO, MUNICIPIO, Reporte, Semana) %>% 
-  summarise('CASOS SEMANALES' = sum(NUEVOS)) 
-casossempob <- left_join(Casossem, POBMUN, by = "CVEGEO") 
-casossempob  <- casossempob %>% mutate (INCIDENCIASEM= round((`CASOS SEMANALES`*100000)/POB,1))
-casossempob$INCIDENCIASEM[casossempob$INCIDENCIASEM==0] <- NA
-casossempob  <- casossempob %>% filter(Semana=="2021-53")
-casossempob   <- mutate(casossempob , IS=if_else(INCIDENCIASEM>162,5, if_else(INCIDENCIASEM>59,4, if_else(INCIDENCIASEM>30,3,if_else(INCIDENCIASEM>15,2,1)))))
-Casossemanales <- casossempob %>% select(CVEGEO, MUNICIPIO, 'CASOS SEMANALES', INCIDENCIASEM, IS)
+Casossemana <- Casos %>% group_by(MUNICIPIO) %>% 
+  mutate(diasemana = weekdays(Fecha), casossemana = rollsum(NUEVOS, 7, align="right", fill = 0, ACUMULADOS=CASOS)) %>% 
+  filter(diasemana==weekdays(Sys.Date())) %>% 
+  left_join(POBMUN, by = "CVEGEO") 
+Casossemana <- Casossemana %>% mutate (INCIDENCIASEM= round((casossemana*100000)/POB,1))
+Casossemana$INCIDENCIASEM[Casossemana$INCIDENCIASEM==0] <- NA
+casossempob <- Casossemana %>% 
+mutate(IS=if_else(INCIDENCIASEM>162,5, if_else(INCIDENCIASEM>59,4, if_else(INCIDENCIASEM>30,3,if_else(INCIDENCIASEM>15,2,1))))) %>% filter(Fecha==Sys.Date())
+Casossemanales <- casossempob %>% select(CVEGEO, MUNICIPIO, casossemana, INCIDENCIASEM, IS)
 
-Decesossemana <- Decesos %>% mutate(w = isoweek(Fecha)) %>% group_by(w) %>% mutate (Reporte=max(as.Date(Fecha))) %>%  
-  mutate(Semana = paste(year(Reporte), isoweek(Reporte), sep="-"))
-Decesossem <- group_by(Decesossemana, CVEGEO, MUNICIPIO, Reporte, Semana) %>% 
-  summarise('DECESOS SEMANALES' = sum(NUEVOS)) 
-Decesossempob <- left_join(Decesossem, POBMUN, by = "CVEGEO") 
-Decesossempob  <- Decesossempob %>% mutate (MORTALIDADSEM= round((`DECESOS SEMANALES`*100000)/POB,1))
-Decesossempob$MORTALIDADSEM[Decesossempob$MORTALIDADSEM==0] <- NA
-Decesossempob  <- Decesossempob %>% filter(Semana=="2021-53")
-Decesossempob   <- mutate(Decesossempob , MS=if_else(MORTALIDADSEM>22,5, if_else(MORTALIDADSEM>9,4, if_else(MORTALIDADSEM>4,3,if_else(MORTALIDADSEM>2,2,1)))))
-Decesossemanales <- Decesossempob %>% select(CVEGEO, MUNICIPIO, 'DECESOS SEMANALES', MORTALIDADSEM, MS)
 
+Decesossemana <- Decesos %>% group_by(MUNICIPIO) %>% 
+  mutate(diasemana = weekdays(Fecha), decesossemana = rollsum(NUEVOS, 7, align="right", fill = 0)) %>% 
+  filter(diasemana==weekdays(Sys.Date())) %>% 
+  left_join(POBMUN, by = "CVEGEO") 
+Decesossemana <- Decesossemana %>% mutate (MORTALIDADSEM= round((decesossemana*100000)/POB,1))
+Decesossemana$MORTALIDADSEM[Decesossemana$MORTALIDADSEM==0] <- NA
+decesossempob <-Decesossemana %>% 
+mutate(MS=if_else(MORTALIDADSEM>22,5, if_else(MORTALIDADSEM>9,4, if_else(MORTALIDADSEM>4,3,if_else(MORTALIDADSEM>2,2,1))))) %>% filter(Fecha==Sys.Date())
+Decesossemanales <- decesossempob %>% select(CVEGEO, MUNICIPIO, decesossemana, MORTALIDADSEM, MS)
 
 
 Mapa <- Indicadores %>%  left_join(diaspmap, by = c("CVEGEO","MUNICIPIO")) %>% 
@@ -455,9 +453,9 @@ diaslab <- c( "0", "1-7", "8-14", "15-30","+30")
 popup <- paste0(
   "<b>", as.character(capa_munison$NOMMAY), "</b>",     "<br>",                     
   "<b>", "Casos acumulados: ",        "</b>",   as.character(capa_munison$CASOS)   ,      "<br>",
-  "<b>", "Casos última semana: ",           "</b>",   as.character(capa_munison$'CASOS SEMANALES'),      "<br>", 
+  "<b>", "Casos últimos 7 días: ",           "</b>",   as.character(capa_munison$casossemana),      "<br>", 
   "<b>", "Decesos acumulados: ",           "</b>",   as.character(capa_munison$DECESOS) ,      "<br>", 
-  "<b>", "Decesos última semana: ",           "</b>",   as.character(capa_munison$'DECESOS SEMANALES'),      "<br>",
+  "<b>", "Decesos últimos 7 días: ",           "</b>",   as.character(capa_munison$decesossemana),      "<br>",
   "<b>", "Día del último caso confirmado ",  "</b>",   as.Date(capa_munison$FechaUC) , "<br>")  %>% lapply(htmltools::HTML)
 
 
@@ -580,12 +578,13 @@ Row {.tabset}
 -----------------------------------------------------------------------
 ### **Casos semanales**
 ```{r}
-Casossemana <- Casos %>% mutate(w = isoweek(Fecha)) %>% group_by(w) %>% mutate (Reporte=max(as.Date(Fecha)))  %>%  
-  mutate(Semana = paste(year(Reporte), isoweek(Reporte), sep="-")) %>% filter(Semana!="2021-1")
-Casossem <- group_by(Casossemana, MUNICIPIO, Reporte, Semana) %>% summarise('CASOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(CASOS))
+Casossem <- Casos %>% group_by(MUNICIPIO) %>% 
+  mutate(diasemana = weekdays(Fecha), 'CASOS SEMANALES' = rollsum(NUEVOS, 7, align="right", fill = 0)) %>% rename(ACUMULADOS=CASOS) %>% 
+  filter(diasemana==weekdays(Sys.Date()))
+
 write.csv(Casossem, 'ResultadoCSV/casossem.csv')
 Casos_Semanales <- ggplot(subset(Casossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme", "Cananea","Magdalena", "Álamos", "Bácum"))) +
-    geom_col(mapping = aes(x = Reporte, y = `CASOS SEMANALES`, fill = `CASOS SEMANALES`, label= ACUMULADOS)) +
+    geom_col(mapping = aes(x = Fecha, y = `CASOS SEMANALES`, fill = `CASOS SEMANALES`, label= ACUMULADOS)) +
     scale_fill_gradient(low = "#58BCBC", high = "black") + 
     facet_wrap(~ MUNICIPIO, scales = "free_y") + 
     theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 3, 1, 3, "cm"),
@@ -616,12 +615,13 @@ modeBarButtonsToRemove = list(
 
 ### **Decesos semanales**
 ```{r}
-Decesossemana <- Decesos %>% mutate(w = isoweek(Fecha)) %>% group_by(w) %>% mutate (Reporte=max(as.Date(Fecha)))  %>%  
-  mutate(Semana = paste(year(Reporte), isoweek(Reporte), sep="-")) %>% filter(Semana!="2021-1")
-Decesossem <- group_by(Decesossemana, MUNICIPIO, Reporte, Semana) %>% summarise('DECESOS SEMANALES' = sum(NUEVOS), ACUMULADOS=max(DECESOS))
+Decesossem <- Decesos %>% group_by(MUNICIPIO) %>% 
+  mutate(diasemana = weekdays(Fecha), 'DECESOS SEMANALES' = rollsum(NUEVOS, 7, align="right", fill = 0)) %>% rename(ACUMULADOS=DECESOS) %>% 
+  filter(diasemana==weekdays(Sys.Date()))
+
 write.csv(Decesossem, 'ResultadoCSV/decesossem.csv')
 Decesos_Semanales <- ggplot(subset(Decesossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme", "Cananea","Magdalena", "Álamos", "Bácum"))) +
-    geom_col(mapping = aes(x = Reporte, y = `DECESOS SEMANALES`, fill = `DECESOS SEMANALES`, label= ACUMULADOS)) +
+    geom_col(mapping = aes(x = Fecha, y = `DECESOS SEMANALES`, fill = `DECESOS SEMANALES`, label= ACUMULADOS)) +
     scale_fill_gradient(low = "#993366", high = "black") +
     facet_wrap(~ MUNICIPIO, scales = "free_y") + 
     theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 3, 1, 3, "cm"), 
@@ -727,9 +727,9 @@ modeBarButtonsToRemove = list(
 
 Indicadores
 =====================================
-**Al 08 de enero de 2021** (casos semanales al domingo más reciente)  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 09 de enero de 2021** (casos semanales al domingo más reciente)  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
-CDSELECT<- Mapa %>% select("MUNICIPIO","POBLACION", "CASOS","CASOS SEMANALES","INCIDENCIAACUM", "DECESOS","DECESOS SEMANALES","MORTALIDADACUM", "LETALIDAD") %>% rename(INCIDENCIA=INCIDENCIAACUM, MORTALIDAD=MORTALIDADACUM)
+CDSELECT<- Mapa %>% select("MUNICIPIO","POBLACION", "CASOS", casossemana,"INCIDENCIAACUM", "DECESOS", decesossemana,"MORTALIDADACUM", "LETALIDAD") %>% rename(INCIDENCIA=INCIDENCIAACUM, MORTALIDAD=MORTALIDADACUM, "CASOS SEMANALES"= casossemana, "DECESOS SEMANALES" = decesossemana)
 CDSELECT1 <- CDSELECT %>% mutate(DECESOS = coalesce(DECESOS,0L),`DECESOS SEMANALES` = coalesce(`DECESOS SEMANALES`,0L), `CASOS SEMANALES` = coalesce(`CASOS SEMANALES`,0L), MORTALIDAD = coalesce(MORTALIDAD, 0), LETALIDAD = coalesce(LETALIDAD, 0))
 reactable(CDSELECT1,searchable = TRUE, highlight = TRUE, defaultSorted = "CASOS", defaultSortOrder = "desc",
   defaultPageSize = 20, minRows = 10, borderless = FALSE, striped = FALSE,
@@ -766,13 +766,13 @@ reactable(CDSELECT1,searchable = TRUE, highlight = TRUE, defaultSorted = "CASOS"
         var total = values.reduce(function(a, b) { return a + b }, 0)
         return total.toFixed(0)
       }"), 
-    ), 'CASOS SEMANALES' = colDef(
+    ), casossemana = colDef(
       footer = JS("function(colInfo) {
         var values = colInfo.data.map(function(row) { return row[colInfo.column.id] })
         var total = values.reduce(function(a, b) { return a + b }, 0)
         return total.toFixed(0)
       }"), 
-    ), 'DECESOS SEMANALES' = colDef(
+    ), decesossemana = colDef(
       footer = JS("function(colInfo) {
         var values = colInfo.data.map(function(row) { return row[colInfo.column.id] })
         var total = values.reduce(function(a, b) { return a + b }, 0)
