@@ -75,7 +75,7 @@ write.csv(movtbl,'ResultadoCSV/movtlb.csv')
 # Mapa de movimientos
 capa_munison <- readOGR("Shapes", layer="MUNSON")
 capa_son <- readOGR("Shapes", layer="ENTSON")
-capa_munison_df <- fortify(capa_munison, region="CVEGEO")
+capa_munison_df <- fortify(capa_munison, region="CVEMUN")
 capa_munison_casos<- inner_join(capa_munison_df, casosacumdia2, by="id")
 capa_munison_casos <- mutate(capa_munison_casos, movimiento=if_else(NUEVOS>0,1,0))
 
@@ -102,7 +102,7 @@ ggsave("Gráficos/movimientos.png",Mapa_mov, bg = "transparent", height = 25.9, 
 
 #Casos trayectoria Promedio vs Acumulado
 
-Fechahoy<- "Corte al 09 de enero de 2021"
+Fechahoy<- "Corte al 10 de enero de 2021"
 
 Casosprom <- Casos %>% group_by(MUNICIPIO) %>% mutate(Casos.media.7d=round(rollmeanr(x=NUEVOS, 7, fill = 0),1)) 
 
@@ -246,13 +246,13 @@ discrete <- c("5" = "black", "4" = "#005155","3" = "#01787E","2" = "#01A2AC", "1
 
 
 Casossemana <- Casos %>% group_by(MUNICIPIO) %>% 
-  mutate(diasemana = weekdays(Fecha), 'CASOS SEMANALES' = rollsum(NUEVOS, 7, align="right", fill = 0)) %>% 
+  mutate(diasemana = weekdays(Fecha), Casossemana = rollsum(NUEVOS, 7, align="right", fill = 0)) %>% 
   filter(diasemana==weekdays(Sys.Date())) %>% 
   left_join(POBMUN, by = "CVEGEO") 
 Casossemana <- Casossemana %>% mutate (INCIDENCIA= round((Casossemana*100000)/POB,1))
-Casossemana$INCIDENCIASEM[Casossemana$INCIDENCIASEM==0] <- NA
+Casossemana$INCIDENCIA[Casossemana$INCIDENCIA==0] <- NA
 casossempob <- Casossemana %>% 
-  mutate(IS=if_else(INCIDENCIA>162,5, if_else(INCIDENCIASEM>59,4, if_else(INCIDENCIASEM>30,3,if_else(INCIDENCIASEM>15,2,1))))) %>% filter(Fecha==Sys.Date())
+  mutate(IS=if_else(INCIDENCIA>162,5, if_else(INCIDENCIA>59,4, if_else(INCIDENCIA>30,3,if_else(INCIDENCIA>15,2,1))))) %>% filter(Fecha==Sys.Date())
 casossempob <- casossempob %>%  mutate(id=CVEGEO)
 
 capa_munison <- readOGR("Shapes", layer="MUNSON")
@@ -262,7 +262,7 @@ capa_munison_inci<- inner_join(capa_munison_df, casossempob, by="id")
 
 
 #discrete <-  rev(carto_pal(5, "Temps"))
-subtitulo <- "Casos de covid-19 por 100 mil habitantes\nCorte al 04/01/2021 | Semana 2021-1"
+subtitulo <- "Casos de covid-19 por 100 mil habitantes\nCorte al 10/01/2021 | Semana 2021-1"
 marcas <- c( "+162", "59-162", "30-59","15-30", "0-15")
 
 Mapa_incidencia<- ggplot(capa_munison_inci, aes(map_id = id)) +
