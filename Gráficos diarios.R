@@ -349,11 +349,11 @@ CasosSon <- ggplot(Sonora.DF) +
   # geom_curve(aes(x = as.Date("2020-08-27"), y = 510, xend = as.Date("2020-08-06"), yend = 518),
   #            size = 1.5, color = "black",
   # #            arrow = arrow(length = unit(0.02, "npc"))) +
-    geom_curve(aes(x = as.Date("2020-11-01"), y = 400, xend = as.Date("2021-01-10"), yend = 363),
+    geom_curve(aes(x = as.Date("2020-11-01"), y = 400, xend = as.Date("2021-01-10"), yend = 206),
                size = 1.5, color = "black",
                arrow = arrow(length = unit(0.02, "npc"))) +
     geom_text(aes(x = as.Date("2020-11-01"), y = 425,
-                  label = "11/01/2021\n366 casos"), stat = "unique", family = "Lato Black",
+                  label = "12/01/2021\n206 casos"), stat = "unique", family = "Lato Black",
               size = 5, color = "black")+
   # geom_text(aes(x = as.Date("2020-09-08"), y = 480,
   #               label = "05/08/2020\n518 casos"), stat = "unique", family = "Lato Black",
@@ -391,11 +391,11 @@ DecesosSon <- ggplot(Sonora.DF) +
 # geom_curve(aes(x = as.Date("2020-09-04"), y = 64, xend = as.Date("2020-08-14"), yend = 78),
 #            size = 1.5, color = "black",
 #            arrow = arrow(length = unit(0.02, "npc"))) +
-  geom_curve(aes(x = as.Date("2020-11-11"), y = 40, xend = as.Date("2021-01-09"), yend = 29),
+  geom_curve(aes(x = as.Date("2020-11-11"), y = 40, xend = as.Date("2021-01-11"), yend = 10),
              size = 1.5, color = "black",
              arrow = arrow(length = unit(0.02, "npc"))) +
   geom_text(aes(x = as.Date("2020-11-11"), y = 43,
-                label = "11/01/2021\n29 decesos"), stat = "unique", family = "Lato Black",
+                label = "12/01/2021\n10 decesos"), stat = "unique", family = "Lato Black",
             size = 5, color = "black")+
 # geom_text(aes(x = as.Date("2020-08-30"), y = 61,
 #               label = "78 decesos\n13/08/2020"), stat = "unique", family = "Lato Black",

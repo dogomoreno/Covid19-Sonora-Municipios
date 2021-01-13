@@ -396,7 +396,7 @@ Mapa municipal
 
 Row
 -----------------------------------------------------------------------
-### **Incidencia y mortalidad municipal al 11/01/2021**
+### **Incidencia y mortalidad municipal al 12/01/2021**
 
 ```{r include=FALSE}
 Casossemana <- Casos %>% group_by(MUNICIPIO) %>% 
@@ -727,7 +727,7 @@ modeBarButtonsToRemove = list(
 
 Indicadores
 =====================================
-**Al 11 de enero de 2021**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 12 de enero de 2021**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
 CDSELECT<- Mapa %>% select("MUNICIPIO","POBLACION", "CASOS", casossemana,"INCIDENCIAACUM", "DECESOS", decesossemana,"MORTALIDADACUM", "LETALIDAD") %>% rename(INCIDENCIA=INCIDENCIAACUM, MORTALIDAD=MORTALIDADACUM, "CASOS SEMANALES"= casossemana, "DECESOS SEMANALES" = decesossemana)
 CDSELECT1 <- CDSELECT %>% mutate(DECESOS = coalesce(DECESOS,0L),`DECESOS SEMANALES` = coalesce(`DECESOS SEMANALES`,0L), `CASOS SEMANALES` = coalesce(`CASOS SEMANALES`,0L), MORTALIDAD = coalesce(MORTALIDAD, 0), LETALIDAD = coalesce(LETALIDAD, 0))
