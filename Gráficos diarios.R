@@ -20,6 +20,8 @@ library(wesanderson)
 library(ggsci)
 library("Cairo")
 
+Fechahoy<- "Corte al 13 de enero de 2021"
+
 # Carga base estatal
 Sonora.DF <- read_csv("Bases/ST_SonoraInformesCOVID.csv", 
                       col_types = cols(Fecha = col_date(format = "%d/%m/%Y")))
@@ -101,8 +103,6 @@ Mapa_mov <- ggplot(capa_munison_casos, aes(map_id = id)) +
 ggsave("Gráficos/movimientos.png",Mapa_mov, bg = "transparent", height = 25.9, width = 25.9, units = "cm", type = 'cairo')
 
 #Casos trayectoria Promedio vs Acumulado
-
-Fechahoy<- "Corte al 11 de enero de 2021"
 
 Casosprom <- Casos %>% group_by(MUNICIPIO) %>% mutate(Casos.media.7d=round(rollmeanr(x=NUEVOS, 7, fill = 0),1)) 
 
@@ -349,11 +349,11 @@ CasosSon <- ggplot(Sonora.DF) +
   # geom_curve(aes(x = as.Date("2020-08-27"), y = 510, xend = as.Date("2020-08-06"), yend = 518),
   #            size = 1.5, color = "black",
   # #            arrow = arrow(length = unit(0.02, "npc"))) +
-    geom_curve(aes(x = as.Date("2020-11-01"), y = 400, xend = as.Date("2021-01-10"), yend = 206),
+    geom_curve(aes(x = as.Date("2020-11-01"), y = 400, xend = as.Date("2021-01-11"), yend = 383),
                size = 1.5, color = "black",
                arrow = arrow(length = unit(0.02, "npc"))) +
     geom_text(aes(x = as.Date("2020-11-01"), y = 425,
-                  label = "12/01/2021\n206 casos"), stat = "unique", family = "Lato Black",
+                  label = "13/01/2021\n385 casos"), stat = "unique", family = "Lato Black",
               size = 5, color = "black")+
   # geom_text(aes(x = as.Date("2020-09-08"), y = 480,
   #               label = "05/08/2020\n518 casos"), stat = "unique", family = "Lato Black",
@@ -391,11 +391,11 @@ DecesosSon <- ggplot(Sonora.DF) +
 # geom_curve(aes(x = as.Date("2020-09-04"), y = 64, xend = as.Date("2020-08-14"), yend = 78),
 #            size = 1.5, color = "black",
 #            arrow = arrow(length = unit(0.02, "npc"))) +
-  geom_curve(aes(x = as.Date("2020-11-11"), y = 40, xend = as.Date("2021-01-11"), yend = 10),
+  geom_curve(aes(x = as.Date("2020-11-11"), y = 40, xend = as.Date("2021-01-12"), yend = 41.5),
              size = 1.5, color = "black",
              arrow = arrow(length = unit(0.02, "npc"))) +
   geom_text(aes(x = as.Date("2020-11-11"), y = 43,
-                label = "12/01/2021\n10 decesos"), stat = "unique", family = "Lato Black",
+                label = "13/01/2021\n42 decesos"), stat = "unique", family = "Lato Black",
             size = 5, color = "black")+
 # geom_text(aes(x = as.Date("2020-08-30"), y = 61,
 #               label = "78 decesos\n13/08/2020"), stat = "unique", family = "Lato Black",
@@ -441,7 +441,7 @@ CasosMun <- Casosconfd %>% filter(MUNICIPIO=="Hermosillo") %>%  ggplot() +
   scale_fill_manual(name="", values= c("Promedio móvil 7d" = "#58BCBC", "Casos diarios" = "#01787E")) + 
   scale_color_manual(name="", values= c("Promedio móvil 7d" = "#01787E")) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,400)) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-01-10")), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-01-15")), date_breaks = "1 month", date_labels = "%B") +
   #  geom_segment(aes(x = as.Date("2020-07-15"), y = 350, xend = as.Date("2020-07-31"), yend = 394),
   #             size = 1.5, color = "black",
   #             arrow = arrow(length = unit(0.02, "npc"))) +
@@ -487,7 +487,7 @@ DecesosSon <- Decesosconfd %>% filter(MUNICIPIO=="Hermosillo") %>% ggplot() +
   scale_fill_manual(name="", values= c("Decesos diarios" = "#73264D", "Promedio móvil 7d" = "#D075A3")) + 
   scale_color_manual(name="", values= c("Promedio móvil 7d" = "#73264D")) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,50)) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-01-10")), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-01-15")), date_breaks = "1 month", date_labels = "%B") +
    #geom_curve(aes(x = as.Date("2020-11-11"), y = 42, xend = as.Date("2020-08-14"), yend = 49),
               #size = 1.5, color = "black",
               #arrow = arrow(length = unit(0.02, "npc"))) +
