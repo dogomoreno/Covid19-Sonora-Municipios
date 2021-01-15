@@ -396,7 +396,7 @@ Mapa municipal
 
 Row
 -----------------------------------------------------------------------
-### **Incidencia y mortalidad municipal al 13/01/2021**
+### **Incidencia y mortalidad municipal al 14/01/2021**
 
 ```{r include=FALSE}
 Casossemana <- Casos %>% group_by(MUNICIPIO) %>% 
@@ -406,7 +406,7 @@ Casossemana <- Casos %>% group_by(MUNICIPIO) %>%
 Casossemana <- Casossemana %>% mutate (INCIDENCIASEM= round((casossemana*100000)/POB,1))
 Casossemana$INCIDENCIASEM[Casossemana$INCIDENCIASEM==0] <- NA
 casossempob <- Casossemana %>% 
-mutate(IS=if_else(INCIDENCIASEM>162,5, if_else(INCIDENCIASEM>59,4, if_else(INCIDENCIASEM>30,3,if_else(INCIDENCIASEM>15,2,1))))) %>% filter(Fecha==Sys.Date())
+mutate(IS=if_else(INCIDENCIASEM>108,5, if_else(INCIDENCIASEM>60,4, if_else(INCIDENCIASEM>32,3,if_else(INCIDENCIASEM>16,2,1))))) %>% filter(Fecha==Sys.Date())
 Casossemanales <- casossempob %>% select(CVEGEO, MUNICIPIO, casossemana, INCIDENCIASEM, IS)
 
 
@@ -727,7 +727,7 @@ modeBarButtonsToRemove = list(
 
 Indicadores
 =====================================
-**Al 13 de enero de 2021**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 14 de enero de 2021**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
 CDSELECT<- Mapa %>% select("MUNICIPIO","POBLACION", "CASOS", casossemana,"INCIDENCIAACUM", "DECESOS", decesossemana,"MORTALIDADACUM", "LETALIDAD") %>% rename(INCIDENCIA=INCIDENCIAACUM, MORTALIDAD=MORTALIDADACUM, "CASOS SEMANALES"= casossemana, "DECESOS SEMANALES" = decesossemana)
 CDSELECT1 <- CDSELECT %>% mutate(DECESOS = coalesce(DECESOS,0L),`DECESOS SEMANALES` = coalesce(`DECESOS SEMANALES`,0L), `CASOS SEMANALES` = coalesce(`CASOS SEMANALES`,0L), MORTALIDAD = coalesce(MORTALIDAD, 0), LETALIDAD = coalesce(LETALIDAD, 0))
@@ -817,9 +817,9 @@ La clasificación de la incidencia y la mortalidad municipal se refiere a ordena
 
 **Media:** 50%-75%
 
-**Alta:** 75%-95%
+**Alta:** 75%-90%
 
-**Muy alta:** >95%
+**Muy alta:** >90%
 
 Por ejemplo, tomando la incidencia semanal, aquellos municipios que se encuentren en la clasificación "Muy alta" se refiere a que pertenecen al 5% de las semanas con mayor incidencia en el Estado.
 
