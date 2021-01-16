@@ -16,11 +16,11 @@ library(rcartocolor)
 
 
 #discreta <- c("5" = "#893F59", "4" = "#ECA48E","3" = "#FECF7D","2" = "#9BD7D7", "1" = "gray80")
-discreta <- c("5" = "black", "4" = "#005155","3" = "#01787E","2" = "#01A2AC", "1" = "#58BCBC")
+#discreta <- c("5" = "black", "4" = "#005155","3" = "#01787E","2" = "#01A2AC", "1" = "#58BCBC")
 #discreta <- wes_palette("Zissou1", 5, type = "discrete")
 #discreta <- pal_ucscgb("default", alpha=0.5)(5)
 #discreta <- brewer.pal(5, "Spectral")
-#discreta <- rev(carto_pal(5, "Temps"))
+discreta <- rev(carto_pal(5, "Temps"))
 #discreta <- miami1(n = 5, alpha = 0.9)
 
 Casos <- read_csv("Bases/Casosdiarios.csv", 
@@ -38,7 +38,7 @@ Casossemana <- Casos %>% group_by(MUNICIPIO) %>%
 Casossemana <- Casossemana %>% mutate (INCIDENCIA= round((Casossemana*100000)/POB,1))
 Casossemana$INCIDENCIA[Casossemana$INCIDENCIA==0] <- NA
 quantile(Casossemana$INCIDENCIA, seq(0,1, 0.05), na.rm=TRUE)
-casossempob <- Casossemana %>% mutate(IS=if_else(INCIDENCIA>162,5, if_else(INCIDENCIA>59,4, if_else(INCIDENCIA>30,3,if_else(INCIDENCIA>15,2,1)))))
+casossempob <- Casossemana %>% mutate(IS=if_else(INCIDENCIA>108,5, if_else(INCIDENCIA>60,4, if_else(INCIDENCIA>32,3,if_else(INCIDENCIA>16,2,1)))))
   
 #Estilo del gráfico
 paragraf <- theme(plot.title = (element_text(family = "Lato Black", size = 32, color = "black")),
@@ -55,9 +55,9 @@ paragraf <- theme(plot.title = (element_text(family = "Lato Black", size = 32, c
                   legend.title = element_text(family = "Lato Black", size = 8, color = "black"),
                   plot.caption = element_text(family = "Lato Light", size =10, color = "gray50"),
                   axis.title = element_text(family = "Lato", size = 12))
-subtitulo <- "Incidencia semanal de casos de covid-19\nCorte al miércoles 13/01/2021"
-Semanalab <- "Semanas de jueves a miércoles"
-marcas <- c( "+162", "59-162", "30-59","15-30", "0-15")
+subtitulo <- "Incidencia semanal de casos de covid-19\nCorte al viernes 15/01/2021"
+Semanalab <- "Semanas de sábado a viernes"
+marcas <- c( "+108", "60-108", "32-60","16-32", "0-16")
 
 #Río Sonora
 Region <- "Río Sonora"
