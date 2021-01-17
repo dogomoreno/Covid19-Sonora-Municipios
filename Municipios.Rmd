@@ -56,6 +56,7 @@ library(zoo)
 library(leaflet)
 library("Cairo")
 library(htmltools)
+library(rcartocolor)
 ```
 
 ```{r, include=FALSE}
@@ -396,7 +397,7 @@ Mapa municipal
 
 Row
 -----------------------------------------------------------------------
-### **Incidencia y mortalidad municipal al 15/01/2021**
+### **Incidencia y mortalidad municipal al 16/01/2021**
 
 ```{r include=FALSE}
 Casossemana <- Casos %>% group_by(MUNICIPIO) %>% 
@@ -417,14 +418,14 @@ Decesossemana <- Decesos %>% group_by(MUNICIPIO) %>%
 Decesossemana <- Decesossemana %>% mutate (MORTALIDADSEM= round((decesossemana*100000)/POB,1))
 Decesossemana$MORTALIDADSEM[Decesossemana$MORTALIDADSEM==0] <- NA
 decesossempob <-Decesossemana %>% 
-mutate(MS=if_else(MORTALIDADSEM>22,5, if_else(MORTALIDADSEM>9,4, if_else(MORTALIDADSEM>4,3,if_else(MORTALIDADSEM>2,2,1))))) %>% filter(Fecha==Sys.Date())
+mutate(MS=if_else(MORTALIDADSEM>18,5, if_else(MORTALIDADSEM>10,4, if_else(MORTALIDADSEM>5,3,if_else(MORTALIDADSEM>2,2,1))))) %>% filter(Fecha==Sys.Date())
 Decesossemanales <- decesossempob %>% select(CVEGEO, MUNICIPIO, decesossemana, MORTALIDADSEM, MS)
 
 
 Mapa <- Indicadores %>%  left_join(diaspmap, by = c("CVEGEO","MUNICIPIO")) %>% 
   left_join(Casossemanales, by = c("CVEGEO","MUNICIPIO")) %>% left_join(Decesossemanales, by = c("CVEGEO","MUNICIPIO"))%>% rename(concat=CVEGEO) %>% 
-  mutate(IA=if_else(INCIDENCIAACUM>1357,5, if_else(INCIDENCIAACUM>907,4,if_else(INCIDENCIAACUM>508,3,if_else(INCIDENCIAACUM>304,2,1)))))%>% 
-  mutate(MA=if_else(MORTALIDADACUM>168,5, if_else(MORTALIDADACUM>107,4, if_else(MORTALIDADACUM>77,3,if_else(MORTALIDADACUM>50,2,1)))))
+  mutate(IA=if_else(INCIDENCIAACUM>1678,5, if_else(INCIDENCIAACUM>1239,4,if_else(INCIDENCIAACUM>708,3,if_else(INCIDENCIAACUM>452,2,1)))))%>% 
+  mutate(MA=if_else(MORTALIDADACUM>184,5, if_else(MORTALIDADACUM>163,4, if_else(MORTALIDADACUM>110,3,if_else(MORTALIDADACUM>80,2,1)))))
 
 
 
@@ -437,9 +438,11 @@ capa_munison <- capa_munison %>%  merge(Mapa) %>% merge(NOMMAY)
 #incipal <-  colorNumeric(c("#58BCBC", "black"), domain = capa_munison$INCIDENCIA, na.color ="#d9d9d9")
 #mortpal <-  colorNumeric(c("#993366", "black"), domain = capa_munison$MORTALIDAD, na.color ="#d9d9d9")
 diaspal <-  colorFactor(c("#A04A69","#ECA48E", "#FECF7D","#0397A1", "#215968"), levels= c("1","2","3","4","5"), domain = capa_munison$clasfdias, na.color ="#d9d9d9")
-incipal <-  colorFactor(c("black","#005155", "#01787E","#01A2AC", "#58BCBC"), levels= c("5","4","3","2","1"), na.color ="#d9d9d9")
-mortpal <-  colorFactor(c("black","#4D1A33","#73264D", "#993366","#D075A3"), levels= c("5","4","3","2","1"), na.color ="#d9d9d9")
+incipal <-  colorFactor(c("#cf597e", "#ed9c72", "#e9e29c", "#71be83", "#009392"), levels= c("5","4","3","2","1"), na.color ="#e8e6e6")
+mortpal <-  colorFactor(c("#cf597e", "#ed9c72", "#e9e29c", "#71be83", "#009392"), levels= c("5","4","3","2","1"), na.color ="#e8e6e6")
 #discreta <- c("5" = "black", "4" = "#005155","3" = "#01787E","2" = "#01A2AC", "1" = "#58BCBC")
+#incipal <-  colorFactor(c("black","#005155", "#01787E","#01A2AC", "#58BCBC"), levels= c("5","4","3","2","1"), na.color ="#d9d9d9")
+#mortpal <-  colorFactor(c("black","#4D1A33","#73264D", "#993366","#D075A3"), levels= c("5","4","3","2","1"), na.color ="#d9d9d9")
 
 labs <- c("Muy baja","Baja", "Media", "Alta", "Muy alta")
 diaslab <- c( "0", "1-7", "8-14", "15-30","+30")
@@ -556,14 +559,14 @@ mapacovid <- leaflet(capa_munison) %>%
                                             "border-color" = "rgba(0,0,0,0.5)"
                                           )),
               group= "MORTALIDAD ACUMULADA") %>%
-  addLegend(position = "bottomleft", pal = mortpal, values = ~capa_munison$MA, opacity=1, group= "MORTALIDAD", 
-            labFormat = function(type, cuts, p) {  
-              paste0(labs)},
-            title = "MORTALIDAD", na.label = "N/A")  %>%
+  # addLegend(position = "bottomleft", pal = mortpal, values = ~capa_munison$MA, opacity=1, group= "MORTALIDAD", 
+  #           labFormat = function(type, cuts, p) {  
+  #             paste0(labs)},
+  #           title = "MORTALIDAD", na.label = "N/A")  %>%
   addLegend(position = "bottomleft", pal = incipal, values = ~capa_munison$IA, opacity=1, group= "INCIDENCIA", 
               labFormat = function(type, cuts, p) {  
                paste0(labs)},
-              title = "INCIDENCIA", na.label = "N/A") 
+              title = "CLASIFICACIÓN", na.label = "N/A") 
 
 ```
 
