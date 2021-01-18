@@ -20,7 +20,7 @@ library(wesanderson)
 library(ggsci)
 library("Cairo")
 
-Fechahoy<- "Corte al 16 de enero de 2021"
+Fechahoy<- "Corte al 17 de enero de 2021"
 
 # Carga base estatal
 Sonora.DF <- read_csv("Bases/ST_SonoraInformesCOVID.csv", 
@@ -262,7 +262,7 @@ capa_munison_inci<- inner_join(capa_munison_df, casossempob, by="id")
 
 
 discrete <-  rev(carto_pal(5, "Temps"))
-subtitulo <- "Casos en los últimos 7 días de covid-19 por 100 mil habitantes\nCorte al 16/01/2021"
+subtitulo <- "Casos en los últimos 7 días de covid-19 por 100 mil habitantes\nCorte al 17/01/2021"
 marcas <- c( "+108", "60-108", "32-60","16-32", "0-16")
 
 Mapa_incidencia<- ggplot(capa_munison_inci, aes(map_id = id)) +

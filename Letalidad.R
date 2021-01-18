@@ -22,7 +22,7 @@ Indicadores <- casosdecesospob %>% mutate (INCIDENCIAACUM = round((CASOS*100000)
 Indicadores <- rename(Indicadores, POBLACION=POB)
 Indicadores <- mutate(Indicadores,id=CVEGEO)
 
-Fechahoy <- "Corte al 06 de enero de 2021"
+Fechahoy <- "Corte al 17 de enero de 2021"
 
 Letalidad <- Indicadores %>% ggplot() +
   #geom_area(aes(x= Fecha, y= Decesos.media.7d, fill= "Promedio móvil 7d"), alpha=0.3)+
