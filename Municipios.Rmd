@@ -80,7 +80,7 @@ Sonora.DF <- mutate(Sonora.DF, ISSSTESON= round((D_ISSSTESON / C_ISSSTESON)*100,
 Sonora.DF <- mutate(Sonora.DF, ISSSTE= round((D_ISSSTE / C_ISSSTE)*100,1))
 Sonora.DF <- mutate(Sonora.DF, SEDENA= round((D_SEDENA / C_SEDENA)*100,1))
 Sonora.DF <- mutate(Sonora.DF, SEMAR= round((D_SEMAR / C_SEMAR)*100,1))
-Sonora.dia <- filter(Sonora.DF,Fecha==Sys.Date())
+Sonora.dia <- filter(Sonora.DF,Fecha==max(as.Date(Fecha)))
 ```
 
 ```{r, include=FALSE}
@@ -89,7 +89,7 @@ Casos <- read_csv("Bases/Casosdiarios.csv",
         CVEGEO = col_character(), Fecha = col_date(format = "%Y-%m-%d"), 
         MUNICIPIO = col_character(), NUEVOS = col_integer(), X1 = col_skip()), 
     locale = locale(encoding = "ISO-8859-1"))
-casosacumdia <- filter(Casos,Fecha==Sys.Date())
+casosacumdia <- filter(Casos,Fecha==max(as.Date(Fecha)))
 casosacumdiaorder <- arrange(casosacumdia,CASOS, desc(MUNICIPIO))
 casosacumdia2 <- mutate(casosacumdiaorder,id=CVEGEO)
 ```
@@ -101,7 +101,7 @@ Decesos <- read_csv("Bases/Decesosdiarios.csv",
         CVEGEO = col_character(), Fecha = col_date(format = "%Y-%m-%d"), 
         MUNICIPIO = col_character(), NUEVOS = col_integer(), X1 = col_skip()), 
     locale = locale(encoding = "ISO-8859-1"))
-decesosacumdia <- filter(Decesos,Fecha==Sys.Date())
+decesosacumdia <- filter(Decesos,Fecha==max(as.Date(Fecha)))
 decesosacumdiaorder <- arrange(decesosacumdia,DECESOS, desc(MUNICIPIO))
 decesosacumdia2 <- mutate(decesosacumdiaorder,id=CVEGEO)
 ```
@@ -109,7 +109,7 @@ decesosacumdia2 <- mutate(decesosacumdiaorder,id=CVEGEO)
 ```{r, include=FALSE}
 casos_s <- group_by(Casos, CVEGEO, MUNICIPIO)
 casos_ult <- casos_s %>% filter(NUEVOS!=0) %>% arrange(desc(Fecha)) %>% slice(1)
-casos_ult_dias <- mutate(casos_ult, Dias_ult=as.numeric(Sys.Date()-Fecha)) 
+casos_ult_dias <- mutate(casos_ult, Dias_ult=as.numeric(max(as.Date(Fecha))-Fecha)) 
 casos_ult_dias <- mutate(casos_ult_dias, clasfdias=if_else(Dias_ult>30,5, if_else(Dias_ult>14,4, if_else(Dias_ult>7,3,if_else(Dias_ult>0,2,1)))))
 casos_ult_dias <- mutate(casos_ult_dias, clasfdias=as.numeric(clasfdias))
 casos_ult_dias <- mutate(casos_ult_dias,id=CVEGEO)
@@ -228,7 +228,7 @@ DecesosSon <- ggplot(Sonora.DF) +
    scale_fill_manual(name="", values= c("Decesos diarios" = "#73264D", "Promedio móvil 7d" = "#D075A3")) + 
    scale_color_manual(name="", values= c("Promedio móvil 7d" = "#73264D")) +
       scale_y_continuous(expand = c(0, 0), limits= c(0,80)) +
-      scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-01-20"))) +
+      scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-01-23"))) +
        theme_minimal() +
     theme(
     legend.position = "none",
@@ -307,7 +307,7 @@ modeBarButtonsToRemove = list(
 ### **Hospitalizados**
 ```{r, include=FALSE}
 Sonora.Hosp <-Sonora.DF %>%  
-  filter(Fecha >= as.Date('2020-08-05') & Fecha <= Sys.Date())
+  filter(Fecha >= as.Date('2020-08-05') & Fecha <= max(as.Date(Fecha))) 
 Gravgraf <- ggplot(Sonora.Hosp) +
   geom_area(aes(x= Fecha, y= Hospitalizados, fill = "Hospitalizados"), color = "#E26B0A", size= 1, alpha=0.75) +
   geom_area(aes(x= Fecha, y= Graves, fill= "Graves")) +
@@ -351,7 +351,7 @@ modeBarButtonsToRemove = list(
 ### **Resultados de pruebas**
 ```{r, include=FALSE}
 Sonora.pruebas <-Sonora.DF %>%  
-  filter(Fecha >= as.Date('2020-08-05') & Fecha <= Sys.Date())
+  filter(Fecha >= as.Date('2020-08-05') & Fecha <= max(as.Date(Fecha)))
 Pruebasdiarias <- ggplot(Sonora.pruebas) +
   geom_col(aes(x= Fecha, y= Pruebas.diarias, fill= "Pruebas diarias"), color = "white", size= 0.2) +
   geom_line(aes(x= Fecha, y= Pruebas.media.7d, color= "Promedio móvil 7d"), linetype= "solid", size=1)+
@@ -397,28 +397,28 @@ Mapa municipal
 
 Row
 -----------------------------------------------------------------------
-### **Incidencia y mortalidad municipal al 17/01/2021**
+### **Incidencia y mortalidad municipal al 18/01/2021**
 
 ```{r include=FALSE}
 Casossemana <- Casos %>% group_by(MUNICIPIO) %>% 
   mutate(diasemana = weekdays(Fecha), casossemana = rollsum(NUEVOS, 7, align="right", fill = 0, ACUMULADOS=CASOS)) %>% 
-  filter(diasemana==weekdays(Sys.Date())) %>% 
+  filter(diasemana==weekdays(max(as.Date(Fecha)))) %>% 
   left_join(POBMUN, by = "CVEGEO") 
 Casossemana <- Casossemana %>% mutate (INCIDENCIASEM= round((casossemana*100000)/POB,1))
 Casossemana$INCIDENCIASEM[Casossemana$INCIDENCIASEM==0] <- NA
 casossempob <- Casossemana %>% 
-mutate(IS=if_else(INCIDENCIASEM>108,5, if_else(INCIDENCIASEM>60,4, if_else(INCIDENCIASEM>32,3,if_else(INCIDENCIASEM>16,2,1))))) %>% filter(Fecha==Sys.Date())
+mutate(IS=if_else(INCIDENCIASEM>108,5, if_else(INCIDENCIASEM>60,4, if_else(INCIDENCIASEM>32,3,if_else(INCIDENCIASEM>16,2,1))))) %>% filter(Fecha==max(as.Date(Fecha))) 
 Casossemanales <- casossempob %>% select(CVEGEO, MUNICIPIO, casossemana, INCIDENCIASEM, IS)
 
 
 Decesossemana <- Decesos %>% group_by(MUNICIPIO) %>% 
   mutate(diasemana = weekdays(Fecha), decesossemana = rollsum(NUEVOS, 7, align="right", fill = 0)) %>% 
-  filter(diasemana==weekdays(Sys.Date())) %>% 
+  filter(diasemana==weekdays(max(as.Date(Fecha)))) %>% 
   left_join(POBMUN, by = "CVEGEO") 
 Decesossemana <- Decesossemana %>% mutate (MORTALIDADSEM= round((decesossemana*100000)/POB,1))
 Decesossemana$MORTALIDADSEM[Decesossemana$MORTALIDADSEM==0] <- NA
 decesossempob <-Decesossemana %>% 
-mutate(MS=if_else(MORTALIDADSEM>18,5, if_else(MORTALIDADSEM>10,4, if_else(MORTALIDADSEM>5,3,if_else(MORTALIDADSEM>2,2,1))))) %>% filter(Fecha==Sys.Date())
+mutate(MS=if_else(MORTALIDADSEM>18,5, if_else(MORTALIDADSEM>10,4, if_else(MORTALIDADSEM>5,3,if_else(MORTALIDADSEM>2,2,1))))) %>% filter(Fecha==max(as.Date(Fecha)))
 Decesossemanales <- decesossempob %>% select(CVEGEO, MUNICIPIO, decesossemana, MORTALIDADSEM, MS)
 
 
@@ -583,7 +583,7 @@ Row {.tabset}
 ```{r}
 Casossem <- Casos %>% group_by(MUNICIPIO) %>% 
   mutate(diasemana = weekdays(Fecha), 'CASOS SEMANALES' = rollsum(NUEVOS, 7, align="right", fill = 0)) %>% rename(ACUMULADOS=CASOS) %>% 
-  filter(diasemana==weekdays(Sys.Date()))
+  filter(diasemana==weekdays(max(as.Date(Fecha)))) 
 
 write.csv(Casossem, 'ResultadoCSV/casossem.csv')
 Casos_Semanales <- ggplot(subset(Casossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme", "Cananea","Magdalena", "Álamos", "Bácum"))) +
@@ -620,7 +620,7 @@ modeBarButtonsToRemove = list(
 ```{r}
 Decesossem <- Decesos %>% group_by(MUNICIPIO) %>% 
   mutate(diasemana = weekdays(Fecha), 'DECESOS SEMANALES' = rollsum(NUEVOS, 7, align="right", fill = 0)) %>% rename(ACUMULADOS=DECESOS) %>% 
-  filter(diasemana==weekdays(Sys.Date()))
+  filter(diasemana==weekdays(max(as.Date(Fecha)))) 
 
 write.csv(Decesossem, 'ResultadoCSV/decesossem.csv')
 Decesos_Semanales <- ggplot(subset(Decesossem, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Guaymas", "Caborca", "Agua Prieta", "Huatabampo", "Puerto Peñasco", "Etchojoa", "Empalme", "Cananea","Magdalena", "Álamos", "Bácum"))) +
@@ -730,7 +730,7 @@ modeBarButtonsToRemove = list(
 
 Indicadores
 =====================================
-**Al 17 de enero de 2021**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 18 de enero de 2021**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
 CDSELECT<- Mapa %>% select("MUNICIPIO","POBLACION", "CASOS", casossemana,"INCIDENCIAACUM", "DECESOS", decesossemana,"MORTALIDADACUM", "LETALIDAD") %>% rename(INCIDENCIA=INCIDENCIAACUM, MORTALIDAD=MORTALIDADACUM, "CASOS SEMANALES"= casossemana, "DECESOS SEMANALES" = decesossemana)
 CDSELECT1 <- CDSELECT %>% mutate(DECESOS = coalesce(DECESOS,0L),`DECESOS SEMANALES` = coalesce(`DECESOS SEMANALES`,0L), `CASOS SEMANALES` = coalesce(`CASOS SEMANALES`,0L), MORTALIDAD = coalesce(MORTALIDAD, 0), LETALIDAD = coalesce(LETALIDAD, 0))

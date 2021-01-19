@@ -1,0 +1,133 @@
+# Paquetes
+
+library(tidyverse)
+library(extrafont)
+library(scales)
+library(plotly)
+library(htmlwidgets)
+library(showtext)
+library(tint)
+library(rgdal)
+library(rgeos)
+library(ggiraph)
+library(miniUI)
+library(units)
+library(reactable)
+library(zoo)
+library(lubridate)
+library(treemapify)
+library(wesanderson)
+library(ggsci)
+library("Cairo")
+library(gganimate)
+library(ggsci)
+#library(wesanderson)
+#library(ggsci)
+#library(RColorBrewer)
+library(rcartocolor)
+#library(NineteenEightyR)
+
+Fechahoy<- "Corte al 17 de enero de 2021"
+capa_munison <- readOGR("Shapes", layer="MUNSON")
+capa_son <- readOGR("Shapes", layer="ENTSON")
+
+Casos <- read_csv("Bases/Casosdiarios.csv", 
+                  col_types = cols(CASOS = col_integer(), 
+                                   CVEGEO = col_character(), Fecha = col_date(format = "%Y-%m-%d"), 
+                                   MUNICIPIO = col_character(), NUEVOS = col_integer(), X1 = col_skip()), 
+                  locale = locale(encoding = "ISO-8859-1"))
+POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
+                   locale = locale(encoding = "ISO-8859-1"))
+
+# Mapa incidencia
+
+#discrete <- c("5" = "black", "4" = "#005155","3" = "#01787E","2" = "#01A2AC", "1" = "#58BCBC")
+
+
+Casossemana <- Casos %>% group_by(MUNICIPIO) %>% 
+  mutate(diasemana = weekdays(Fecha), Casossemana = rollsum(NUEVOS, 7, align="right", fill = 0)) %>% 
+  filter(diasemana=="domingo") %>% 
+  left_join(POBMUN, by = "CVEGEO") 
+Casossemana <- Casossemana %>% mutate (INCIDENCIA= round((Casossemana*100000)/POB,1))
+Casossemana$INCIDENCIA[Casossemana$INCIDENCIA==0] <- NA
+casossempob <- Casossemana %>% 
+  mutate(IS=if_else(INCIDENCIA>108,5, if_else(INCIDENCIA>60,4, if_else(INCIDENCIA>32,3,if_else(INCIDENCIA>16,2,1))))) 
+casossempob <- casossempob %>%  mutate(id=CVEGEO)
+
+capa_munison <- readOGR("Shapes", layer="MUNSON")
+capa_reg <- readOGR("Shapes", layer="REGSON")
+capa_munison_df <- fortify(capa_munison, region="concat")
+capa_munison_inci<- inner_join(capa_munison_df, casossempob, by="id")
+
+
+discrete <-  rev(carto_pal(5, "Temps"))
+subtitulo <- "Casos de covid-19 en los 7 días anteriores por 100 mil habitantes\nCorte al 17/01/2021"
+marcas <- c( "+108", "60-108", "32-60","16-32", "0-16")
+
+Mapa_incidencia<- ggplot(capa_munison_inci, aes(map_id = id)) +
+  geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
+               fill="gray90", color="white", size=0.12) +
+  geom_map(aes(fill = factor(IS)),color = "white",size=0.22, map = capa_munison_df) + 
+  scale_fill_manual(values = discrete, 
+                    breaks= c("5", "4", "3", "2", "1"), 
+                    labels = marcas) +
+  theme_void() +
+  theme(plot.title = (element_text(family = "Lato Black", size = 20, color = "black")),
+        plot.subtitle = (element_text(family = "Lato Light", size = 8, color = "#01787E")),
+        plot.margin = margin(0.5, 0.5, 0.25, 0.4, "cm"),
+        legend.position = "right",
+        plot.background = element_rect(fill = "white", color="black", size=3),
+        legend.key.height = unit (0.5, "cm"), legend.key.width = unit (0.2, "cm"), axis.text = element_blank(),
+        legend.text = element_text(family = "Lato", size = 6, color = "black"),
+        legend.title = element_text(family = "Lato Black", size = 5, color = "black"),
+        plot.caption = element_text(family = "Lato Light", size = 6.5, color = "gray40"),
+        axis.title = element_blank()) +
+  labs(y = NULL, x = NULL, title  = "Incidencia semanal", 
+       subtitle = subtitulo,  fill = NULL, 
+       caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora")+
+  geom_polygon(data=capa_reg, aes(x=long, y=lat, group=group), 
+               fill="transparent", color="black", size=0.2)
+ggsave("Gráficos/mincidencia.png",Mapa_incidencia, bg = "transparent", height = 12, width = 12, units = "cm", dpi = 800, type = 'cairo')
+
+
+
+diacasossemana <- seq(min(casossempob$Fecha), max(casossempob$Fecha),1)
+SonoraMCsemanal  <- filter(casossempob,Fecha %in% diacasossemana)
+
+capa_munison_df <- fortify(capa_munison, region="concat")
+capa_munison_casos<- inner_join(capa_munison_df, SonoraMCsemanal, by="id")
+
+
+Mapa_inci <- function(capa_son, capa_munison_casos) { ggplot(capa_munison_casos, aes(map_id = id)) +
+    geom_polygon(data=capa_son, aes(x=long, y=lat, group=group), 
+                 fill="transparent", color="black", size=2) +
+    geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
+                 fill="gray90", color="white", size=1) +
+    geom_map(aes(fill = as.factor(IS)),color = "white",size=1, map = capa_munison_df) + 
+    scale_fill_manual(values = discrete, breaks= c("5", "4", "3", "2", "1"), 
+                      labels = marcas)+
+    
+    theme_void() +
+    theme(plot.title = (element_text(family = "Lato Black", size = 44, color = "black")),
+          plot.subtitle = (element_text(family = "Lato Light", size = 20, color = "#01787E")),
+          plot.margin = margin(1, 1, 1, 0.8, "cm"),
+          legend.position = "right",
+          plot.background = element_rect(fill = "white", color="black", size=3),
+          legend.key.height = unit (2, "cm"), legend.key.width = unit (0.75, "cm"), axis.text = element_blank(),
+          legend.text = element_text(family = "Lato", size = 14, color = "black"),
+          legend.title = element_text(family = "Lato Black", size = 16, color = "black"),
+          plot.caption = element_text(family = "Lato Light", size = 20, color = "gray40"),
+          axis.title = element_blank()) +
+    labs(axis = NULL, y = NULL, x = NULL, title = "Incidencia semanal", subtitle = "Casos de covid-19 en los 7 días anteriores por 100 mil habitantes",
+         caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud estatal")
+}
+
+
+Incisemanaanim <- Mapa_inci(capa_son, capa_munison_casos) + 
+  transition_manual(Fecha) +
+  shadow_mark() +
+  labs(fill = "Domingo \n {current_frame}")
+
+gifincisem <- animate(Incisemanaanim, end_pause = 6, fps = 20,duration = 30, width = 950, height =950, renderer = gifski_renderer())
+anim_save("./Gráficos/Incidenciasemanal.gif", animation=gifincisem)
+  
