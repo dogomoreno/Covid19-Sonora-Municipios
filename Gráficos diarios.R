@@ -20,7 +20,7 @@ library(wesanderson)
 library(ggsci)
 library("Cairo")
 
-Fechahoy<- "Corte al 17 de enero de 2021"
+Fechahoy<- "Corte al 19 de enero de 2021"
 
 # Carga base estatal
 Sonora.DF <- read_csv("Bases/ST_SonoraInformesCOVID.csv", 

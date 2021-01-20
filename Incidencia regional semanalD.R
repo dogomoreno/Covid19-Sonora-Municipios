@@ -33,7 +33,7 @@ POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()
 
 Casossemana <- Casos %>% group_by(MUNICIPIO) %>% 
   mutate(diasemana = weekdays(Fecha), Casossemana = rollsum(NUEVOS, 7, align="right", fill = 0)) %>% 
-  filter(diasemana==weekdays(Sys.Date())) %>% 
+  filter(diasemana==weekdays(max(as.Date(Fecha)))) %>% 
   left_join(POBMUN, by = "CVEGEO") 
 Casossemana <- Casossemana %>% mutate (INCIDENCIA= round((Casossemana*100000)/POB,1))
 Casossemana$INCIDENCIA[Casossemana$INCIDENCIA==0] <- NA
@@ -55,8 +55,8 @@ paragraf <- theme(plot.title = (element_text(family = "Lato Black", size = 32, c
                   legend.title = element_text(family = "Lato Black", size = 8, color = "black"),
                   plot.caption = element_text(family = "Lato Light", size =10, color = "gray50"),
                   axis.title = element_text(family = "Lato", size = 12))
-subtitulo <- "Incidencia semanal de casos de covid-19\nCorte al domingo 17/01/2021"
-Semanalab <- "Semanas de lunes a domingo"
+subtitulo <- "Incidencia semanal de casos de covid-19\nCorte al martes 19/01/2021"
+Semanalab <- "Semanas de miércoles a martes"
 marcas <- c( "+108", "60-108", "32-60","16-32", "0-16")
 
 #Río Sonora
