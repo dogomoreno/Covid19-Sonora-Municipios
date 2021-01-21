@@ -228,7 +228,7 @@ DecesosSon <- ggplot(Sonora.DF) +
    scale_fill_manual(name="", values= c("Decesos diarios" = "#73264D", "Promedio móvil 7d" = "#D075A3")) + 
    scale_color_manual(name="", values= c("Promedio móvil 7d" = "#73264D")) +
       scale_y_continuous(expand = c(0, 0), limits= c(0,80)) +
-      scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-01-23"))) +
+      scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-01-24"))) +
        theme_minimal() +
     theme(
     legend.position = "none",
@@ -397,7 +397,7 @@ Mapa municipal
 
 Row
 -----------------------------------------------------------------------
-### **Incidencia y mortalidad municipal al 19/01/2021**
+### **Incidencia y mortalidad municipal al 20/01/2021**
 
 ```{r include=FALSE}
 Casossemana <- Casos %>% group_by(MUNICIPIO) %>% 
@@ -730,7 +730,7 @@ modeBarButtonsToRemove = list(
 
 Indicadores
 =====================================
-**Al 19 de enero de 2021**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 20 de enero de 2021**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
 CDSELECT<- Mapa %>% select("MUNICIPIO","POBLACION", "CASOS", casossemana,"INCIDENCIAACUM", "DECESOS", decesossemana,"MORTALIDADACUM", "LETALIDAD") %>% rename(INCIDENCIA=INCIDENCIAACUM, MORTALIDAD=MORTALIDADACUM, "CASOS SEMANALES"= casossemana, "DECESOS SEMANALES" = decesossemana)
 CDSELECT1 <- CDSELECT %>% mutate(DECESOS = coalesce(DECESOS,0L),`DECESOS SEMANALES` = coalesce(`DECESOS SEMANALES`,0L), `CASOS SEMANALES` = coalesce(`CASOS SEMANALES`,0L), MORTALIDAD = coalesce(MORTALIDAD, 0), LETALIDAD = coalesce(LETALIDAD, 0))
