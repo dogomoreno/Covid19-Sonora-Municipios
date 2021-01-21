@@ -38,7 +38,10 @@ Casossemana <- Casos %>% group_by(MUNICIPIO) %>%
 Casossemana <- Casossemana %>% mutate (INCIDENCIA= round((Casossemana*100000)/POB,1))
 Casossemana$INCIDENCIA[Casossemana$INCIDENCIA==0] <- NA
 quantile(Casossemana$INCIDENCIA, seq(0,1, 0.05), na.rm=TRUE)
-casossempob <- Casossemana %>% mutate(IS=if_else(INCIDENCIA>108,5, if_else(INCIDENCIA>60,4, if_else(INCIDENCIA>32,3,if_else(INCIDENCIA>16,2,1)))))
+casossempob <- Casossemana %>%   mutate(IS=if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.90, na.rm=TRUE),0)),5, 
+                                                   if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.75, na.rm=TRUE),0)),4, 
+                                                           if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.50, na.rm=TRUE),0)),3,
+                                                                   if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.25, na.rm=TRUE),0)),2,1)))))
   
 #Estilo del gráfico
 paragraf <- theme(plot.title = (element_text(family = "Lato Black", size = 32, color = "black")),
@@ -57,7 +60,7 @@ paragraf <- theme(plot.title = (element_text(family = "Lato Black", size = 32, c
                   axis.title = element_text(family = "Lato", size = 12))
 subtitulo <- "Incidencia semanal de casos de covid-19\nCorte al miércoles 20/01/2021"
 Semanalab <- "Semanas de jueves a miércoles"
-marcas <- c( "+108", "60-108", "32-60","16-32", "0-16")
+marcas <- c( "Muy alta", "Alta", "Media","Baja", "Muy baja")
 
 #Río Sonora
 Region <- "Río Sonora"

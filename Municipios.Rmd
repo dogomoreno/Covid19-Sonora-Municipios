@@ -407,7 +407,10 @@ Casossemana <- Casos %>% group_by(MUNICIPIO) %>%
 Casossemana <- Casossemana %>% mutate (INCIDENCIASEM= round((casossemana*100000)/POB,1))
 Casossemana$INCIDENCIASEM[Casossemana$INCIDENCIASEM==0] <- NA
 casossempob <- Casossemana %>% 
-mutate(IS=if_else(INCIDENCIASEM>108,5, if_else(INCIDENCIASEM>60,4, if_else(INCIDENCIASEM>32,3,if_else(INCIDENCIASEM>16,2,1))))) %>% filter(Fecha==max(as.Date(Fecha))) 
+  mutate(IS=if_else(INCIDENCIASEM>(round(quantile(Casossemana$INCIDENCIASEM, 0.90, na.rm=TRUE),0)),5, 
+                    if_else(INCIDENCIASEM>(round(quantile(Casossemana$INCIDENCIASEM, 0.75, na.rm=TRUE),0)),4, 
+                            if_else(INCIDENCIASEM>(round(quantile(Casossemana$INCIDENCIASEM, 0.50, na.rm=TRUE),0)),3,
+                                    if_else(INCIDENCIASEM>(round(quantile(Casossemana$INCIDENCIASEM, 0.25, na.rm=TRUE),0)),2,1))))) %>% filter(Fecha==max(as.Date(Fecha))) 
 Casossemanales <- casossempob %>% select(CVEGEO, MUNICIPIO, casossemana, INCIDENCIASEM, IS)
 
 
@@ -418,7 +421,10 @@ Decesossemana <- Decesos %>% group_by(MUNICIPIO) %>%
 Decesossemana <- Decesossemana %>% mutate (MORTALIDADSEM= round((decesossemana*100000)/POB,1))
 Decesossemana$MORTALIDADSEM[Decesossemana$MORTALIDADSEM==0] <- NA
 decesossempob <-Decesossemana %>% 
-mutate(MS=if_else(MORTALIDADSEM>18,5, if_else(MORTALIDADSEM>10,4, if_else(MORTALIDADSEM>5,3,if_else(MORTALIDADSEM>2,2,1))))) %>% filter(Fecha==max(as.Date(Fecha)))
+mutate(MS=if_else(MORTALIDADSEM>(round(quantile(Decesossemana$MORTALIDADSEM, 0.90, na.rm=TRUE),0)),5, 
+                    if_else(MORTALIDADSEM>(round(quantile(Decesossemana$MORTALIDADSEM, 0.75, na.rm=TRUE),0)),4, 
+                            if_else(MORTALIDADSEM>(round(quantile(Decesossemana$MORTALIDADSEM, 0.50, na.rm=TRUE),0)),3,
+                                    if_else(MORTALIDADSEM>(round(quantile(Decesossemana$MORTALIDADSEM, 0.25, na.rm=TRUE),0)),2,1))))) %>% filter(Fecha==max(as.Date(Fecha)))
 Decesossemanales <- decesossempob %>% select(CVEGEO, MUNICIPIO, decesossemana, MORTALIDADSEM, MS)
 
 

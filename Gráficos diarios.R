@@ -247,12 +247,16 @@ ggsave("Gráficos/decesosdacum2.png",Decesosd2, bg = "transparent", height = 25,
 
 Casossemana <- Casos %>% group_by(MUNICIPIO) %>% 
   mutate(diasemana = weekdays(Fecha), Casossemana = rollsum(NUEVOS, 7, align="right", fill = 0)) %>% 
-  filter(diasemana==weekdays(Sys.Date())) %>% 
+  filter(diasemana==weekdays(max(as.Date(Fecha)))) %>% 
   left_join(POBMUN, by = "CVEGEO") 
 Casossemana <- Casossemana %>% mutate (INCIDENCIA= round((Casossemana*100000)/POB,1))
 Casossemana$INCIDENCIA[Casossemana$INCIDENCIA==0] <- NA
 casossempob <- Casossemana %>% 
-  mutate(IS=if_else(INCIDENCIA>108,5, if_else(INCIDENCIA>60,4, if_else(INCIDENCIA>32,3,if_else(INCIDENCIA>16,2,1))))) %>% filter(Fecha==Sys.Date())
+  mutate(IS=if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.90, na.rm=TRUE),0)),5, 
+                    if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.75, na.rm=TRUE),0)),4, 
+                            if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.50, na.rm=TRUE),0)),3,
+                                    if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.25, na.rm=TRUE),0)),2,1))))) %>% 
+  filter(Fecha==max(as.Date(Fecha)))
 casossempob <- casossempob %>%  mutate(id=CVEGEO)
 
 capa_munison <- readOGR("Shapes", layer="MUNSON")
@@ -262,8 +266,8 @@ capa_munison_inci<- inner_join(capa_munison_df, casossempob, by="id")
 
 
 discrete <-  rev(carto_pal(5, "Temps"))
-subtitulo <- "Casos en los últimos 7 días de covid-19 por 100 mil habitantes\nCorte al 17/01/2021"
-marcas <- c( "+108", "60-108", "32-60","16-32", "0-16")
+subtitulo <- "Casos de covid-19 en los últimos 7 días por 100 mil habitantes\nCorte al 20/01/2021"
+marcas <- c( "Muy alta", "Alta", "Media","Baja", "Muy baja")
 
 Mapa_incidencia<- ggplot(capa_munison_inci, aes(map_id = id)) +
   geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
@@ -475,7 +479,7 @@ CasosMun <- Casosconfd %>% filter(MUNICIPIO=="Cajeme") %>%  ggplot() +
         legend.text = element_blank(),
         legend.position = "none") +
   labs(y = "Casos confirmados", 
-       x = NULL,legend= NULL, title  = "Casos diarios\n de Covid-19 en Hermosillo", 
+       x = NULL,legend= NULL, title  = "Casos diarios\n de Covid-19 en Cajeme", 
        subtitle= Fechahoy, caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com")
 CasosMun
 
