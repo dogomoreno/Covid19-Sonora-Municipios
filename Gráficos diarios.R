@@ -20,7 +20,7 @@ library(wesanderson)
 library(ggsci)
 library("Cairo")
 
-Fechahoy<- "Corte al 20 de enero de 2021"
+Fechahoy<- "Corte al 21 de enero de 2021"
 
 # Carga base estatal
 Sonora.DF <- read_csv("Bases/ST_SonoraInformesCOVID.csv", 
@@ -266,7 +266,7 @@ capa_munison_inci<- inner_join(capa_munison_df, casossempob, by="id")
 
 
 discrete <-  rev(carto_pal(5, "Temps"))
-subtitulo <- "Casos de covid-19 en los últimos 7 días por 100 mil habitantes\nCorte al 20/01/2021"
+subtitulo <- "Casos de covid-19 en los últimos 7 días por 100 mil habitantes\nCorte al 21/01/2021"
 marcas <- c( "Muy alta", "Alta", "Media","Baja", "Muy baja")
 
 Mapa_incidencia<- ggplot(capa_munison_inci, aes(map_id = id)) +
@@ -353,17 +353,17 @@ CasosSon <- ggplot(Sonora.DF) +
    # geom_segment(aes(x = as.Date("2020-06-01"), y = 450, xend = as.Date("2020-08-01"), yend = 569),
    #            size = 1.5, color = "black",
    #           arrow = arrow(length = unit(0.02, "npc"))) +
-    geom_segment(aes(x = as.Date("2020-12-21"), y = 518, xend = as.Date("2021-01-19"), yend = 587),
+    geom_segment(aes(x = as.Date("2020-12-11"), y = 518, xend = as.Date("2021-01-20"), yend = 539),
                size = 1.5, color = "black",
                arrow = arrow(length = unit(0.02, "npc"))) +
     geom_text(aes(x = as.Date("2020-11-15"), y = 455,
-                  label = "20/01/2021\n589 casos"), stat = "unique", family = "Lato Black",
+                  label = "21/01/2021\n541 casos"), stat = "unique", family = "Lato Black",
               size = 5, color = "black")+
    # geom_text(aes(x = as.Date("2020-05-15"), y = 450,
    #               label = "05/08/2020\n570 casos"), stat = "unique", family = "Lato Black",
    #           size = 5, color = "black")+
    geom_text(aes(x = as.Date("2020-11-15"), y = 515, 
-                 label = "Los dos días con más casos\nconfirmados han ocurrido\nen los últimos 5 días"), stat = "unique", family = "Lato Black", size = 5, color = "#01787E")+
+                 label = "4 de los últimos\n6 días con más de\n500 casos"), stat = "unique", family = "Lato Black", size = 5, color = "#01787E")+
   theme_bw() +
   theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
         plot.title = element_text(family = "Lato Black", size = 40,color = "#01A2AC"),  
@@ -395,11 +395,11 @@ DecesosSon <- ggplot(Sonora.DF) +
  # geom_curve(aes(x = as.Date("2020-09-04"), y = 64, xend = as.Date("2020-08-14"), yend = 78),
  #            size = 1.5, color = "black",
  #            arrow = arrow(length = unit(0.02, "npc"))) +
-  geom_curve(aes(x = as.Date("2020-11-15"), y = 40, xend = as.Date("2021-01-19"), yend = 44.5),
+  geom_curve(aes(x = as.Date("2020-11-15"), y = 40, xend = as.Date("2021-01-20"), yend = 38.5),
              size = 1.5, color = "black",
              arrow = arrow(length = unit(0.02, "npc"))) +
-  geom_text(aes(x = as.Date("2020-10-30"), y = 42,
-                label = "20/01/2021\n45 decesos"), stat = "unique", family = "Lato Black",
+  geom_text(aes(x = as.Date("2020-11-02"), y = 43.5,
+                label = "21/01/2021\n39 decesos"), stat = "unique", family = "Lato Black",
             size = 5, color = "black")+
  # geom_text(aes(x = as.Date("2020-08-30"), y = 61,
  #               label = "78 decesos\n13/08/2020"), stat = "unique", family = "Lato Black",
@@ -449,7 +449,7 @@ CasosMun <- Casosconfd %>% filter(MUNICIPIO=="Cajeme") %>%  ggplot() +
   # geom_segment(aes(x = as.Date("2020-07-15"), y = 350, xend = as.Date("2020-07-31"), yend = 394),
   #              size = 1.5, color = "black",
   #              arrow = arrow(length = unit(0.02, "npc"))) +
-  geom_segment(aes(x = as.Date("2020-12-01"), y = 120, xend = as.Date("2021-01-19"), yend = 138),
+  geom_segment(aes(x = as.Date("2020-12-01"), y = 120, xend = as.Date("2021-01-20"), yend = 144),
                size = 1.5, color = "black",
                arrow = arrow(length = unit(0.02, "npc"))) +
   #geom_segment(aes(x = as.Date("2020-12-03"), y = 315, xend = as.Date("2021-01-13"), yend = 394),
@@ -459,7 +459,7 @@ CasosMun <- Casosconfd %>% filter(MUNICIPIO=="Cajeme") %>%  ggplot() +
   #             size = 1.5, color = "black",
   #             arrow = arrow(length = unit(0.02, "npc"))) +
   geom_text(aes(x = as.Date("2020-11-15"), y = 120,
-                label = "20/01/2021\n138 casos"), stat = "unique", family = "Lato Black",
+                label = "21/01/2021\n144 casos"), stat = "unique", family = "Lato Black",
             size = 5, color = "black")+
   geom_text(aes(x = as.Date("2020-11-15"), y = 135, label = "Mayor cantidad\nen lo que va\nde la contingencia"), stat = "unique", 
             family = "Lato Black", size = 5, color = "#01787E")+

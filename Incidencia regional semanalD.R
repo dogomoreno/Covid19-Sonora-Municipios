@@ -38,10 +38,14 @@ Casossemana <- Casos %>% group_by(MUNICIPIO) %>%
 Casossemana <- Casossemana %>% mutate (INCIDENCIA= round((Casossemana*100000)/POB,1))
 Casossemana$INCIDENCIA[Casossemana$INCIDENCIA==0] <- NA
 quantile(Casossemana$INCIDENCIA, seq(0,1, 0.05), na.rm=TRUE)
-casossempob <- Casossemana %>%   mutate(IS=if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.90, na.rm=TRUE),0)),5, 
-                                                   if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.75, na.rm=TRUE),0)),4, 
-                                                           if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.50, na.rm=TRUE),0)),3,
-                                                                   if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.25, na.rm=TRUE),0)),2,1)))))
+Muyalto <- quantile(Casossemana$INCIDENCIA, 0.90, na.rm=TRUE)
+Alto <- quantile(Casossemana$INCIDENCIA, 0.75, na.rm=TRUE)
+Medio <- quantile(Casossemana$INCIDENCIA, 0.50, na.rm=TRUE)
+Bajo <- quantile(Casossemana$INCIDENCIA, 0.25, na.rm=TRUE)
+casossempob <- Casossemana %>% mutate(IS=if_else(INCIDENCIA>(round(Muyalto,0)),5, 
+                                                   if_else(INCIDENCIA>(round(Alto,0)),4, 
+                                                           if_else(INCIDENCIA>(round(Medio,0)),3,
+                                                                   if_else(INCIDENCIA>(round(Bajo,0)),2,1)))))
   
 #Estilo del gráfico
 paragraf <- theme(plot.title = (element_text(family = "Lato Black", size = 32, color = "black")),
@@ -58,8 +62,8 @@ paragraf <- theme(plot.title = (element_text(family = "Lato Black", size = 32, c
                   legend.title = element_text(family = "Lato Black", size = 8, color = "black"),
                   plot.caption = element_text(family = "Lato Light", size =10, color = "gray50"),
                   axis.title = element_text(family = "Lato", size = 12))
-subtitulo <- "Incidencia semanal de casos de covid-19\nCorte al miércoles 20/01/2021"
-Semanalab <- "Semanas de jueves a miércoles"
+subtitulo <- "Incidencia semanal de casos de covid-19\nCorte al jueves 21/01/2021"
+Semanalab <- "Semanas de viernes a jueves"
 marcas <- c( "Muy alta", "Alta", "Media","Baja", "Muy baja")
 
 #Río Sonora
@@ -113,7 +117,7 @@ IncidenciaG <- ggplot(data = casossempobF) +
   scale_fill_manual("INCIDENCIA\n(casos por 100 mil habs.)", 
                     values = discreta, 
                     breaks= c("5", "4", "3", "2", "1"), 
-                    labels = marcas)+
+                    labels = marcas) +
   #scale_x_date(date_breaks = "month" , date_labels = "%d-%m") +
   scale_x_date(date_breaks = "1 month", date_labels = "%B") +
   theme_minimal() +
