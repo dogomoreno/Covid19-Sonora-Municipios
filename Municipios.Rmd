@@ -473,7 +473,7 @@ popup <- paste0(
 mapacovid <- leaflet(capa_munison) %>% 
     addProviderTiles(providers$CartoDB.PositronNoLabels) %>%
     addLayersControl( 
-      baseGroups = c("INCIDENCIA ÚLTIMA SEMANA", "INCIDENCIA ACUMULADA", "MORTALIDAD ÚLTIMA SEMANA", "MORTALIDAD ACUMULADA"), 
+      baseGroups = c("INCIDENCIA ÚLTIMOS 7 DÍAS", "INCIDENCIA ACUMULADA", "MORTALIDAD ÚLTIMOS 7 DÍAS", "MORTALIDAD ACUMULADA"), 
       options = layersControlOptions(collapsed = TRUE)) %>% 
     addPolygons(data= capa_munison,
                 stroke= TRUE,
@@ -520,7 +520,7 @@ mapacovid <- leaflet(capa_munison) %>%
                                             "font-size" = "11px",
                                             "border-color" = "rgba(0,0,0,0.5)"
                                           )),
-              group= "INCIDENCIA ÚLTIMA SEMANA") %>%
+              group= "INCIDENCIA ÚLTIMOS 7 DÍAS") %>%
   addPolygons(data= capa_munison,
               stroke= TRUE,
               weight=1.2,                   
@@ -542,7 +542,7 @@ mapacovid <- leaflet(capa_munison) %>%
                                             "font-size" = "11px",
                                             "border-color" = "rgba(0,0,0,0.5)"
                                           )),
-              group= "MORTALIDAD ÚLTIMA SEMANA") %>%
+              group= "MORTALIDAD ÚLTIMOS 7 DÍAS") %>%
   addPolygons(data= capa_munison,
               stroke= TRUE,
               weight=1.2,                   
@@ -569,7 +569,7 @@ mapacovid <- leaflet(capa_munison) %>%
   #           labFormat = function(type, cuts, p) {  
   #             paste0(labs)},
   #           title = "MORTALIDAD", na.label = "N/A")  %>%
-  addLegend(position = "bottomleft", pal = incipal, values = ~capa_munison$IA, opacity=1, group= "INCIDENCIA", 
+  addLegend(position = "topleft", pal = incipal, values = ~capa_munison$IA, opacity=1, group= "INCIDENCIA", 
               labFormat = function(type, cuts, p) {  
                paste0(labs)},
               title = "CLASIFICACIÓN", na.label = "N/A") 
