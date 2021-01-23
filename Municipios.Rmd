@@ -397,7 +397,7 @@ Mapa municipal
 
 Row
 -----------------------------------------------------------------------
-### **Incidencia y mortalidad municipal al 21/01/2021**
+### **Incidencia y mortalidad municipal al 22/01/2021**
 
 ```{r include=FALSE}
 Casossemana <- Casos %>% group_by(MUNICIPIO) %>% 
@@ -407,10 +407,10 @@ Casossemana <- Casos %>% group_by(MUNICIPIO) %>%
 Casossemana <- Casossemana %>% mutate (INCIDENCIASEM= round((casossemana*100000)/POB,1))
 Casossemana$INCIDENCIASEM[Casossemana$INCIDENCIASEM==0] <- NA
 casossempob <- Casossemana %>% 
-  mutate(IS=if_else(INCIDENCIASEM>(round(quantile(Casossemana$INCIDENCIASEM, 0.90, na.rm=TRUE),0)),5, 
-                    if_else(INCIDENCIASEM>(round(quantile(Casossemana$INCIDENCIASEM, 0.75, na.rm=TRUE),0)),4, 
+  mutate(IS=if_else(INCIDENCIASEM>(round(quantile(Casossemana$INCIDENCIASEM, 0.90, na.rm=TRUE),0)),1, 
+                    if_else(INCIDENCIASEM>(round(quantile(Casossemana$INCIDENCIASEM, 0.75, na.rm=TRUE),0)),2, 
                             if_else(INCIDENCIASEM>(round(quantile(Casossemana$INCIDENCIASEM, 0.50, na.rm=TRUE),0)),3,
-                                    if_else(INCIDENCIASEM>(round(quantile(Casossemana$INCIDENCIASEM, 0.25, na.rm=TRUE),0)),2,1))))) %>% filter(Fecha==max(as.Date(Fecha))) 
+                                    if_else(INCIDENCIASEM>(round(quantile(Casossemana$INCIDENCIASEM, 0.25, na.rm=TRUE),0)),4,5))))) %>% filter(Fecha==max(as.Date(Fecha))) 
 Casossemanales <- casossempob %>% select(CVEGEO, MUNICIPIO, casossemana, INCIDENCIASEM, IS)
 
 
@@ -421,17 +421,17 @@ Decesossemana <- Decesos %>% group_by(MUNICIPIO) %>%
 Decesossemana <- Decesossemana %>% mutate (MORTALIDADSEM= round((decesossemana*100000)/POB,1))
 Decesossemana$MORTALIDADSEM[Decesossemana$MORTALIDADSEM==0] <- NA
 decesossempob <-Decesossemana %>% 
-mutate(MS=if_else(MORTALIDADSEM>(round(quantile(Decesossemana$MORTALIDADSEM, 0.90, na.rm=TRUE),0)),5, 
-                    if_else(MORTALIDADSEM>(round(quantile(Decesossemana$MORTALIDADSEM, 0.75, na.rm=TRUE),0)),4, 
+mutate(MS=if_else(MORTALIDADSEM>(round(quantile(Decesossemana$MORTALIDADSEM, 0.90, na.rm=TRUE),0)),1, 
+                    if_else(MORTALIDADSEM>(round(quantile(Decesossemana$MORTALIDADSEM, 0.75, na.rm=TRUE),0)),2, 
                             if_else(MORTALIDADSEM>(round(quantile(Decesossemana$MORTALIDADSEM, 0.50, na.rm=TRUE),0)),3,
-                                    if_else(MORTALIDADSEM>(round(quantile(Decesossemana$MORTALIDADSEM, 0.25, na.rm=TRUE),0)),2,1))))) %>% filter(Fecha==max(as.Date(Fecha)))
+                                    if_else(MORTALIDADSEM>(round(quantile(Decesossemana$MORTALIDADSEM, 0.25, na.rm=TRUE),0)),4,5))))) %>% filter(Fecha==max(as.Date(Fecha)))
 Decesossemanales <- decesossempob %>% select(CVEGEO, MUNICIPIO, decesossemana, MORTALIDADSEM, MS)
 
 
 Mapa <- Indicadores %>%  left_join(diaspmap, by = c("CVEGEO","MUNICIPIO")) %>% 
   left_join(Casossemanales, by = c("CVEGEO","MUNICIPIO")) %>% left_join(Decesossemanales, by = c("CVEGEO","MUNICIPIO"))%>% rename(concat=CVEGEO) %>% 
-  mutate(IA=if_else(INCIDENCIAACUM>1678,5, if_else(INCIDENCIAACUM>1239,4,if_else(INCIDENCIAACUM>708,3,if_else(INCIDENCIAACUM>452,2,1)))))%>% 
-  mutate(MA=if_else(MORTALIDADACUM>184,5, if_else(MORTALIDADACUM>163,4, if_else(MORTALIDADACUM>110,3,if_else(MORTALIDADACUM>80,2,1)))))
+  mutate(IA=if_else(INCIDENCIAACUM>1678,1, if_else(INCIDENCIAACUM>1239,2,if_else(INCIDENCIAACUM>708,3,if_else(INCIDENCIAACUM>452,4,5)))))%>% 
+  mutate(MA=if_else(MORTALIDADACUM>184,1, if_else(MORTALIDADACUM>163,2, if_else(MORTALIDADACUM>110,3,if_else(MORTALIDADACUM>80,4,5)))))
 
 
 
@@ -444,13 +444,13 @@ capa_munison <- capa_munison %>%  merge(Mapa) %>% merge(NOMMAY)
 #incipal <-  colorNumeric(c("#58BCBC", "black"), domain = capa_munison$INCIDENCIA, na.color ="#d9d9d9")
 #mortpal <-  colorNumeric(c("#993366", "black"), domain = capa_munison$MORTALIDAD, na.color ="#d9d9d9")
 diaspal <-  colorFactor(c("#A04A69","#ECA48E", "#FECF7D","#0397A1", "#215968"), levels= c("1","2","3","4","5"), domain = capa_munison$clasfdias, na.color ="#d9d9d9")
-incipal <-  colorFactor(c("#cf597e", "#ed9c72", "#e9e29c", "#71be83", "#009392"), levels= c("5","4","3","2","1"), na.color ="#e8e6e6")
-mortpal <-  colorFactor(c("#cf597e", "#ed9c72", "#e9e29c", "#71be83", "#009392"), levels= c("5","4","3","2","1"), na.color ="#e8e6e6")
+incipal <-  colorFactor(c("#cf597e", "#ed9c72", "#e9e29c", "#71be83", "#009392"), levels= c("1","2","3","4","5"), na.color ="#e8e6e6")
+mortpal <-  colorFactor(c("#cf597e", "#ed9c72", "#e9e29c", "#71be83", "#009392"), levels= c("1","2","3","4","5"), na.color ="#e8e6e6")
 #discreta <- c("5" = "black", "4" = "#005155","3" = "#01787E","2" = "#01A2AC", "1" = "#58BCBC")
 #incipal <-  colorFactor(c("black","#005155", "#01787E","#01A2AC", "#58BCBC"), levels= c("5","4","3","2","1"), na.color ="#d9d9d9")
 #mortpal <-  colorFactor(c("black","#4D1A33","#73264D", "#993366","#D075A3"), levels= c("5","4","3","2","1"), na.color ="#d9d9d9")
 
-labs <- c("Muy baja","Baja", "Media", "Alta", "Muy alta")
+labs <- c("Muy alta","Alta", "Media", "Baja" , "Muy baja")
 diaslab <- c( "0", "1-7", "8-14", "15-30","+30")
 
 #ultpal <- ("Días desde que se \n confirmó el último caso", 
@@ -474,7 +474,7 @@ mapacovid <- leaflet(capa_munison) %>%
     addProviderTiles(providers$CartoDB.PositronNoLabels) %>%
     addLayersControl( 
       baseGroups = c("INCIDENCIA ÚLTIMOS 7 DÍAS", "INCIDENCIA ACUMULADA", "MORTALIDAD ÚLTIMOS 7 DÍAS", "MORTALIDAD ACUMULADA"), 
-      options = layersControlOptions(collapsed = TRUE)) %>% 
+      options = layersControlOptions(collapsed = FALSE, position = "topright")) %>% 
     addPolygons(data= capa_munison,
                 stroke= TRUE,
                 weight=1.2,                   
@@ -569,10 +569,10 @@ mapacovid <- leaflet(capa_munison) %>%
   #           labFormat = function(type, cuts, p) {  
   #             paste0(labs)},
   #           title = "MORTALIDAD", na.label = "N/A")  %>%
-  addLegend(position = "topleft", pal = incipal, values = ~capa_munison$IA, opacity=1, group= "INCIDENCIA", 
+  addLegend(position = "topright", pal = incipal, values = ~capa_munison$IA, opacity=1, group= "INCIDENCIA", 
               labFormat = function(type, cuts, p) {  
-               paste0(labs)},
-              title = "CLASIFICACIÓN", na.label = "N/A") 
+               paste0(labs)} ,
+              title = NULL, na.label = "N/A") 
 
 ```
 
@@ -736,7 +736,7 @@ modeBarButtonsToRemove = list(
 
 Indicadores
 =====================================
-**Al 21 de enero de 2021**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
+**Al 22 de enero de 2021**  [Descarga esta tabla](https://onedrive.live.com/download.aspx?resid=5ADDF6870413EAC9!32159&authkey=!AC27R9r4fs_DWP4)
 ```{r}
 CDSELECT<- Mapa %>% select("MUNICIPIO","POBLACION", "CASOS", casossemana,"INCIDENCIAACUM", "DECESOS", decesossemana,"MORTALIDADACUM", "LETALIDAD") %>% rename(INCIDENCIA=INCIDENCIAACUM, MORTALIDAD=MORTALIDADACUM, "CASOS SEMANALES"= casossemana, "DECESOS SEMANALES" = decesossemana)
 CDSELECT1 <- CDSELECT %>% mutate(DECESOS = coalesce(DECESOS,0L),`DECESOS SEMANALES` = coalesce(`DECESOS SEMANALES`,0L), `CASOS SEMANALES` = coalesce(`CASOS SEMANALES`,0L), MORTALIDAD = coalesce(MORTALIDAD, 0), LETALIDAD = coalesce(LETALIDAD, 0))
