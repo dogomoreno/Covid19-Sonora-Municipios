@@ -357,7 +357,7 @@ CasosSon <- ggplot(Sonora.DF) +
                size = 1.5, color = "black",
                arrow = arrow(length = unit(0.02, "npc"))) +
     geom_text(aes(x = as.Date("2020-11-15"), y = 455,
-                  label = "21/01/2021\n541 casos"), stat = "unique", family = "Lato Black",
+                  label = "22/01/2021\n589 casos"), stat = "unique", family = "Lato Black",
               size = 5, color = "black")+
    # geom_text(aes(x = as.Date("2020-05-15"), y = 450,
    #               label = "05/08/2020\n570 casos"), stat = "unique", family = "Lato Black",
