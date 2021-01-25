@@ -27,7 +27,7 @@ library(ggsci)
 library(rcartocolor)
 #library(NineteenEightyR)
 
-Fechahoy<- "Corte al 17 de enero de 2021"
+Fechahoy<- "Corte al 24 de enero de 2021"
 capa_munison <- readOGR("Shapes", layer="MUNSON")
 capa_son <- readOGR("Shapes", layer="ENTSON")
 
@@ -50,8 +50,14 @@ Casossemana <- Casos %>% group_by(MUNICIPIO) %>%
   left_join(POBMUN, by = "CVEGEO") 
 Casossemana <- Casossemana %>% mutate (INCIDENCIA= round((Casossemana*100000)/POB,1))
 Casossemana$INCIDENCIA[Casossemana$INCIDENCIA==0] <- NA
-casossempob <- Casossemana %>% 
-  mutate(IS=if_else(INCIDENCIA>108,5, if_else(INCIDENCIA>60,4, if_else(INCIDENCIA>32,3,if_else(INCIDENCIA>16,2,1))))) 
+Muyalto <- quantile(Casossemana$INCIDENCIA, 0.90, na.rm=TRUE)
+Alto <- quantile(Casossemana$INCIDENCIA, 0.75, na.rm=TRUE)
+Medio <- quantile(Casossemana$INCIDENCIA, 0.50, na.rm=TRUE)
+Bajo <- quantile(Casossemana$INCIDENCIA, 0.25, na.rm=TRUE)
+casossempob <- Casossemana %>% mutate(IS=if_else(INCIDENCIA>(round(Muyalto,0)),5, 
+                                                 if_else(INCIDENCIA>(round(Alto,0)),4, 
+                                                         if_else(INCIDENCIA>(round(Medio,0)),3,
+                                                                 if_else(INCIDENCIA>(round(Bajo,0)),2,1)))))
 casossempob <- casossempob %>%  mutate(id=CVEGEO)
 
 capa_munison <- readOGR("Shapes", layer="MUNSON")
@@ -62,7 +68,7 @@ capa_munison_inci<- inner_join(capa_munison_df, casossempob, by="id")
 
 discrete <-  rev(carto_pal(5, "Temps"))
 subtitulo <- "Casos de covid-19 en los 7 días anteriores por 100 mil habitantes\nCorte al 17/01/2021"
-marcas <- c( "+108", "60-108", "32-60","16-32", "0-16")
+marcas <- c( "Muy alta", "Alta", "Media","Baja", "Muy baja")
 
 Mapa_incidencia<- ggplot(capa_munison_inci, aes(map_id = id)) +
   geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
@@ -111,11 +117,11 @@ Mapa_inci <- function(capa_son, capa_munison_casos) { ggplot(capa_munison_casos,
     theme(plot.title = (element_text(family = "Lato Black", size = 44, color = "black")),
           plot.subtitle = (element_text(family = "Lato Light", size = 20, color = "#01787E")),
           plot.margin = margin(1, 1, 1, 0.8, "cm"),
-          legend.position = "right",
+          legend.position = "left",
           plot.background = element_rect(fill = "white", color="black", size=3),
           legend.key.height = unit (2, "cm"), legend.key.width = unit (0.75, "cm"), axis.text = element_blank(),
           legend.text = element_text(family = "Lato", size = 14, color = "black"),
-          legend.title = element_text(family = "Lato Black", size = 16, color = "black"),
+          legend.title = element_text(family = "Lato Black", size = 20, color = "black"),
           plot.caption = element_text(family = "Lato Light", size = 20, color = "gray40"),
           axis.title = element_blank()) +
     labs(axis = NULL, y = NULL, x = NULL, title = "Incidencia semanal", subtitle = "Casos de covid-19 en los 7 días anteriores por 100 mil habitantes",
