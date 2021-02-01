@@ -3,7 +3,7 @@ title: "COVID-19 EN SONORA"
 output: 
   flexdashboard::flex_dashboard:
     navbar:
-      - { title: "29/01/2021", href: "http://www.luisarmandomoreno.com/", align: right }
+      - { title: "31/01/2021", href: "http://www.luisarmandomoreno.com/", align: right }
     theme: flatly
     orientation: rows
 ---
@@ -837,7 +837,7 @@ Por ejemplo, tomando la incidencia semanal, aquellos municipios que se encuentre
 
 Captura propia de los reportes diarios de la Secretaría de Salud del Estado de Sonora
 
-Proyecciones de población para los municipios de Sonora a mediados de 2020 del Consejo Nacional de Población.
+Población de los municipios de Sonora según los resultados del Censo de Población y Vivienda 2020 de INEGI.
 
 [Plataforma Covid-19 del Departamento de Matemáticas de la Universidad de Sonora](https://covid19data.unison.mx/)
 

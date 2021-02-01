@@ -20,7 +20,7 @@ library(wesanderson)
 library(ggsci)
 library("Cairo")
 
-Fechahoy<- "Corte al 29 de enero de 2021"
+Fechahoy <- "Corte al 31 de enero de 2021"
 
 # Carga base estatal
 Sonora.DF <- read_csv("Bases/ST_SonoraInformesCOVID.csv", 
@@ -175,7 +175,7 @@ Gravgraf <- ggplot(Sonora.Hosp) +
         plot.title = element_text(family = "Lato Black", size = 40,color = "#E26B0A"), 
         plot.subtitle = element_text(family = "Lato Light", size = 16, color = "black"), legend.title = element_blank(),
         strip.text = element_text(family = "Lato Black", size = 16),
-        axis.text = element_text(family = "Lato", size =10),
+        axis.text.x = element_text(family = "Lato", size =10),
         panel.grid.major = element_line(colour = "white", size= 1), 
         panel.grid.minor = element_line(colour = "white", size=0.2), 
         plot.background = element_rect(fill = "white", color = "black", size = 5),
@@ -266,7 +266,7 @@ capa_munison_inci<- inner_join(capa_munison_df, casossempob, by="id")
 
 
 discrete <-  rev(carto_pal(5, "Temps"))
-subtitulo <- "Casos de covid-19 en los últimos 7 días por 100 mil habitantes\nCorte al 29/01/2021"
+subtitulo <- "Casos de covid-19 en los últimos 7 días por 100 mil habitantes\nCorte al 31/01/2021"
 marcas <- c( "Muy alta", "Alta", "Media","Baja", "Muy baja")
 
 Mapa_incidencia<- ggplot(capa_munison_inci, aes(map_id = id)) +
