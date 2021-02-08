@@ -91,15 +91,19 @@ Mapa_mov <- ggplot(capa_munison_casos, aes(map_id = id)) +
   geom_map_interactive(aes(fill = factor(movimiento)),color = "white",size=0.5, map = capa_munison_df) + 
   scale_fill_manual(values = discrete, breaks= c("0", "1"))+
   theme_void() +
-  theme(plot.title = (element_text(family = "Lato Black", size = 15, color = "#01A2AC")), rect = element_rect(fill = "transparent"),
+  theme(plot.title = (element_text(family = "Lato Black", size = 20, color = "black")),
+        plot.subtitle = (element_text(family = "Lato Light", size = 8, color = "#01787E")),
+        plot.margin = margin(0.5, 0.5, 0.25, 0.4, "cm"),
         legend.position = "none",
         plot.background = element_rect(fill = "transparent", color = NA),
-        legend.key.height = unit (2, "cm"), axis.text = element_blank(),
-        legend.text = element_text(family = "Lato Light", size = 6, color = "black"),
-        legend.title = element_blank(),
-        plot.caption = element_text(family = "Lato Light", size = 8, color = "gray50"),
+        legend.key.height = unit (0.5, "cm"), legend.key.width = unit (0.3, "cm"), axis.text = element_blank(),
+        legend.text = element_text(family = "Lato", size = 6, color = "black"),
+        legend.title = element_text(family = "Lato Black", size = 5, color = "black"),
+        plot.caption = element_text(family = "Lato Light", size = 6, color = "gray40"),
         axis.title = element_blank()) +
-  labs(axis = NULL, y = NULL, x = NULL, title  = NULL,  fill = NULL, caption = NULL)
+  labs(y = NULL, x = NULL, title  = NULL, 
+       subtitle = NULL,  fill = NULL, 
+       caption = NULL)
 ggsave("Gráficos/movimientos.png",Mapa_mov, bg = "transparent", height = 25.9, width = 25.9, units = "cm", type = 'cairo')
 
 #Casos trayectoria Promedio vs Acumulado
