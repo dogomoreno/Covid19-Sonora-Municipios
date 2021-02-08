@@ -20,7 +20,7 @@ library(wesanderson)
 library(ggsci)
 library("Cairo")
 
-Fechahoy <- "Corte al 04 de febrero de 2021"
+Fechahoy <- "Corte al 07 de febrero de 2021"
 
 # Carga base estatal
 Sonora.DF <- read_csv("Bases/ST_SonoraInformesCOVID.csv", 
@@ -153,8 +153,8 @@ Decesosd <- ggplot(subset(Decesosprom, MUNICIPIO %in% c("Hermosillo", "Cajeme", 
        title  = "Decesos de Covid-19\nen los municipios de Sonora", 
        subtitle= Fechahoy, 
        caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com") + 
-  scale_y_continuous (expand = c(0, 0), limit = c(0, 50)) + 
-  scale_x_continuous (expand = c(0, 0), limit = c(0, 1400))
+  scale_y_continuous (expand = c(0, 0), limit = c(0, 0)) + 
+  scale_x_continuous (expand = c(0, 0), limit = c(0, 0))
 
 ggsave("Gráficos/decesosdacum.png",Decesosd, bg = "transparent", height = 25, width = 25, units = "cm", type = 'cairo')
 
@@ -266,7 +266,7 @@ capa_munison_inci<- inner_join(capa_munison_df, casossempob, by="id")
 
 
 discrete <-  rev(carto_pal(5, "Temps"))
-subtitulo <- "Casos de covid-19 en los últimos 7 días por 100 mil habitantes\nCorte al 05/02/2021"
+subtitulo <- "Casos de covid-19 en los últimos 7 días por 100 mil habitantes\nCorte al 07/02/2021"
 marcas <- c( "Muy alta", "Alta", "Media","Baja", "Muy baja")
 
 Mapa_incidencia<- ggplot(capa_munison_inci, aes(map_id = id)) +
