@@ -3,7 +3,7 @@ title: "COVID-19 EN SONORA"
 output: 
   flexdashboard::flex_dashboard:
     navbar:
-      - { title: "08/02/2021", href: "http://www.luisarmandomoreno.com/", align: right }
+      - { title: "11/02/2021", href: "http://www.luisarmandomoreno.com/", align: right }
     theme: flatly
     orientation: rows
 ---
@@ -228,7 +228,7 @@ DecesosSon <- ggplot(Sonora.DF) +
    scale_fill_manual(name="", values= c("Decesos diarios" = "#73264D", "Promedio móvil 7d" = "#D075A3")) + 
    scale_color_manual(name="", values= c("Promedio móvil 7d" = "#73264D")) +
       scale_y_continuous(expand = c(0, 0), limits= c(0,80)) +
-      scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-02-10"))) +
+      scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-02-18"))) +
        theme_minimal() +
     theme(
     legend.position = "none",
@@ -268,7 +268,7 @@ Row  {data-height=350}
 ### **Letalidad por sistema de salud**
 ```{r, include=FALSE}
 Sonora.SS <- Sonora.dia %>% select (IMSS, SSA, ISSSTESON, ISSSTE, SEDENA, SEMAR) %>% gather(key= SS, value= Letalidad)
-Sonora.SS$SS <- factor(Sonora.SS$SS ,levels = c("IMSS","SEMAR","ISSSTE",  "ISSSTESON", "SSA", "SEDENA"))
+Sonora.SS$SS <- factor(Sonora.SS$SS ,levels = c("SEMAR","IMSS","ISSSTE",  "ISSSTESON", "SSA", "SEDENA"))
 LetalidadSS <- ggplot(Sonora.SS) +
    geom_col(aes(x= Letalidad, y= SS), fill= "#993366", color= "white", size= 0.3)+
           theme_minimal() +
