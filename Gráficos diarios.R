@@ -20,7 +20,7 @@ library(wesanderson)
 library(ggsci)
 library("Cairo")
 
-Fechahoy <- "Corte al 08 de febrero de 2021"
+Fechahoy <- "Corte al 12 de febrero de 2021"
 
 # Carga base estatal
 Sonora.DF <- read_csv("Bases/ST_SonoraInformesCOVID.csv", 
@@ -255,11 +255,14 @@ Casossemana <- Casos %>% group_by(MUNICIPIO) %>%
   left_join(POBMUN, by = "CVEGEO") 
 Casossemana <- Casossemana %>% mutate (INCIDENCIA= round((Casossemana*100000)/POB,1))
 Casossemana$INCIDENCIA[Casossemana$INCIDENCIA==0] <- NA
-casossempob <- Casossemana %>% 
-  mutate(IS=if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.90, na.rm=TRUE),0)),5, 
-                    if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.75, na.rm=TRUE),0)),4, 
-                            if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.50, na.rm=TRUE),0)),3,
-                                    if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.25, na.rm=TRUE),0)),2,1))))) %>% 
+# casossempob <- Casossemana %>% 
+#   mutate(IS=if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.90, na.rm=TRUE),0)),5, 
+#                     if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.75, na.rm=TRUE),0)),4, 
+#                             if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.50, na.rm=TRUE),0)),3,
+#                                     if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.25, na.rm=TRUE),0)),2,1))))) %>% 
+casossempob <- Casossemana %>% mutate(IS=if_else(INCIDENCIA>=99.9,4, 
+                                                 if_else(INCIDENCIA>49.9,3,
+                                                         if_else(INCIDENCIA>9.9,2,1)))) %>% 
   filter(Fecha==max(as.Date(Fecha)))
 casossempob <- casossempob %>%  mutate(id=CVEGEO)
 
@@ -269,16 +272,18 @@ capa_munison_df <- fortify(capa_munison, region="concat")
 capa_munison_inci<- inner_join(capa_munison_df, casossempob, by="id")
 
 
-discrete <-  rev(carto_pal(5, "Temps"))
-subtitulo <- "Casos de covid-19 en los últimos 7 días por 100 mil habitantes\nCorte al 08/02/2021"
-marcas <- c( "Muy alta", "Alta", "Media","Baja", "Muy baja")
+#discrete <-  rev(carto_pal(5, "Temps"))
+discrete <- c("4" = "#CE3F41","3" = "#FFA17B","2" = "#FECF7D", "1" = "#31859C")
+subtitulo <- "Casos de covid-19 en los últimos 7 días por 100 mil habitantes\nCorte al 12/02/2021"
+marcas <- c( "Alta\n(100 o más)", "Substancial\n(50-99)", "Moderada\n(10-49)","Baja\n(+0-9)")
+romp <- c("4", "3", "2", "1")
 
 Mapa_incidencia<- ggplot(capa_munison_inci, aes(map_id = id)) +
   geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
                fill="gray90", color="white", size=0.12) +
   geom_map(aes(fill = factor(IS)),color = "white",size=0.22, map = capa_munison_df) + 
   scale_fill_manual(values = discrete, 
-                    breaks= c("5", "4", "3", "2", "1"), 
+                    breaks= romp, 
                     labels = marcas) +
   theme_void() +
   theme(plot.title = (element_text(family = "Lato Black", size = 20, color = "black")),
@@ -286,7 +291,7 @@ Mapa_incidencia<- ggplot(capa_munison_inci, aes(map_id = id)) +
         plot.margin = margin(0.5, 0.5, 0.25, 0.4, "cm"),
         legend.position = "right",
         plot.background = element_rect(fill = "white", color="black", size=3),
-        legend.key.height = unit (0.5, "cm"), legend.key.width = unit (0.2, "cm"), axis.text = element_blank(),
+        legend.key.height = unit (1, "cm"), legend.key.width = unit (0.2, "cm"), axis.text = element_blank(),
         legend.text = element_text(family = "Lato", size = 6, color = "black"),
         legend.title = element_text(family = "Lato Black", size = 5, color = "black"),
         plot.caption = element_text(family = "Lato Light", size = 6.5, color = "gray40"),
@@ -303,7 +308,7 @@ Mapa_incivoid<- ggplot(capa_munison_inci, aes(map_id = id)) +
                fill="gray90", color="white", size=0.12) +
   geom_map(aes(fill = factor(IS)),color = "white",size=0.22, map = capa_munison_df) + 
   scale_fill_manual(values = discrete, 
-                    breaks= c("5", "4", "3", "2", "1"), 
+                    breaks= romp, 
                     labels = marcas) +
   theme_void() +
   theme(plot.title = (element_text(family = "Lato Black", size = 20, color = "black")),
