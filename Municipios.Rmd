@@ -3,7 +3,7 @@ title: "COVID-19 EN SONORA"
 output: 
   flexdashboard::flex_dashboard:
     navbar:
-      - { title: "12/02/2021", href: "http://www.luisarmandomoreno.com/", align: right }
+      - { title: "13/02/2021", href: "http://www.luisarmandomoreno.com/", align: right }
     theme: flatly
     orientation: rows
 ---
@@ -822,7 +822,7 @@ $MORTALIDAD = Decesos confirmados * 100 mil / Población$
 
 $LETALIDAD = Decesos confirmados * 100 / Casos confirmados$
 
-La clasificación de la incidencia y la mortalidad municipal en el mapa, se refiere a ordenar de menor a mayor los resultados municipales y clasificar, en el caso de la incidencia de semanales se toman los umbrales de la [ CDC de Estados Unidos ](https://www.cdc.gov/coronavirus/2019-ncov/community/schools-childcare/schools.html)  en las consideraciones para la operación de las escuelas, para el resto de los indicadores se toman los cuantiles: 
+La clasificación de la incidencia y la mortalidad municipal en el mapa, se refiere a ordenar de menor a mayor los resultados municipales y clasificar, en el caso de la incidencia de semanales se toman los umbrales de la [ CDC de Estados Unidos ](https://www.cdc.gov/coronavirus/2019-ncov/community/schools-childcare/operation-strategy.html)  en las consideraciones para la operación de las escuelas, para el resto de los indicadores se toman los cuantiles: 
 
 **Clasificación**   | Umbral CDC (Incidencia semanal)    | Rango de cuantiles
 
@@ -835,8 +835,6 @@ La clasificación de la incidencia y la mortalidad municipal en el mapa, se refi
 **Alta:**            | ≥ 100        | 75%-100%
 
 
-Por ejemplo, tomando la incidencia semanal, aquellos municipios que se encuentren en la clasificación "Muy alta" se refiere a que pertenecen al 10% de las semanas con mayor incidencia en el Estado.
-
 
 **FUENTES**
 
@@ -846,7 +844,7 @@ Población de los municipios de Sonora según los resultados del Censo de Poblac
 
 [Plataforma Covid-19 del Departamento de Matemáticas de la Universidad de Sonora](https://covid19data.unison.mx/)
 
-[Operating schools during COVID-19: CDC's Considerations](https://www.cdc.gov/coronavirus/2019-ncov/community/schools-childcare/schools.html)
+[Operating schools during COVID-19: CDC's Considerations](https://www.cdc.gov/coronavirus/2019-ncov/community/schools-childcare/operation-strategy.html)
 
 **DESCARGAS**
 
