@@ -27,7 +27,7 @@ library(ggsci)
 library(rcartocolor)
 #library(NineteenEightyR)
 
-Fechahoy<- "Corte al 12 de febrero de 2021"
+Fechahoy<- "Corte al 14 de febrero de 2021"
 capa_munison <- readOGR("Shapes", layer="MUNSON")
 capa_son <- readOGR("Shapes", layer="ENTSON")
 
@@ -95,7 +95,6 @@ Mapa_incidencia<- ggplot(capa_munison_inci, aes(map_id = id)) +
        caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora")+
   geom_polygon(data=capa_reg, aes(x=long, y=lat, group=group), 
                fill="transparent", color="black", size=0.2)
-ggsave("Gráficos/mincidencia.png",Mapa_incidencia, bg = "transparent", height = 12, width = 12, units = "cm", dpi = 800, type = 'cairo')
 
 
 
@@ -111,14 +110,14 @@ Mapa_inci <- function(capa_son, capa_munison_casos) { ggplot(capa_munison_casos,
                  fill="gray90", color="white", size=1) +
         geom_map(aes(fill = as.factor(IS)),color = "white",size=1, map = capa_munison_df) + 
         geom_polygon(data=capa_son, aes(x=long, y=lat, group=group), 
-                 fill="transparent", color="black", size=1) +
+                 fill="transparent", color="black", size=1.2) +
     scale_fill_manual(values = discrete, breaks= romp, 
                       labels = marcas)+
     
     theme_void() +
     theme(plot.title = (element_text(family = "Lato Black", size = 54, color = "black")),
           plot.subtitle = (element_text(family = "Lato Light", size = 22, color = "#01787E")),
-          plot.margin = margin(1, 1, 1, 1.5, "cm"),
+          plot.margin = margin(1, 1, 1, 1.8, "cm"),
           legend.position = c(0.18,0.4),
           plot.background = element_rect(fill = "white", color="black", size=3),
           legend.key.height = unit (3, "cm"), legend.key.width = unit (0.75, "cm"), axis.text = element_blank(),
@@ -126,7 +125,7 @@ Mapa_inci <- function(capa_son, capa_munison_casos) { ggplot(capa_munison_casos,
           legend.title = element_text(family = "Lato Black", size = 28, color = "black"),
           plot.caption = element_text(family = "Lato Light", size = 20, color = "gray40"),
           axis.title = element_blank()) +
-    labs(axis = NULL, y = NULL, x = NULL, title = "Incidencia semanal", subtitle = "Casos de covid-19 en los 7 días anteriores por 100 mil habitantes",
+    labs(axis = NULL, y = NULL, x = NULL, title = "Incidencia semanal", subtitle = "Casos de covid-19 en los últimos 7 días por 100 mil habitantes",
          caption ="Elaboración Luis Armando Moreno con información de la Secretaría de Salud estatal")
 }
 
@@ -134,7 +133,7 @@ Mapa_inci <- function(capa_son, capa_munison_casos) { ggplot(capa_munison_casos,
 Incisemanaanim <- Mapa_inci(capa_son, capa_munison_casos) + 
   transition_manual(Fecha) +
   shadow_mark() +
-  labs(fill = "Viernes \n {current_frame}")
+  labs(fill = "Domingo \n {current_frame}")
 
 gifincisem <- animate(Incisemanaanim, end_pause = 6, fps = 20,duration = 30, width = 950, height =950, renderer = gifski_renderer())
 anim_save("./Gráficos/Incidenciasemanal.gif", animation=gifincisem)
