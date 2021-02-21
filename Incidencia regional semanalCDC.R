@@ -62,8 +62,8 @@ paragraf <- theme(plot.title = (element_text(family = "Lato Black", size = 32, c
                   legend.title = element_text(family = "Lato Black", size = 8, color = "black"),
                   plot.caption = element_text(family = "Lato Light", size =10, color = "gray50"),
                   axis.title = element_text(family = "Lato", size = 12))
-subtitulo <- "Incidencia semanal de casos de covid-19\nCorte al vlernes 19/02/2021"
-Semanalab <- "Semanas de sábado a viernes"
+subtitulo <- "Incidencia semanal de casos de covid-19\nCorte al sábado 20/02/2021"
+Semanalab <- "Semanas de domingo a sábado"
 marcas <- c( "Alta (100 o más)", "Substancial (50-99)", "Moderada (10-49)","Baja (+0-9)")
 romp <- c("4", "3", "2", "1")
 capt <- "Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora y Centers of Disease Control and Prevention (CDC-EUA)"
