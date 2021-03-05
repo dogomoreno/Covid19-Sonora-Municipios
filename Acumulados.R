@@ -48,7 +48,8 @@ Sonora.DF <- mutate(Sonora.DF, SEMAR= round((D_SEMAR / C_SEMAR)*100,1))
 
 
 Sonorames <- Sonora.DF %>% mutate(mesnum=month(Fecha), mes = months.Date(Fecha),  año = year(Fecha)) %>% select(año, mesnum, mes, Fecha, Confirmados, Decesos, Casos.diarios, Decesos.diarios)
-
+acummes <- Sonorames %>% group_by(año,mesnum, mes) %>% summarise(Confirmados=sum(Casos.diarios), Decesos=sum(Decesos.diarios))
+write.csv(acummes, "ResultadoCSV/acummes.csv")
 Sonorafebrero <- Sonorames %>% filter(mes=="febrero") %>% rename (FebreroConfirmados=Confirmados, Febrerodecesos=Decesos) 
 Sonorafebrero <- Sonorafebrero %>% select (Fecha, FebreroConfirmados, Febrerodecesos)
 
@@ -129,3 +130,7 @@ Decesosacum <- ggplot(Sonoramesseg) +
 Decesosacum
 
 ggsave("Gráficos/DecesosacumFEB.png",Decesosacum, bg = "transparent", height = 25, width = 30, units = "cm", dpi = 400, type = 'cairo')
+
+
+
+casosmes <- Casos %>% mutate(mesnum=month(Fecha), mes = months.Date(Fecha),  año = year(Fecha))  %>% group_by(año, mes, mesnum) %>% summarise(Casos=sum(NUEVOS))
