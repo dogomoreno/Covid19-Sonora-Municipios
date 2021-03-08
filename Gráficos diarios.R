@@ -20,7 +20,7 @@ library(wesanderson)
 library(ggsci)
 library("Cairo")
 
-Fechahoy <- "Corte al 04 de marzo de 2021"
+Fechahoy <- "Corte al 07 de marzo de 2021"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
@@ -277,7 +277,7 @@ capa_munison_inci<- inner_join(capa_munison_df, casossempob, by="id")
 
 #discrete <-  rev(carto_pal(5, "Temps"))
 discrete <- c("4" = "#CE3F41","3" = "#FFA17B","2" = "#FECF7D", "1" = "#31859C")
-subtitulo <- "Casos de covid-19 en los últimos 7 días por 100 mil habitantes\nCorte al 04/03/2021"
+subtitulo <- "Casos de covid-19 en los últimos 7 días por 100 mil habitantes\nCorte al 07/03/2021"
 marcas <- c( "Alta\n(100 o más)", "Substancial\n(50-99)", "Moderada\n(10-49)","Baja\n(+0-9)")
 romp <- c("4", "3", "2", "1")
 
@@ -362,6 +362,7 @@ CasosSon <- ggplot(Sonora.DF) +
   scale_color_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#01787E", "Casos diarios" = "white")) +
   scale_y_continuous(expand = c(0, 5)) +
   scale_x_date(expand=c(0,5), date_breaks = "1 month", date_labels = "%B") +
+  geom_hline(yintercept=94.1, linetype="dashed", color = "red") +
    # geom_segment(aes(x = as.Date("2020-06-01"), y = 450, xend = as.Date("2020-08-01"), yend = 569),
    #            size = 1.5, color = "black",
    #           arrow = arrow(length = unit(0.02, "npc"))) +
@@ -376,6 +377,13 @@ CasosSon <- ggplot(Sonora.DF) +
    #           size = 5, color = "black")+
    # geom_text(aes(x = as.Date("2020-11-15"), y = 515, 
    #               label = "5 de los últimos\n8 días con más de\n500 casos"), stat = "unique", family = "Lato Black", size = 5, color = "#01787E")+
+  geom_curve(aes(x = as.Date("2020-11-01"), y = 400, xend = as.Date("2021-02-27"), yend = 94.1),
+            size = 1, color = "black",
+           arrow = arrow(length = unit(0.02, "npc"))) +
+  geom_text(aes(x = as.Date("2020-11-01"), y = 450,
+               label = "Menor promedio móvil\n7 días en más de 10 meses\n94.1 casos diarios\n28/02/2021"), stat = "unique", family = "Lato Black",
+           size = 5, color = "black")+
+
   theme_bw() +
   theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
         plot.title = element_text(family = "Lato Black", size = 40,color = "#01A2AC"),  
