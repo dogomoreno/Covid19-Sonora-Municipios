@@ -20,7 +20,7 @@ library(wesanderson)
 library(ggsci)
 library("Cairo")
 
-Fechahoy <- "Corte al 11 de marzo de 2021"
+Fechahoy <- "Corte al 14 de marzo de 2021"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
@@ -176,23 +176,20 @@ Gravgraf <- ggplot(Sonora.Hosp) +
   scale_fill_manual(name="", values= c("Hospitalizados" = "#FABF8F", "Graves" = "#E26B0A", "Críticos" = "#974706"  ), 
                     breaks = c("Hospitalizados", "Graves", "Críticos")) +
   scale_y_continuous(expand = c(0, 0)) +
-  scale_x_date(expand=c(0,0)) +
-  theme_minimal() +
+  scale_x_date(expand=c(0,5), date_breaks = "1 month", date_labels = "%B") +
+  theme_bw() +
   theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
         plot.title = element_text(family = "Lato Black", size = 40,color = "#E26B0A"), 
         plot.subtitle = element_text(family = "Lato Light", size = 16, color = "black"), legend.title = element_blank(),
         strip.text = element_text(family = "Lato Black", size = 16),
         axis.text.x = element_text(family = "Lato", size =10),
-        panel.grid.major = element_line(colour = "white", size= 1), 
-        panel.grid.minor = element_line(colour = "white", size=0.2), 
-        plot.background = element_rect(fill = "white", color = "black", size = 5),
         axis.title.x = element_text(family = "Lato Light", size = 12, hjust=1),
         axis.title.y = element_text(family = "Lato Light", size = 12, hjust=1), plot.caption = element_text(family = "Lato", size = 10, color = "#E26B0A"),
-        panel.background = element_rect(fill = "gray95"), legend.text = element_text(family = "Lato", size = 12),
+       legend.text = element_text(family = "Lato", size = 12),
         legend.position = "top", legend.justification="left") + 
   labs(legend= NULL, 
-       title  = "Hospitalizados", 
-       subtitle= Fechahoy, 
+       title  = "Hospitalizados en Sonora", 
+       subtitle= Fechahoy, x=NULL, y=NULL,
        caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com")
 ggsave("Gráficos/hospitalizados.png",Gravgraf, bg = "transparent", height = 25, width = 25, units = "cm", type = 'cairo')
 
@@ -277,7 +274,7 @@ capa_munison_inci<- inner_join(capa_munison_df, casossempob, by="id")
 
 #discrete <-  rev(carto_pal(5, "Temps"))
 discrete <- c("4" = "#CE3F41","3" = "#FFA17B","2" = "#FECF7D", "1" = "#31859C")
-subtitulo <- "Casos de covid-19 en los últimos 7 días por 100 mil habitantes\nCorte al 11/03/2021"
+subtitulo <- "Casos de covid-19 en los últimos 7 días por 100 mil habitantes\nCorte al 14/03/2021"
 marcas <- c( "Alta\n(100 o más)", "Substancial\n(50-99)", "Moderada\n(10-49)","Baja\n(+0-9)")
 romp <- c("4", "3", "2", "1")
 
@@ -341,7 +338,7 @@ Sonora.DF <- mutate(Sonora.DF, Decesos.media.7d=round(rollmeanr(x=Decesos.diario
 Sonora.DF <- mutate(Sonora.DF, Pruebas.diarias= Pruebas - lag(Pruebas, default = Pruebas[1]))
 Sonora.DF <- mutate(Sonora.DF, Pruebas.media.7d=round(rollmeanr(x=Pruebas.diarias,7, fill=NA),1))
 Sonora.DF <- mutate(Sonora.DF, Incidencia= round((Confirmados / 30.74745),2))
-Sonora.DF <- mutate(Sonora.DF, Letalidad= round((Decesos / Confirmados)*100,2))
+Sonora.DF <- mutate(Sonora.DF, Letalidad= round((Decesos / Confirmados)*100,1))
 Sonora.DF <- mutate(Sonora.DF, Mortalidad= round((Decesos / 30.74745)*100,2))
 Sonora.DF <- mutate(Sonora.DF, Positividad= round((Pruebas / Confirmados)*100,2))
 Sonora.DF <- mutate(Sonora.DF, Gravedad= round((Graves / Hospitalizados)*100,1))
@@ -362,27 +359,27 @@ CasosSon <- ggplot(Sonora.DF) +
   scale_color_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#01787E", "Casos diarios" = "white")) +
   scale_y_continuous(expand = c(0, 5)) +
   scale_x_date(expand=c(0,5), date_breaks = "1 month", date_labels = "%B") +
-  geom_hline(yintercept=94.1, linetype="dashed", color = "red") +
+  #geom_hline(yintercept=94.1, linetype="dashed", color = "red") +
    # geom_segment(aes(x = as.Date("2020-06-01"), y = 450, xend = as.Date("2020-08-01"), yend = 569),
    #            size = 1.5, color = "black",
    #           arrow = arrow(length = unit(0.02, "npc"))) +
-    # geom_segment(aes(x = as.Date("2020-12-11"), y = 518, xend = as.Date("2021-01-21"), yend = 589),
-    #            size = 1.5, color = "black",
-    #            arrow = arrow(length = unit(0.02, "npc"))) +
-    # geom_text(aes(x = as.Date("2020-11-15"), y = 455,
-    #               label = "22/01/2021\n589 casos"), stat = "unique", family = "Lato Black",
-    #           size = 5, color = "black")+
+     # geom_segment(aes(x = as.Date("2021-02-24"), y = 390, xend = as.Date("2021-03-11"), yend = 212),
+             #  size = 1.5, color = "black",
+              #  arrow = arrow(length = unit(0.02, "npc"))) +
+     # geom_text(aes(x = as.Date("2021-02-24"), y = 420,
+                  # label = "11/03/2021\n208 casos"), stat = "unique", family = "Lato Black",
+               # size = 5, color = "black")+
    # geom_text(aes(x = as.Date("2020-05-15"), y = 450,
    #               label = "05/08/2020\n570 casos"), stat = "unique", family = "Lato Black",
    #           size = 5, color = "black")+
-   # geom_text(aes(x = as.Date("2020-11-15"), y = 515, 
-   #               label = "5 de los últimos\n8 días con más de\n500 casos"), stat = "unique", family = "Lato Black", size = 5, color = "#01787E")+
-  geom_curve(aes(x = as.Date("2020-11-01"), y = 400, xend = as.Date("2021-02-27"), yend = 94.1),
-            size = 1, color = "black",
-           arrow = arrow(length = unit(0.02, "npc"))) +
-  geom_text(aes(x = as.Date("2020-11-01"), y = 450,
-               label = "Menor promedio móvil\n7 días en más de 10 meses\n94.1 casos diarios\n28/02/2021"), stat = "unique", family = "Lato Black",
-           size = 5, color = "black")+
+    # geom_text(aes(x = as.Date("2021-02-15"), y = 500, 
+        #          label = "Primera vez en \n21 días con más de\n200 casos"), stat = "unique", family = "Lato Black", size = 5, color = "#01787E")+
+  #geom_curve(aes(x = as.Date("2020-11-01"), y = 400, xend = as.Date("2021-02-27"), yend = 94.1),
+            # size = 1, color = "black",
+           # arrow = arrow(length = unit(0.02, "npc"))) +
+  #geom_text(aes(x = as.Date("2020-11-01"), y = 450,
+            #   label = "Menor promedio móvil\n7 días en más de 10 meses\n94.1 casos diarios\n28/02/2021"), stat = "unique", family = "Lato Black",
+           # size = 5, color = "black")+
 
   theme_bw() +
   theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
@@ -399,6 +396,7 @@ CasosSon <- ggplot(Sonora.DF) +
   labs(y = "Casos confirmados", 
        x = NULL,legend= NULL, title  = "Casos diarios\n de Covid-19 en Sonora", 
        subtitle= Fechahoy, caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com")
+
 CasosSon
 
 ggsave("Gráficos/Casosdiarios.png",CasosSon, bg = "transparent", height = 25, width = 30, units = "cm", dpi = 400, type = 'cairo')
@@ -453,6 +451,47 @@ theme_bw() +
 DecesosSon
 
 ggsave("Gráficos/Decesosdiarios.png",DecesosSon, bg = "transparent", height = 25, width = 30, units = "cm", dpi = 400, type = 'cairo')
+
+PruebasSon <- ggplot(Sonora.DF) +
+  geom_area(aes(x= Fecha, y= Pruebas.media.7d), fill= "#4BACC6", alpha=0.3)+
+  geom_line(aes(x= Fecha, y= Pruebas.media.7d, color= "Tendencia promedio móvil 7 días"), linetype= "solid", size=1.5, arrow=arrow(type="open", length=unit(0.20,"cm")))+
+  geom_point(aes(x= Fecha, y= Pruebas.diarias, color = "Resultados diarios"), fill= "#31859C", size = 1.7, stroke=0.8, alpha=0.65, shape = 21) +
+  scale_fill_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#4BACC6", "Resultados diarios" = "#31859C")) + 
+  scale_color_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#31859C", "Resultados diarios" = "white")) +
+  scale_y_continuous(expand = c(0, 5)) +
+  scale_x_date(expand=c(0,5), date_breaks = "1 month", date_labels = "%B") +
+  geom_segment(aes(x = as.Date("2021-02-22"), y = 490, xend = as.Date("2021-03-11"), yend = 250),
+               size = 1.5, color = "black",
+               arrow = arrow(length = unit(0.02, "npc"))) +
+  geom_text(aes(x = as.Date("2021-02-22"), y = 520,
+                label = "11/03/2021\n248 resultados"), stat = "unique", family = "Lato Black",
+            size = 5, color = "black")+
+theme_bw() +
+  theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
+        plot.title = element_text(family = "Lato Black", size = 40,color = "#31859C"),  
+        plot.subtitle = element_text(family = "Lato Light", size = 16, color = "black"), legend.title = element_blank(),
+        strip.text = element_text(family = "Lato Black", size = 16),
+        axis.text = element_text(family = "Lato", size =10),
+        plot.background = element_rect(fill = "white", color = "black", size = 5),
+        axis.title.x = element_text(family = "Lato Light", size = 12, hjust=1),
+        axis.title.y = element_text(family = "Lato Light", size = 12, hjust=1), 
+        plot.caption = element_text(family = "Lato", size = 10, color = "#31859C"),
+        legend.text = element_text(family = "Lato", size = 12),
+        legend.position = "top",  legend.justification="left") +
+  labs(y = "Resultados", 
+       x = NULL,legend= NULL, title  = "Resultados de pruebas\n de Covid-19 en Sonora", 
+       subtitle= Fechahoy, caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com")
+
+PruebasSon
+
+ggsave("Gráficos/Pruebasdiarios.png",PruebasSon, bg = "transparent", height = 25, width = 30, units = "cm", dpi = 400, type = 'cairo')
+
+
+
+
+
+
+
 
 Casosconfd <-Casos %>% group_by(MUNICIPIO) %>% 
   rename(Casos.diarios=NUEVOS) %>% 
@@ -615,4 +654,33 @@ DecesosSon <- Decesosconfd %>% filter(MUNICIPIO=="Hermosillo") %>% ggplot() +
 DecesosSon
 
 ggsave("Gráficos/DecesosdiariosH.png",DecesosSon, bg = "transparent", height = 25, width = 30, units = "cm", dpi = 400, type = 'cairo')
+
+
+library(directlabels)
+Letalidad <- Sonora.DF %>% ggplot(aes(x= Fecha, y= Letalidad)) +
+  geom_line(color= "#993366", linetype= "solid", size=2, alpha=0.6)+
+  geom_point( data = subset(Sonora.DF , Fecha == max(Fecha)), fill="#993366", size=3 , shape=21, color="white", stroke=1.5) +
+  geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(label = Letalidad), color="#993366", method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 1.5, fontfamily= "Lato Black")) +
+  scale_y_continuous(expand = c(0, 0), limits= c(0,15), breaks=seq(0,15,2)) +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-04-05")), date_breaks = "1 month", date_labels = "%B") +
+  theme_bw() +
+  theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
+        plot.title = element_text(family = "Lato Black", size = 40,color = "#993366"),  
+        plot.subtitle = element_text(family = "Lato Light", size = 16, color = "black"), legend.title = element_blank(),
+        strip.text = element_text(family = "Lato Black", size = 16),
+        axis.text = element_text(family = "Lato", size =10),
+        plot.background = element_rect(fill = "white", color = "black", size = 5),
+        axis.title.x = element_text(family = "Lato Light", size = 12, hjust=1),
+        axis.title.y = element_text(family = "Lato Light", size = 12, hjust=1), 
+        plot.caption = element_text(family = "Lato", size = 10, color = "#993366"),
+        legend.text = element_blank(),
+        legend.position = "none") +
+  labs(y = "Decesos por cada 100 casos de covid-19", 
+       x = NULL,legend= NULL, title  = "Covid-19 en Sonora:\nLetalidad acumulada", 
+       subtitle= Fechahoy, caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com")  
+
+Letalidad
+
+ggsave("Gráficos/letalidad.png",Letalidad, bg = "transparent", height = 25, width = 25, units = "cm", type = "cairo")
+
 

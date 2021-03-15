@@ -22,7 +22,7 @@ Indicadores <- casosdecesospob %>% mutate (INCIDENCIAACUM = round((CASOS*100000)
 Indicadores <- rename(Indicadores, POBLACION=POB)
 Indicadores <- mutate(Indicadores,id=CVEGEO)
 
-Fechahoy <- "Corte al 17 de enero de 2021"
+Fechahoy <- "Corte al 11 de marzo de 2021"
 
 Letalidad <- Indicadores %>% ggplot() +
   #geom_area(aes(x= Fecha, y= Decesos.media.7d, fill= "Promedio móvil 7d"), alpha=0.3)+
@@ -31,7 +31,7 @@ Letalidad <- Indicadores %>% ggplot() +
   #scale_fill_manual(name="", values= c("LETALIDAD1" = "#73264D", "Promedio móvil 7d" = "#D075A3")) + 
   #scale_color_manual(name="", values= c("Promedio móvil 7d" = "#73264D")) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,8.5)) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-08"), as.Date("2021-01-10")), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2021-01-01"), as.Date("2021-03-30")), date_breaks = "1 month", date_labels = "%B") +
    theme_bw() +
   theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
         plot.title = element_text(family = "Lato Black", size = 40,color = "#993366"),  
@@ -45,7 +45,7 @@ Letalidad <- Indicadores %>% ggplot() +
         legend.text = element_blank(),
         legend.position = "none") +
   labs(y = "Decesos por cada 100 casos de covid-19", 
-       x = NULL,legend= NULL, title  = "Letalidad\n de Covid-19 en Hermosillo", 
+       x = NULL,legend= NULL, title  = "Letalidad\n por covid-19 en Hermosillo", 
        subtitle= Fechahoy, caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com")  
 
 Letalidad
