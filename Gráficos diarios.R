@@ -20,7 +20,7 @@ library(wesanderson)
 library(ggsci)
 library("Cairo")
 
-Fechahoy <- "Corte al 14 de marzo de 2021"
+Fechahoy <- "Corte al 16 de marzo de 2021"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
@@ -274,7 +274,7 @@ capa_munison_inci<- inner_join(capa_munison_df, casossempob, by="id")
 
 #discrete <-  rev(carto_pal(5, "Temps"))
 discrete <- c("4" = "#CE3F41","3" = "#FFA17B","2" = "#FECF7D", "1" = "#31859C")
-subtitulo <- "Casos de covid-19 en los últimos 7 días por 100 mil habitantes\nCorte al 14/03/2021"
+subtitulo <- "Casos de covid-19 en los últimos 7 días por 100 mil habitantes\nCorte al 16/03/2021"
 marcas <- c( "Alta\n(100 o más)", "Substancial\n(50-99)", "Moderada\n(10-49)","Baja\n(+0-9)")
 romp <- c("4", "3", "2", "1")
 
@@ -359,16 +359,16 @@ CasosSon <- ggplot(Sonora.DF) +
   scale_color_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#01787E", "Casos diarios" = "white")) +
   scale_y_continuous(expand = c(0, 5)) +
   scale_x_date(expand=c(0,5), date_breaks = "1 month", date_labels = "%B") +
-  #geom_hline(yintercept=94.1, linetype="dashed", color = "red") +
+  geom_hline(yintercept=23, linetype="dashed", color = "red") +
    # geom_segment(aes(x = as.Date("2020-06-01"), y = 450, xend = as.Date("2020-08-01"), yend = 569),
    #            size = 1.5, color = "black",
    #           arrow = arrow(length = unit(0.02, "npc"))) +
      # geom_segment(aes(x = as.Date("2021-02-24"), y = 390, xend = as.Date("2021-03-11"), yend = 212),
              #  size = 1.5, color = "black",
               #  arrow = arrow(length = unit(0.02, "npc"))) +
-     # geom_text(aes(x = as.Date("2021-02-24"), y = 420,
-                  # label = "11/03/2021\n208 casos"), stat = "unique", family = "Lato Black",
-               # size = 5, color = "black")+
+      geom_text(aes(x = as.Date("2021-02-28"), y = 32,
+                   label = "23 casos"), stat = "unique", family = "Lato Black",
+               size = 5, color = "red")+
    # geom_text(aes(x = as.Date("2020-05-15"), y = 450,
    #               label = "05/08/2020\n570 casos"), stat = "unique", family = "Lato Black",
    #           size = 5, color = "black")+
@@ -410,7 +410,11 @@ DecesosSon <- ggplot(Sonora.DF) +
   scale_color_manual(name="", values= c("Decesos diarios" = "white","Tendencia promedio móvil 7 días" = "#73264D")) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,80)) +
   scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-03-20")), date_breaks = "1 month", date_labels = "%B") +
-  # geom_curve(aes(x = as.Date("2020-09-04"), y = 64, xend = as.Date("2020-08-14"), yend = 78),
+  geom_hline(yintercept=1, linetype="dashed", color = "red") +
+  geom_text(aes(x = as.Date("2021-02-28"), y = 2.5,
+                label = "1 deceso"), stat = "unique", family = "Lato Black",
+            size = 5, color = "red")+
+    # geom_curve(aes(x = as.Date("2020-09-04"), y = 64, xend = as.Date("2020-08-14"), yend = 78),
   #            size = 1.5, color = "black",
   #            arrow = arrow(length = unit(0.02, "npc"))) +
   # geom_curve(aes(x = as.Date("2020-12-01"), y = 65, xend = as.Date("2021-01-22"), yend = 76.5),
@@ -460,12 +464,12 @@ PruebasSon <- ggplot(Sonora.DF) +
   scale_color_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#31859C", "Resultados diarios" = "white")) +
   scale_y_continuous(expand = c(0, 5)) +
   scale_x_date(expand=c(0,5), date_breaks = "1 month", date_labels = "%B") +
-  geom_segment(aes(x = as.Date("2021-02-22"), y = 490, xend = as.Date("2021-03-11"), yend = 250),
-               size = 1.5, color = "black",
-               arrow = arrow(length = unit(0.02, "npc"))) +
-  geom_text(aes(x = as.Date("2021-02-22"), y = 520,
-                label = "11/03/2021\n248 resultados"), stat = "unique", family = "Lato Black",
-            size = 5, color = "black")+
+  # geom_segment(aes(x = as.Date("2021-02-22"), y = 490, xend = as.Date("2021-03-11"), yend = 250),
+  #              size = 1.5, color = "black",
+  #              arrow = arrow(length = unit(0.02, "npc"))) +
+  # geom_text(aes(x = as.Date("2021-02-22"), y = 520,
+  #               label = "11/03/2021\n248 resultados"), stat = "unique", family = "Lato Black",
+  #           size = 5, color = "black")+
 theme_bw() +
   theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
         plot.title = element_text(family = "Lato Black", size = 40,color = "#31859C"),  
@@ -561,7 +565,12 @@ CasosMun <- Casosconfd %>% filter(MUNICIPIO=="Hermosillo") %>%  ggplot() +
   scale_color_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#01787E", "Casos diarios" = "white")) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,400)) +
   scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-03-20")), date_breaks = "1 month", date_labels = "%B") +
-    # geom_segment(aes(x = as.Date("2020-07-15"), y = 350, xend = as.Date("2020-07-31"), yend = 394),
+  geom_hline(yintercept=5, linetype="dashed", color = "red") +  
+  geom_text(aes(x = as.Date("2021-03-02"), y = 11,
+                label = "5 casos"), stat = "unique", family = "Lato Black",
+            size = 5, color = "red")+
+  
+  # geom_segment(aes(x = as.Date("2020-07-15"), y = 350, xend = as.Date("2020-07-31"), yend = 394),
     #            size = 1.5, color = "black",
     #           arrow = arrow(length = unit(0.02, "npc"))) +
     # geom_segment(aes(x = as.Date("2020-12-03"), y = 315, xend = as.Date("2021-01-14"), yend = 359),
@@ -586,7 +595,7 @@ CasosMun <- Casosconfd %>% filter(MUNICIPIO=="Hermosillo") %>%  ggplot() +
         plot.title = element_text(family = "Lato Black", size = 40,color = "#01A2AC"),  
         plot.subtitle = element_text(family = "Lato Light", size = 16, color = "black"), legend.title = element_blank(),
         strip.text = element_text(family = "Lato Black", size = 16),
-        axis.text = element_text(family = "Lato", size =10),
+        axis.text = element_text(family = "Lato", size =11),
         plot.background = element_rect(fill = "white", color = "black", size = 5),
         axis.title.x = element_text(family = "Lato Light", size = 12, hjust=1),
         axis.title.y = element_text(family = "Lato Light", size = 12, hjust=1), 
