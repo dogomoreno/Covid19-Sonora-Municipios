@@ -464,6 +464,10 @@ PruebasSon <- ggplot(Sonora.DF) +
   scale_color_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#31859C", "Resultados diarios" = "white")) +
   scale_y_continuous(expand = c(0, 5)) +
   scale_x_date(expand=c(0,5), date_breaks = "1 month", date_labels = "%B") +
+  geom_hline(yintercept=35, linetype="dashed", color = "red") +
+  geom_text(aes(x = as.Date("2021-02-20"), y = 64,
+                label = "35 resultados"), stat = "unique", family = "Lato Black",
+            size = 5, color = "red")+
   # geom_segment(aes(x = as.Date("2021-02-22"), y = 490, xend = as.Date("2021-03-11"), yend = 250),
   #              size = 1.5, color = "black",
   #              arrow = arrow(length = unit(0.02, "npc"))) +
