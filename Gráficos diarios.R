@@ -366,9 +366,13 @@ CasosSon <- ggplot(Sonora.DF) +
      # geom_segment(aes(x = as.Date("2021-02-24"), y = 390, xend = as.Date("2021-03-11"), yend = 212),
              #  size = 1.5, color = "black",
               #  arrow = arrow(length = unit(0.02, "npc"))) +
-      geom_text(aes(x = as.Date("2020-04-10"), y = 168,
-                   label = "159 casos"), stat = "unique", family = "Lato Black",
+  geom_text(aes(x = as.Date("2020-04-05"), y = 168,
+                   label = "Hoy 159 casos"), stat = "unique", family = "Lato Black",
                size = 5, color = "red")+
+  geom_hline(yintercept=48, linetype="dashed", color = "gray75") +
+  geom_text(aes(x = as.Date("2020-04-05"), y = 57,
+                label = "Ayer 48 casos"), stat = "unique", family = "Lato Black",
+            size = 5, color = "gray75")+
    # geom_text(aes(x = as.Date("2020-05-15"), y = 450,
    #               label = "05/08/2020\n570 casos"), stat = "unique", family = "Lato Black",
    #           size = 5, color = "black")+
