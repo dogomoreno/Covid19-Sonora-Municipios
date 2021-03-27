@@ -1,73 +1,73 @@
-CVEGEO,POB,CLAS_POB,CLAS_REG
-26001,2563,C,Río Sonora
-26002,91929,B,Sierra Alta
-26003,24976,B,Sur
-26004,9492,C,Noroeste
-26005,1177,C,Sierra Centro
-26006,2788,C,Río Sonora
-26007,626,C,Noroeste
-26008,979,C,Sierra Alta
-26009,759,C,Sierra Centro
-26010,1221,C,Sierra Alta
-26011,1475,C,Río Sonora
-26012,23151,B,Sur
-26013,1825,C,Río Sonora
-26014,3191,C,Río Sonora
-26015,1169,C,Sierra Alta
-26016,4988,C,Centro Norte
-26017,89122,B,Noroeste
-26018,436484,A,Sur
-26019,39451,B,Río Sonora
-26020,4946,C,Centro Norte
-26021,1848,C,Sierra Centro
-26022,863,C,Centro Norte
-26023,5829,C,Sierra Alta
-26024,753,C,Sierra Alta
-26025,51431,B,Sur
-26026,61309,B,Sur
-26027,9041,C,Sierra Alta
-26028,1009,C,Sierra Alta
-26029,156863,A,Sur
-26030,936263,A,Centro Norte
-26031,1186,C,Sierra Alta
-26032,888,C,Sierra Alta
-26033,77682,B,Sur
-26034,943,C,Río Sonora
-26035,12536,B,Centro Norte
-26036,33049,B,Centro Norte
-26037,1101,C,Sierra Centro
-26038,5173,C,Sierra Alta
-26039,5774,C,Río Sonora
-26040,1531,C,Sierra Alta
-26041,14369,B,Sierra Alta
-26042,164387,A,Sur
-26043,264782,A,Centro Norte
-26044,365,C,Sierra Centro
-26045,2438,C,Centro Norte
-26046,496,C,Noroeste
-26047,9122,C,Noroeste
-26048,62689,B,Noroeste
-26049,3090,C,Sur
-26050,1496,C,Río Sonora
-26051,4830,C,Sur
-26052,5257,C,Sierra Centro
-26053,369,C,Río Sonora
-26054,537,C,Sierra Centro
-26055,199021,A,Noroeste
-26056,10729,B,Centro Norte
-26057,1458,C,Sierra Centro
-26058,16203,B,Centro Norte
-26059,1835,C,Centro Norte
-26060,2058,C,Noroeste
-26061,1368,C,Sierra Centro
-26062,1114,C,Sierra Centro
-26063,1178,C,Sierra Alta
-26064,1381,C,Noroeste
-26065,1473,C,Noroeste
-26066,8548,C,Río Sonora
-26067,1429,C,Sierra Alta
-26068,1043,C,Sierra Centro
-26069,4793,C,Sur
-26070,13627,B,Noroeste
-26071,21692,B,Sur
-26072,14279,B,Sur
+CVEGEO,POB,CLAS_POB,CLAS_REG,NOM_MUN
+26001,2563,C,Río Sonora,Aconchi
+26002,91929,B,Sierra Alta,Agua Prieta
+26003,24976,B,Sur,Álamos
+26004,9492,C,Noroeste,Altar
+26005,1177,C,Sierra Centro,Arivechi
+26006,2788,C,Río Sonora,Arizpe
+26007,626,C,Noroeste,Átil
+26008,979,C,Sierra Alta,Bacadéhuachi
+26009,759,C,Sierra Centro,Bacanora
+26010,1221,C,Sierra Alta,Bacerac
+26011,1475,C,Río Sonora,Bacoachi
+26012,23151,B,Sur,Bácum
+26013,1825,C,Río Sonora,Banámichi
+26014,3191,C,Río Sonora,Baviácora
+26015,1169,C,Sierra Alta,Bavispe
+26016,4988,C,Centro Norte,Benjamín Hill
+26017,89122,B,Noroeste,Caborca
+26018,436484,A,Sur,Cajeme
+26019,39451,B,Río Sonora,Cananea
+26020,4946,C,Centro Norte,Carbó
+26021,1848,C,Sierra Centro,La Colorada
+26022,863,C,Centro Norte,Cucurpe
+26023,5829,C,Sierra Alta,Cumpas
+26024,753,C,Sierra Alta,Divisaderos
+26025,51431,B,Sur,Empalme
+26026,61309,B,Sur,Etchojoa
+26027,9041,C,Sierra Alta,Fronteras
+26028,1009,C,Sierra Alta,Granados
+26029,156863,A,Sur,Guaymas
+26030,936263,A,Centro Norte,Hermosillo
+26031,1186,C,Sierra Alta,Huachinera
+26032,888,C,Sierra Alta,Huásabas
+26033,77682,B,Sur,Huatabampo
+26034,943,C,Río Sonora,Huépac
+26035,12536,B,Centro Norte,Imuris
+26036,33049,B,Centro Norte,Magdalena
+26037,1101,C,Sierra Centro,Mazatán
+26038,5173,C,Sierra Alta,Moctezuma
+26039,5774,C,Río Sonora,Naco
+26040,1531,C,Sierra Alta,Nácori Chico
+26041,14369,B,Sierra Alta,Nacozari de García
+26042,164387,A,Sur,Navojoa
+26043,264782,A,Centro Norte,Nogales
+26044,365,C,Sierra Centro,Ónavas
+26045,2438,C,Centro Norte,Opodepe
+26046,496,C,Noroeste,Oquitoa
+26047,9122,C,Noroeste,Pitiquito
+26048,62689,B,Noroeste,Puerto Peñasco
+26049,3090,C,Sur,Quiriego
+26050,1496,C,Río Sonora,Rayón
+26051,4830,C,Sur,Rosario
+26052,5257,C,Sierra Centro,Sahuaripa
+26053,369,C,Río Sonora,San Felipe de Jesús
+26054,537,C,Sierra Centro,San Javier
+26055,199021,A,Noroeste,San Luis Río Colorado
+26056,10729,B,Centro Norte,San Miguel de Horcasitas
+26057,1458,C,Sierra Centro,San Pedro de la Cueva
+26058,16203,B,Centro Norte,Santa Ana
+26059,1835,C,Centro Norte,Santa Cruz
+26060,2058,C,Noroeste,Sáric
+26061,1368,C,Sierra Centro,Soyopa
+26062,1114,C,Sierra Centro,Suaqui Grande
+26063,1178,C,Sierra Alta,Tepache
+26064,1381,C,Noroeste,Trincheras
+26065,1473,C,Noroeste,Tubutama
+26066,8548,C,Río Sonora,Ures
+26067,1429,C,Sierra Alta,Villa Hidalgo
+26068,1043,C,Sierra Centro,Villa Pesqueira
+26069,4793,C,Sur,Yécora
+26070,13627,B,Noroeste,General Plutarco Elías Calles
+26071,21692,B,Sur,Benito Juárez
+26072,14279,B,Sur,San Ignacio Río Muerto

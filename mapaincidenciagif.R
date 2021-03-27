@@ -27,7 +27,7 @@ library(ggsci)
 library(rcartocolor)
 #library(NineteenEightyR)
 
-Fechahoy<- "Corte al 14 de febrero de 2021"
+Fechahoy<- "Corte al 21 de marzo de 2021"
 capa_munison <- readOGR("Shapes", layer="MUNSON")
 capa_son <- readOGR("Shapes", layer="ENTSON")
 
@@ -82,7 +82,7 @@ Mapa_incidencia<- ggplot(capa_munison_inci, aes(map_id = id)) +
   theme_void() +
   theme(plot.title = (element_text(family = "Lato Black", size = 20, color = "black")),
         plot.subtitle = (element_text(family = "Lato Light", size = 8, color = "#01787E")),
-        plot.margin = margin(0.5, 0.5, 0.25, 0.4, "cm"),
+        plot.margin = margin(0.5, 0.5, 0.5, 0.5, "cm"),
         legend.position = "right",
         plot.background = element_rect(fill = "white", color="black", size=3),
         legend.key.height = unit (0.5, "cm"), legend.key.width = unit (0.2, "cm"), axis.text = element_blank(),

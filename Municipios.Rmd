@@ -3,7 +3,7 @@ title: "COVID-19 EN SONORA"
 output: 
   flexdashboard::flex_dashboard:
     navbar:
-      - { title: "21/03/2021", href: "http://www.luisarmandomoreno.com/", align: right }
+      - { title: "26/03/2021", href: "http://www.luisarmandomoreno.com/", align: right }
     theme: flatly
     orientation: rows
 ---
@@ -60,7 +60,7 @@ library(rcartocolor)
 ```
 
 ```{r, include=FALSE}
-POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()))
+POBMUN <- read_csv("Bases/POBMUN.csv", locale = locale(encoding = "ISO-8859-1"), col_types = cols(CVEGEO = col_character()))
 Sonora.DF <- read_csv("Bases/ST_SonoraInformesCOVID.csv", 
     col_types = cols(Fecha = col_date(format = "%d/%m/%Y")))
 Sonora.DF <- mutate(Sonora.DF, Casos.diarios= Confirmados - lag(Confirmados, default = Confirmados[1], order_by=Fecha))
