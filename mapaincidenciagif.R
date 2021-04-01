@@ -27,7 +27,7 @@ library(ggsci)
 library(rcartocolor)
 #library(NineteenEightyR)
 
-Fechahoy<- "Corte al 21 de marzo de 2021"
+Fechahoy<- "Corte al 28 de marzo de 2021"
 capa_munison <- readOGR("Shapes", layer="MUNSON")
 capa_son <- readOGR("Shapes", layer="ENTSON")
 
@@ -137,4 +137,5 @@ Incisemanaanim <- Mapa_inci(capa_son, capa_munison_casos) +
 
 gifincisem <- animate(Incisemanaanim, end_pause = 6, fps = 20,duration = 30, width = 950, height =950, renderer = gifski_renderer())
 anim_save("./Gráficos/Incidenciasemanal.gif", animation=gifincisem)
-   
+
+
