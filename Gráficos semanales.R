@@ -22,6 +22,7 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
+lundom <- "domingo"
 Fechasem <- "Corte al 28 de marzo de 2021 | Confirmados acumulados de lunes a domingo"
 Fechadom <- "Corte al 28 de marzo de 2021 | Cifras al domingo de cada semana"
 Fechahoy <- "Corte al 28 de marzo de 2021"
@@ -59,7 +60,7 @@ Sonora.DF <- mutate(Sonora.DF, Positividad.acum= round((Confirmados / Pruebas)*1
 
 # Gráfico estatal
 Casossemana <- Sonora.DF %>% mutate(diasemana = weekdays(Fecha)) %>% 
-  filter(diasemana==weekdays(max(as.Date(Fecha))))
+  filter(diasemana==lundom)
 
 Casossemana <- mutate(Casossemana, Casos.semana= Confirmados - lag(Confirmados, default = Confirmados[1], order_by=Fecha))
 Casossemana <- mutate(Casossemana, Decesos.semana= Decesos - lag(Decesos, default = Decesos[1], order_by=Fecha))
@@ -191,7 +192,7 @@ Positividad <- ggplot() +
   geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= Positividad.semanal,  label = paste0("Positividad\núlt. 7 días\n", Positividad.semanal,"%", sep="")), color="#4BACC6", 
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,100), breaks=seq(0,100,20)) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-04-30")), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), (max(as.Date(Sonora.DF$Fecha)) + 32)), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_bw() +
   temaejes +
@@ -216,12 +217,12 @@ Decesos <- read_csv("Bases/Decesosdiarios.csv",
 
 HilloCasos <- Casos %>% group_by(MUNICIPIO) %>% 
   mutate(diasemana = weekdays(Fecha), casos.hmo = rollsum(NUEVOS, 7, align="right", fill = 0)) %>% rename(ACUMULADOS=CASOS) %>% 
-  filter(diasemana==weekdays(max(as.Date(Fecha)))) %>% filter(MUNICIPIO=="Hermosillo") %>% select(Fecha, casos.hmo) 
+  filter(diasemana==lundom) %>% filter(MUNICIPIO=="Hermosillo") %>% select(Fecha, casos.hmo) 
 
 
 HilloDecesos <- Decesos %>% group_by(MUNICIPIO) %>% 
   mutate(diasemana = weekdays(Fecha), decesos.hmo = rollsum(NUEVOS, 7, align="right", fill = 0)) %>% rename(ACUMULADOS=DECESOS) %>% 
-  filter(diasemana==weekdays(max(as.Date(Fecha)))) %>% filter(MUNICIPIO=="Hermosillo") %>% select(Fecha, decesos.hmo)
+  filter(diasemana==lundom) %>% filter(MUNICIPIO=="Hermosillo") %>% select(Fecha, decesos.hmo)
 
 Casossemana <- Casossemana %>% left_join(HilloCasos, by="Fecha") %>% left_join(HilloDecesos, by="Fecha") %>% mutate(casos.resto= Casos.semana-casos.hmo, decesos.resto=Decesos.semana-decesos.hmo)
 
@@ -236,7 +237,7 @@ Casosmuni <- ggplot(Casossemana) +
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
   geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= casos.hmo, label = paste0("Hermosillo ", casos.hmo, sep="")), color="#01A2AC", 
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-05-31")), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"),  (max(as.Date(Sonora.DF$Fecha)) + 62)), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = TRUE, clip = 'off') +
   theme_bw() +
   temaejes +
@@ -257,7 +258,7 @@ Decesosmuni <- ggplot(Casossemana) +
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
   geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= decesos.hmo, label = paste0("Hermosillo ", decesos.hmo, sep="")), color="#993366", 
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-05-31")), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), (max(as.Date(Sonora.DF$Fecha)) + 62)), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = TRUE, clip = 'off') +
   theme_bw() +
   temaejes +

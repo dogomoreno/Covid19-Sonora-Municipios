@@ -22,8 +22,9 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-Fechahoy <- "Corte al 31 de marzo de 2021"
+Fechahoy <- "Corte al 01 de abril de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
+subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nCorte al 01/04/2021"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
@@ -54,13 +55,13 @@ temasinejes <-  theme(axis.line.x = element_line(linetype = "solid"), axis.line.
                       legend.position = "none",  legend.justification="left", plot.title.position = 'plot', plot.caption.position = 'plot')
 
 temasmap <-  theme(axis.line = element_blank(),
-                      plot.margin = margin(10, 20, 10, 20),
+                      plot.margin = margin(10, 10, 10, 10),
                       plot.title = element_markdown(family = "Lato Black", size = 20),  
                       plot.subtitle = element_text(family = "Lato Light", size = 8, color = "black"), legend.title = element_blank(),
                       axis.text= element_blank(),
                       plot.background = element_rect(fill = "white", color = "black", size = 3),
                       axis.title= element_blank(), 
-                      plot.caption = element_text(family = "Lato", size = 6, color = "black"),
+                      plot.caption = element_text(family = "Lato", size = 5, color = "black"),
                       legend.text = element_text(family = "Lato", size = 6),
                       legend.position = "none",  legend.justification="left", plot.title.position = 'plot', plot.caption.position = 'plot')
 
@@ -257,7 +258,6 @@ capa_munison_inci<- inner_join(capa_munison_df, casossempob, by="id")
 
 #discrete <-  rev(carto_pal(5, "Temps"))
 discrete <- c("4" = "#CE3F41","3" = "#FFA17B","2" = "#FECF7D", "1" = "#31859C")
-subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nCorte al 28/03/2021"
 marcas <- c( "Alta\n(100 o más)", "Substancial\n(50-99)", "Moderada\n(10-49)","Baja\n(+0-9)")
 romp <- c("4", "3", "2", "1")
 
@@ -327,12 +327,18 @@ Sonora.DF <- mutate(Sonora.DF, ISSSTE= round((D_ISSSTE / C_ISSSTE)*100,1))
 Sonora.DF <- mutate(Sonora.DF, SEDENA= round((D_SEDENA / C_SEDENA)*100,1))
 Sonora.DF <- mutate(Sonora.DF, SEMAR= round((D_SEMAR / C_SEMAR)*100,1))
 
+estata.hoy <- Sonora.DF %>% filter(Fecha==max(as.Date(Fecha)))
+estata.semana <- Sonora.DF %>% filter(Fecha==(max(as.Date(Fecha))-7))
 
 # Casos diarios Estatal
 CasosSon <- ggplot(Sonora.DF) +
   geom_area(aes(x= Fecha, y= Casos.media.7d), fill= "#58BCBC", alpha=0.3)+
+  geom_hline(yintercept=estata.semana$Casos.diarios, linetype="dashed", color = "gray80") +
+  geom_text(aes(x = as.Date("2020-03-18"), y = (estata.semana$Casos.diarios + 14),
+                label = paste0("Mismo día semana anterior ", estata.semana$Casos.diarios, " casos")), stat = "unique", family = "Lato Black",
+            size = 2, color = "gray80", hjust=0)+
   geom_line(aes(x= Fecha, y= Casos.media.7d, color= "Tendencia promedio móvil 7 días"), linetype= "solid", size=.75, arrow=arrow(type="open", length=unit(0.10,"cm")))+
-  geom_hline(yintercept=108, linetype="dashed", color = "red") +
+  geom_hline(yintercept=estata.hoy$Casos.diarios, linetype="dashed", color = "red") +
   geom_point(aes(x= Fecha, y= Casos.diarios, color = "Casos diarios"), fill= "#01787E", size = 0.9, stroke=0.4, alpha=0.65, shape = 21) +
   scale_fill_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#58BCBC", "Casos diarios" = "#01787E")) + 
   scale_color_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#01787E", "Casos diarios" = "white")) +
@@ -344,10 +350,10 @@ CasosSon <- ggplot(Sonora.DF) +
      # geom_segment(aes(x = as.Date("2021-02-24"), y = 390, xend = as.Date("2021-03-11"), yend = 212),
              #  size = 1.5, color = "black",
               #  arrow = arrow(length = unit(0.02, "npc"))) +
-  geom_text(aes(x = as.Date("2020-03-25"), y = 122,
-                   label = "Hoy 108 casos"), stat = "unique", family = "Lato Black",
-               size = 3, color = "red")+
-     # geom_text(aes(x = as.Date("2020-05-15"), y = 450,
+  geom_text(aes(x = as.Date("2020-03-18"), y = (estata.hoy$Casos.diarios + 14),
+                   label = paste0("Hoy ", estata.hoy$Casos.diarios, " casos")), stat = "unique", family = "Lato Black",
+               size = 3, color = "red",  hjust=0)+
+       # geom_text(aes(x = as.Date("2020-05-15"), y = 450,
    #               label = "05/08/2020\n570 casos"), stat = "unique", family = "Lato Black",
    #           size = 5, color = "black")+
     # geom_text(aes(x = as.Date("2021-02-15"), y = 500, 
@@ -372,18 +378,22 @@ CasosSon
 ggsave("Gráficos/diariocasos.png",CasosSon, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 
   
-DecesosSon <- ggplot(Sonora.DF) +
+  DecesosSon <- ggplot(Sonora.DF) +
   geom_area(aes(x= Fecha, y= Decesos.media.7d), fill= "#D075A3", alpha=0.3)+
+  geom_hline(yintercept=estata.semana$Decesos.diarios, linetype="dashed", color = "gray80") +
+  geom_text(aes(x = as.Date("2020-04-02"), y = (estata.semana$Decesos.diarios + 1.5),
+                  label = paste0("Mismo día semana anterior ", estata.semana$Decesos.diarios, " decesos")), stat = "unique", family = "Lato Black",
+              size = 2, color = "gray80", hjust=0)+
   geom_line(aes(x= Fecha, y= Decesos.media.7d, color= "Tendencia promedio móvil 7 días"), linetype= "solid", size=.75, arrow=arrow(type="open", length=unit(0.10,"cm")))+
-  geom_hline(yintercept=2, linetype="dashed", color = "red") +
+  geom_hline(yintercept=estata.hoy$Decesos.diarios, linetype="dashed", color = "red") +
   geom_point(aes(x= Fecha, y= Decesos.diarios, color = "Decesos diarios"), fill= "#73264D", size = 0.9, stroke=0.4, alpha=0.65, shape = 21) +
   scale_fill_manual(name="", values= c("Decesos diarios" = "#73264D", "Tendencia promedio móvil 7 días" = "#D075A3")) + 
   scale_color_manual(name="", values= c("Decesos diarios" = "white","Tendencia promedio móvil 7 días" = "#73264D")) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,80)) +
   scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-03-31")), date_breaks = "1 month", date_labels = "%B") +
-  geom_text(aes(x = as.Date("2020-04-20"), y = 3.5,
-                label = "Hoy 2 decesos"), stat = "unique", family = "Lato Black",
-            size = 3, color = "red")+
+  geom_text(aes(x = as.Date("2020-04-02"), y = estata.hoy$Decesos.diarios + 1.5,
+                label = paste0("Hoy ", estata.hoy$Decesos.diarios, " decesos")), stat = "unique", family = "Lato Black",
+            size = 3, color = "red", hjust=0)+
     # geom_curve(aes(x = as.Date("2020-09-04"), y = 64, xend = as.Date("2020-08-14"), yend = 78),
   #            size = 1.5, color = "black",
   #            arrow = arrow(length = unit(0.02, "npc"))) +

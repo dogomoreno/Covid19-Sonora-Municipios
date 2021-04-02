@@ -20,9 +20,10 @@ library(wesanderson)
 library(ggsci)
 library("Cairo")
 library(directlabels)
+library(ggtext)
 
-Fechames <- "Corte al 30 de marzo de 2021 | Confirmados acumulados por mes"
-fuente <- "Fuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
+Fechames <- "Corte al 31 de marzo de 2021 | Confirmados acumulados por mes"
+fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
 temames <-  theme(axis.line.x = element_line(linetype = "solid"), axis.line.y = element_blank(),
                       plot.margin = margin(10, 25, 10, 25),
                       plot.title = element_markdown(family = "Lato Black", size = 25),  
@@ -61,6 +62,9 @@ Casosmesson <- ggplot(Casosmes) +
   scale_fill_gradient2(low = "#DEF2F2", mid= "#01A2AC", high = "#005156", midpoint = 5000) +
   geom_text( data = subset(Casosmes, Fecha<as.Date("2020-05-30")), aes(x=Fecha, y= casos.mensuales, label= scales::comma(casos.mensuales)), family="Lato Black", size= 5, color="black", angle=90, hjust = -0.2) +
   geom_text( data = subset(Casosmes,Fecha>as.Date("2020-05-30")), aes(x=Fecha, y= casos.mensuales, label= scales::comma(casos.mensuales)), family="Lato Black", size= 5, color="white", angle=90, hjust = 1.1) +
+  # geom_text(aes(x = as.Date("2020-04-30"), y = 8000,
+  #            label = "69,936 casos acumulados"), stat = "unique", family = "Lato Black",
+  #            size = 5, color = "black", hjust =1) +
   scale_x_date(expand=c(0,0), date_breaks = "1 month", date_labels = "%B") +
   scale_y_continuous(expand=c(0,0))+
   coord_cartesian(expand = FALSE, clip = 'off') +
@@ -78,6 +82,9 @@ Decesosmesson <- ggplot(Decesosmes) +
   scale_fill_gradient2(low = "#F0D1E0", mid= "#993366", high = "#4D1933", midpoint = 600) +
   geom_text( data = subset(Decesosmes, Fecha<as.Date("2020-05-30")), aes(x=Fecha, y= decesos.mensuales, label= decesos.mensuales), family="Lato Black", size= 5, color="black", angle=90, hjust = -0.2) +
   geom_text( data = subset(Decesosmes,Fecha>as.Date("2020-05-30")), aes(x=Fecha, y= decesos.mensuales, label= decesos.mensuales), family="Lato Black", size= 5, color="white", angle=90, hjust = 1.2) +
+  # geom_text(aes(x = as.Date("2020-03-30"), y = 800,
+  #               label = "5,991 decesos acumulados"), stat = "unique", family = "Lato Black",
+  #           size = 5, color = "black", hjust =1) +
   scale_x_date(expand=c(0,0), date_breaks = "1 month", date_labels = "%B") +
   scale_y_continuous(expand=c(0,0))+
   coord_cartesian(expand = FALSE, clip = 'off') +
