@@ -228,7 +228,7 @@ DecesosSon <- ggplot(Sonora.DF) +
    scale_fill_manual(name="", values= c("Decesos diarios" = "#73264D", "Promedio móvil 7d" = "#D075A3")) + 
    scale_color_manual(name="", values= c("Promedio móvil 7d" = "#73264D")) +
       scale_y_continuous(expand = c(0, 0), limits= c(0,80)) +
-      scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-03-31"))) +
+      scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-04-10"))) +
        theme_minimal() +
     theme(
     legend.position = "none",
