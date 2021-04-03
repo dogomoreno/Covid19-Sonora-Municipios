@@ -22,9 +22,9 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-Fechahoy <- "Corte al 01 de abril de 2021"
+Fechahoy <- "Corte al 02 de abril de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
-subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nCorte al 01/04/2021"
+subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nCorte al 02/04/2021"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
@@ -390,7 +390,7 @@ ggsave("Gráficos/diariocasos.png",CasosSon, width = 5 * (16/9), height = 5, typ
   scale_fill_manual(name="", values= c("Decesos diarios" = "#73264D", "Tendencia promedio móvil 7 días" = "#D075A3")) + 
   scale_color_manual(name="", values= c("Decesos diarios" = "white","Tendencia promedio móvil 7 días" = "#73264D")) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,80)) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-03-31")), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), max(as.Date(Sonora.DF$Fecha))+5), date_breaks = "1 month", date_labels = "%B") +
   geom_text(aes(x = as.Date("2020-04-02"), y = estata.hoy$Decesos.diarios + 1.5,
                 label = paste0("Hoy ", estata.hoy$Decesos.diarios, " decesos")), stat = "unique", family = "Lato Black",
             size = 3, color = "red", hjust=0)+
