@@ -22,7 +22,7 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-Fechahoy <- "Corte al 02 de abril de 2021"
+Fechahoy <- "Corte al 03 de abril de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
 subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nCorte al 02/04/2021"
 

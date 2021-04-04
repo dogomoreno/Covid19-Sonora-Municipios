@@ -278,26 +278,6 @@ CasosMun <- Casosconfd %>% filter(MUNICIPIO=="Cajeme") %>%  ggplot() +
   scale_color_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#01787E", "Casos diarios" = "white")) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,210)) +
   scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-03-31")), date_breaks = "1 month", date_labels = "%B") +
-  # geom_segment(aes(x = as.Date("2020-07-15"), y = 350, xend = as.Date("2020-07-31"), yend = 394),
-  #              size = 1.5, color = "black",
-  #              arrow = arrow(length = unit(0.02, "npc"))) +
-  # geom_segment(aes(x = as.Date("2020-12-15"), y = 175, xend = as.Date("2021-01-21"), yend = 196),
-  #              size = 1.5, color = "black",
-  #              arrow = arrow(length = unit(0.02, "npc"))) +
-  #geom_segment(aes(x = as.Date("2020-12-03"), y = 315, xend = as.Date("2021-01-13"), yend = 394),
-  #            size = 1.5, color = "black",
-  #           arrow = arrow(length = unit(0.02, "npc"))) +
-  #geom_segment(aes(x = as.Date("2020-12-03"), y = 315, xend = as.Date("2021-01-07"), yend = 378),
-  #             size = 1.5, color = "black",
-#             arrow = arrow(length = unit(0.02, "npc"))) +
-# geom_text(aes(x = as.Date("2020-12-01"), y = 175,
-#               label = "21/01/2021\n196 casos"), stat = "unique", family = "Lato Black",
-#           size = 5, color = "black")+
-# geom_text(aes(x = as.Date("2020-12-01"), y = 195, label = "3er. día superando\n el máximoen lo que va\nde la contingencia"), stat = "unique", 
-#           family = "Lato Black", size = 5, color = "#01787E")+
-# geom_text(aes(x = as.Date("2020-07-10"), y = 330,
-#               label = "01/08/2020\n396 casos"), stat = "unique", family = "Lato Black",
-#           size = 5, color = "black")+
 theme_bw() +
   theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
         plot.title = element_text(family = "Lato Black", size = 40,color = "#01A2AC"),  
@@ -334,31 +314,6 @@ CasosMun <- Casosconfd %>% filter(MUNICIPIO=="Hermosillo") %>%  ggplot() +
   scale_color_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#01787E", "Casos diarios" = "white")) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,400)) +
   scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-03-31")), date_breaks = "1 month", date_labels = "%B") +
-  # geom_hline(yintercept=62, linetype="dashed", color = "red") +  
-  # geom_text(aes(x = as.Date("2020-04-15"), y = 68,
-  #               label = "62 casos"), stat = "unique", family = "Lato Black",
-  #           size = 5, color = "red")+
-  
-  # geom_segment(aes(x = as.Date("2020-07-15"), y = 350, xend = as.Date("2020-07-31"), yend = 394),
-  #            size = 1.5, color = "black",
-  #           arrow = arrow(length = unit(0.02, "npc"))) +
-  # geom_segment(aes(x = as.Date("2020-12-03"), y = 315, xend = as.Date("2021-01-14"), yend = 359),
-  #           size = 1.5, color = "black",
-  #            arrow = arrow(length = unit(0.02, "npc"))) +
-#geom_segment(aes(x = as.Date("2020-12-03"), y = 315, xend = as.Date("2021-01-13"), yend = 394),
-#            size = 1.5, color = "black",
-#           arrow = arrow(length = unit(0.02, "npc"))) +
-#geom_segment(aes(x = as.Date("2020-12-03"), y = 315, xend = as.Date("2021-01-07"), yend = 378),
-#             size = 1.5, color = "black",
-#             arrow = arrow(length = unit(0.02, "npc"))) +
-#  geom_text(aes(x = as.Date("2020-11-15"), y = 310,
-#                label = "16/01/2021\n359 casos"), stat = "unique", family = "Lato Black",
-#            size = 5, color = "black")+
-# geom_text(aes(x = as.Date("2020-11-15"), y = 350, label = "3era. vez\nen 10 días con más\nde 300 casos"), stat = "unique", 
-#           family = "Lato Black", size = 5, color = "#01787E")+
-#  geom_text(aes(x = as.Date("2020-07-10"), y = 330,
-#                label = "01/08/2020\n396 casos"), stat = "unique", family = "Lato Black",
-#            size = 5, color = "black")+
 theme_bw() +
   theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
         plot.title = element_text(family = "Lato Black", size = 40,color = "#01A2AC"),  
@@ -391,21 +346,6 @@ DecesosSon <- Decesosconfd %>% filter(MUNICIPIO=="Hermosillo") %>% ggplot() +
   scale_color_manual(name="", values= c("Decesos diarios" = "white","Tendencia promedio móvil 7 días" = "#73264D")) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,50)) +
   scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-03-31")), date_breaks = "1 month", date_labels = "%B") +
-  #geom_curve(aes(x = as.Date("2020-11-11"), y = 42, xend = as.Date("2020-08-14"), yend = 49),
-  #size = 1.5, color = "black",
-  #arrow = arrow(length = unit(0.02, "npc"))) +
-  #  geom_segment(aes(x = as.Date("2020-12-15"), y = 40, xend = as.Date("2021-01-15"), yend = 47),
-  #             size = 1.5, color = "black",
-  #            arrow = arrow(length = unit(0.02, "npc"))) +
-  #  geom_text(aes(x = as.Date("2020-11-28"), y = 40,
-  #               label = "16/01/2021\n47 decesos"), stat = "unique", family = "Lato Black",
-  #            size = 5, color = "black")+
-  # geom_text(aes(x = as.Date("2020-08-30"), y = 61,
-  #               label = "78 decesos\n13/08/2020"), stat = "unique", family = "Lato Black",
-#           size = 5, color = "black")+
-#  geom_text(aes(x = as.Date("2020-11-28"), y = 45,
-#                label = "2da. mayor cantidad\nen lo que va\nde la contingencia"), stat = "unique", family = "Lato Black",
-#            size = 5, color = "#993366")+
 theme_bw() +
   theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
         plot.title = element_text(family = "Lato Black", size = 40,color = "#993366"),  
@@ -421,14 +361,6 @@ theme_bw() +
   labs(y = "Decesos confirmados", 
        x = NULL,legend= NULL, title  = "Decesos diarios\n de Covid-19 en Hermosillo", 
        subtitle= Fechahoy, caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com")  
-
-# #theme(
-#   #legend.position = "none",
-#   #panel.background = element_rect(fill= "white"),
-#   axis.text.y = element_text(family = "Lato", size = 10, color = "black"),
-#   axis.text.x = element_text(family = "Lato", size = 10, color = "black"),axis.line = element_line(colour = "black"),
-#   axis.title = element_text(family = "Lato", size = 8)) + 
-# labs(y = NULL, x = NULL) 
 DecesosSon
 
 ggsave("Gráficos/DecesosdiariosH.png",DecesosSon, bg = "transparent", height = 25, width = 30, units = "cm", dpi = 400, type = 'cairo')
