@@ -37,9 +37,8 @@ Decesos <- read_csv("Bases/Decesosdiarios.csv",
                                      MUNICIPIO = col_character(), NUEVOS = col_integer(), X1 = col_skip()), 
                     locale = locale(encoding = "ISO-8859-1"))
 
-Fechahoy <- "Corte al 02 de abril de 2021"
+Fechahoy <- "Corte al 04 de abril de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
-subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nCorte al 02/04/2021"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
@@ -56,29 +55,6 @@ temaejes <- theme(axis.line = element_line(linetype = "solid"), plot.margin = ma
                   legend.text = element_blank(),
                   legend.position = "none", plot.title.position = 'plot', plot.caption.position = 'plot')
 
-temasinejes <-  theme(axis.line.x = element_line(linetype = "solid"), axis.line.y = element_blank(),
-                      plot.margin = margin(10, 25, 10, 25),
-                      plot.title = element_markdown(family = "Lato Black", size = 15),  
-                      plot.subtitle = element_text(family = "Lato Light", size = 8, color = "black"), legend.title = element_blank(),
-                      axis.text.x = element_text(family = "Lato", size =6, angle=90, hjust=0.95,vjust=0.5),   panel.grid= element_blank(),
-                      axis.text.y = element_blank(),
-                      plot.background = element_rect(fill = "white", color = "black", size = 3),
-                      axis.title.x = element_text(family = "Lato Light", size = 8, hjust=1),
-                      axis.title.y = element_text(family = "Lato Light", size = 8, hjust=1), 
-                      plot.caption = element_text(family = "Lato", size = 6, color = "black"),
-                      legend.text = element_text(family = "Lato", size = 8),
-                      legend.position = "none",  legend.justification="left", plot.title.position = 'plot', plot.caption.position = 'plot')
-
-temasmap <-  theme(axis.line = element_blank(),
-                   plot.margin = margin(10, 10, 10, 10),
-                   plot.title = element_markdown(family = "Lato Black", size = 20),  
-                   plot.subtitle = element_text(family = "Lato Light", size = 8, color = "black"), legend.title = element_blank(),
-                   axis.text= element_blank(),
-                   plot.background = element_rect(fill = "white", color = "black", size = 3),
-                   axis.title= element_blank(), 
-                   plot.caption = element_text(family = "Lato", size = 5, color = "black"),
-                   legend.text = element_text(family = "Lato", size = 6),
-                   legend.position = "none",  legend.justification="left", plot.title.position = 'plot', plot.caption.position = 'plot')
 
 Casosconfd <-Casos %>% group_by(MUNICIPIO) %>% 
   rename(Casos.diarios=NUEVOS) %>% 
@@ -92,10 +68,12 @@ Decesosconfd <-Decesos %>% group_by(MUNICIPIO) %>%
 
 CasosDecesos <- Casosconfd %>% left_join(Decesosconfd, by= c("Fecha", "CVEGEO", "MUNICIPIO"))
 CasosDecesos$DECESOS[is.na(CasosDecesos$DECESOS)] <- 0
+CasosDecesos$Decesos.diarios[is.na(CasosDecesos$Decesos.diarios)] <- 0
 
 plot_municipio <- function(x = "Hermosillo") {
   tmp <- CasosDecesos %>%
     filter(MUNICIPIO == x)
+  tmp2 <- tmp %>% filter(Fecha==max(as.Date(Fecha)))
   p1 <- ggplot(tmp) +
     geom_area(aes(x= Fecha, y= Casos.media.7d), fill= "#58BCBC", alpha=0.3)+
     geom_line(aes(x= Fecha, y= Casos.media.7d, color= "Tendencia promedio móvil 7 días"), linetype= "solid", size=.75, arrow=arrow(type="open", length=unit(0.10,"cm")))+
@@ -110,7 +88,7 @@ plot_municipio <- function(x = "Hermosillo") {
           legend.key = element_rect(fill="transparent")) +
     labs(y = NULL, 
          x = NULL,legend= NULL, title  = paste0("<span style = 'color:#01A2AC';>Casos confirmados acumulados: ", prettyNum(as.numeric(max(tmp$CASOS)), big.mark=",", preserve.width="none"),"</span>"), 
-         subtitle= "Casos confirmados diariamente", caption =NULL)
+         subtitle= paste0("Casos confirmados hoy: ",tmp2$Casos.diarios), caption =NULL)
   
   p2 <- ggplot(tmp) +
     geom_area(aes(x= Fecha, y= Decesos.media.7d), fill= "#D075A3", alpha=0.3)+
@@ -118,7 +96,7 @@ plot_municipio <- function(x = "Hermosillo") {
     geom_point(aes(x= Fecha, y= Decesos.diarios, color = "Decesos diarios"), fill= "#73264D", size = 0.9, stroke=0.4, alpha=0.65, shape = 21) +
     scale_fill_manual(name="", values= c("Decesos diarios" = "#73264D", "Tendencia promedio móvil 7 días" = "#D075A3")) + 
     scale_color_manual(name="", values= c("Decesos diarios" = "white","Tendencia promedio móvil 7 días" = "#73264D")) +
-    scale_y_continuous(expand = c(0, 0), (max(tmp$Casos.diarios)+5)) +
+    scale_y_continuous(expand = c(0, 0), limits = c(0, (max(tmp$Decesos.diarios)+2))) +
     scale_x_date(expand=c(0,0), date_breaks = "1 month", date_labels = "%B", limits=c(as.Date("2020-03-16"), (Sys.Date()+5))) + 
     theme_bw() + temaejes +
     theme(legend.text = element_text(family = "Lato", size = 8), legend.background = element_rect(fill="transparent"),
@@ -126,7 +104,7 @@ plot_municipio <- function(x = "Hermosillo") {
           legend.key = element_rect(fill="transparent")) +
     labs(y = NULL, 
          x = NULL,legend= NULL, title  =  paste0("<span style = 'color:#993366';> Decesos confirmados acumulados: ", prettyNum(as.numeric(max(tmp$DECESOS)), big.mark=",", preserve.width="none"),"</span>"), 
-         subtitle= "Decesos confirmados diariamente", caption =NULL)
+         subtitle= paste0("Decesos confirmados hoy: ",tmp2$Decesos.diarios), caption =NULL)
   
   patchwork <- (p1 / p2)
   p3 <- patchwork + plot_annotation(
