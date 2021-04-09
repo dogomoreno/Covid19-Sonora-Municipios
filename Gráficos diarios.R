@@ -22,9 +22,9 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-Fechahoy <- "Corte al 07 de abril de 2021"
+Fechahoy <- "Corte al 08 de abril de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
-subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nCorte al 07/04/2021"
+subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nCorte al 08/04/2021"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
@@ -77,9 +77,9 @@ Sonora.DF.hoy <- gather(Sonora.DF.hoy, key= Estatus, value= Casos.confirmados)
 
 #Treemap
 
-Sonora.DF.hoy <- filter(Sonora.DF, Fecha == max(as.Date(Fecha)))
+Sonora.DF.hoy <- filter(Sonora.DF, Fecha == max(Fecha))
 Sonora.DF.hoy <- select(Sonora.DF.hoy, Hospitalizados, Ambulatorios.Activos, Decesos, Recuperados)
-Sonora.DF.hoy <- rename(Sonora.DF.hoy, "Ambulatorios\nactivos"= Ambulatorios.Activos)
+Sonora.DF.hoy <- rename(Sonora.DF.hoy, "Ambulatorios activos"= Ambulatorios.Activos)
 Sonora.DF.hoy <- gather(Sonora.DF.hoy, key= Estatus, value= Casos.confirmados) 
 tituestatus <- paste0("<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br>Estatus de los <span style = 'color:#01A2AC';>", prettyNum(as.numeric(sum(Sonora.DF.hoy$Casos.confirmados)), big.mark=",", preserve.width="none"), "</span> casos confirmados")
 
@@ -100,11 +100,12 @@ Estatus <- ggplot(Sonora.DF.hoy, aes(area = Casos.confirmados, fill= Estatus, la
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_void() + temasinejes +
   theme(plot.tag = element_text(family = "Lato Black", size = 6,color = "#F79646",hjust=0),
-        plot.tag.position = c(0.905, 0.84), axis.line.x = element_blank(), axis.text.x = element_blank())+
+        plot.tag.position = c(0.900, 0.84), axis.line.x = element_blank(), axis.text.x = element_blank())+
   labs(y = NULL, 
        x = NULL,legend= NULL, title  = tituestatus, tag = hosplab, 
        subtitle= Fechahoy, caption =fuente)
 Estatus
+
 
 ggsave("Gráficos/Diarioestatus.png",Estatus , width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 

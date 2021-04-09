@@ -98,7 +98,7 @@ Estatus <- ggplot(Sonora.DF.hoy, aes(area = Casos.confirmados, fill= Estatus, la
        subtitle= Fechahoy, caption =fuente)
 Estatus
 
-ggsave("Otros gráficos/s02.png",Estatus , width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Otros gráficos/s0211.png",Estatus , width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 
 
 # Casos diarios Estatal
