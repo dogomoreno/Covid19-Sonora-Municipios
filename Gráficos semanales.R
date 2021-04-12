@@ -23,9 +23,9 @@ library(directlabels)
 library(ggtext)
 
 lundom <- "domingo"
-Fechasem <- "Corte al 04 de abril de 2021 | Confirmados acumulados de lunes a domingo"
-Fechadom <- "Corte al 04 de abril de 2021 | Cifras al domingo de cada semana"
-Fechahoy <- "Corte al 04 de abril de 2021"
+Fechasem <- "Corte al 11 de abril de 2021 | Confirmados acumulados de lunes a domingo"
+Fechadom <- "Corte al 11 de abril de 2021 | Cifras al domingo de cada semana"
+Fechahoy <- "Corte al 11 de abril de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
 temaejes <- theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(10, 25, 10, 25),
                   plot.title = element_markdown(family = "Lato Black", size = 25),  
@@ -69,7 +69,7 @@ Casossemana <- mutate(Casossemana, Positividad.semanal= round((Casos.semana / Pr
 
 
 # Gráfico Treemap confirmados estatales
-Sonora.DF.hoy <- filter(Sonora.DF, Fecha == as.Date("2021-04-04"))
+Sonora.DF.hoy <- filter(Sonora.DF, Fecha == as.Date("2021-04-11"))
 Sonora.DF.hoy <- select(Sonora.DF.hoy, Hospitalizados, Ambulatorios.Activos, Decesos, Recuperados)
 Sonora.DF.hoy <- rename(Sonora.DF.hoy, "Ambulatorios activos"= Ambulatorios.Activos)
 Sonora.DF.hoy <- gather(Sonora.DF.hoy, key= Estatus, value= Casos.confirmados) 
@@ -98,7 +98,7 @@ Estatus <- ggplot(Sonora.DF.hoy, aes(area = Casos.confirmados, fill= Estatus, la
        subtitle= Fechahoy, caption =fuente)
 Estatus
 
-ggsave("Otros gráficos/s0211.png",Estatus , width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Otros gráficos/s02.png",Estatus , width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 
 
 # Casos diarios Estatal
@@ -159,6 +159,26 @@ Hospsemson <- ggplot(Hospsemana) +
  Hospsemson
 
 ggsave("Otros gráficos/s04.png",Hospsemson, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+
+# Activos leves
+
+Activossem <- Casossemana %>% filter(Fecha >= as.Date("2020-06-25"))
+Activos <- ggplot(Activossem) +
+  geom_col(aes(x=Fecha, y= Ambulatorios.Activos, fill= Ambulatorios.Activos), color= "#3B9494", size=0.5, width=5) +
+  scale_fill_gradient2(low = "#BCE4E4", mid= "#58BCBC", high = "#3B9494", midpoint = 1500) +
+  geom_text( aes(x=Fecha, y= Ambulatorios.Activos, label= Ambulatorios.Activos), family="Lato Black", size= 3, color="white", angle=90, hjust = 1.1) +
+  scale_x_date(expand=c(0,5), breaks = Casossemana$Fecha, date_labels = "%d/%m") +
+  # scale_x_date(expand=c(0,5), date_breaks = "1 month", date_labels = "%B") +
+  scale_y_continuous(expand=c(0,0))+
+  coord_cartesian(expand = FALSE, clip = 'off') +
+  theme_minimal() +
+  temasinejes +
+  labs(y = NULL, 
+       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#58BCBC';>Ambulatorios activos al jueves de cada semana</span>", 
+       subtitle= Fechadom, caption =fuente)
+Activos
+
+ggsave("Otros gráficos/s05.png",Activos, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 
 # Pruebas semanales
 
