@@ -144,8 +144,8 @@ ggsave("Otros gráficos/s09.png",Decesossemson, width = 5 * (16/9), height = 5, 
 
 Hospsemana <- Casossemana %>% filter(Fecha >= as.Date("2020-08-09"))
 Hospsemson <- ggplot(Hospsemana) +
-  geom_col(aes(x=Fecha, y= Hospitalizados, fill= Hospitalizados), color= "#984807", size=0.5, width=5) +
-  scale_fill_gradient2(low = "#FCD5B5", mid= "#F79646", high = "#984807", midpoint = 300) +
+  geom_col(aes(x=Fecha, y= Hospitalizados, fill= Hospitalizados), color= "#984807", size=0.3, width=5) +
+  scale_fill_gradient2(low = "#F79646", mid=  "#E46C0A", high = "#984807", midpoint = 300) +
   geom_text( aes(x=Fecha, y= Hospitalizados, label= Hospitalizados), family="Lato Black", size= 3, color="white", angle=90, hjust = 1.1) +
   scale_x_date(expand=c(0,5), breaks = Hospsemana$Fecha, date_labels = "%d/%m") +
   # scale_x_date(expand=c(0,5), date_breaks = "1 month", date_labels = "%B") +
