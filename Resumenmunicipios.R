@@ -37,7 +37,7 @@ Decesos <- read_csv("Bases/Decesosdiarios.csv",
                                      MUNICIPIO = col_character(), NUEVOS = col_integer(), X1 = col_skip()), 
                     locale = locale(encoding = "ISO-8859-1"))
 
-Fechahoy <- "Corte al 16 de abril de 2021"
+Fechahoy <- "Corte al 17 de abril de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
@@ -45,7 +45,7 @@ POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()
 
 temaejes <- theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(10, 25, 10, 25),
                   plot.title = element_markdown(family = "Lato Black", size = 15),  
-                  plot.subtitle = element_text(family = "Lato Light", size = 8, color = "black"), legend.title = element_blank(),
+                  plot.subtitle = element_text(family = "Lato Light", size = 10, color = "black"), legend.title = element_blank(),
                   strip.text = element_text(family = "Lato Black", size = 10),
                   axis.text = element_text(family = "Lato", size =6),
                   plot.background = element_blank(),
