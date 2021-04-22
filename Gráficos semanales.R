@@ -27,12 +27,12 @@ Fechasem <- "Corte al 18 de abril de 2021 | Confirmados acumulados de lunes a do
 Fechadom <- "Corte al 18 de abril de 2021 | Cifras al domingo de cada semana"
 Fechahoy <- "Corte al 18 de abril de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
-temaejes <- theme(axis.line = element_blank(), plot.margin = margin(10, 25, 10, 25),
+temaejes <- theme(plot.margin = margin(10, 25, 10, 25),
                   plot.title = element_markdown(family = "Lato Black", size = 25),  
                   plot.subtitle = element_text(family = "Lato Light", size = 10, color = "black"), legend.title = element_blank(),
                   strip.text = element_text(family = "Lato Black", size = 10),
                   axis.text = element_text(family = "Lato", size =6),
-                  plot.background = element_rect(fill = "white", color = "white", size = 3),
+                  plot.background = element_rect(fill = "white", color = "black", size = 3),
                   axis.title.x = element_text(family = "Lato Light", size = 8, hjust=1),
                   axis.title.y = element_text(family = "Lato Light", size = 8, hjust=1), 
                   plot.caption = element_text(family = "Lato", size = 6),
@@ -45,7 +45,7 @@ temasinejes <-  theme(axis.line = element_blank(),
                       plot.subtitle = element_text(family = "Lato Light", size = 10, color = "black"), legend.title = element_blank(),
                       axis.text.x = element_text(family = "Lato", size =6, angle=90, hjust=0.95,vjust=0.5),   panel.grid= element_blank(),
                       axis.text.y = element_blank(),
-                      plot.background = element_rect(fill = "white", color = "white", size = 3),
+                      plot.background = element_rect(fill = "white", color = "black", size = 3),
                       axis.title.x = element_text(family = "Lato Light", size = 8, hjust=1),
                       axis.title.y = element_text(family = "Lato Light", size = 8, hjust=1), 
                       plot.caption = element_text(family = "Lato", size = 6, color = "black"),
@@ -69,7 +69,7 @@ Casossemana <- mutate(Casossemana, Positividad.semanal= round((Casos.semana / Pr
 
 
 # Gráfico Treemap confirmados estatales
-Sonora.DF.hoy <- filter(Sonora.DF, Fecha == as.Date("2021-04-11"))
+Sonora.DF.hoy <- filter(Sonora.DF, Fecha == as.Date("2021-04-18"))
 Sonora.DF.hoy <- select(Sonora.DF.hoy, Hospitalizados, Ambulatorios.Activos, Decesos, Recuperados)
 Sonora.DF.hoy <- rename(Sonora.DF.hoy, "Ambulatorios activos"= Ambulatorios.Activos)
 Sonora.DF.hoy <- gather(Sonora.DF.hoy, key= Estatus, value= Casos.confirmados) 
@@ -214,7 +214,7 @@ Positividad <- ggplot() +
   scale_y_continuous(expand = c(0, 0), limits= c(0,100), breaks=seq(0,100,20)) +
   scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), (max(as.Date(Sonora.DF$Fecha)) + 32)), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = FALSE, clip = 'off') +
-  theme_minimal() +
+  theme_bw() +
   temaejes +
   labs(y = "%", 
        x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#4BACC6';>Positividad de resultados de pruebas</span>", 
@@ -259,7 +259,7 @@ Casosmuni <- ggplot(Casossemana) +
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
   scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"),  (max(as.Date(Sonora.DF$Fecha)) + 62)), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = TRUE, clip = 'off') +
-  theme_minimal() +
+  theme_bw() +
   temaejes +
   labs(y = "Casos confirmados", 
        x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#01A2AC';>Casos semanales</span>", 
@@ -280,7 +280,7 @@ Decesosmuni <- ggplot(Casossemana) +
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
   scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), (max(as.Date(Sonora.DF$Fecha)) + 62)), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = TRUE, clip = 'off') +
-  theme_minimal() +
+  theme_bw() +
   temaejes +
   labs(y = "Decesos confirmados", 
        x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#993366';>Decesos semanales</span>", 

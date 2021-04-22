@@ -29,16 +29,18 @@ subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\n
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
 
-temaejes <- theme(axis.line = element_blank(), plot.margin = margin(10, 25, 10, 25),
+temaejes <- theme(plot.margin = margin(10, 25, 10, 25),
                   plot.title = element_markdown(family = "Lato Black", size = 25),  
                   plot.subtitle = element_text(family = "Lato Light", size = 10, color = "black"), legend.title = element_blank(),
                   strip.text = element_text(family = "Lato Black", size = 10),
                   axis.text = element_text(family = "Lato", size =6),
-                  plot.background = element_rect(fill = "white", color = "white", size = 3),
+                  plot.background = element_rect(fill = "white", color = "black", size = 3),
                   axis.title.x = element_text(family = "Lato Light", size = 8, hjust=1),
                   axis.title.y = element_text(family = "Lato Light", size = 8, hjust=1), 
                   plot.caption = element_text(family = "Lato", size = 6),
-                  legend.text = element_blank(),
+                  legend.text = element_blank(), legend.background =  element_rect(fill="transparent", color="transparent"),
+                  legend.box.background=  element_rect(fill="transparent", color="transparent" ), 
+                  legend.key = element_rect(fill="transparent", color="transparent"),
                   legend.position = "none", plot.title.position = 'plot', plot.caption.position = 'plot')
 
 temasinejes <-  theme(axis.line = element_blank(),
@@ -47,11 +49,13 @@ temasinejes <-  theme(axis.line = element_blank(),
                       plot.subtitle = element_text(family = "Lato Light", size = 10, color = "black"), legend.title = element_blank(),
                       axis.text.x = element_text(family = "Lato", size =6, angle=90, hjust=0.95,vjust=0.5),   panel.grid= element_blank(),
                       axis.text.y = element_blank(),
-                      plot.background = element_rect(fill = "white", color = "white", size = 3),
+                      plot.background = element_rect(fill = "white", color = "black", size = 3),
                       axis.title.x = element_text(family = "Lato Light", size = 8, hjust=1),
                       axis.title.y = element_text(family = "Lato Light", size = 8, hjust=1), 
                       plot.caption = element_text(family = "Lato", size = 6, color = "black"),
-                      legend.text = element_text(family = "Lato", size = 8),
+                      legend.text = element_text(family = "Lato", size = 8), 
+                      legend.box.background=  element_rect(fill="transparent", color="transparent" ), 
+                      legend.key = element_rect(fill="transparent", color="transparent"),
                       legend.position = "none",  legend.justification="left", plot.title.position = 'plot', plot.caption.position = 'plot')
 
 temasmap <-  theme(axis.line = element_blank(),
@@ -59,7 +63,7 @@ temasmap <-  theme(axis.line = element_blank(),
                       plot.title = element_markdown(family = "Lato Black", size = 20),  
                       plot.subtitle = element_text(family = "Lato Light", size = 8, color = "black"), legend.title = element_blank(),
                       axis.text= element_blank(),
-                      plot.background = element_rect(fill = "white", color = "white", size = 3),
+                      plot.background = element_rect(fill = "white", color = "black", size = 3),
                       axis.title= element_blank(), 
                       plot.caption = element_text(family = "Lato", size = 5, color = "black"),
                       legend.text = element_text(family = "Lato", size = 6),
@@ -219,7 +223,7 @@ Gravgraf <- ggplot(Sonora.Hosp) +
   scale_y_continuous(expand = c(0, 5)) +
   scale_x_date(expand=c(0,5), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = TRUE, clip = 'off') +
-  theme_minimal() + temaejes + theme(
+  theme_bw() + temaejes + theme(
     legend.text = element_text(family = "Lato", size = 8),
     legend.position = "top", legend.justification="left",
     legend.key.height = unit (0.3, "cm"), legend.key.width = unit (0.3, "cm")) +
@@ -366,10 +370,10 @@ CasosSon <- ggplot(Sonora.DF) +
             #   label = "Menor promedio móvil\n7 días en más de 10 meses\n94.1 casos diarios\n28/02/2021"), stat = "unique", family = "Lato Black",
            # size = 5, color = "black")+
 
-  theme_minimal() + temaejes +
-  theme(legend.text = element_text(family = "Lato", size = 8), legend.background = element_rect(fill="transparent"),
+  theme_bw() + temaejes +
+  theme(legend.text = element_text(family = "Lato", size = 7), legend.background = element_rect(fill="transparent"),
         legend.position = c(0.02,0.9),  legend.justification="left", legend.margin=margin(t = 0, unit='cm'),
-        legend.key = element_rect(fill="transparent")) +
+        legend.key = element_rect(fill="transparent", color="transparent")) +
   labs(y = NULL, 
        x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#01A2AC';>Casos confirmados diariamente</span>", 
        subtitle= Fechahoy, caption =fuente)
@@ -410,10 +414,10 @@ ggsave("Gráficos/diariocasos.png",CasosSon, width = 5 * (16/9), height = 5, typ
   #   geom_text(aes(x = as.Date("2020-11-15"), y = 73,
   #                 label = "2da. mayor cantidad\nen lo que va\nde la contingencia"), stat = "unique", family = "Lato Black",
   #             size = 5, color = "#993366")+
-theme_minimal() + temaejes +
-  theme(legend.text = element_text(family = "Lato", size = 8), legend.background = element_rect(fill="transparent"),
+  theme_bw() + temaejes +
+  theme(legend.text = element_text(family = "Lato", size = 7), legend.background = element_rect(fill="transparent"),
         legend.position = c(0.02,0.9),  legend.justification="left", legend.margin=margin(t = 0, unit='cm'),
-        legend.key = element_rect(fill="transparent")) +
+        legend.key = element_rect(fill="transparent", color="transparent")) +
   labs(y = NULL, 
        x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#993366';>Decesos confirmados diariamente</span>", 
        subtitle= Fechahoy, caption =fuente)
@@ -440,22 +444,10 @@ PruebasSon <- ggplot(Sonora.DF) +
   # geom_text(aes(x = as.Date("2021-02-22"), y = 520,
   #               label = "11/03/2021\n248 resultados"), stat = "unique", family = "Lato Black",
   #           size = 5, color = "black")+
-theme_minimal() +
-  theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
-        plot.title = element_text(family = "Lato Black", size = 40,color = "#31859C"),  
-        plot.subtitle = element_text(family = "Lato Light", size = 16, color = "black"), legend.title = element_blank(),
-        strip.text = element_text(family = "Lato Black", size = 16),
-        axis.text = element_text(family = "Lato", size =10),
-        plot.background = element_rect(fill = "white", color = "black", size = 5),
-        axis.title.x = element_text(family = "Lato Light", size = 12, hjust=1),
-        axis.title.y = element_text(family = "Lato Light", size = 12, hjust=1), 
-        plot.caption = element_text(family = "Lato", size = 10, color = "#31859C"),
-        legend.text = element_text(family = "Lato", size = 12),
-        legend.position = "top",  legend.justification="left") +
-  theme_minimal() + temaejes +
-  theme(legend.text = element_text(family = "Lato", size = 8), legend.background = element_rect(fill="transparent"),
+  theme_bw() + temaejes +
+  theme(legend.text = element_text(family = "Lato", size = 7), legend.background = element_rect(fill="transparent"),
         legend.position = c(0.02,0.9),  legend.justification="left", legend.margin=margin(t = 0, unit='cm'),
-        legend.key = element_rect(fill="transparent")) +
+        legend.key = element_rect(fill="transparent", color="transparent")) +
   labs(y = NULL, 
        x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#4BACC6';>Resultados informados diariamente</span>", 
        subtitle= Fechahoy, caption =fuente)
@@ -475,7 +467,7 @@ Letalidad <- Sonora.DF %>% ggplot(aes(x= Fecha, y= Letalidad)) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,15), breaks=seq(0,15,2)) +
   scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-05-10")), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = FALSE, clip = 'off') +
-  theme_minimal() +
+  theme_bw() +
   temaejes +
   labs(y = "Decesos por cada 100 casos", 
        x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#993366';>Letalidad acumulada</span>", 

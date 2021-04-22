@@ -37,7 +37,7 @@ Decesos <- read_csv("Bases/Decesosdiarios.csv",
                                      MUNICIPIO = col_character(), NUEVOS = col_integer(), X1 = col_skip()), 
                     locale = locale(encoding = "ISO-8859-1"))
 
-Fechahoy <- "Corte al 17 de abril de 2021"
+Fechahoy <- "Corte al 21 de abril de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
