@@ -1,6 +1,9 @@
+rm(list=ls())
+
 # Paquetes
 library(tidyverse)
 library(lubridate)
+
 
 
 # Casos Diarios

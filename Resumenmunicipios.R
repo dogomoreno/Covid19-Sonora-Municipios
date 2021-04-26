@@ -1,4 +1,7 @@
-  # Paquetes
+rm(list=ls())
+
+
+# Paquetes
   
   library(tidyverse)
   library(extrafont)
@@ -37,7 +40,7 @@
                                        MUNICIPIO = col_character(), NUEVOS = col_integer(), X1 = col_skip()), 
                       locale = locale(encoding = "ISO-8859-1"))
   
-  Fechahoy <- "Corte al 23 de abril de 2021"
+  Fechahoy <- "Corte al 25 de abril de 2021"
   fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
   
   POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
