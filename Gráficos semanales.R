@@ -71,7 +71,7 @@ Casossemana <- mutate(Casossemana, Positividad.semanal= round((Casos.semana / Pr
 
 
 # Gráfico Treemap confirmados estatales
-Sonora.DF.hoy <- filter(Sonora.DF, Fecha == as.Date("2021-04-18"))
+Sonora.DF.hoy <- filter(Sonora.DF, Fecha == max(as.Date(Fecha)))
 Sonora.DF.hoy <- select(Sonora.DF.hoy, Hospitalizados, Ambulatorios.Activos, Decesos, Recuperados)
 Sonora.DF.hoy <- rename(Sonora.DF.hoy, "Ambulatorios activos"= Ambulatorios.Activos)
 Sonora.DF.hoy <- gather(Sonora.DF.hoy, key= Estatus, value= Casos.confirmados) 
