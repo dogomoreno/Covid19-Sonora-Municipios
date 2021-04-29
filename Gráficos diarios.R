@@ -24,9 +24,9 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-Fechahoy <- "Corte al 26 de abril de 2021"
+Fechahoy <- "Corte al 28 de abril de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
-subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nCorte al 25/04/2021"
+subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nCorte al 28/04/2021"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
@@ -479,4 +479,52 @@ Letalidad
 
 ggsave("Otros gráficos/s13.png",Letalidad,  width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 
+Casossemana <- Casos %>% 
+  mutate(diasemana = weekdays(Fecha)) %>% group_by(diasemana) %>% summarise(Casos=sum(NUEVOS))
 
+Decesossemana <- Decesos %>% 
+  mutate(diasemana = weekdays(Fecha)) %>% group_by(diasemana) %>% summarise(Decesos=sum(NUEVOS)) 
+
+Decesossemana$diasemana <- factor(Decesossemana$diasemana, levels= c("lunes", "martes", 
+                                         "miércoles", "jueves", "viernes", "sábado", "domingo"))
+
+Casossemana$diasemana <- factor(Casossemana$diasemana, levels= c("lunes", "martes", 
+                                                                     "miércoles", "jueves", "viernes", "sábado", "domingo"))
+
+dias <- c(lunes, martes, miércoles, jueves, viernes, sábado, domingo)
+
+Decesosdiasem <- Decesossemana %>% ggplot(aes(x= diasemana, y= Decesos)) +
+  geom_line(aes(group = 1), color= "#993366", linetype= "dotted", size=1, alpha=0.5) +
+  #geom_point( data = subset(Sonora.DF , Fecha == max(Fecha)), fill="#993366", size=2 , shape=21, color="white", stroke=1) +
+  #geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(label = Letalidad), color="#993366", method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 1.5, fontfamily= "Lato Black")) +
+  geom_label(aes(label=Decesos), color="white", fill="#993366", family="Lato Black", fontface="bold")+
+  scale_y_continuous(expand = c(0, 0), limits= c(600,1000)) +
+  #scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-05-20")), date_breaks = "1 month", date_labels = "%B") +
+  coord_cartesian(expand = FALSE, clip = 'off') +
+  theme_minimal() + 
+  temasinejes + theme(axis.text.x = element_text(family = "Lato", size =8, angle=0, hjust=0.5), 
+                      panel.grid.major.x = element_line(color="gray95"), axis.line.x = element_line(color="black"), plot.margin = margin(10, 30, 10, 30) ) +
+  labs(y = NULL, 
+       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#993366';>Decesos por día de anuncio</span>", 
+       subtitle= Fechahoy, caption =fuente)  
+Decesosdiasem
+
+ggsave("Gráficos/decesosdiasem.png",Decesosdiasem, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+
+Casosdiasem <- Casossemana %>% ggplot(aes(x= diasemana, y= Casos)) +
+  geom_line(aes(group = 1), color= "#01A2AC", linetype= "dotted", size=1, alpha=0.5) +
+  #geom_point( data = subset(Sonora.DF , Fecha == max(Fecha)), fill="#993366", size=2 , shape=21, color="white", stroke=1) +
+  #geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(label = Letalidad), color="#993366", method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 1.5, fontfamily= "Lato Black")) +
+  geom_label(aes(label=scales::comma(Casos)), color="white", fill="#01A2AC", family="Lato Black", fontface="bold")+
+  scale_y_continuous(expand = c(0, 0), limits= c(6000,12000)) +
+  #scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-05-20")), date_breaks = "1 month", date_labels = "%B") +
+  coord_cartesian(expand = FALSE, clip = 'off') +
+  theme_minimal() + 
+  temasinejes + theme(axis.text.x = element_text(family = "Lato", size =8, angle=0, hjust=0.5), 
+                      panel.grid.major.x = element_line(color="gray98"), axis.line.x = element_line(color="black"), plot.margin = margin(10, 30, 10, 30)) +
+  labs(y = NULL, 
+       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#01A2AC';>Casos por día de anuncio</span>", 
+       subtitle= Fechahoy, caption =fuente)  
+Casosdiasem
+
+ggsave("Gráficos/casosdiasem.png",Casosdiasem, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
