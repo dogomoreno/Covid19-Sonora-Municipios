@@ -23,9 +23,9 @@ library(directlabels)
 library(ggtext)
 
 lundom <- "jueves"
-Fechasem <- "Corte al 22 de abril de 2021 | Confirmados acumulados de viernes a jueves"
-Fechadom <- "Corte al 22 de abril de 2021 | Cifras al jueves de cada semana"
-Fechahoy <- "Corte al 22 de abril de 2021"
+Fechasem <- "Corte al 29 de abril de 2021 | Confirmados acumulados de viernes a jueves"
+Fechadom <- "Corte al 29 de abril de 2021 | Cifras al jueves de cada semana"
+Fechahoy <- "Corte al 29 de abril de 2021"
 fuente <- "Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
 temaejes <- theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(10, 25, 10, 25),
                   plot.title = element_markdown(family = "Lato Black", size = 25),  
@@ -70,7 +70,7 @@ Casossemana <- mutate(Casossemana, ISSSTESON= C_ISSSTESON - lag(C_ISSSTESON, def
 
 
 # Gráfico Treemap confirmados estatales
-Sonora.DF.hoy <- filter(Sonora.DF, Fecha == as.Date("2021-04-08"))
+Sonora.DF.hoy <- filter(Sonora.DF, Fecha == as.Date("2021-04-29"))
 Sonora.DF.hoy <- select(Sonora.DF.hoy, Hospitalizados, Ambulatorios.Activos, Decesos, Recuperados)
 Sonora.DF.hoy <- rename(Sonora.DF.hoy, "Ambulatorios activos"= Ambulatorios.Activos)
 Sonora.DF.hoy <- gather(Sonora.DF.hoy, key= Estatus, value= Casos.confirmados) 
@@ -145,7 +145,7 @@ ggsave("Gráficos jueves/s09.png",Decesossemson, width = 5 * (16/9), height = 5,
 
 Hospsemana <- Casossemana %>% filter(Fecha >= as.Date("2020-08-09"))
 Hospsemson <- ggplot(Hospsemana) +
-  geom_col(aes(x=Fecha, y= Hospitalizados, fill= Hospitalizados), color= "#984807", size=0.5, width=5) +
+  geom_col(aes(x=Fecha, y= Hospitalizados, fill= Hospitalizados), color= "#984807", size=0.2, width=5) +
   scale_fill_gradient2(low = "#FCD5B5", mid= "#F79646", high = "#984807", midpoint = 300) +
   geom_text( aes(x=Fecha, y= Hospitalizados, label= Hospitalizados), family="Lato Black", size= 3, color="white", angle=90, hjust = 1.1) +
   scale_x_date(expand=c(0,5), breaks = Hospsemana$Fecha, date_labels = "%d/%m") +
@@ -185,7 +185,7 @@ ggsave("Gráficos jueves/s05.png",Activos, width = 5 * (16/9), height = 5, type 
 
 casosisst <- Casossemana %>% filter(Fecha >= as.Date("2020-05-28"))
 ISSSTESON <- ggplot(casosisst) +
-  geom_col(aes(x=Fecha, y= ISSSTESON, fill= ISSSTESON), color= "#984807", size=0.5, width=5) +
+  geom_col(aes(x=Fecha, y= ISSSTESON, fill= ISSSTESON), color= "#984807", size=0.2, width=5) +
   scale_fill_gradient2(low = "#FCD5B5", mid= "#F79646", high = "#984807", midpoint = 170) +
   geom_text( aes(x=Fecha, y= ISSSTESON, label= ISSSTESON), family="Lato Black", size= 3, color="white", angle=90, hjust = 1.1) +
   scale_x_date(expand=c(0,5), breaks = casosisst$Fecha, date_labels = "%d/%m") +
@@ -233,7 +233,7 @@ Positividad <- ggplot() +
   geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= Positividad.semanal,  label = paste0("\n\nPositividad\núlt. 7 días\n", Positividad.semanal,"%", sep="")), color="#4BACC6", 
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,100), breaks=seq(0,100,20)) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), (max(as.Date(Sonora.DF$Fecha)) + 32)), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), (max(as.Date(Sonora.DF$Fecha)) + 40)), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_bw() +
   temaejes +
@@ -276,7 +276,7 @@ Casosmuni <- ggplot(Casossemana) +
   geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= casos.hmo), fill="#01A2AC", size=2 , shape=21, color="white", stroke=1) +
   geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= casos.resto,  label = paste0("Otros municipios ", casos.resto, sep="")), color="#F79646", 
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
-  geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= casos.hmo, label = paste0("Hermosillo ", casos.hmo, sep="")), color="#01A2AC", 
+  geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= casos.hmo, label = paste0("\nHermosillo ", casos.hmo, sep="")), color="#01A2AC", 
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
   scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"),  (max(as.Date(Sonora.DF$Fecha)) + 62)), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = TRUE, clip = 'off') +
@@ -297,7 +297,7 @@ Decesosmuni <- ggplot(Casossemana) +
   geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= decesos.hmo), fill="#993366", size=2 , shape=21, color="white", stroke=1) +
   geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= decesos.resto,  label = paste0("Otros municipios ", decesos.resto, sep="")), color="#4BACC6", 
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
-  geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= decesos.hmo, label = paste0("Hermosillo ", decesos.hmo, sep="")), color="#993366", 
+  geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= decesos.hmo, label = paste0("\nHermosillo ", decesos.hmo, sep="")), color="#993366", 
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
   scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), (max(as.Date(Sonora.DF$Fecha)) + 62)), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = TRUE, clip = 'off') +
