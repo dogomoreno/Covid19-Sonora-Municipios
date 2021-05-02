@@ -25,9 +25,9 @@ library(directlabels)
 library(ggtext)
 
 lundom <- "domingo"
-Fechasem <- "Corte al 25 de abril de 2021 | Confirmados acumulados de lunes a domingo"
-Fechadom <- "Corte al 25 de abril de 2021 | Cifras al domingo de cada semana"
-Fechahoy <- "Corte al 25 de abril de 2021"
+Fechasem <- "Corte al 02 de mayo de 2021 | Confirmados acumulados de lunes a domingo"
+Fechadom <- "Corte al 02 de mayo de 2021 | Cifras al domingo de cada semana"
+Fechahoy <- "Corte al 02 de mayo de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
 temaejes <- theme(plot.margin = margin(10, 25, 10, 25),
                   plot.title = element_markdown(family = "Lato Black", size = 25),  

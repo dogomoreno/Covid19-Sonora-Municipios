@@ -22,7 +22,7 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-Fechames <- "Corte al 31 de marzo de 2021 | Confirmados acumulados por mes"
+Fechames <- "Corte al 30 de abril de 2021 | Confirmados acumulados por mes"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
 temames <-  theme(axis.line.x = element_line(linetype = "solid"), axis.line.y = element_blank(),
                       plot.margin = margin(10, 25, 10, 25),
