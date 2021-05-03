@@ -49,11 +49,13 @@ Decesos <- read_csv("Bases/Decesosdiarios.csv",
                     locale = locale(encoding = "ISO-8859-1"))
 
 Casosmes <- Casos %>%mutate(mesnum=month(Fecha), mes = months.Date(Fecha),  año = year(Fecha)) %>% select(año, mesnum, mes, Fecha, NUEVOS)
-Casosmes <- Casosmes %>% group_by(año, mesnum, mes) %>% summarise(Fecha=min(Fecha), casos.mensuales=sum(NUEVOS)) %>% select (Fecha, mesnum, mes, casos.mensuales)
+Casosmes <- Casosmes %>% group_by(año, mesnum, mes) %>% summarise(Fecha=min(Fecha), casos.mensuales=sum(NUEVOS)) %>% select (Fecha, mesnum, mes, casos.mensuales) %>% 
+  filter(Fecha<as.Date("2021-05-01"))
 Casosmes$Fecha[1]<- as.Date("2020-03-01")
 
 Decesosmes <- Decesos %>%mutate(mesnum=month(Fecha), mes = months.Date(Fecha),  año = year(Fecha)) %>% select(año, mesnum, mes, Fecha, NUEVOS)
-Decesosmes <- Decesosmes %>% group_by(año, mesnum, mes) %>% summarise(Fecha=min(Fecha), decesos.mensuales=sum(NUEVOS)) %>% select (Fecha, mesnum, mes, decesos.mensuales)
+Decesosmes <- Decesosmes %>% group_by(año, mesnum, mes) %>% summarise(Fecha=min(Fecha), decesos.mensuales=sum(NUEVOS)) %>% select (Fecha, mesnum, mes, decesos.mensuales)%>% 
+  filter(Fecha<as.Date("2021-05-01"))
 Decesosmes$Fecha[1]<- as.Date("2020-04-01")
 
 
