@@ -23,9 +23,9 @@ library(directlabels)
 library(ggtext)
 
 lundom <- "jueves"
-Fechasem <- "Corte al 29 de abril de 2021 | Confirmados acumulados de viernes a jueves"
-Fechadom <- "Corte al 29 de abril de 2021 | Cifras al jueves de cada semana"
-Fechahoy <- "Corte al 29 de abril de 2021"
+Fechasem <- "Corte al 07 de mayo de 2021 | Confirmados acumulados de viernes a jueves"
+Fechadom <- "Corte al 07 de mayo de 2021 | Cifras al jueves de cada semana"
+Fechahoy <- "Corte al 07 de mayo de 2021"
 fuente <- "Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
 temaejes <- theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(10, 25, 10, 25),
                   plot.title = element_markdown(family = "Lato Black", size = 25),  
@@ -70,7 +70,8 @@ Casossemana <- mutate(Casossemana, ISSSTESON= C_ISSSTESON - lag(C_ISSSTESON, def
 
 
 # Gráfico Treemap confirmados estatales
-Sonora.DF.hoy <- filter(Sonora.DF, Fecha == as.Date("2021-04-29"))
+
+Sonora.DF.hoy <- filter(Sonora.DF, Fecha == max(Fecha))
 Sonora.DF.hoy <- select(Sonora.DF.hoy, Hospitalizados, Ambulatorios.Activos, Decesos, Recuperados)
 Sonora.DF.hoy <- rename(Sonora.DF.hoy, "Ambulatorios activos"= Ambulatorios.Activos)
 Sonora.DF.hoy <- gather(Sonora.DF.hoy, key= Estatus, value= Casos.confirmados) 
@@ -92,8 +93,8 @@ Estatus <- ggplot(Sonora.DF.hoy, aes(area = Casos.confirmados, fill= Estatus, la
   scale_y_continuous(limits = c(0, 1)) +
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_void() + temasinejes +
-  theme(plot.tag = element_text(family = "Lato Black", size = 6,color = "#F79646",hjust=0),
-        plot.tag.position = c(0.900, 0.84), axis.line.x = element_blank(), axis.text.x = element_blank())+
+  theme(plot.tag = element_text(family = "Lato Black", size = 6,color = "#F79646",hjust=1),
+        plot.tag.position = c(1, 0.84), axis.line.x = element_blank(), axis.text.x = element_blank())+
   labs(y = NULL, 
        x = NULL,legend= NULL, title  = tituestatus, tag = hosplab, 
        subtitle= Fechahoy, caption =fuente)

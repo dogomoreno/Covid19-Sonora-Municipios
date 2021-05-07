@@ -24,9 +24,9 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-Fechahoy <- "Corte al 02 de mayo de 2021"
+Fechahoy <- "Corte al 07 de mayo de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
-subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nCorte al 02/05/2021"
+subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nCorte al 07/05/2021"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
@@ -105,8 +105,8 @@ Estatus <- ggplot(Sonora.DF.hoy, aes(area = Casos.confirmados, fill= Estatus, la
   scale_y_continuous(limits = c(0, 1)) +
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_void() + temasinejes +
-  theme(plot.tag = element_text(family = "Lato Black", size = 6,color = "#F79646",hjust=0),
-        plot.tag.position = c(0.900, 0.84), axis.line.x = element_blank(), axis.text.x = element_blank())+
+  theme(plot.tag = element_text(family = "Lato Black", size = 6,color = "#F79646",hjust=1),
+        plot.tag.position = c(1, 0.84), axis.line.x = element_blank(), axis.text.x = element_blank())+
   labs(y = NULL, 
        x = NULL,legend= NULL, title  = tituestatus, tag = hosplab, 
        subtitle= Fechahoy, caption =fuente)
@@ -431,15 +431,15 @@ ggsave("Gráficos/diariodecesos.png",DecesosSon,  width = 5 * (16/9), height = 5
 PruebasSon <- ggplot(Sonora.DF) +
   geom_area(aes(x= Fecha, y= Pruebas.media.7d), fill= "#4BACC6", alpha=0.3)+
   geom_line(aes(x= Fecha, y= Pruebas.media.7d, color= "Tendencia promedio móvil 7 días"), linetype= "solid", size=.75, arrow=arrow(type="open", length=unit(0.10,"cm")))+
-  geom_point(aes(x= Fecha, y= Pruebas.diarias, color = "Resultados diarios"), fill= "#31859C", size = 0.9, stroke=0.4, alpha=0.65, shape = 21) +
   scale_fill_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#4BACC6", "Resultados diarios" = "#31859C")) + 
   scale_color_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#31859C", "Resultados diarios" = "white")) +
   scale_y_continuous(expand = c(0, 5)) +
   scale_x_date(expand=c(0,5), date_breaks = "1 month", date_labels = "%B") +
-  #geom_hline(yintercept=225, linetype="dashed", color = "red") +
-  #geom_text(aes(x = as.Date("2020-04-15"), y = 254,
-   #             label = "225 resultados"), stat = "unique", family = "Lato Black",
-    #        size = 5, color = "red")+
+  geom_hline(yintercept=estata.hoy$Pruebas.diarias, linetype="dashed", color = "red") +
+  geom_point(aes(x= Fecha, y= Pruebas.diarias, color = "Resultados diarios"), fill= "#31859C", size = 0.9, stroke=0.4, alpha=0.65, shape = 21) +
+  geom_text(aes(x = as.Date("2020-04-10"), y = estata.hoy$Pruebas.diarias+40,
+               label = paste0("Hoy ", estata.hoy$Pruebas.diarias, " resultados")), stat = "unique", family = "Lato Black",
+          size = 3, color = "red")+
   # geom_segment(aes(x = as.Date("2021-02-22"), y = 490, xend = as.Date("2021-03-11"), yend = 250),
   #              size = 1.5, color = "black",
   #              arrow = arrow(length = unit(0.02, "npc"))) +
