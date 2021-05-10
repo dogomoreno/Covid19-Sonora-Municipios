@@ -25,9 +25,9 @@ library(directlabels)
 library(ggtext)
 
 lundom <- "domingo"
-Fechasem <- "Corte al 02 de mayo de 2021 | Confirmados acumulados de lunes a domingo"
-Fechadom <- "Corte al 02 de mayo de 2021 | Cifras al domingo de cada semana"
-Fechahoy <- "Corte al 02 de mayo de 2021"
+Fechasem <- "Corte al 09 de mayo de 2021 | Confirmados acumulados de lunes a domingo"
+Fechadom <- "Corte al 09 de mayo de 2021 | Cifras al domingo de cada semana"
+Fechahoy <- "Corte al 09 de mayo de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
 temaejes <- theme(plot.margin = margin(10, 25, 10, 25),
                   plot.title = element_markdown(family = "Lato Black", size = 25),  
@@ -71,7 +71,7 @@ Casossemana <- mutate(Casossemana, Positividad.semanal= round((Casos.semana / Pr
 
 
 # Gráfico Treemap confirmados estatales
-Sonora.DF.hoy <- filter(Sonora.DF, Fecha == max(as.Date(Fecha)))
+Sonora.DF.hoy <- filter(Sonora.DF, Fecha == max(Fecha))
 Sonora.DF.hoy <- select(Sonora.DF.hoy, Hospitalizados, Ambulatorios.Activos, Decesos, Recuperados)
 Sonora.DF.hoy <- rename(Sonora.DF.hoy, "Ambulatorios activos"= Ambulatorios.Activos)
 Sonora.DF.hoy <- gather(Sonora.DF.hoy, key= Estatus, value= Casos.confirmados) 
@@ -93,8 +93,8 @@ Estatus <- ggplot(Sonora.DF.hoy, aes(area = Casos.confirmados, fill= Estatus, la
   scale_y_continuous(limits = c(0, 1)) +
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_void() + temasinejes +
-  theme(plot.tag = element_text(family = "Lato Black", size = 6,color = "#F79646",hjust=0),
-        plot.tag.position = c(0.900, 0.84), axis.line.x = element_blank(), axis.text.x = element_blank())+
+  theme(plot.tag = element_text(family = "Lato Black", size = 6,color = "#F79646",hjust=1),
+        plot.tag.position = c(1, 0.84), axis.line.x = element_blank(), axis.text.x = element_blank())+
   labs(y = NULL, 
        x = NULL,legend= NULL, title  = tituestatus, tag = hosplab, 
        subtitle= Fechahoy, caption =fuente)
