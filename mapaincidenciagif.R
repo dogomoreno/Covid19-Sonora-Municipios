@@ -27,7 +27,7 @@ library(ggsci)
 library(rcartocolor)
 #library(NineteenEightyR)
 
-Fechahoy<- "Corte al 09 de mayo de 2021"
+Fechahoy<- "Corte al 16 de mayo de 2021"
 capa_munison <- readOGR("Shapes", layer="MUNSON")
 capa_son <- readOGR("Shapes", layer="ENTSON")
 
