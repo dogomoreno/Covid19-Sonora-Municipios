@@ -23,9 +23,9 @@ library(directlabels)
 library(ggtext)
 
 lundom <- "jueves"
-Fechasem <- "Corte al 20 de mayo de 2021 | Confirmados acumulados de viernes a jueves"
-Fechadom <- "Corte al 20 de mayo de 2021 | Cifras al jueves de cada semana"
-Fechahoy <- "Corte al 20 de mayo de 2021"
+Fechasem <- "Corte al 27 de mayo de 2021 | Confirmados acumulados de viernes a jueves"
+Fechadom <- "Corte al 27 de mayo de 2021 | Cifras al jueves de cada semana"
+Fechahoy <- "Corte al 27 de mayo de 2021"
 fuente <- "Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
 temaejes <- theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(10, 25, 10, 25),
                   plot.title = element_markdown(family = "Lato Black", size = 25),  
@@ -277,7 +277,7 @@ Casosmuni <- ggplot(Casossemana) +
   geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= casos.hmo), fill="#01A2AC", size=2 , shape=21, color="white", stroke=1) +
   geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= casos.resto,  label = paste0("Otros municipios ", casos.resto, sep="")), color="#F79646", 
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
-  geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= casos.hmo, label = paste0("\nHermosillo ", casos.hmo, sep="")), color="#01A2AC", 
+  geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= casos.hmo, label = paste0("Hermosillo ", casos.hmo, sep="")), color="#01A2AC", 
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
   scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"),  (max(as.Date(Sonora.DF$Fecha)) + 70)), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = TRUE, clip = 'off') +
