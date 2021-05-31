@@ -24,9 +24,9 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-Fechahoy <- "Corte al 29 de mayo de 2021"
+Fechahoy <- "Corte al 30 de mayo de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
-subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nCorte al 29/05/2021"
+subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nCorte al 30/05/2021"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
@@ -467,7 +467,7 @@ Letalidad <- Sonora.DF %>% ggplot(aes(x= Fecha, y= Letalidad)) +
   geom_point( data = subset(Sonora.DF , Fecha == max(Fecha)), fill="#993366", size=2 , shape=21, color="white", stroke=1) +
   geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(label = Letalidad), color="#993366", method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 1.5, fontfamily= "Lato Black")) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,15), breaks=seq(0,15,2)) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-06-20")), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-06-30")), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_bw() +
   temaejes +
@@ -498,7 +498,7 @@ Decesosdiasem <- Decesossemana %>% ggplot(aes(x= diasemana, y= Decesos)) +
   #geom_point( data = subset(Sonora.DF , Fecha == max(Fecha)), fill="#993366", size=2 , shape=21, color="white", stroke=1) +
   #geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(label = Letalidad), color="#993366", method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 1.5, fontfamily= "Lato Black")) +
   geom_label(aes(label=Decesos), color="white", fill="#993366", family="Lato Black", fontface="bold")+
-  scale_y_continuous(expand = c(0, 0), limits= c(600,1000)) +
+  scale_y_continuous(expand = c(0, 0), limits= c(600,1100)) +
   #scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-05-20")), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_minimal() + 
@@ -516,7 +516,7 @@ Casosdiasem <- Casossemana %>% ggplot(aes(x= diasemana, y= Casos)) +
   #geom_point( data = subset(Sonora.DF , Fecha == max(Fecha)), fill="#993366", size=2 , shape=21, color="white", stroke=1) +
   #geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(label = Letalidad), color="#993366", method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 1.5, fontfamily= "Lato Black")) +
   geom_label(aes(label=scales::comma(Casos)), color="white", fill="#01A2AC", family="Lato Black", fontface="bold")+
-  scale_y_continuous(expand = c(0, 0), limits= c(6000,12000)) +
+  scale_y_continuous(expand = c(0, 0), limits= c(6000,13000)) +
   #scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-05-20")), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_minimal() + 
