@@ -22,7 +22,7 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-Fechames <- "Corte al 30 de abril de 2021 | Confirmados acumulados por mes"
+Fechames <- "Corte al 31 de mayo de 2021 | Confirmados acumulados por mes"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
 temames <-  theme(axis.line.x = element_line(linetype = "solid"), axis.line.y = element_blank(),
                       plot.margin = margin(10, 25, 10, 25),
@@ -50,20 +50,20 @@ Decesos <- read_csv("Bases/Decesosdiarios.csv",
 
 Casosmes <- Casos %>%mutate(mesnum=month(Fecha), mes = months.Date(Fecha),  año = year(Fecha)) %>% select(año, mesnum, mes, Fecha, NUEVOS)
 Casosmes <- Casosmes %>% group_by(año, mesnum, mes) %>% summarise(Fecha=min(Fecha), casos.mensuales=sum(NUEVOS)) %>% select (Fecha, mesnum, mes, casos.mensuales) %>% 
-  filter(Fecha<as.Date("2021-05-01"))
+  filter(Fecha<as.Date("2021-06-01"))
 Casosmes$Fecha[1]<- as.Date("2020-03-01")
 
 Decesosmes <- Decesos %>%mutate(mesnum=month(Fecha), mes = months.Date(Fecha),  año = year(Fecha)) %>% select(año, mesnum, mes, Fecha, NUEVOS)
 Decesosmes <- Decesosmes %>% group_by(año, mesnum, mes) %>% summarise(Fecha=min(Fecha), decesos.mensuales=sum(NUEVOS)) %>% select (Fecha, mesnum, mes, decesos.mensuales)%>% 
-  filter(Fecha<as.Date("2021-05-01"))
+  filter(Fecha<as.Date("2021-06-01"))
 Decesosmes$Fecha[1]<- as.Date("2020-04-01")
 
 
 Casosmesson <- ggplot(Casosmes) +
   geom_col(aes(x=Fecha, y= casos.mensuales, fill= casos.mensuales), color= "#005156", size=0.3, width=15) +
   scale_fill_gradient2(low = "#DEF2F2", mid= "#01A2AC", high = "#005156", midpoint = 5000) +
-  geom_text( data = subset(Casosmes, Fecha<as.Date("2020-05-30")), aes(x=Fecha, y= casos.mensuales, label= scales::comma(casos.mensuales)), family="Lato Black", size= 5, color="black", angle=90, hjust = -0.2) +
-  geom_text( data = subset(Casosmes,Fecha>as.Date("2020-05-30")), aes(x=Fecha, y= casos.mensuales, label= scales::comma(casos.mensuales)), family="Lato Black", size= 5, color="white", angle=90, hjust = 1.1) +
+  geom_text( data = subset(Casosmes, Fecha<as.Date("2020-04-30")), aes(x=Fecha, y= casos.mensuales, label= scales::comma(casos.mensuales)), family="Lato Black", size= 5, color="black", angle=90, hjust = -0.2) +
+  geom_text( data = subset(Casosmes,Fecha>as.Date("2020-04-30")), aes(x=Fecha, y= casos.mensuales, label= scales::comma(casos.mensuales)), family="Lato Black", size= 5, color="white", angle=90, hjust = 1.1) +
   # geom_text(aes(x = as.Date("2020-04-30"), y = 8000,
   #            label = "69,936 casos acumulados"), stat = "unique", family = "Lato Black",
   #            size = 5, color = "black", hjust =1) +
@@ -82,8 +82,8 @@ ggsave("Gráficos/MesCas.png",Casosmesson, width = 5 * (16/9), height = 5, type 
 Decesosmesson <- ggplot(Decesosmes) +
   geom_col(aes(x=Fecha, y= decesos.mensuales, fill= decesos.mensuales), color= "#4D1933", size=0.3, width=15) +
   scale_fill_gradient2(low = "#F0D1E0", mid= "#993366", high = "#4D1933", midpoint = 600) +
-  geom_text( data = subset(Decesosmes, Fecha<as.Date("2020-05-30")), aes(x=Fecha, y= decesos.mensuales, label= decesos.mensuales), family="Lato Black", size= 5, color="black", angle=90, hjust = -0.2) +
-  geom_text( data = subset(Decesosmes,Fecha>as.Date("2020-05-30")), aes(x=Fecha, y= decesos.mensuales, label= decesos.mensuales), family="Lato Black", size= 5, color="white", angle=90, hjust = 1.2) +
+  geom_text( data = subset(Decesosmes, Fecha<as.Date("2020-04-30")), aes(x=Fecha, y= decesos.mensuales, label= decesos.mensuales), family="Lato Black", size= 5, color="black", angle=90, hjust = -0.2) +
+  geom_text( data = subset(Decesosmes,Fecha>as.Date("2020-04-30")), aes(x=Fecha, y= decesos.mensuales, label= decesos.mensuales), family="Lato Black", size= 5, color="white", angle=90, hjust = 1.2) +
   # geom_text(aes(x = as.Date("2020-03-30"), y = 800,
   #               label = "5,991 decesos acumulados"), stat = "unique", family = "Lato Black",
   #           size = 5, color = "black", hjust =1) +

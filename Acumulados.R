@@ -20,7 +20,7 @@ library(wesanderson)
 library(ggsci)
 library("Cairo")
 
-Fechahoy <- "Corte al 28 de febrero de 2021"
+Fechahoy <- "Corte al 31 de mayo de 2021"
 
 # Carga base estatal
 Sonora.DF <- read_csv("Bases/ST_SonoraInformesCOVID.csv", 
@@ -50,7 +50,7 @@ Sonora.DF <- mutate(Sonora.DF, SEMAR= round((D_SEMAR / C_SEMAR)*100,1))
 Sonorames <- Sonora.DF %>% mutate(mesnum=month(Fecha), mes = months.Date(Fecha),  año = year(Fecha)) %>% select(año, mesnum, mes, Fecha, Confirmados, Decesos, Casos.diarios, Decesos.diarios)
 acummes <- Sonorames %>% group_by(año,mesnum, mes) %>% summarise(Confirmados=sum(Casos.diarios), Decesos=sum(Decesos.diarios))
 write.csv(acummes, "ResultadoCSV/acummes.csv")
-Sonorafebrero <- Sonorames %>% filter(mes=="febrero") %>% rename (FebreroConfirmados=Confirmados, Febrerodecesos=Decesos) 
+Sonorafebrero <- Sonorames %>% filter(mes=="enero") %>% rename (FebreroConfirmados=Confirmados, Febrerodecesos=Decesos) 
 Sonorafebrero <- Sonorafebrero %>% select (Fecha, FebreroConfirmados, Febrerodecesos)
 
 #Sonoraenero <- Sonorames %>% filter(mes=="enero") %>% rename (EneroConfirmados=Confirmados, Enerodecesos=Decesos) 
@@ -63,7 +63,7 @@ Sonoramesseg <- Sonorames %>% left_join(Sonorafebrero)
 Sonorames[is.na(Sonorames)] = 0
 
 Casos.mes <- Sonorames %>% group_by(año, mesnum, mes) %>% summarise (Casos=sum(Casos.diarios), Decesos=sum(Decesos.diarios))
-Sonorarect <- Sonoramesseg %>%   filter(Fecha==as.Date("2021-02-01"))
+Sonorarect <- Sonoramesseg %>%   filter(Fecha==as.Date("2021-01-01"))
 
 
 # Casos diarios Estatal
@@ -73,12 +73,12 @@ Casosacum <- ggplot(Sonoramesseg) +
   geom_line(aes(x= Fecha, y= Confirmados), color= "#01787E", linetype= "solid", size=1.5)+
   scale_y_continuous(expand = c(0, 5), label=comma) +
   scale_x_date(expand=c(0,5), date_breaks = "1 month", date_labels = "%B") +
-    geom_curve(aes(x = as.Date("2021-01-01"), y = 56500, xend = as.Date("2021-02-15"), yend = 45000),
-               size = 1.5, color = "black", alpha=0.5,
-               arrow = arrow(length = unit(0.02, "npc"))) +
-  geom_text(aes(x = as.Date("2021-01-01"), y = 60000,
-                label = "Febrero 2021\n4,707 casos"), stat = "unique", family = "Lato Black",
-            size = 5, color = "black")+
+  #   geom_curve(aes(x = as.Date("2021-01-01"), y = 56500, xend = as.Date("2021-02-15"), yend = 45000),
+  #              size = 1.5, color = "black", alpha=0.5,
+  #              arrow = arrow(length = unit(0.02, "npc"))) +
+  # geom_text(aes(x = as.Date("2021-01-01"), y = 60000,
+  #               label = "Febrero 2021\n4,707 casos"), stat = "unique", family = "Lato Black",
+  #           size = 5, color = "black")+
 theme_bw() +
   theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
         plot.title = element_text(family = "Lato Black", size = 40,color = "#01A2AC"),  
@@ -93,7 +93,7 @@ theme_bw() +
         legend.text = element_text(family = "Lato", size = 12),
         legend.position = "none",  legend.justification="left") +
   labs(y = "Casos confirmados acumulados", 
-       x = NULL,legend= NULL, title  = "66,642 casos acumulados\n de covid-19 en Sonora", 
+       x = NULL,legend= NULL, title  = "74,813 casos acumulados\n de covid-19 en Sonora", 
        subtitle= Fechahoy, caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com")
 Casosacum
 
@@ -105,12 +105,12 @@ Decesosacum <- ggplot(Sonoramesseg) +
   geom_line(aes(x= Fecha, y= Decesos), color= "#73264D", linetype= "solid", size=1.5)+
   scale_y_continuous(expand = c(0, 5), label=comma) +
   scale_x_date(expand=c(0,5), date_breaks = "1 month", date_labels = "%B") +
-  geom_curve(aes(x = as.Date("2021-01-01"), y = 4600, xend = as.Date("2021-02-15"), yend = 3100),
-             size = 1.5, color = "black", alpha=0.5,
-             arrow = arrow(length = unit(0.02, "npc"))) +
-  geom_text(aes(x = as.Date("2021-01-01"), y = 4900,
-                label = "Febrero 2021\n601 decesos"), stat = "unique", family = "Lato Black",
-            size = 5, color = "black")+
+  # geom_curve(aes(x = as.Date("2021-01-01"), y = 4600, xend = as.Date("2021-02-15"), yend = 3100),
+  #            size = 1.5, color = "black", alpha=0.5,
+  #            arrow = arrow(length = unit(0.02, "npc"))) +
+  # geom_text(aes(x = as.Date("2021-01-01"), y = 4900,
+  #               label = "Febrero 2021\n601 decesos"), stat = "unique", family = "Lato Black",
+  #           size = 5, color = "black")+
   theme_bw() +
   theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
         plot.title = element_text(family = "Lato Black", size = 40,color = "#73264D"),  
@@ -125,7 +125,7 @@ Decesosacum <- ggplot(Sonoramesseg) +
         legend.text = element_text(family = "Lato", size = 12),
         legend.position = "none",  legend.justification="left") +
   labs(y = "Decesos confirmados acumulados", 
-       x = NULL,legend= NULL, title  = "5,716 decesos acumulados\n por covid-19 en Sonora", 
+       x = NULL,legend= NULL, title  = "6,346 decesos acumulados\n por covid-19 en Sonora", 
        subtitle= Fechahoy, caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com")
 Decesosacum
 
