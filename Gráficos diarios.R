@@ -24,9 +24,9 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-Fechahoy <- "Corte al 31 de mayo de 2021"
+Fechahoy <- "Corte al 02 de junio de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
-subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nCorte al 31/05/2021"
+subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nCorte al 02/06/2021"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
@@ -342,7 +342,7 @@ CasosSon <- ggplot(Sonora.DF) +
   geom_area(aes(x= Fecha, y= Casos.media.7d), fill= "#58BCBC", alpha=0.3)+
   geom_hline(yintercept=estata.semana$Casos.diarios, linetype="dashed", color = "gray80") +
   geom_text(aes(x = as.Date("2020-03-18"), y = (estata.semana$Casos.diarios + 14),
-                label = paste0("Mismo día semana anterior ", estata.semana$Casos.diarios, " casos")), stat = "unique", family = "Lato Black",
+                label = paste0("Semana anterior ", estata.semana$Casos.diarios, " casos")), stat = "unique", family = "Lato Black",
             size = 2, color = "gray80", hjust=0)+
   geom_line(aes(x= Fecha, y= Casos.media.7d, color= "Tendencia promedio móvil 7 días"), linetype= "solid", size=.75, arrow=arrow(type="open", length=unit(0.10,"cm")))+
   geom_hline(yintercept=estata.hoy$Casos.diarios, linetype="dashed", color = "red") +
@@ -389,7 +389,7 @@ ggsave("Gráficos/diariocasos.png",CasosSon, width = 5 * (16/9), height = 5, typ
   geom_area(aes(x= Fecha, y= Decesos.media.7d), fill= "#D075A3", alpha=0.3)+
   geom_hline(yintercept=estata.semana$Decesos.diarios, linetype="dashed", color = "gray80") +
   geom_text(aes(x = as.Date("2020-04-02"), y = (estata.semana$Decesos.diarios + 1.5),
-                  label = paste0("Mismo día semana anterior ", estata.semana$Decesos.diarios, " decesos")), stat = "unique", family = "Lato Black",
+                  label = paste0("Semana anterior ", estata.semana$Decesos.diarios, " decesos")), stat = "unique", family = "Lato Black",
               size = 2, color = "gray80", hjust=0)+
   geom_line(aes(x= Fecha, y= Decesos.media.7d, color= "Tendencia promedio móvil 7 días"), linetype= "solid", size=.75, arrow=arrow(type="open", length=unit(0.10,"cm")))+
   geom_hline(yintercept=estata.hoy$Decesos.diarios, linetype="dashed", color = "red") +
