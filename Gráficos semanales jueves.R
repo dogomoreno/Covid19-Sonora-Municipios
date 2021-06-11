@@ -23,9 +23,9 @@ library(directlabels)
 library(ggtext)
 
 lundom <- "jueves"
-Fechasem <- "Corte al 03 de junio de 2021 | Confirmados acumulados de viernes a jueves"
-Fechadom <- "Corte al 03 de junio de 2021 | Cifras al jueves de cada semana"
-Fechahoy <- "Corte al 03 de junio de 2021"
+Fechasem <- "Corte al 10 de junio de 2021 | Confirmados acumulados de viernes a jueves"
+Fechadom <- "Corte al 10 de junio de 2021 | Cifras al jueves de cada semana"
+Fechahoy <- "Corte al 10 de junio de 2021"
 fuente <- "Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
 temaejes <- theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(10, 25, 10, 25),
                   plot.title = element_markdown(family = "Lato Black", size = 25),  
