@@ -3,7 +3,7 @@ title: "COVID-19 EN SONORA"
 output: 
   flexdashboard::flex_dashboard:
     navbar:
-      - { title: "12/06/2021", href: "http://www.luisarmandomoreno.com/", align: right }
+      - { title: "14/06/2021", href: "http://www.luisarmandomoreno.com/", align: right }
     theme: flatly
     orientation: rows
 ---
@@ -815,6 +815,7 @@ write.csv(CDSELECT1,'ResultadoCSV/Indicadores-Municipios-Sonora.csv')
 Notas
 ===================================== 
 **NOTAS**
+Por continuidad, la fecha de corte se asume como la del día anterior del reporte.
 
 $INCIDENCIA = Casos confirmados * 100 mil / Población$
  

@@ -176,7 +176,7 @@ Activos <- ggplot(Activossem) +
   theme_minimal() +
   temasinejes +
   labs(y = NULL, 
-       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#58BCBC';>Ambulatorios activos al jueves de cada semana</span>", 
+       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#58BCBC';>Ambulatorios activos cierre de semana</span>", 
        subtitle= Fechadom, caption =fuente)
 Activos
 
