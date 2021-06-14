@@ -40,8 +40,8 @@ rm(list=ls())
                                        MUNICIPIO = col_character(), NUEVOS = col_integer(), X1 = col_skip()), 
                       locale = locale(encoding = "ISO-8859-1"))
   
-  Fechahoy <- "Al reporte del 14 de junio de 2021 (por continuidad, la fecha de corte se asume como la del día anterior del reporte)"
-  fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
+  Fechahoy <- "Al reporte del 14 de junio de 2021"
+  fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nPor continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
   
   POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                      locale = locale(encoding = "ISO-8859-1"))

@@ -815,7 +815,7 @@ write.csv(CDSELECT1,'ResultadoCSV/Indicadores-Municipios-Sonora.csv')
 Notas
 ===================================== 
 **NOTAS**
-Por continuidad, la fecha de corte se asume como la del día anterior del reporte.
+Por continuidad en las series de tiempo, la fecha de corte se asume como la del día anterior al reporte.
 
 $INCIDENCIA = Casos confirmados * 100 mil / Población$
  

@@ -28,7 +28,7 @@ lundom <- "sábado"
 Fechasem <- "Corte al 12 de junio de 2021 | Confirmados acumulados de domingo a sábado"
 Fechadom <- "Corte al 12 de junio de 2021 | Cifras al sábado de cada semana"
 Fechahoy <- "Corte al 12 de junio de 2021"
-fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
+fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nPor continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
 temaejes <- theme(plot.margin = margin(10, 25, 10, 25),
                   plot.title = element_markdown(family = "Lato Black", size = 25),  
                   plot.subtitle = element_text(family = "Lato Light", size = 10, color = "black"), legend.title = element_blank(),
