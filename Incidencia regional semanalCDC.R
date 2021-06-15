@@ -69,7 +69,7 @@ subtitulo <- "Incidencia semanal de casos de covid-19\nCorte al 12/06/2021"
 Semanalab <- "Semanas de domingo a sábado"
 marcas <- c( "Alta (100 o más)", "Substancial (50-99)", "Moderada (10-49)","Baja (+0-9)")
 romp <- c("4", "3", "2", "1")
-capt <- "Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora y Centers of Disease Control and Prevention (CDC-EUA)"
+capt <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora"
 
 #Río Sonora
 Region <- "Río Sonora"
