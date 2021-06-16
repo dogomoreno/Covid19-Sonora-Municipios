@@ -24,9 +24,9 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-Fechahoy <- "Al reporte del 15 de junio de 2021"
+Fechahoy <- "Al reporte del 16 de junio de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\n *Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
-subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nAl reporte del 15/06/2021"
+subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nAl reporte del 16/06/2021"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
@@ -532,16 +532,17 @@ ggsave("Gráficos/casosdiasem.png",Casosdiasem, width = 5 * (16/9), height = 5, 
 #Hospitalizados
 
 Hospitalizados <- Sonora.DF %>% ggplot(aes(x= Fecha, y= Hospitalizados)) +
-  geom_line(color= "#E26B0A", linetype= "solid", size=1, alpha=0.6)+
-  geom_point( data = subset(Sonora.DF , Fecha == max(Fecha)), fill="#E26B0A", size=2 , shape=21, color="white", stroke=1) +
-  geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(label = Hospitalizados), color="#E26B0A", method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 1.5, fontfamily= "Lato Black")) +
+  geom_line(color= "#F79646", linetype= "solid", size=1, alpha=0.8)+
+  geom_area(color= "transparent", fill= "#F79646",alpha=0.1)+
+  geom_point( data = subset(Sonora.DF , Fecha == max(Fecha)), fill="white", size=1 , shape=21, color="#F79646", stroke=1) +
+  geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(label = Hospitalizados), color="#F79646", method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 1.5, fontfamily= "Lato Black")) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,600), breaks=seq(0,600,50)) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-09-01"), as.Date("2021-07-30")), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-08-01"), as.Date("2021-07-10")), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_bw() +
   temaejes +
   labs(y = NULL, 
-       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#E26B0A';>Hospitalizados al corte</span>", 
+       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#F79646';>Hospitalizados al corte</span>", 
        subtitle= Fechahoy, caption =fuente)  
 
 Hospitalizados
