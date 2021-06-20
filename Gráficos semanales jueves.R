@@ -23,10 +23,10 @@ library(directlabels)
 library(ggtext)
 
 lundom <- "jueves"
-Fechasem <- "Corte al 10 de junio de 2021 | Confirmados acumulados de viernes a jueves"
-Fechadom <- "Corte al 10 de junio de 2021 | Cifras al jueves de cada semana"
-Fechahoy <- "Corte al 10 de junio de 2021"
-fuente <- "Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com"
+Fechasem <- "Al reporte del 18 de junio de 2021 | Confirmados acumulados de viernes a jueves (por fecha de corte)"
+Fechadom <- "Al reporte del 18 de junio de 2021  | Cifras al jueves de cada semana (por fecha de corte)."
+Fechahoy <- "Al reporte del 18 de junio de 2021"
+fuente <- "Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
 temaejes <- theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(10, 25, 10, 25),
                   plot.title = element_markdown(family = "Lato Black", size = 25),  
                   plot.subtitle = element_text(family = "Lato Light", size = 10, color = "black"), legend.title = element_blank(),

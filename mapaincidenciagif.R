@@ -27,7 +27,7 @@ library(ggsci)
 library(rcartocolor)
 #library(NineteenEightyR)
 
-Fechahoy<- "Corte al 16 de mayo de 2021"
+Fechahoy<- "Corte al 19 de junio de 2021"
 capa_munison <- readOGR("Shapes", layer="MUNSON")
 capa_son <- readOGR("Shapes", layer="ENTSON")
 
@@ -44,7 +44,7 @@ POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()
 
 Casossemana <- Casos %>% group_by(MUNICIPIO) %>% 
   mutate(diasemana = weekdays(Fecha), Casossemana = rollsum(NUEVOS, 7, align="right", fill = 0)) %>% 
-  filter(diasemana=="domingo") %>% 
+  filter(diasemana=="viernes") %>% 
   left_join(POBMUN, by = "CVEGEO") 
 Casossemana <- Casossemana %>% mutate (INCIDENCIA= round((Casossemana*100000)/POB,1))
 Casossemana$INCIDENCIA[Casossemana$INCIDENCIA==0] <- NA
@@ -68,7 +68,7 @@ capa_munison_inci<- inner_join(capa_munison_df, casossempob, by="id")
 
 
 discrete <- c("4" = "#CE3F41","3" = "#FFA17B","2" = "#FECF7D", "1" = "#31859C")
-subtitulo <- "Casos de covid-19 en los últimos 7 días por 100 mil habitantes\nCorte al 12/02/2021"
+subtitulo <- "Casos de covid-19 en los últimos 7 días por 100 mil habitantes\nCorte al 18/06/2021"
 marcas <- c( "Alta\n(100 o más)", "Substancial\n(50-99)", "Moderada\n(10-49)","Baja\n(+0-9)")
 romp <- c("4", "3", "2", "1")
 
@@ -133,7 +133,7 @@ Mapa_inci <- function(capa_son, capa_munison_casos) { ggplot(capa_munison_casos,
 Incisemanaanim <- Mapa_inci(capa_son, capa_munison_casos) + 
   transition_manual(Fecha) +
   shadow_mark() +
-  labs(fill = "Domingo \n {current_frame}")
+  labs(fill = "{current_frame}")
 
 gifincisem <- animate(Incisemanaanim, end_pause = 6, fps = 20,duration = 30, width = 950, height =950, renderer = gifski_renderer())
 anim_save("./Gráficos/Incidenciasemanal.gif", animation=gifincisem)

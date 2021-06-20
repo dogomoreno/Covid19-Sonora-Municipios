@@ -24,9 +24,9 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-Fechahoy <- "Al reporte del 17 de junio de 2021"
-fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\n *Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
-subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nAl reporte del 17/06/2021"
+Fechahoy <- "Al reporte del 20 de junio de 2021"
+fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
+subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nAl reporte del 20/06/2021"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
@@ -358,7 +358,7 @@ CasosSon <- ggplot(Sonora.DF) +
              #  size = 1.5, color = "black",
               #  arrow = arrow(length = unit(0.02, "npc"))) +
   geom_text(aes(x = as.Date("2020-03-18"), y = (estata.hoy$Casos.diarios + 14),
-                   label = paste0("Hoy ", estata.hoy$Casos.diarios, " casos")), stat = "unique", family = "Lato Black",
+                   label = paste0("Nuevos ", estata.hoy$Casos.diarios, " casos")), stat = "unique", family = "Lato Black",
                size = 3, color = "red",  hjust=0)+
        # geom_text(aes(x = as.Date("2020-05-15"), y = 450,
    #               label = "05/08/2020\n570 casos"), stat = "unique", family = "Lato Black",
@@ -399,7 +399,7 @@ ggsave("Gráficos/diariocasos.png",CasosSon, width = 5 * (16/9), height = 5, typ
   scale_y_continuous(expand = c(0, 0), limits= c(0,80)) +
   scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), max(as.Date(Sonora.DF$Fecha))+5), date_breaks = "1 month", date_labels = "%B") +
   geom_text(aes(x = as.Date("2020-04-02"), y = estata.hoy$Decesos.diarios + 1.5,
-                label = paste0("Hoy ", estata.hoy$Decesos.diarios, " decesos")), stat = "unique", family = "Lato Black",
+                label = paste0("Nuevos ", estata.hoy$Decesos.diarios, " decesos")), stat = "unique", family = "Lato Black",
             size = 3, color = "red", hjust=0)+
     # geom_curve(aes(x = as.Date("2020-09-04"), y = 64, xend = as.Date("2020-08-14"), yend = 78),
   #            size = 1.5, color = "black",
@@ -438,7 +438,7 @@ PruebasSon <- ggplot(Sonora.DF) +
   geom_hline(yintercept=estata.hoy$Pruebas.diarias, linetype="dashed", color = "red") +
   geom_point(aes(x= Fecha, y= Pruebas.diarias, color = "Resultados diarios"), fill= "#31859C", size = 0.9, stroke=0.4, alpha=0.65, shape = 21) +
   geom_text(aes(x = as.Date("2020-04-10"), y = estata.hoy$Pruebas.diarias+40,
-               label = paste0("Hoy ", estata.hoy$Pruebas.diarias, " resultados")), stat = "unique", family = "Lato Black",
+               label = paste0("Nuevos ", estata.hoy$Pruebas.diarias, " resultados")), stat = "unique", family = "Lato Black",
           size = 3, color = "red")+
   # geom_segment(aes(x = as.Date("2021-02-22"), y = 490, xend = as.Date("2021-03-11"), yend = 250),
   #              size = 1.5, color = "black",
@@ -537,7 +537,7 @@ Hospitalizados <- Sonora.DF %>% ggplot(aes(x= Fecha, y= Hospitalizados)) +
   geom_point( data = subset(Sonora.DF , Fecha == max(Fecha)), fill="white", size=1 , shape=21, color="#F79646", stroke=1) +
   geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(label = Hospitalizados), color="#F79646", method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 1.5, fontfamily= "Lato Black")) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,600), breaks=seq(0,600,50)) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-08-01"), as.Date("2021-07-10")), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-08-01"), as.Date("2021-07-15")), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_bw() +
   temaejes +
@@ -549,3 +549,24 @@ Hospitalizados
 
 ggsave("Gráficos/Hospitalizados 2.png",Hospitalizados,  width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 
+
+#Activos
+
+Activos <- Sonora.DF %>% ggplot(aes(x= Fecha, y= Ambulatorios.Activos)) +
+  geom_point(fill= "#58BCBC", color= "transparent", size = 0.9, stroke=0.4, alpha=0.65, shape = 21)+
+  geom_smooth(method ="loess", se = FALSE, span = 0.1, color = "#58BCBC")+
+  # geom_area(color= "transparent", fill= "#58BCBC",alpha=0.1)+
+  geom_point( data = subset(Sonora.DF , Fecha == max(Fecha)), fill="white", size=1 , shape=21, color="#58BCBC", stroke=1) +
+  geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(label = Ambulatorios.Activos), color="#58BCBC", method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 1.5, fontfamily= "Lato Black")) +
+  scale_y_continuous(expand = c(0, 0), limits= c(0,4000), breaks=seq(0,4000,1000)) +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-06-19"), as.Date("2021-08-01")), date_breaks = "1 month", date_labels = "%B") +
+  coord_cartesian(expand = FALSE, clip = 'off') +
+  theme_bw() +
+  temaejes +
+  labs(y = NULL, 
+       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#58BCBC';>Pacientes activos con síntomas leves al corte</span>", 
+       subtitle= Fechahoy, caption =fuente)  
+
+Activos
+
+ggsave("Gráficos/diariosActivos.png",Activos,  width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
