@@ -24,9 +24,9 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-Fechahoy <- "Al reporte del 30 de junio de 2021"
+Fechahoy <- "Al reporte del 2 de julio de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
-subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nAl reporte del 30/06/2021"
+subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nAl reporte del 02/07/2021"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
@@ -505,7 +505,7 @@ Decesosdiasem <- Decesossemana %>% ggplot(aes(x= diasemana, y= Decesos)) +
   temasinejes + theme(axis.text.x = element_text(family = "Lato", size =8, angle=0, hjust=0.5), 
                       panel.grid.major.x = element_line(color="gray95"), axis.line.x = element_line(color="black"), plot.margin = margin(10, 30, 10, 30) ) +
   labs(y = NULL, 
-       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#993366';>Decesos por día de anuncio</span>", 
+       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#993366';>Decesos acumulados por día de corte</span>", 
        subtitle= Fechahoy, caption =fuente)  
 Decesosdiasem
 
@@ -523,7 +523,7 @@ Casosdiasem <- Casossemana %>% ggplot(aes(x= diasemana, y= Casos)) +
   temasinejes + theme(axis.text.x = element_text(family = "Lato", size =8, angle=0, hjust=0.5), 
                       panel.grid.major.x = element_line(color="gray98"), axis.line.x = element_line(color="black"), plot.margin = margin(10, 30, 10, 30)) +
   labs(y = NULL, 
-       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#01A2AC';>Casos por día de anuncio</span>", 
+       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#01A2AC';>Casos acumulados por día de corte</span>", 
        subtitle= Fechahoy, caption =fuente)  
 Casosdiasem
 

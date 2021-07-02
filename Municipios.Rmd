@@ -3,7 +3,7 @@ title: "COVID-19 EN SONORA"
 output: 
   flexdashboard::flex_dashboard:
     navbar:
-      - { title: "01/07/2021", href: "http://www.luisarmandomoreno.com/", align: right }
+      - { title: "02/07/2021", href: "http://www.luisarmandomoreno.com/", align: right }
     theme: flatly
     orientation: rows
 ---
