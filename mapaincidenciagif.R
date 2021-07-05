@@ -27,7 +27,7 @@ library(ggsci)
 library(rcartocolor)
 #library(NineteenEightyR)
 
-Fechahoy<- "Corte al 19 de junio de 2021"
+Fechahoy<- "Corte al 04 de julio de 2021"
 capa_munison <- readOGR("Shapes", layer="MUNSON")
 capa_son <- readOGR("Shapes", layer="ENTSON")
 
@@ -44,7 +44,7 @@ POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()
 
 Casossemana <- Casos %>% group_by(MUNICIPIO) %>% 
   mutate(diasemana = weekdays(Fecha), Casossemana = rollsum(NUEVOS, 7, align="right", fill = 0)) %>% 
-  filter(diasemana=="viernes") %>% 
+  filter(diasemana=="sábado") %>% 
   left_join(POBMUN, by = "CVEGEO") 
 Casossemana <- Casossemana %>% mutate (INCIDENCIA= round((Casossemana*100000)/POB,1))
 Casossemana$INCIDENCIA[Casossemana$INCIDENCIA==0] <- NA
