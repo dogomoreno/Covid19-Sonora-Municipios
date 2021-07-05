@@ -6,21 +6,10 @@ rm(list=ls())
   library(tidyverse)
   library(extrafont)
   library(scales)
-  library(plotly)
-  library(htmlwidgets)
   library(showtext)
-  library(tint)
-  library(rgdal)
-  library(rgeos)
-  library(ggiraph)
-  library(miniUI)
   library(units)
-  library(reactable)
   library(zoo)
   library(lubridate)
-  library(treemapify)
-  library(wesanderson)
-  library(ggsci)
   library("Cairo")
   library(directlabels)
   library(ggtext)
@@ -40,7 +29,7 @@ rm(list=ls())
                                        MUNICIPIO = col_character(), NUEVOS = col_integer(), X1 = col_skip()), 
                       locale = locale(encoding = "ISO-8859-1"))
   
-  Fechahoy <- "Al reporte del 02 de julio de 2021"
+  Fechahoy <- "Al reporte del 03 de julio de 2021"
   fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nPor continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
   
   POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
