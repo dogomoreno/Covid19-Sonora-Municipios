@@ -25,9 +25,9 @@ library(directlabels)
 library(ggtext)
 
 lundom <- "sábado"
-Fechasem <- "Al reporte del 4 de julio de 2021 | Confirmados acumulados de sábado a domingo (por fecha de corte)"
-Fechadom <- "Al reporte del 4 de julio de 2021  | Cifras al sábado de cada semana (por fecha de corte)."
-Fechahoy <- "Al reporte del 4 de julio de 2021"
+Fechasem <- "Al reporte del 11 de julio de 2021 | Confirmados acumulados de sábado a domingo (por fecha de corte)"
+Fechadom <- "Al reporte del 11 de julio de 2021  | Cifras al sábado de cada semana (por fecha de corte)."
+Fechahoy <- "Al reporte del 11 de julio de 2021"
 fuente <- "Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
 temaejes <- theme(plot.margin = margin(10, 25, 10, 25),
                   plot.title = element_markdown(family = "Lato Black", size = 25),  
@@ -259,7 +259,7 @@ Casosmuni <- ggplot(Casossemana) +
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
   geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= casos.hmo, label = paste0("Hermosillo ", casos.hmo, sep="")), color="#01A2AC", 
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"),  (max(as.Date(Sonora.DF$Fecha)) + 72)), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"),  (max(as.Date(Sonora.DF$Fecha)) + 82)), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = TRUE, clip = 'off') +
   theme_bw() +
   temaejes +
@@ -276,7 +276,7 @@ Decesosmuni <- ggplot(Casossemana) +
   geom_point(aes(x=Fecha, y= decesos.hmo), size=0.8, color = "#993366", alpha=0.6)+
   geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= decesos.resto), fill="#4BACC6", size=2 , shape=21, color="white", stroke=1) +
   geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= decesos.hmo), fill="#993366", size=2 , shape=21, color="white", stroke=1) +
-  geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= decesos.resto,  label = paste0("\nOtros municipios ", decesos.resto, sep="")), color="#4BACC6", 
+  geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= decesos.resto,  label = paste0("Otros municipios ", decesos.resto, sep="")), color="#4BACC6", 
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
   geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= decesos.hmo, label = paste0("Hermosillo ", decesos.hmo, sep="")), color="#993366", 
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
