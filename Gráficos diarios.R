@@ -24,9 +24,9 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-Fechahoy <- "Al reporte del 11 de julio de 2021"
+Fechahoy <- "Al reporte del 13 de julio de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
-subtitulo <- "Casos confirmados en los últimos 8 días por 100 mil habitantes\nAl reporte del 11/07/2021"
+subtitulo <- "Casos confirmados en los últimos 8 días por 100 mil habitantes\nAl reporte del 13/07/2021"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
@@ -537,7 +537,7 @@ Hospitalizados <- Sonora.DF %>% ggplot(aes(x= Fecha, y= Hospitalizados)) +
   geom_point( data = subset(Sonora.DF , Fecha == max(Fecha)), fill="white", size=1 , shape=21, color="#F79646", stroke=1) +
   geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(label = Hospitalizados), color="#F79646", method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 1.5, fontfamily= "Lato Black")) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,600), breaks=seq(0,600,50)) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-08-01"), as.Date("2021-08-05")), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-08-01"), as.Date("2021-08-15")), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_bw() +
   temaejes +
