@@ -24,9 +24,9 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-Fechahoy <- "Al reporte del 14 de julio de 2021"
+Fechahoy <- "Al reporte del 15 de julio de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
-subtitulo <- "Casos confirmados en los últimos 8 días por 100 mil habitantes\nAl reporte del 14/07/2021"
+subtitulo <- "Casos confirmados en los últimos 8 días por 100 mil habitantes\nAl reporte del 15/07/2021"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
