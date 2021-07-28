@@ -24,9 +24,9 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-Fechahoy <- "Al reporte del 27 de julio de 2021"
+Fechahoy <- "Al reporte del 28 de julio de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
-subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nAl reporte del 27/07/2021"
+subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nAl reporte del 28/07/2021"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
@@ -438,7 +438,7 @@ PruebasSon <- ggplot(Sonora.DF) +
   scale_x_date(expand=c(0,5), date_breaks = "1 month", date_labels = "%B") +
   geom_hline(yintercept=estata.hoy$Pruebas.diarias, linetype="dashed", color = "red") +
   geom_point(aes(x= Fecha, y= Pruebas.diarias, color = "Resultados diarios"), fill= "#31859C", size = 0.9, stroke=0.4, alpha=0.65, shape = 21) +
-  geom_text(aes(x = as.Date("2020-04-13"), y = estata.hoy$Pruebas.diarias+40,
+  geom_text(aes(x = as.Date("2020-04-18"), y = estata.hoy$Pruebas.diarias+40,
                label = paste0("Nuevos ", estata.hoy$Pruebas.diarias, " resultados")), stat = "unique", family = "Lato Black",
           size = 3, color = "red")+
   # geom_segment(aes(x = as.Date("2021-02-22"), y = 490, xend = as.Date("2021-03-11"), yend = 250),
