@@ -22,7 +22,7 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-Fechames <- "Corte al 01 de julio de 2021 | Confirmados acumulados por mes"
+Fechames <- "Corte al 01 de agosto de 2021 | Confirmados acumulados por mes"
 fuente <- "Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
 temames <-  theme(axis.line.x = element_line(linetype = "solid"), axis.line.y = element_blank(),
                       plot.margin = margin(10, 25, 10, 25),
@@ -50,12 +50,12 @@ Decesos <- read_csv("Bases/Decesosdiarios.csv",
 
 Casosmes <- Casos %>%mutate(mesnum=month(Fecha), mes = months.Date(Fecha),  año = year(Fecha)) %>% select(año, mesnum, mes, Fecha, NUEVOS)
 Casosmes <- Casosmes %>% group_by(año, mesnum, mes) %>% summarise(Fecha=min(Fecha), casos.mensuales=sum(NUEVOS)) %>% select (Fecha, mesnum, mes, casos.mensuales) %>% 
-  filter(Fecha<as.Date("2021-07-01"))
+  filter(Fecha<as.Date("2021-08-01"))
 Casosmes$Fecha[1]<- as.Date("2020-03-01")
 
 Decesosmes <- Decesos %>%mutate(mesnum=month(Fecha), mes = months.Date(Fecha),  año = year(Fecha)) %>% select(año, mesnum, mes, Fecha, NUEVOS)
 Decesosmes <- Decesosmes %>% group_by(año, mesnum, mes) %>% summarise(Fecha=min(Fecha), decesos.mensuales=sum(NUEVOS)) %>% select (Fecha, mesnum, mes, decesos.mensuales)%>% 
-  filter(Fecha<as.Date("2021-07-01"))
+  filter(Fecha<as.Date("2021-08-01"))
 Decesosmes$Fecha[1]<- as.Date("2020-04-01")
 
 

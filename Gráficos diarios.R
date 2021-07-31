@@ -24,9 +24,9 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-Fechahoy <- "Al reporte del 29 de julio de 2021"
+Fechahoy <- "Al reporte del 31 de julio de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
-subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nAl reporte del 29/07/2021"
+subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nAl reporte del 31/07/2021"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
@@ -347,7 +347,7 @@ CasosSon <- ggplot(Sonora.DF) +
             size = 2, color = "gray80", hjust=0)+
   geom_line(aes(x= Fecha, y= Casos.media.7d, color= "Tendencia promedio móvil 7 días"), linetype= "solid", size=.75, arrow=arrow(type="open", length=unit(0.10,"cm")))+
   geom_hline(yintercept=estata.hoy$Casos.diarios, linetype="dashed", color = "red") +
-  geom_point(aes(x= Fecha, y= Casos.diarios, color = "Casos diarios"), fill= "#01787E", size = 0.9, stroke=0.4, alpha=0.65, shape = 21) +
+  geom_point(aes(x= Fecha, y= Casos.diarios), color = "white", fill= "#01787E", size = 0.9, stroke=0.4, alpha=0.65, shape = 21) +
   scale_fill_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#58BCBC", "Casos diarios" = "#01787E")) + 
   scale_color_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#01787E", "Casos diarios" = "white")) +
   scale_y_continuous(expand = c(0, 5)) +
@@ -372,10 +372,9 @@ CasosSon <- ggplot(Sonora.DF) +
   #geom_text(aes(x = as.Date("2020-11-01"), y = 450,
             #   label = "Menor promedio móvil\n7 días en más de 10 meses\n94.1 casos diarios\n28/02/2021"), stat = "unique", family = "Lato Black",
            # size = 5, color = "black")+
-
   theme_bw() + temaejes +
   theme(legend.text = element_text(family = "Lato", size = 7), legend.background = element_rect(fill="transparent"),
-        legend.position = c(0.02,0.9),  legend.justification="left", legend.margin=margin(t = 0, unit='cm'),
+        legend.position = c(0.02,0.95),  legend.justification="left", legend.margin=margin(t = 0, unit='cm'),
         legend.key = element_rect(fill="transparent", color="transparent")) +
   labs(y = NULL, 
        x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#01A2AC';>Casos confirmados diariamente</span>", 
@@ -394,7 +393,7 @@ ggsave("Gráficos/diariocasos.png",CasosSon, width = 5 * (16/9), height = 5, typ
               size = 2, color = "gray80", hjust=0)+
   geom_line(aes(x= Fecha, y= Decesos.media.7d, color= "Tendencia promedio móvil 7 días"), linetype= "solid", size=.75, arrow=arrow(type="open", length=unit(0.10,"cm")))+
   geom_hline(yintercept=estata.hoy$Decesos.diarios, linetype="dashed", color = "red") +
-  geom_point(aes(x= Fecha, y= Decesos.diarios, color = "Decesos diarios"), fill= "#73264D", size = 0.9, stroke=0.4, alpha=0.65, shape = 21) +
+  geom_point(aes(x= Fecha, y= Decesos.diarios), color = "white", fill= "#73264D", size = 0.9, stroke=0.4, alpha=0.65, shape = 21) +
   scale_fill_manual(name="", values= c("Decesos diarios" = "#73264D", "Tendencia promedio móvil 7 días" = "#D075A3")) + 
   scale_color_manual(name="", values= c("Decesos diarios" = "white","Tendencia promedio móvil 7 días" = "#73264D")) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,80)) +
@@ -419,7 +418,7 @@ ggsave("Gráficos/diariocasos.png",CasosSon, width = 5 * (16/9), height = 5, typ
   #             size = 5, color = "#993366")+
   theme_bw() + temaejes +
   theme(legend.text = element_text(family = "Lato", size = 7), legend.background = element_rect(fill="transparent"),
-        legend.position = c(0.02,0.9),  legend.justification="left", legend.margin=margin(t = 0, unit='cm'),
+        legend.position = c(0.02,0.95),  legend.justification="left", legend.margin=margin(t = 0, unit='cm'),
         legend.key = element_rect(fill="transparent", color="transparent")) +
   labs(y = NULL, 
        x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#993366';>Decesos confirmados diariamente</span>", 
@@ -437,7 +436,7 @@ PruebasSon <- ggplot(Sonora.DF) +
   scale_y_continuous(expand = c(0, 5)) +
   scale_x_date(expand=c(0,5), date_breaks = "1 month", date_labels = "%B") +
   geom_hline(yintercept=estata.hoy$Pruebas.diarias, linetype="dashed", color = "red") +
-  geom_point(aes(x= Fecha, y= Pruebas.diarias, color = "Resultados diarios"), fill= "#31859C", size = 0.9, stroke=0.4, alpha=0.65, shape = 21) +
+  geom_point(aes(x= Fecha, y= Pruebas.diarias), color = "white", fill= "#31859C", size = 0.9, stroke=0.4, alpha=0.65, shape = 21) +
   geom_text(aes(x = as.Date("2020-04-18"), y = estata.hoy$Pruebas.diarias+40,
                label = paste0("Nuevos ", estata.hoy$Pruebas.diarias, " resultados")), stat = "unique", family = "Lato Black",
           size = 3, color = "red")+
@@ -449,7 +448,7 @@ PruebasSon <- ggplot(Sonora.DF) +
   #           size = 5, color = "black")+
   theme_bw() + temaejes +
   theme(legend.text = element_text(family = "Lato", size = 7), legend.background = element_rect(fill="transparent"),
-        legend.position = c(0.02,0.9),  legend.justification="left", legend.margin=margin(t = 0, unit='cm'),
+        legend.position = c(0.02,0.95),  legend.justification="left", legend.margin=margin(t = 0, unit='cm'),
         legend.key = element_rect(fill="transparent", color="transparent")) +
   labs(y = NULL, 
        x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#4BACC6';>Resultados informados diariamente</span>", 

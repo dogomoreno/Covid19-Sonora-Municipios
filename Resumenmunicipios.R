@@ -29,7 +29,7 @@ rm(list=ls())
                                        MUNICIPIO = col_character(), NUEVOS = col_integer(), X1 = col_skip()), 
                       locale = locale(encoding = "ISO-8859-1"))
   
-  Fechahoy <- "Al reporte del 29 de julio de 2021"
+  Fechahoy <- "Al reporte del 31 de julio de 2021"
   fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nPor continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
   
   POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
@@ -69,14 +69,14 @@ rm(list=ls())
     p1 <- ggplot(tmp) +
       geom_area(aes(x= Fecha, y= Casos.media.7d), fill= "#58BCBC", alpha=0.3)+
       geom_line(aes(x= Fecha, y= Casos.media.7d, color= "Tendencia promedio móvil 7 días"), linetype= "solid", size=.75, arrow=arrow(type="open", length=unit(0.10,"cm")))+
-      geom_point(aes(x= Fecha, y= Casos.diarios, color = "Casos diarios"), fill= "#01787E", size = 0.9, stroke=0.4, alpha=0.65, shape = 21) +
+      geom_point(aes(x= Fecha, y= Casos.diarios), color = "white", fill= "#01787E", size = 0.9, stroke=0.4, alpha=0.65, shape = 21) +
       scale_fill_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#58BCBC", "Casos diarios" = "#01787E")) + 
       scale_color_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#01787E", "Casos diarios" = "white")) +
       scale_y_continuous(expand = c(0, 0), limits = c(0, (max(tmp$Casos.diarios)+5))) +
       scale_x_date(expand=c(0,0), date_breaks = "1 month", date_labels = "%B", limits=c(as.Date("2020-03-16"), (Sys.Date()+5))) +
       theme_bw() + temaejes +
       theme(legend.text = element_text(family = "Lato", size = 8), legend.background = element_rect(fill="transparent"),
-            legend.position = c(0.02,0.9),  legend.justification="left", legend.margin=margin(t = 0, unit='cm'),
+            legend.position = c(0.02,0.95),  legend.justification="left", legend.margin=margin(t = 0, unit='cm'),
             legend.key = element_rect(fill="transparent")) +
       labs(y = NULL, 
            x = NULL,legend= NULL, title  = paste0("<span style = 'color:#01A2AC';>Casos confirmados acumulados: ", prettyNum(as.numeric(max(tmp$CASOS)), big.mark=",", preserve.width="none"),"</span>"), 
@@ -85,14 +85,14 @@ rm(list=ls())
     p2 <- ggplot(tmp) +
       geom_area(aes(x= Fecha, y= Decesos.media.7d), fill= "#D075A3", alpha=0.3)+
       geom_line(aes(x= Fecha, y= Decesos.media.7d, color= "Tendencia promedio móvil 7 días"), linetype= "solid", size=.75, arrow=arrow(type="open", length=unit(0.10,"cm")))+
-      geom_point(aes(x= Fecha, y= Decesos.diarios, color = "Decesos diarios"), fill= "#73264D", size = 0.9, stroke=0.4, alpha=0.65, shape = 21) +
+      geom_point(aes(x= Fecha, y= Decesos.diarios), color = "white", fill= "#73264D", size = 0.9, stroke=0.4, alpha=0.65, shape = 21) +
       scale_fill_manual(name="", values= c("Decesos diarios" = "#73264D", "Tendencia promedio móvil 7 días" = "#D075A3")) + 
       scale_color_manual(name="", values= c("Decesos diarios" = "white","Tendencia promedio móvil 7 días" = "#73264D")) +
       scale_y_continuous(expand = c(0, 0), limits = c(0, (max(tmp$Decesos.diarios)+2))) +
       scale_x_date(expand=c(0,0), date_breaks = "1 month", date_labels = "%B", limits=c(as.Date("2020-03-16"), (Sys.Date()+5))) + 
       theme_bw() + temaejes +
       theme(legend.text = element_text(family = "Lato", size = 8), legend.background = element_rect(fill="transparent"),
-            legend.position = c(0.02,0.9),  legend.justification="left", legend.margin=margin(t = 0, unit='cm'),
+            legend.position = c(0.02,0.95),  legend.justification="left", legend.margin=margin(t = 0, unit='cm'),
             legend.key = element_rect(fill="transparent")) +
       labs(y = NULL, 
            x = NULL,legend= NULL, title  =  paste0("<span style = 'color:#993366';> Decesos confirmados acumulados: ", prettyNum(as.numeric(max(tmp$DECESOS)), big.mark=",", preserve.width="none"),"</span>"), 

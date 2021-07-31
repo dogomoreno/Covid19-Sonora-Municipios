@@ -23,9 +23,9 @@ library(directlabels)
 library(ggtext)
 
 lundom <- "jueves"
-Fechasem <- "Al reporte del 23 de julio de 2021 | Confirmados acumulados de viernes a jueves (por fecha de corte)"
-Fechadom <- "Al reporte del 23 de julio de 2021  | Cifras al jueves de cada semana (por fecha de corte)."
-Fechahoy <- "Al reporte del 23 de julio de 2021"
+Fechasem <- "Al reporte del 30 de julio de 2021 | Confirmados acumulados de viernes a jueves (por fecha de corte)"
+Fechadom <- "Al reporte del 30 de julio de 2021  | Cifras al jueves de cada semana (por fecha de corte)."
+Fechahoy <- "Al reporte del 30 de julio de 2021"
 fuente <- "Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
 temaejes <- theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(10, 25, 10, 25),
                   plot.title = element_markdown(family = "Lato Black", size = 25),  
@@ -229,7 +229,7 @@ Positividad <- ggplot() +
   geom_line(data= Casossemana, aes(x=Fecha, y= Positividad.semanal), color= "#4BACC6", linetype= "solid", size=1, alpha=0.6)+
   geom_point( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(x=Fecha, y= Positividad.acum), fill="#215968", size=2 , shape=21, color="white", stroke=1) +
   geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= Positividad.semanal), fill="#4BACC6", size=2 , shape=21, color="white", stroke=1) +
-  geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(x=Fecha, y= Positividad.acum, label = paste0("Positividad\nacumulada\n", Positividad.acum,"%\n", sep="")), color="#215968", 
+  geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(x=Fecha, y= Positividad.acum, label = paste0("Positividad\nacumulada\n", Positividad.acum,"%\n\n", sep="")), color="#215968", 
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
   geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= Positividad.semanal,  label = paste0("\n\nPositividad\núlt. 7 días\n", Positividad.semanal,"%", sep="")), color="#4BACC6", 
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
@@ -279,7 +279,7 @@ Casosmuni <- ggplot(Casossemana) +
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
   geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= casos.hmo, label = paste0("Hermosillo ", casos.hmo, sep="")), color="#01A2AC", 
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"),  (max(as.Date(Sonora.DF$Fecha)) + 80)), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"),  (max(as.Date(Sonora.DF$Fecha)) + 90)), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = TRUE, clip = 'off') +
   theme_bw() +
   temaejes +
@@ -300,7 +300,7 @@ Decesosmuni <- ggplot(Casossemana) +
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
   geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= decesos.hmo, label = paste0("Hermosillo ", decesos.hmo, sep="")), color="#993366", 
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), (max(as.Date(Sonora.DF$Fecha)) + 80)), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), (max(as.Date(Sonora.DF$Fecha)) + 90)), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = TRUE, clip = 'off') +
   theme_bw() +
   temaejes +
@@ -309,3 +309,28 @@ Decesosmuni <- ggplot(Casossemana) +
        subtitle= Fechasem, caption =fuente)
 Decesosmuni
 ggsave("Gráficos jueves/s14.png",Decesosmuni, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+
+
+
+Casossemana <- Casossemana %>% mutate(POB=2944840) %>% mutate(mortalidad=round(Decesos.semana*1000000/POB,1), incidencia=round(Casos.semana*100000/POB,1))
+
+
+Indicadores <- ggplot() +
+  geom_line(data= Casossemana, aes(x=Fecha, y= mortalidad), color= "#993366", linetype= "solid", size=1, alpha=0.8)+
+  geom_line(data= Casossemana, aes(x=Fecha, y= incidencia), color= "#01A2AC", linetype= "solid", size=1, alpha=0.8)+
+  geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= mortalidad), fill="#993366", size=2 , shape=21, color="white", stroke=1) +
+  geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= incidencia), fill="#01A2AC", size=2 , shape=21, color="white", stroke=1) +
+  geom_dl( data = subset(Casossemana, Fecha == max(Fecha)), aes(x=Fecha, y= mortalidad, label = paste0(mortalidad, "\ndecesos por\nmillón de habs.", sep="")), color="#993366", 
+           method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
+  geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= incidencia,  label = paste0(incidencia,"\ncasos por\n100 mil habs.",  sep="")), color="#01A2AC", 
+           method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
+  scale_y_continuous(expand = c(0, 0), limits=c(0,130)) +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), (max(as.Date(Casossemana$Fecha)) + 60)), date_breaks = "1 month", date_labels = "%B") +
+  coord_cartesian(expand = FALSE, clip = 'off') +
+  theme_bw() +
+  temaejes + theme(axis.title.y = element_markdown(family = "Lato", size =6)) +
+  labs(y = "<span style = 'color:#01A2AC';>Incidencia (casos por 100 mil de habs.)</span><br><span style = 'color:#993366';>Mortalidad (decesos por millón de habs.)</span>", 
+       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#01A2AC';>Incidencia</span> y <span style = 'color:#993366';>mortalidad</span> por semana", 
+       subtitle= Fechahoy, caption =fuente)
+Indicadores
+ggsave("Gráficos jueves/s18.png",Indicadores, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
