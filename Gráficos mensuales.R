@@ -67,7 +67,7 @@ Casosmesson <- ggplot(Casosmes) +
   # geom_text(aes(x = as.Date("2020-04-30"), y = 8000,
   #            label = "69,936 casos acumulados"), stat = "unique", family = "Lato Black",
   #            size = 5, color = "black", hjust =1) +
-  scale_x_date(expand=c(0,0), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), date_breaks = "1 month", date_labels = "%b") +
   scale_y_continuous(expand=c(0,0))+
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_minimal() +

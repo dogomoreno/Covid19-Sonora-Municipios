@@ -25,9 +25,9 @@ library(directlabels)
 library(ggtext)
 
 lundom <- "sábado"
-Fechasem <- "Al reporte del 25 de julio de 2021 | Confirmados acumulados de sábado a domingo (por fecha de corte)"
-Fechadom <- "Al reporte del 25 de julio de 2021  | Cifras al sábado de cada semana (por fecha de corte)."
-Fechahoy <- "Al reporte del 25 de julio de 2021"
+Fechasem <- "Al reporte del 01 de agosto de 2021 | Confirmados acumulados de sábado a domingo (por fecha de corte)"
+Fechadom <- "Al reporte del 01 de agosto de 2021  | Cifras al sábado de cada semana (por fecha de corte)."
+Fechahoy <- "Al reporte del 01 de agosto de 2021"
 fuente <- "Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
 temaejes <- theme(plot.margin = margin(10, 25, 10, 25),
                   plot.title = element_markdown(family = "Lato Black", size = 25),  
@@ -209,12 +209,12 @@ Positividad <- ggplot() +
   geom_line(data= Casossemana, aes(x=Fecha, y= Positividad.semanal), color= "#4BACC6", linetype= "solid", size=1, alpha=0.6)+
   geom_point( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(x=Fecha, y= Positividad.acum), fill="#215968", size=2 , shape=21, color="white", stroke=1) +
   geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= Positividad.semanal), fill="#4BACC6", size=2 , shape=21, color="white", stroke=1) +
-  geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(x=Fecha, y= Positividad.acum, label = paste0("Positividad\nacumulada\n", Positividad.acum,"%\n\n\n", sep="")), color="#215968", 
+  geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(x=Fecha, y= Positividad.acum, label = paste0("Positividad\nacumulada\n", Positividad.acum,"%\n\n", sep="")), color="#215968", 
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
   geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= Positividad.semanal,  label = paste0("\n\nPositividad\núlt. 7 días\n", Positividad.semanal,"%", sep="")), color="#4BACC6", 
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,100), breaks=seq(0,100,20)) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), (max(as.Date(Sonora.DF$Fecha)) + 40)), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), (max(as.Date(Sonora.DF$Fecha)) + 60)), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_bw() +
   temaejes +
@@ -299,12 +299,12 @@ Indicadores <- ggplot() +
   geom_line(data= Casossemana, aes(x=Fecha, y= incidencia), color= "#01A2AC", linetype= "solid", size=1, alpha=0.8)+
   geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= mortalidad), fill="#993366", size=2 , shape=21, color="white", stroke=1) +
   geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= incidencia), fill="#01A2AC", size=2 , shape=21, color="white", stroke=1) +
-  geom_dl( data = subset(Casossemana, Fecha == max(Fecha)), aes(x=Fecha, y= mortalidad, label = paste0(mortalidad, "\ndecesos por\nmillón de habs.", sep="")), color="#993366", 
-           method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
-  geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= incidencia,  label = paste0(incidencia,"\ncasos por\n100 mil habs.",  sep="")), color="#01A2AC", 
-           method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6, fontfamily= "Lato Black")) +
+  geom_dl( data = subset(Casossemana, Fecha == max(Fecha)), aes(x=Fecha, y= mortalidad, label = paste0(mortalidad, " decesos\npor millón de habs.", sep="")), color="#993366", 
+           method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.8, fontfamily= "Lato Black")) +
+  geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= incidencia,  label = paste0(incidencia," casos\npor 100 mil habs.",  sep="")), color="#01A2AC", 
+           method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.8, fontfamily= "Lato Black")) +
   scale_y_continuous(expand = c(0, 0), limits=c(0,130)) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), (max(as.Date(Casossemana$Fecha)) + 60)), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), (max(as.Date(Casossemana$Fecha)) + 100)), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_bw() +
   temaejes + theme(axis.title.y = element_markdown(family = "Lato", size =6)) +
