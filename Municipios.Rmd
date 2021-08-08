@@ -3,7 +3,7 @@ title: "COVID-19 EN SONORA"
 output: 
   flexdashboard::flex_dashboard:
     navbar:
-      - { title: "07/08/2021", href: "http://www.luisarmandomoreno.com/", align: right }
+      - { title: "08/08/2021", href: "http://www.luisarmandomoreno.com/", align: right }
     theme: flatly
     orientation: rows
 ---
@@ -496,14 +496,14 @@ mapacovid <- leaflet(capa_munison) %>%
                                                   weight = 1.2,
                                                   bringToFront = TRUE),
               label=popup, 
-              labelOptions = labelOptions(noHide = F, direction = "top",
-                                                       style = list(
-                                                         "color" = "black",
-                                                         "font-family" = "Lato",
-                                                         "font-style" = "regular",
-                                                         "box-shadow" = "2px 2px rgba(0,0,0,0.25)",
-                                                         "font-size" = "11px",
-                                                         "border-color" = "rgba(0,0,0,0.5)"
+              labelOptions = labelOptions(noHide = F, direction = "right",
+                                          style = list(
+                                            "color" = "black",
+                                            "font-family" = "Arial",
+                                            "font-style" = "regular",
+                                            "box-shadow" = "2px 2px rgba(0,0,0,0.25)",
+                                            "font-size" = "11px",
+                                            "border-color" = "rgba(0,0,0,0.5)"
                                                        )),
               group= "INCIDENCIA ACUMULADA") %>%
   addPolygons(data= capa_munison,
@@ -519,10 +519,10 @@ mapacovid <- leaflet(capa_munison) %>%
                                                   weight = 1.2,
                                                   bringToFront = TRUE),
               label=popup, 
-              labelOptions = labelOptions(noHide = F, direction = "top",
+              labelOptions = labelOptions(noHide = F, direction = "right",
                                           style = list(
                                             "color" = "black",
-                                            "font-family" = "Lato",
+                                            "font-family" = "Arial",
                                             "font-style" = "regular",
                                             "box-shadow" = "2px 2px rgba(0,0,0,0.25)",
                                             "font-size" = "11px",
@@ -541,10 +541,10 @@ mapacovid <- leaflet(capa_munison) %>%
                                                   weight = 1.2,
                                                   bringToFront = TRUE),
               label=popup, 
-              labelOptions = labelOptions(noHide = F, direction = "top",
+              labelOptions = labelOptions(noHide = F, direction = "right",
                                           style = list(
                                             "color" = "black",
-                                            "font-family" = "Lato",
+                                            "font-family" = "Arial",
                                             "font-style" = "regular",
                                             "box-shadow" = "2px 2px rgba(0,0,0,0.25)",
                                             "font-size" = "11px",
@@ -563,10 +563,10 @@ mapacovid <- leaflet(capa_munison) %>%
                                                   weight = 1.2,
                                                   bringToFront = TRUE),
               label=popup, 
-              labelOptions = labelOptions(noHide = F, direction = "top",
+              labelOptions = labelOptions(noHide = F, direction = "right",
                                           style = list(
                                             "color" = "black",
-                                            "font-family" = "Lato",
+                                            "font-family" = "Arial",
                                             "font-style" = "regular",
                                             "box-shadow" = "2px 2px rgba(0,0,0,0.25)",
                                             "font-size" = "11px",
