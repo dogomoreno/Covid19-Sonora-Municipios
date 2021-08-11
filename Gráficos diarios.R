@@ -24,9 +24,9 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-Fechahoy <- "Al reporte del 09 de agosto de 2021"
+Fechahoy <- "Al reporte del 11 de agosto de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
-subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nAl reporte del 09/08/2021"
+subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nAl reporte del 11/08/2021"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
@@ -179,17 +179,17 @@ ggsave("Gráficos/movimientos.png",Mapa_mov, bg = "transparent", height = 25.9, 
 
 Casosprom <- Casos %>% group_by(MUNICIPIO) %>% mutate(Casos.media.7d=round(rollmeanr(x=NUEVOS, 7, fill = 0),1)) %>%  filter(CASOS>500)
 
-Casosd <- ggplot(subset(Casosprom, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Caborca", "Guaymas"))) +
-  geom_line(mapping = aes(x = CASOS, y = Casos.media.7d, color= MUNICIPIO), size=0.75, alpha=0.6, arrow=arrow(type="open", length=unit(0.10,"cm"))) +
+Casosd <- ggplot(subset(Casosprom, MUNICIPIO %in% c("Hermosillo", "Cajeme"))) +
+  geom_line(mapping = aes(x = Fecha, y = Casos.media.7d, color= MUNICIPIO), size=0.75, alpha=0.8, arrow=arrow(type="open", length=unit(0.10,"cm"))) +
   coord_cartesian(expand = TRUE, clip = 'off') +
-  scale_color_locuszoom() + 
+  scale_color_manual(values=c("#F79646", "#01A2AC")) + 
   theme_minimal() + temaejes + theme(
         legend.text = element_text(family = "Lato", size = 8),
-        legend.position = "right", legend.justification="left") +
-  labs(y = "Casos diarios\n(promedio móvil 7 días, log)", 
-       x = "Casos acumulados (log)",legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#01A2AC';>Trayectoria de casos en los municipios</span>", 
-       subtitle= Fechahoy, caption =fuente) + 
-  scale_x_continuous(trans = "log10") + scale_y_continuous(trans = "log10")
+        legend.position = c(0.85,0.85), legend.justification="left") +
+  labs(y = "Casos diarios\n(promedio móvil 7 días)", 
+       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#01A2AC';>Trayectoria de casos en los municipios</span>", 
+       subtitle= Fechahoy, caption =fuente) 
+  #scale_x_continuous(trans = "log10") + scale_y_continuous(trans = "log10")
 
 ggsave("Gráficos/diariocasostray.png",Casosd , width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 
@@ -197,8 +197,8 @@ ggsave("Gráficos/diariocasostray.png",Casosd , width = 5 * (16/9), height = 5, 
 
 Decesosprom <- Decesos %>% group_by(MUNICIPIO) %>% mutate(Decesos.media.7d=round(rollmeanr(x=NUEVOS, 7, fill = 0),1)) 
 
-Decesosd <- ggplot(subset(Decesosprom, MUNICIPIO %in% c("Hermosillo", "Cajeme", "Nogales", "San Luis Río Colorado", "Navojoa", "Caborca", "Guaymas"))) +
-  geom_line(mapping = aes(x = DECESOS, y = Decesos.media.7d, color= MUNICIPIO), size=0.75, alpha=0.6, arrow=arrow(type="open", length=unit(0.10,"cm"))) +
+Decesosd <- ggplot(subset(Decesosprom, MUNICIPIO %in% c("Hermosillo", "Cajeme"))) +
+  geom_line(mapping = aes(x = Fecha, y = Decesos.media.7d, color= MUNICIPIO), size=0.75, alpha=0.8, arrow=arrow(type="open", length=unit(0.10,"cm"))) +
   scale_color_locuszoom() + 
   coord_cartesian(expand = TRUE, clip = 'off') +
   theme_minimal() + temaejes + theme(
