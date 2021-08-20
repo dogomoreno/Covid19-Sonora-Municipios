@@ -20,7 +20,7 @@ library(wesanderson)
 library(ggsci)
 library("Cairo")
 
-Fechahoy <- "Corte al 31 de mayo de 2021"
+Fechahoy <- "Al reporte del 19 de agosto de 2021"
 
 # Carga base estatal
 Sonora.DF <- read_csv("Bases/ST_SonoraInformesCOVID.csv", 
@@ -113,23 +113,23 @@ Decesosacum <- ggplot(Sonoramesseg) +
   #           size = 5, color = "black")+
   theme_bw() +
   theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
-        plot.title = element_text(family = "Lato Black", size = 40,color = "#73264D"),  
-        plot.subtitle = element_text(family = "Lato Light", size = 16, color = "black"), legend.title = element_blank(),
-        strip.text = element_text(family = "Lato Black", size = 16),
-        axis.text.x = element_text(family = "Lato", size =10),
-        axis.text.y = element_text(family = "Lato", size =10, angle = 90, vjust = 0.5),
+        plot.title = element_text(family = "Lato Black", size = 28,color = "#73264D"),  
+        plot.subtitle = element_text(family = "Lato Light", size = 12, color = "black"), legend.title = element_blank(),
+        strip.text = element_text(family = "Lato Black", size = 12),
+        axis.text.x = element_text(family = "Lato", size =6),
+        axis.text.y = element_text(family = "Lato", size =6, angle = 90, vjust = 0.5),
         plot.background = element_rect(fill = "white", color = "black", size = 5),
-        axis.title.x = element_text(family = "Lato Light", size = 12, hjust=1),
-        axis.title.y = element_text(family = "Lato Light", size = 12, hjust=1), 
-        plot.caption = element_text(family = "Lato", size = 10, color = "#73264D"),
-        legend.text = element_text(family = "Lato", size = 12),
+        axis.title.x = element_text(family = "Lato Light", size = 8, hjust=1),
+        axis.title.y = element_text(family = "Lato Light", size = 8, hjust=1), 
+        plot.caption = element_text(family = "Lato", size = 6, color = "#73264D"),
+        legend.text = element_text(family = "Lato", size = 8),
         legend.position = "none",  legend.justification="left") +
   labs(y = "Decesos confirmados acumulados", 
-       x = NULL,legend= NULL, title  = "6,346 decesos acumulados\n por covid-19 en Sonora", 
+       x = NULL,legend= NULL, title  = "7,004 decesos acumulados\n por covid-19 en Sonora", 
        subtitle= Fechahoy, caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com")
 Decesosacum
 
-ggsave("Gráficos/DecesosacumFEB.png",Decesosacum, bg = "transparent", height = 25, width = 30, units = "cm", dpi = 400, type = 'cairo')
+ggsave("Gráficos/DecesosacumFEB.png",Decesosacum, width = 5 * (16/9), height = 5, type = "cairo", dpi = 400)
 
 
 
