@@ -23,9 +23,9 @@ library(directlabels)
 library(ggtext)
 
 lundom <- "jueves"
-Fechasem <- "Al reporte del 13 de agosto de 2021 | Confirmados acumulados de viernes a jueves (por fecha de corte)"
-Fechadom <- "Al reporte del 13 de agosto de 2021  | Cifras al jueves de cada semana (por fecha de corte)."
-Fechahoy <- "Al reporte del 13 de agosto de 2021"
+Fechasem <- "Al reporte del 20 de agosto de 2021 | Confirmados acumulados de viernes a jueves (por fecha de corte)"
+Fechadom <- "Al reporte del 20 de agosto de 2021  | Cifras al jueves de cada semana (por fecha de corte)."
+Fechahoy <- "Al reporte del 20 de agosto de 2021"
 fuente <- "Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
 temaejes <- theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(10, 25, 10, 25),
                   plot.title = element_markdown(family = "Lato Black", size = 25),  
@@ -186,7 +186,7 @@ ggsave("Gráficos jueves/s05.png",Activos, width = 5 * (16/9), height = 5, type 
 
 casosisst <- Casossemana %>% filter(Fecha >= as.Date("2020-05-28"))
 ISSSTESON <- ggplot(casosisst) +
-  geom_col(aes(x=Fecha, y= ISSSTESON, fill= ISSSTESON), color= "#984807", size=0.2, width=5) +
+  geom_col(aes(x=Fecha, y= ISSSTESON, fill= ISSSTESON),size=0.2, width=6) +
   scale_fill_gradient2(low = "#FCD5B5", mid= "#F79646", high = "#984807", midpoint = 170) +
   geom_text( aes(x=Fecha, y= ISSSTESON, label= ISSSTESON), family="Lato Black", size= 3, color="white", angle=90, hjust = 1.1) +
   scale_x_date(expand=c(0,5), breaks = casosisst$Fecha, date_labels = "%d/%m") +
