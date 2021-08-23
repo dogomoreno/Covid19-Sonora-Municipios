@@ -27,7 +27,7 @@ library(ggsci)
 library(rcartocolor)
 #library(NineteenEightyR)
 
-Fechahoy<- "Corte al 25 de julio de 2021"
+Fechahoy<- "Corte al 21 de agosto de 2021"
 capa_munison <- readOGR("Shapes", layer="MUNSON")
 capa_son <- readOGR("Shapes", layer="ENTSON")
 
@@ -44,7 +44,7 @@ POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()
 
 Casossemana <- Casos %>% group_by(MUNICIPIO) %>% 
   mutate(diasemana = weekdays(Fecha), Casossemana = rollsum(NUEVOS, 7, align="right", fill = 0)) %>% 
-  filter(diasemana=="domingo") %>% 
+  filter(diasemana=="sábado") %>% 
   left_join(POBMUN, by = "CVEGEO") 
 Casossemana <- Casossemana %>% mutate (INCIDENCIA= round((Casossemana*100000)/POB,1))
 Casossemana$INCIDENCIA[Casossemana$INCIDENCIA==0] <- NA
@@ -107,17 +107,17 @@ capa_munison_casos<- inner_join(capa_munison_df, SonoraMCsemanal, by="id")
 
 Mapa_inci <- function(capa_son, capa_munison_casos) { ggplot(capa_munison_casos, aes(map_id = id)) +
         geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
-                 fill="gray90", color="white", size=1) +
-        geom_map(aes(fill = as.factor(IS)),color = "white",size=1, map = capa_munison_df) + 
+                 fill="gray90", color="white", size=0.6) +
+        geom_map(aes(fill = as.factor(IS)),color = "white",size=0.6, map = capa_munison_df) + 
         geom_polygon(data=capa_son, aes(x=long, y=lat, group=group), 
-                 fill="transparent", color="black", size=0.8) +
+                 fill="transparent", color="black", size=0.6) +
     scale_fill_manual(values = discrete, breaks= romp, 
                       labels = marcas)+
     
     theme_void() +
     theme(plot.title = (element_text(family = "Lato Black", size = 54, color = "black")),
           plot.subtitle = (element_text(family = "Lato Light", size = 22, color = "#01787E")),
-          plot.margin = margin(1, 1.8, 1, 1.8, "cm"),
+          plot.margin = margin(1, 2.5, 1, 2, "cm"),
           legend.position = c(0.18,0.4),
           plot.background = element_rect(fill = "white", color="black", size=3),
           legend.key.height = unit (3, "cm"), legend.key.width = unit (0.75, "cm"), axis.text = element_blank(),

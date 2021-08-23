@@ -3,7 +3,7 @@ title: "COVID-19 EN SONORA"
 output: 
   flexdashboard::flex_dashboard:
     navbar:
-      - { title: "21/08/2021", href: "http://www.luisarmandomoreno.com/", align: right }
+      - { title: "22/08/2021", href: "http://www.luisarmandomoreno.com/", align: right }
     theme: flatly
     orientation: rows
 ---
@@ -577,7 +577,7 @@ mapacovid <- leaflet(capa_munison) %>%
   #           labFormat = function(type, cuts, p) {  
   #             paste0(labs)},
   #           title = "MORTALIDAD", na.label = "N/A")  %>%
-  addLegend(position = "topright", pal = incipal, values = ~capa_munison$IS, opacity=1, group= "INCIDENCIA", 
+  addLegend(position = "topright", pal = incipal, values = ~capa_munison$MS, opacity=1, group= "INCIDENCIA", 
               labFormat = function(type, cuts, p) {  
                paste0(labs)} ,
               title = NULL, na.label = "N/A") 
