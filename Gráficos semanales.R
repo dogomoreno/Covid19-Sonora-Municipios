@@ -67,6 +67,7 @@ Casossemana <- Sonora.DF %>% mutate(diasemana = weekdays(Fecha)) %>%
 Casossemana <- mutate(Casossemana, Casos.semana= Confirmados - lag(Confirmados, default = Confirmados[1], order_by=Fecha))
 Casossemana <- mutate(Casossemana, Decesos.semana= Decesos - lag(Decesos, default = Decesos[1], order_by=Fecha))
 Casossemana <- mutate(Casossemana, Pruebas.semana= Pruebas - lag(Pruebas, default = Pruebas[1]))
+Casossemana <- mutate(Casossemana, Recuperados.semana= Recuperados - lag(Recuperados, default = Recuperados[1]))
 Casossemana <- mutate(Casossemana, Positividad.semanal= round((Casos.semana / Pruebas.semana)*100,1))
 
 
@@ -325,3 +326,30 @@ Indicadores <- ggplot() +
        subtitle= Fechahoy, caption =fuente)
 Indicadores
 ggsave("Otros gráficos/s18.png",Indicadores, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+
+
+
+Recuperados <- ggplot() +
+  geom_line(data= Casossemana, aes(x=Fecha, y= Casos.semana), color= "#993366", linetype= "solid", size=1, alpha=0.8)+
+  geom_line(data= Casossemana, aes(x=Fecha, y= Recuperados.semana), color= "#01A2AC", linetype= "solid", size=1, alpha=0.8)+
+  geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= Casos.semana), fill="#993366", size=2 , shape=21, color="white", stroke=1) +
+  geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= Recuperados.semana), fill="#01A2AC", size=2 , shape=21, color="white", stroke=1) +
+  # geom_dl( data = subset(Casossemana, Fecha == max(Fecha)), aes(x=Fecha, y= mortalidad, label = paste0(mortalidad, " decesos\npor millón de habs.", sep="")), color="#993366", 
+  #          method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.8, fontfamily= "Lato Black")) +
+  # geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= incidencia,  label = paste0(incidencia," casos\npor 100 mil habs.",  sep="")), color="#01A2AC", 
+  #          method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.8, fontfamily= "Lato Black")) +
+  scale_y_continuous(expand = c(0, 0)) +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), (max(as.Date(Casossemana$Fecha)+20))), date_breaks = "1 month", date_labels = "%B") +
+  coord_cartesian(expand = FALSE, clip = 'off') +
+  theme_bw() +
+  temaejes + theme(axis.title.y = element_markdown(family = "Lato", size =6)) +
+  labs(y = NULL, 
+       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#01A2AC';>Recuperados</span> y <span style = 'color:#993366';>casos nuevos</span> por semana", 
+       subtitle= Fechahoy, caption =fuente)
+Recuperados
+ggsave("Otros gráficos/s22.png",Recuperados, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+
+
+
+
+
