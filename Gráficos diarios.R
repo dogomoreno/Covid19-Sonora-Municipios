@@ -24,9 +24,9 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-Fechahoy <- "Al reporte del 23 de agosto de 2021"
+Fechahoy <- "Al reporte del 24 de agosto de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
-subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nAl reporte del 23/08/2021"
+subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nAl reporte del 24/08/2021"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
@@ -113,7 +113,7 @@ Estatus <- ggplot(Sonora.DF.hoy, aes(area = Casos.confirmados, fill= Estatus, la
 Estatus
 
 
-ggsave("Gráficos/Diarioestatus.png",Estatus , width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Gráficos/Diarioestatus.png",Estatus , width = 5 * (16/9), height = 5, type = "cairo", dpi = 400)
 
 # Bases municipales
 Casos <- read_csv("Bases/Casosdiarios.csv", 
@@ -191,7 +191,7 @@ Casosd <- ggplot(subset(Casosprom, MUNICIPIO %in% c("Hermosillo", "Cajeme"))) +
        subtitle= Fechahoy, caption =fuente) 
   #scale_x_continuous(trans = "log10") + scale_y_continuous(trans = "log10")
 
-ggsave("Gráficos/diariocasostray.png",Casosd , width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Gráficos/diariocasostray.png",Casosd , width = 5 * (16/9), height = 5, type = "cairo", dpi = 400)
 
 #Decesos trayectoria Promedio vs Acumulado
 
@@ -210,7 +210,7 @@ Decesosd <- ggplot(subset(Decesosprom, MUNICIPIO %in% c("Hermosillo", "Cajeme"))
   scale_y_continuous (expand = c(0, 0)) + 
   scale_x_continuous (expand = c(0, 0))
 
-ggsave("Gráficos/diariodecesostray.png",Decesosd , width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Gráficos/diariodecesostray.png",Decesosd , width = 5 * (16/9), height = 5, type = "cairo", dpi = 400)
 
 Sonora.Hosp <-Sonora.DF %>%  
   filter(Fecha >= as.Date('2020-08-05') & Fecha <= Sys.Date())
@@ -232,7 +232,7 @@ Gravgraf <- ggplot(Sonora.Hosp) +
   labs(y = "Casos diarios\n(promedio móvil 7 días, log)", 
        x = "Casos acumulados (log)",legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#F79646';>Hospitalizados</span>", 
        subtitle= Fechahoy, caption =fuente) 
-ggsave("Gráficos/diariohospitalizados.png",Gravgraf, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Gráficos/diariohospitalizados.png",Gravgraf, width = 5 * (16/9), height = 5, type = "cairo", dpi = 400)
 
 
 # Mapa incidencia
@@ -285,7 +285,7 @@ Mapa_incidencia<- ggplot(capa_munison_inci, aes(map_id = id)) +
        caption =fuente)+
        geom_polygon(data=capa_reg, aes(x=long, y=lat, group=group), 
              fill="transparent", color="black", size=0.2)
-ggsave("Gráficos/diariomapinci.png",Mapa_incidencia, width = 5/2 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Gráficos/diariomapinci.png",Mapa_incidencia, width = 5/2 * (16/9), height = 5, type = "cairo", dpi = 400)
 
 
 Mapa_incivoid<- ggplot(capa_munison_inci, aes(map_id = id)) +
@@ -382,7 +382,7 @@ CasosSon <- ggplot(Sonora.DF) +
 
 CasosSon
 
-ggsave("Gráficos/diariocasos.png",CasosSon, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Gráficos/diariocasos.png",CasosSon, width = 5 * (16/9), height = 5, type = "cairo", dpi = 400)
 
   
   DecesosSon <- ggplot(Sonora.DF) +
@@ -426,7 +426,7 @@ ggsave("Gráficos/diariocasos.png",CasosSon, width = 5 * (16/9), height = 5, typ
 
 DecesosSon
 
-ggsave("Gráficos/diariodecesos.png",DecesosSon,  width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Gráficos/diariodecesos.png",DecesosSon,  width = 5 * (16/9), height = 5, type = "cairo", dpi = 400)
 
 PruebasSon <- ggplot(Sonora.DF) +
   geom_area(aes(x= Fecha, y= Pruebas.media.7d), fill= "#4BACC6", alpha=0.3)+
@@ -437,9 +437,9 @@ PruebasSon <- ggplot(Sonora.DF) +
   scale_x_date(expand=c(0,5), date_breaks = "1 month", date_labels = "%B") +
   geom_hline(yintercept=estata.hoy$Pruebas.diarias, linetype="dashed", color = "red") +
   geom_point(aes(x= Fecha, y= Pruebas.diarias), color = "white", fill= "#31859C", size = 0.9, stroke=0.4, alpha=0.65, shape = 21) +
-  geom_text(aes(x = as.Date("2020-04-28"), y = estata.hoy$Pruebas.diarias+40,
-               label = paste0("Nuevos ", estata.hoy$Pruebas.diarias, " resultados")), stat = "unique", family = "Lato Black",
-          size = 3, color = "red")+
+  geom_text(aes(x = as.Date("2020-03-18"), y = estata.hoy$Pruebas.diarias+100,
+               label = paste0(estata.hoy$Pruebas.diarias, " nuevos resultados hoy\n", round(estata.hoy$Positividad,0), "% positivos")), stat = "unique", family = "Lato Black",
+          size = 3, color = "red", hjust=0)+
   # geom_segment(aes(x = as.Date("2021-02-22"), y = 490, xend = as.Date("2021-03-11"), yend = 250),
   #              size = 1.5, color = "black",
   #              arrow = arrow(length = unit(0.02, "npc"))) +
@@ -456,7 +456,7 @@ PruebasSon <- ggplot(Sonora.DF) +
 
 PruebasSon
 
-ggsave("Gráficos/diariopruebas.png",PruebasSon, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Gráficos/diariopruebas.png",PruebasSon, width = 5 * (16/9), height = 5, type = "cairo", dpi = 400)
 
 
 
@@ -477,13 +477,16 @@ Letalidad <- Sonora.DF %>% ggplot(aes(x= Fecha, y= Letalidad)) +
 
 Letalidad
 
-ggsave("Otros gráficos/s13.png",Letalidad,  width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Otros gráficos/s13.png",Letalidad,  width = 5 * (16/9), height = 5, type = "cairo", dpi = 400)
 
 Casossemana <- Casos %>% 
   mutate(diasemana = weekdays(Fecha)) %>% group_by(diasemana) %>% summarise(Casos=sum(NUEVOS))
 
 Decesossemana <- Decesos %>% 
   mutate(diasemana = weekdays(Fecha)) %>% group_by(diasemana) %>% summarise(Decesos=sum(NUEVOS)) 
+Decesossemana <- Decesos %>% 
+  mutate(diasemana = weekdays(Fecha)) %>% group_by(diasemana) %>% summarise(Decesos=sum(NUEVOS)) 
+
 
 Decesossemana$diasemana <- factor(Decesossemana$diasemana, levels= c("lunes", "martes", 
                                          "miércoles", "jueves", "viernes", "sábado", "domingo"))
@@ -498,7 +501,7 @@ Decesosdiasem <- Decesossemana %>% ggplot(aes(x= diasemana, y= Decesos)) +
   #geom_point( data = subset(Sonora.DF , Fecha == max(Fecha)), fill="#993366", size=2 , shape=21, color="white", stroke=1) +
   #geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(label = Letalidad), color="#993366", method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 1.5, fontfamily= "Lato Black")) +
   geom_label(aes(label=Decesos), color="white", fill="#993366", family="Lato Black", fontface="bold")+
-  scale_y_continuous(expand = c(0, 0), limits= c(600,1100)) +
+  scale_y_continuous(expand = c(0, 0), limits= c(600,1200)) +
   #scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-05-20")), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_minimal() + 
@@ -509,14 +512,14 @@ Decesosdiasem <- Decesossemana %>% ggplot(aes(x= diasemana, y= Decesos)) +
        subtitle= Fechahoy, caption =fuente)  
 Decesosdiasem
 
-ggsave("Gráficos/decesosdiasem.png",Decesosdiasem, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Gráficos/decesosdiasem.png",Decesosdiasem, width = 5 * (16/9), height = 5, type = "cairo", dpi = 400)
 
 Casosdiasem <- Casossemana %>% ggplot(aes(x= diasemana, y= Casos)) +
   geom_line(aes(group = 1), color= "#01A2AC", linetype= "dotted", size=1, alpha=0.5) +
   #geom_point( data = subset(Sonora.DF , Fecha == max(Fecha)), fill="#993366", size=2 , shape=21, color="white", stroke=1) +
   #geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(label = Letalidad), color="#993366", method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 1.5, fontfamily= "Lato Black")) +
   geom_label(aes(label=scales::comma(Casos)), color="white", fill="#01A2AC", family="Lato Black", fontface="bold")+
-  scale_y_continuous(expand = c(0, 0), limits= c(6000,15000)) +
+  scale_y_continuous(expand = c(0, 0), limits= c(6000,18000)) +
   #scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-05-20")), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_minimal() + 
@@ -527,7 +530,7 @@ Casosdiasem <- Casossemana %>% ggplot(aes(x= diasemana, y= Casos)) +
        subtitle= Fechahoy, caption =fuente)  
 Casosdiasem
 
-ggsave("Gráficos/casosdiasem.png",Casosdiasem, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Gráficos/casosdiasem.png",Casosdiasem, width = 5 * (16/9), height = 5, type = "cairo", dpi = 400)
 
 #Hospitalizados
 
@@ -547,7 +550,7 @@ Hospitalizados <- Sonora.DF %>% ggplot(aes(x= Fecha, y= Hospitalizados)) +
 
 Hospitalizados
 
-ggsave("Gráficos/Hospitalizados 2.png",Hospitalizados,  width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Gráficos/Hospitalizados 2.png",Hospitalizados,  width = 5 * (16/9), height = 5, type = "cairo", dpi = 400)
 
 
 #Activos
@@ -569,7 +572,7 @@ Activos <- Sonora.DF %>% ggplot(aes(x= Fecha, y= Ambulatorios.Activos)) +
 
 Activos
 
-ggsave("Gráficos/diariosActivos.png",Activos,  width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Gráficos/diariosActivos.png",Activos,  width = 5 * (16/9), height = 5, type = "cairo", dpi = 400)
 
 
 Activos <- Sonora.DF %>% ggplot() +
@@ -579,7 +582,7 @@ Activos <- Sonora.DF %>% ggplot() +
   geom_point( data = subset(Sonora.DF , Fecha == max(Fecha)),aes(x= Fecha, y= Ambulatorios.Activos), fill="white", size=1 , shape=21, color="#58BCBC", stroke=1) +
   geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(x= Fecha, y= Ambulatorios.Activos, label = Ambulatorios.Activos), color="#58BCBC", method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 1.5, fontfamily= "Lato Black")) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,6000), breaks=seq(0,6000,1000)) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-06-19"), as.Date("2021-09-30")), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-06-19"), as.Date("2021-10-10")), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_bw() +
   temaejes +
@@ -591,4 +594,31 @@ Activos <- Sonora.DF %>% ggplot() +
        subtitle= Fechahoy, caption =fuente)  
 
 Activos
-ggsave("Gráficos/diariosActivos.png",Activos,  width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Gráficos/diariosActivos.png",Activos,  width = 5 * (16/9), height = 5, type = "cairo", dpi = 400)
+
+
+Pruebas <- Sonora.DF %>% select (Fecha, Pruebas.diarias) 
+
+Pruebasemana <- Pruebas %>% 
+  mutate(diasemana = weekdays(Fecha)) %>% filter(!is.na(Pruebas.diarias)) %>% group_by(diasemana) %>% summarise(Pruebas=sum(Pruebas.diarias)) 
+
+dias <- c(lunes, martes, miércoles, jueves, viernes, sábado, domingo)
+Pruebasemana$diasemana <- factor(Pruebasemana$diasemana , levels= c("lunes", "martes", 
+                                                                 "miércoles", "jueves", "viernes", "sábado", "domingo"))
+
+Pruebasdiasem <- Pruebasemana %>% ggplot(aes(x= diasemana, y= Pruebas)) +
+  geom_line(aes(group = 1), color= "#4BACC6", linetype= "dotted", size=1, alpha=0.5) +
+  #geom_point( data = subset(Sonora.DF , Fecha == max(Fecha)), fill="#993366", size=2 , shape=21, color="white", stroke=1) +
+  #geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(label = Letalidad), color="#993366", method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 1.5, fontfamily= "Lato Black")) +
+  geom_label(aes(label=prettyNum(Pruebas, big.mark=",", preserve.width="none")), color="white", fill="#4BACC6", family="Lato Black", fontface="bold")+
+  scale_y_continuous(expand=c(0,0),limits = c(min(Pruebasemana$Pruebas)-5000, max(Pruebasemana$Pruebas) + 5000)) +
+  #scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-05-20")), date_breaks = "1 month", date_labels = "%B") +
+  coord_cartesian(expand = FALSE, clip = 'off') +
+  theme_minimal() + 
+  temasinejes + theme(axis.text.x = element_text(family = "Lato", size =8, angle=0, hjust=0.5), 
+                      panel.grid.major.x = element_line(color="gray95"), axis.line.x = element_line(color="black"), plot.margin = margin(10, 30, 10, 30) ) +
+  labs(y = NULL, 
+       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#4BACC6';>Pruebas acumuladas por día de corte</span>", 
+       subtitle= Fechahoy, caption =fuente)  
+Pruebasdiasem
+ggsave("Gráficos/pruebasdiasem.png",Pruebasdiasem,  width = 5 * (16/9), height = 5, type = "cairo", dpi = 400)

@@ -3,7 +3,7 @@ title: "COVID-19 EN SONORA"
 output: 
   flexdashboard::flex_dashboard:
     navbar:
-      - { title: "24/08/2021", href: "http://www.luisarmandomoreno.com/", align: right }
+      - { title: "25/08/2021", href: "http://www.luisarmandomoreno.com/", align: right }
     theme: flatly
     orientation: rows
 ---
@@ -613,7 +613,7 @@ Casos_Semanales <- ggplot(subset(Casossem, MUNICIPIO %in% c("Hermosillo", "Cajem
           axis.title = element_text(family = "Lato", size = 15),
           panel.background = element_rect(fill = "gray95"), 
           legend.position = "none") +labs(y = NULL, x = NULL, title  = NULL) + 
-  theme(panel.grid.major = element_line(colour = "white"), panel.grid.minor = element_line(colour = "white"),                                   panel.background = element_rect(fill = "gray95"),legend.position = "none")
+  theme(panel.grid.major = element_line(colour = "white"), panel.grid.minor = element_line(colour = "white"),                                   panel.background = element_rect(fill = "white"),legend.position = "none")
 ggplotly(Casos_Semanales, tooltip = c("y","label", "x")) %>%  config(displaylogo = FALSE,
 modeBarButtonsToRemove = list(
     'sendDataToCloud',

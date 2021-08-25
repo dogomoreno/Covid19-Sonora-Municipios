@@ -29,7 +29,7 @@ rm(list=ls())
                                        MUNICIPIO = col_character(), NUEVOS = col_integer(), X1 = col_skip()), 
                       locale = locale(encoding = "ISO-8859-1"))
   
-  Fechahoy <- "Al reporte del 23 de agosto de 2021"
+  Fechahoy <- "Al reporte del 25 de agosto de 2021"
   fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\nPor continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
   
   POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
@@ -107,10 +107,10 @@ rm(list=ls())
         plot.subtitle = element_text(family = "Lato Light", size = 12, color = "black"),
         plot.caption = element_text(family = "Lato", size = 8), plot.title.position = 'plot', 
         plot.caption.position = 'plot', plot.margin = margin(10, 25, 10, 25), 
-        plot.background = element_rect(fill = "white", color = "black", size = 3)))
+        plot.background = element_rect(fill = "white", color = "white", size = 3)))
     
   
-    ggsave(paste0("municipales/", x,".png"),p3, width = 5 * (16/9), height = 10, type = "cairo", dpi = 300)
+    ggsave(paste0("municipales/", x,".png"),p3, width = 5 * (16/9), height = 10, type = "cairo", dpi = 400)
     
   }
   for (k in unique(CasosDecesos$MUNICIPIO)) {

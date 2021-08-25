@@ -1,0 +1,95 @@
+---
+title: 'Pruebas Covid19 en Sonora'
+author: "Luis Armando Moreno - 9920153"
+output: 
+  html_document:
+    theme: flatly
+    highlight: kate
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set( warning=FALSE, error=FALSE, dev = "png", dev.args = list(type = "cairo-png"))
+if(!require('pacman')) install.packages('pacman')
+
+
+pacman::p_load(tidyverse, extrafont, scales,ggtext, patchwork, lubridate, directlabels,reactable, "Cairo", dygraphs, xts, quantmod)
+
+temaejes <- theme(plot.margin = margin(10, 25, 10, 25),
+                  plot.title = element_markdown(family = "Lato Black", size = 25),  
+                  plot.subtitle = element_text(family = "Lato Light", size = 10, color = "black"), legend.title = element_blank(),
+                  strip.text = element_text(family = "Lato Black", size = 10),
+                  axis.text = element_text(family = "Lato", size =6),
+                  plot.background = element_rect(fill = "white", color = "black", size = 3),
+                  axis.title.x = element_text(family = "Lato Light", size = 8, hjust=1),
+                  axis.title.y = element_text(family = "Lato Light", size = 8, hjust=1), 
+                  plot.caption = element_text(family = "Lato", size = 6),
+                  legend.text = element_blank(), legend.background =  element_rect(fill="transparent", color="transparent"),
+                  legend.box.background=  element_rect(fill="transparent", color="transparent" ), 
+                  legend.key = element_rect(fill="transparent", color="transparent"),
+                  legend.position = "none", plot.title.position = 'plot', plot.caption.position = 'plot')
+
+
+
+```
+
+
+
+```{r}
+Sonora.DF <- read_csv("Bases/ST_SonoraInformesCOVID.csv", 
+                      col_types = cols(Fecha = col_date(format = "%d/%m/%Y")))
+
+nrow(Sonora.DF)
+names(Sonora.DF)
+
+```
+
+
+
+```{r cars}
+PruebasSonora <- Sonora.DF %>% 
+  select(Fecha, Pruebas) %>% 
+  filter(Fecha > as.Date("2020-04-20")) %>% 
+  mutate(Pruebas.diarias= Pruebas - lag(Pruebas, default = Pruebas[1]), Pruebas.media.7d=round(rollmeanr(x=Pruebas.diarias,7, fill=NA),1))
+  
+knitr::kable(PruebasSonora, format.args = list(big.mark = ",", scientific = FALSE), caption = "Pruebas acumuladas y diarias realizadas en Sonora")
+```
+```{r, fig.width = 5 * (16/9), fig.height = 5, dpi = 400}
+Fechahoy <- "Al reporte del 24 de agosto de 2021"
+fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
+PruebasSon <- ggplot(PruebasSonora) +
+  geom_area(aes(x= Fecha, y= Pruebas.media.7d), fill= "#4BACC6", alpha=0.3)+
+  geom_line(aes(x= Fecha, y= Pruebas.media.7d, color= "Tendencia promedio móvil 7 días"), linetype= "solid", size=.75, arrow=arrow(type="open", length=unit(0.10,"cm")))+
+  scale_fill_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#4BACC6", "Resultados diarios" = "#31859C")) + 
+  scale_color_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#31859C", "Resultados diarios" = "white")) +
+  scale_y_continuous(expand = c(0, 50)) +
+  scale_x_date(expand=c(0,5), date_breaks = "1 month", date_labels = "%B") +
+  geom_point(aes(x= Fecha, y= Pruebas.diarias), color = "white", fill= "#31859C", size = 0.9, stroke=0.4, alpha=0.65, shape = 21) +
+  theme_bw() + temaejes +
+  theme(legend.text = element_text(family = "Lato", size = 7), legend.background = element_rect(fill="transparent"),
+        legend.position = c(0.02,0.85),  legend.justification="left", legend.margin=margin(t = 0, unit='cm'),
+        legend.key = element_rect(fill="transparent", color="transparent")) +
+  labs(y = NULL, 
+       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#4BACC6';>Resultados informados diariamente</span>", 
+       subtitle= Fechahoy, caption =fuente)
+
+PruebasSon
+```
+
+
+## Serie de tiempo
+
+
+
+```{r}
+PruebasSonora.xts <- PruebasSonora %>% select(Pruebas.diarias) %>%  xts(order.by = PruebasSonora$Fecha)
+PruebasSonora.xts
+```
+
+## Visualización
+
+
+```{r, echo=FALSE, fig.width=10, fig.height=6}
+dygraph(PruebasSonora.xts, main = "Resultados de pruebas de Covid19 reportados diariamente en Sonora") %>% 
+  dyRangeSelector() %>% 
+  dyOptions(colors = "#4BACC6",strokeWidth = 2, fillGraph = TRUE, fillAlpha = 0.1)
+```
