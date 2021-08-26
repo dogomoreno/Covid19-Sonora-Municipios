@@ -251,18 +251,19 @@ Casossemana$INCIDENCIA[Casossemana$INCIDENCIA==0] <- NA
 #                     if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.75, na.rm=TRUE),0)),4, 
 #                             if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.50, na.rm=TRUE),0)),3,
 #                                     if_else(INCIDENCIA>(round(quantile(casossempob$INCIDENCIA, 0.25, na.rm=TRUE),0)),2,1))))) %>% 
+
+niveles <- c("1", "2", "3", "4")
 casossempob <- Casossemana %>% mutate(IS=if_else(INCIDENCIA>=99.9,4, 
                                                  if_else(INCIDENCIA>49.9,3,
                                                          if_else(INCIDENCIA>9.9,2,1)))) %>% 
-  filter(Fecha==max(as.Date(Fecha)))
+  mutate(IS=as.character(IS)) %>% 
+  filter(Fecha==max(as.Date(Fecha))) 
+casossempob$IS[is.na(casossempob$IS)] <- "NA"
 
-levelsIS<- c("4"="1", "3"="2", "2"="3", "1"="4")
+incidencianum <- casossempob %>% count(IS) %>% group_by(IS) %>% summarise(municipios=sum(n)) %>%  mutate(IS=as.character(IS)) %>% rename(romp=IS)
+incidencianum[is.na(incidencianum)] <- "NA"
 
-incidencianum <- casossempob %>% count(IS) %>% group_by(IS) %>% summarise(municipios=sum(n)) %>% filter(!is.na(IS)) %>% mutate(ISnivel=case_when(IS=="1"~"4", 
-                                                                                                                                                 IS=="2"~"3", 
-                                                                                                                                                 IS=="3"~"2", 
-                                                                                                                                                 IS=="4"~"1")) %>% 
-  select(ISnivel, municipios) %>% mutate
+
 casossempob <- casossempob %>%  mutate(id=CVEGEO)
 
 capa_munison <- readOGR("Shapes", layer="MUNSON")
@@ -272,19 +273,25 @@ capa_munison_inci<- inner_join(capa_munison_df, casossempob, by="id")
 
 
 #discrete <-  rev(carto_pal(5, "Temps"))
-discrete <- c("4" = "#CE3F41","3" = "#FFA17B","2" = "#FECF7D", "1" = "#31859C")
-marcas <- c( "Alta\n(100 o más)", "Substancial\n(50-99)", "Moderada\n(10-49)","Baja\n(+0-9)")
+romp <- c("4", "3", "2", "1", "NA")
+discrete <- c("#CE3F41","#FFA17B","#FECF7D", "#31859C","gray90")
+marcas <- c( "Alta\n(100 o más)", "Substancial\n(50-99)", "Moderada\n(10-49)","Baja\n(>0-9)", "Nula\n(0)")
 
+
+incidenciamarcas <- data.frame(romp, marcas, discrete) %>% left_join(incidencianum, by="romp")
+incidenciamarcas[is.na(incidenciamarcas)] <- 0
+incidenciamarcas <- incidenciamarcas %>% mutate(label=paste0(marcas, "\n", municipios," municipios")) 
 
 Mapa_incidencia<- ggplot(capa_munison_inci, aes(map_id = id)) +
   geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
                fill="gray90", color="white", size=0.12) +
-  geom_map(aes(fill = factor(IS)),color = "white",size=0.22, map = capa_munison_df) + 
-  scale_fill_manual(values = discrete, 
-                    breaks= romp, 
-                    labels = marcas) +
+  geom_map(aes(fill = factor(IS, romp)),color = "white",size=0.22, map = capa_munison_df) + 
+  scale_fill_manual(values = incidenciamarcas$discrete, 
+                    drop = F,
+                    breaks= incidenciamarcas$romp, 
+                    labels = incidenciamarcas$label) +
   theme_void() + temasmap + theme(legend.position = "right",
-        legend.key.height = unit (1.2, "cm"), legend.key.width = unit (0.3, "cm"),
+        legend.key.height = unit (1.1, "cm"), legend.key.width = unit (0.3, "cm"),
         legend.text = element_text(family = "Lato", size = 6, color = "black"),
         legend.title = element_text(family = "Lato Black", size = 5, color = "black"),
         axis.title = element_blank()) +
@@ -293,6 +300,7 @@ Mapa_incidencia<- ggplot(capa_munison_inci, aes(map_id = id)) +
        caption =fuente)+
        geom_polygon(data=capa_reg, aes(x=long, y=lat, group=group), 
              fill="transparent", color="black", size=0.2)
+Mapa_incidencia
 ggsave("Gráficos/diariomapinci.png",Mapa_incidencia, width = 5/2 * (16/9), height = 5, type = "cairo", dpi = 400)
 
 
@@ -309,7 +317,7 @@ Mapa_incivoid<- ggplot(capa_munison_inci, aes(map_id = id)) +
         plot.margin = margin(0.5, 0.5, 0.25, 0.4, "cm"),
         legend.position = "none",
         plot.background = element_rect(fill = "transparent", color = NA),
-        legend.key.height = unit (0.5, "cm"), legend.key.width = unit (0.3, "cm"), axis.text = element_blank(),
+        legend.key.height = unit (0.3, "cm"), legend.key.width = unit (0.3, "cm"), axis.text = element_blank(),
         legend.text = element_text(family = "Lato", size = 6, color = "black"),
         legend.title = element_text(family = "Lato Black", size = 5, color = "black"),
         plot.caption = element_text(family = "Lato Light", size = 6, color = "gray40"),
@@ -630,4 +638,3 @@ Pruebasdiasem <- Pruebasemana %>% ggplot(aes(x= diasemana, y= Pruebas)) +
        subtitle= Fechahoy, caption =fuente)  
 Pruebasdiasem
 ggsave("Gráficos/pruebasdiasem.png",Pruebasdiasem,  width = 5 * (16/9), height = 5, type = "cairo", dpi = 400)
-
