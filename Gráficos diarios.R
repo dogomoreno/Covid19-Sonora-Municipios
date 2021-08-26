@@ -24,9 +24,9 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-Fechahoy <- "Al reporte del 24 de agosto de 2021"
+Fechahoy <- "Al reporte del 26 de agosto de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
-subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nAl reporte del 24/08/2021"
+subtitulo <- "Casos confirmados en los últimos 7 días por 100 mil habitantes\nAl reporte del 26/08/2021"
 
 POBMUN <- read_csv("Bases/POBMUN.csv", col_types = cols(CVEGEO = col_character()), 
                    locale = locale(encoding = "ISO-8859-1"))
@@ -36,7 +36,7 @@ temaejes <- theme(plot.margin = margin(10, 25, 10, 25),
                   plot.subtitle = element_text(family = "Lato Light", size = 10, color = "black"), legend.title = element_blank(),
                   strip.text = element_text(family = "Lato Black", size = 10),
                   axis.text = element_text(family = "Lato", size =6),
-                  plot.background = element_rect(fill = "white", color = "black", size = 3),
+                  plot.background = element_rect(fill = "white", color = "white", size = 3),
                   axis.title.x = element_text(family = "Lato Light", size = 8, hjust=1),
                   axis.title.y = element_text(family = "Lato Light", size = 8, hjust=1), 
                   plot.caption = element_text(family = "Lato", size = 6),
@@ -51,7 +51,7 @@ temasinejes <-  theme(axis.line = element_blank(),
                       plot.subtitle = element_text(family = "Lato Light", size = 10, color = "black"), legend.title = element_blank(),
                       axis.text.x = element_text(family = "Lato", size =6, angle=90, hjust=0.95,vjust=0.5),   panel.grid= element_blank(),
                       axis.text.y = element_blank(),
-                      plot.background = element_rect(fill = "white", color = "black", size = 3),
+                      plot.background = element_rect(fill = "white", color = "white", size = 3),
                       axis.title.x = element_text(family = "Lato Light", size = 8, hjust=1),
                       axis.title.y = element_text(family = "Lato Light", size = 8, hjust=1), 
                       plot.caption = element_text(family = "Lato", size = 6, color = "black"),
@@ -65,7 +65,7 @@ temasmap <-  theme(axis.line = element_blank(),
                       plot.title = element_markdown(family = "Lato Black", size = 20),  
                       plot.subtitle = element_text(family = "Lato Light", size = 8, color = "black"), legend.title = element_blank(),
                       axis.text= element_blank(),
-                      plot.background = element_rect(fill = "white", color = "black", size = 3),
+                      plot.background = element_rect(fill = "white", color = "white", size = 3),
                       axis.title= element_blank(), 
                       plot.caption = element_text(family = "Lato", size = 5, color = "black"),
                       legend.text = element_text(family = "Lato", size = 6),
@@ -255,6 +255,14 @@ casossempob <- Casossemana %>% mutate(IS=if_else(INCIDENCIA>=99.9,4,
                                                  if_else(INCIDENCIA>49.9,3,
                                                          if_else(INCIDENCIA>9.9,2,1)))) %>% 
   filter(Fecha==max(as.Date(Fecha)))
+
+levelsIS<- c("4"="1", "3"="2", "2"="3", "1"="4")
+
+incidencianum <- casossempob %>% count(IS) %>% group_by(IS) %>% summarise(municipios=sum(n)) %>% filter(!is.na(IS)) %>% mutate(ISnivel=case_when(IS=="1"~"4", 
+                                                                                                                                                 IS=="2"~"3", 
+                                                                                                                                                 IS=="3"~"2", 
+                                                                                                                                                 IS=="4"~"1")) %>% 
+  select(ISnivel, municipios) %>% mutate
 casossempob <- casossempob %>%  mutate(id=CVEGEO)
 
 capa_munison <- readOGR("Shapes", layer="MUNSON")
@@ -266,7 +274,7 @@ capa_munison_inci<- inner_join(capa_munison_df, casossempob, by="id")
 #discrete <-  rev(carto_pal(5, "Temps"))
 discrete <- c("4" = "#CE3F41","3" = "#FFA17B","2" = "#FECF7D", "1" = "#31859C")
 marcas <- c( "Alta\n(100 o más)", "Substancial\n(50-99)", "Moderada\n(10-49)","Baja\n(+0-9)")
-romp <- c("4", "3", "2", "1")
+
 
 Mapa_incidencia<- ggplot(capa_munison_inci, aes(map_id = id)) +
   geom_polygon(data=capa_munison, aes(x=long, y=lat, group=group), 
@@ -622,3 +630,4 @@ Pruebasdiasem <- Pruebasemana %>% ggplot(aes(x= diasemana, y= Pruebas)) +
        subtitle= Fechahoy, caption =fuente)  
 Pruebasdiasem
 ggsave("Gráficos/pruebasdiasem.png",Pruebasdiasem,  width = 5 * (16/9), height = 5, type = "cairo", dpi = 400)
+
