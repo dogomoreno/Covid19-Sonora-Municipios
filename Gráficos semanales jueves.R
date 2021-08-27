@@ -23,16 +23,16 @@ library(directlabels)
 library(ggtext)
 
 lundom <- "jueves"
-Fechasem <- "Al reporte del 20 de agosto de 2021 | Confirmados acumulados de viernes a jueves (por fecha de corte)"
-Fechadom <- "Al reporte del 20 de agosto de 2021  | Cifras al jueves de cada semana (por fecha de corte)."
-Fechahoy <- "Al reporte del 20 de agosto de 2021"
+Fechasem <- "Al reporte del 27 de agosto de 2021 | Confirmados acumulados de viernes a jueves (por fecha de corte)"
+Fechadom <- "Al reporte del 27 de agosto de 2021  | Cifras al jueves de cada semana (por fecha de corte)."
+Fechahoy <- "Al reporte del 27 de agosto de 2021"
 fuente <- "Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
 temaejes <- theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(10, 25, 10, 25),
                   plot.title = element_markdown(family = "Lato Black", size = 25),  
                   plot.subtitle = element_text(family = "Lato Light", size = 10, color = "black"), legend.title = element_blank(),
                   strip.text = element_text(family = "Lato Black", size = 10),
                   axis.text = element_text(family = "Lato", size =6),
-                  plot.background = element_rect(fill = "white", color = "black", size = 3),
+                  plot.background = element_rect(fill = "white", color = "white", size = 3),
                   axis.title.x = element_text(family = "Lato Light", size = 8, hjust=1),
                   axis.title.y = element_text(family = "Lato Light", size = 8, hjust=1), 
                   plot.caption = element_text(family = "Lato", size = 6),
@@ -45,7 +45,7 @@ temasinejes <-  theme(axis.line.x = element_line(linetype = "solid"), axis.line.
                       plot.subtitle = element_text(family = "Lato Light", size = 10, color = "black"), legend.title = element_blank(),
                       axis.text.x = element_text(family = "Lato", size =6, angle=90, hjust=0.95,vjust=0.5),   panel.grid= element_blank(),
                       axis.text.y = element_blank(),
-                      plot.background = element_rect(fill = "white", color = "black", size = 3),
+                      plot.background = element_rect(fill = "white", color = "white", size = 3),
                       axis.title.x = element_text(family = "Lato Light", size = 8, hjust=1),
                       axis.title.y = element_text(family = "Lato Light", size = 8, hjust=1), 
                       plot.caption = element_text(family = "Lato", size = 6, color = "black"),
