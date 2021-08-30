@@ -24,10 +24,10 @@ library("Cairo")
 library(directlabels)
 library(ggtext)
 
-lundom <- "sábado"
-Fechasem <- "Al reporte del 29 de agosto de 2021 | Confirmados acumulados de sábado a domingo (por fecha de corte)"
-Fechadom <- "Al reporte del 29 de agosto de 2021  | Cifras al sábado de cada semana (por fecha de corte)."
-Fechahoy <- "Al reporte del 29 de agosto de 2021"
+lundom <- weekdays(Sys.Date()-1)
+Fechasem <- paste0("Al reporte del ", day(Sys.Date()), " de agosto de 2021 | Confirmados acumulados de ",weekdays(Sys.Date())," a ", weekdays(Sys.Date()-1)," (por fecha de corte)")
+Fechadom <- paste0("Al reporte del ", day(Sys.Date()), " de agosto de 2021 | Cifras al ", weekdays(Sys.Date()-1)," de cada semana (por fecha de corte).")
+Fechahoy <- paste0("Al reporte del ", day(Sys.Date()), " de agosto de 2021.")
 fuente <- "Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
 temaejes <- theme(plot.margin = margin(10, 25, 10, 25),
                   plot.title = element_markdown(family = "Lato Black", size = 25),  
@@ -101,7 +101,7 @@ Estatus <- ggplot(Sonora.DF.hoy, aes(area = Casos.confirmados, fill= Estatus, la
        subtitle= Fechahoy, caption =fuente)
 Estatus
 
-ggsave("Otros gráficos/s02.png",Estatus , width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Semanales/s02.png",Estatus , width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 
 
 # Casos diarios Estatal
@@ -121,7 +121,7 @@ Casossemson <- ggplot(Casossemana) +
        subtitle= Fechasem, caption =fuente)
 Casossemson
 
-ggsave("Otros gráficos/s03.png",Casossemson, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Semanales/s03.png",Casossemson, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 
 
 # Decesos diarios Estatal
@@ -141,7 +141,7 @@ Decesossemson <- ggplot(Casossemana) +
        subtitle= Fechasem, caption =fuente)
 Decesossemson
 
-ggsave("Otros gráficos/s09.png",Decesossemson, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Semanales/s09.png",Decesossemson, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 
 # Hospitalizados diarios Estatal
 
@@ -161,7 +161,7 @@ Hospsemson <- ggplot(Hospsemana) +
        subtitle= Fechadom, caption =fuente)
  Hospsemson
 
-ggsave("Otros gráficos/s04.png",Hospsemson, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Semanales/s04.png",Hospsemson, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 
 # Activos leves
 
@@ -181,7 +181,7 @@ Activos <- ggplot(Activossem) +
        subtitle= Fechadom, caption =fuente)
 Activos
 
-ggsave("Otros gráficos/s05.png",Activos, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Semanales/s05.png",Activos, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 
 # Pruebas semanales
 
@@ -200,7 +200,7 @@ Pruebassemson <- ggplot(Casossemana) +
        subtitle= Fechasem, caption =fuente)
 Pruebassemson
 
-ggsave("Otros gráficos/s11.png",Pruebassemson, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Semanales/s11.png",Pruebassemson, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 
 #Positividad
 
@@ -223,7 +223,7 @@ Positividad <- ggplot() +
        x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#4BACC6';>Positividad de resultados de pruebas</span>", 
        subtitle= Fechahoy, caption =fuente)
 Positividad
-ggsave("Otros gráficos/s12.png",Positividad, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Semanales/s12.png",Positividad, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 
 # Municipales 
 
@@ -268,7 +268,7 @@ Casosmuni <- ggplot(Casossemana) +
        x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#01A2AC';>Casos semanales</span>", 
        subtitle= Fechasem, caption =fuente)
 Casosmuni
-ggsave("Otros gráficos/s06.png",Casosmuni, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Semanales/s06.png",Casosmuni, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 
 Decesosmuni <- ggplot(Casossemana) +
   geom_line(aes(x=Fecha, y= decesos.resto), linetype = "solid", color = "#4BACC6", size=0.8, alpha=0.3) +
@@ -289,7 +289,7 @@ Decesosmuni <- ggplot(Casossemana) +
        x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#993366';>Decesos semanales</span>", 
        subtitle= Fechasem, caption =fuente)
 Decesosmuni
-ggsave("Otros gráficos/s14.png",Decesosmuni, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Semanales/s14.png",Decesosmuni, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 
 
 Casossemana <- Casossemana %>% mutate(POB=2944840) %>% mutate(mortalidad=round(Decesos.semana*1000000/POB,1), incidencia=round(Casos.semana*100000/POB,1))
@@ -314,7 +314,7 @@ Indicadores <- ggplot() +
   geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= incidencia), fill="#01A2AC", size=2 , shape=21, color="white", stroke=1) +
   geom_dl( data = subset(Casossemana, Fecha == max(Fecha)), aes(x=Fecha, y= mortalidad, label = paste0(mortalidad, " decesos\npor millón de habs.", sep="")), color="#993366", 
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.8, fontfamily= "Lato Black")) +
-  geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= incidencia,  label = paste0("\n",incidencia," casos\npor 100 mil habs.",  sep="")), color="#01A2AC", 
+  geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= incidencia,  label = paste0(incidencia," casos\npor 100 mil habs.",  sep="")), color="#01A2AC", 
            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.8, fontfamily= "Lato Black")) +
   scale_y_continuous(expand = c(0, 0), limits=c(0,130)) +
   scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), (max(as.Date(Casossemana$Fecha)) + 100)), date_breaks = "1 month", date_labels = "%B") +
@@ -325,15 +325,15 @@ Indicadores <- ggplot() +
        x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#01A2AC';>Incidencia</span> y <span style = 'color:#993366';>mortalidad</span> por semana", 
        subtitle= Fechahoy, caption =fuente)
 Indicadores
-ggsave("Otros gráficos/s18.png",Indicadores, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Semanales/s18.png",Indicadores, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 
 
 
 Recuperados <- ggplot() +
-  geom_line(data= Casossemana, aes(x=Fecha, y= Casos.semana), color= "#993366", linetype= "solid", size=1, alpha=0.8)+
-  geom_line(data= Casossemana, aes(x=Fecha, y= Recuperados.semana), color= "#01A2AC", linetype= "solid", size=1, alpha=0.8)+
-  geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= Casos.semana), fill="#993366", size=2 , shape=21, color="white", stroke=1) +
-  geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= Recuperados.semana), fill="#01A2AC", size=2 , shape=21, color="white", stroke=1) +
+  geom_line(data= Casossemana, aes(x=Fecha, y= Casos.semana), color= "#01A2AC", linetype= "solid", size=1, alpha=0.8)+
+  geom_line(data= Casossemana, aes(x=Fecha, y= Recuperados.semana), color= "#005156", linetype= "solid", size=1, alpha=0.8)+
+  geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= Casos.semana), fill="#01A2AC", size=2 , shape=21, color="white", stroke=1) +
+  geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= Recuperados.semana), fill="#005156", size=2 , shape=21, color="white", stroke=1) +
   # geom_dl( data = subset(Casossemana, Fecha == max(Fecha)), aes(x=Fecha, y= mortalidad, label = paste0(mortalidad, " decesos\npor millón de habs.", sep="")), color="#993366", 
   #          method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.8, fontfamily= "Lato Black")) +
   # geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= incidencia,  label = paste0(incidencia," casos\npor 100 mil habs.",  sep="")), color="#01A2AC", 
@@ -344,10 +344,10 @@ Recuperados <- ggplot() +
   theme_bw() +
   temaejes + theme(axis.title.y = element_markdown(family = "Lato", size =6)) +
   labs(y = NULL, 
-       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#01A2AC';>Recuperados</span> y <span style = 'color:#993366';>casos nuevos</span> por semana", 
+       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#005156';>Recuperados</span> y <span style = 'color:#01A2AC';>casos nuevos</span> por semana", 
        subtitle= Fechahoy, caption =fuente)
 Recuperados
-ggsave("Otros gráficos/s22.png",Recuperados, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
+ggsave("Semanales/s22.png",Recuperados, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 
 
 
