@@ -19,7 +19,7 @@ temaejes <- theme(plot.margin = margin(10, 25, 10, 25),
                   plot.subtitle = element_text(family = "Lato Light", size = 10, color = "black"), legend.title = element_blank(),
                   strip.text = element_text(family = "Lato Black", size = 10),
                   axis.text = element_text(family = "Lato", size =6),
-                  plot.background = element_rect(fill = "white", color = "black", size = 3),
+                  plot.background = element_rect(fill = "white", color = "white", size = 3),
                   axis.title.x = element_text(family = "Lato Light", size = 8, hjust=1),
                   axis.title.y = element_text(family = "Lato Light", size = 8, hjust=1), 
                   plot.caption = element_text(family = "Lato", size = 6),
@@ -54,7 +54,7 @@ PruebasSonora <- Sonora.DF %>%
 knitr::kable(PruebasSonora, format.args = list(big.mark = ",", scientific = FALSE), caption = "Pruebas acumuladas y diarias realizadas en Sonora")
 ```
 ```{r, fig.width = 5 * (16/9), fig.height = 5, dpi = 400}
-Fechahoy <- "Al reporte del 24 de agosto de 2021"
+Fechahoy <- "Al reporte del 27 de agosto de 2021"
 fuente <- "Elaboración Luis Armando Moreno (@dogomoreno) con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
 PruebasSon <- ggplot(PruebasSonora) +
   geom_area(aes(x= Fecha, y= Pruebas.media.7d), fill= "#4BACC6", alpha=0.3)+
