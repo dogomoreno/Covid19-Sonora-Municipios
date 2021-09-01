@@ -77,7 +77,7 @@ Casosacum <- ggplot(Sonoramesseg) +
                size = 1.5, color = "black", alpha=0.5,
                 arrow = arrow(length = unit(0.02, "npc"))) +
    geom_text(aes(x = as.Date("2021-07-01"), y = 60000,
-                 label = "Agosto 2021\n12000 casos"), stat = "unique", family = "Lato Black",
+                 label = "Agosto 2021\n12,378 casos"), stat = "unique", family = "Lato Black",
              size = 5, color = "black")+
 theme_bw() +
   theme(axis.line = element_line(linetype = "solid"), plot.margin = margin(1, 1, 0.5, 0.8, "cm"),
@@ -93,7 +93,7 @@ theme_bw() +
         legend.text = element_text(family = "Lato", size = 12),
         legend.position = "none",  legend.justification="left") +
   labs(y = "Casos confirmados acumulados", 
-       x = NULL,legend= NULL, title  = "100000 casos acumulados\n de covid-19 en Sonora", 
+       x = NULL,legend= NULL, title  = "100,149 casos acumulados\n de covid-19 en Sonora", 
        subtitle= Fechahoy, caption ="\nFuente: Secretaría de Salud del Estado de Sonora\nwww.luisarmandomoreno.com")
 Casosacum
 
