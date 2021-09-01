@@ -25,9 +25,9 @@ library(directlabels)
 library(ggtext)
 
 lundom <- weekdays(Sys.Date()-1)
-Fechasem <- paste0("Al reporte del ", day(Sys.Date()), " de agosto de 2021 | Confirmados acumulados de ",weekdays(Sys.Date())," a ", weekdays(Sys.Date()-1)," (por fecha de corte)")
-Fechadom <- paste0("Al reporte del ", day(Sys.Date()), " de agosto de 2021 | Cifras al ", weekdays(Sys.Date()-1)," de cada semana (por fecha de corte).")
-Fechahoy <- paste0("Al reporte del ", day(Sys.Date()), " de agosto de 2021.")
+Fechasem <- paste0("Al reporte del ", day(Sys.Date()), " de septiembre de 2021 | Confirmados acumulados de ",weekdays(Sys.Date())," a ", weekdays(Sys.Date()-1)," (por fecha de corte)")
+Fechadom <- paste0("Al reporte del ", day(Sys.Date()), " de septiembre de 2021 | Cifras al ", weekdays(Sys.Date()-1)," de cada semana (por fecha de corte).")
+Fechahoy <- paste0("Al reporte del ", day(Sys.Date()), " de septiembre de 2021.")
 fuente <- "Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
 temaejes <- theme(plot.margin = margin(10, 25, 10, 25),
                   plot.title = element_markdown(family = "Lato Black", size = 25),  

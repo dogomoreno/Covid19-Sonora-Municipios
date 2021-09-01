@@ -23,7 +23,7 @@ library(directlabels)
 library(ggtext)
 library(patchwork)
 
-Fechahoy <- "Al reporte del 01 de agosto de 2021"
+Fechahoy <- "Al reporte del 01 de septiembre de 2021"
 Fechames <- "Confirmados acumulados por mes"
 fuente <- "Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
 temames <-  theme(axis.line.x = element_line(linetype = "solid"), axis.line.y = element_blank(),
@@ -51,13 +51,13 @@ Decesos <- read_csv("Bases/Decesosdiarios.csv",
                     locale = locale(encoding = "ISO-8859-1"))
 
 Casosmes <- Casos %>%mutate(mesnum=month(Fecha), mes = months.Date(Fecha),  año = year(Fecha)) %>% select(año, mesnum, mes, Fecha, NUEVOS)
-Casosmes <- Casosmes %>% group_by(año, mesnum, mes) %>% summarise(Fecha=min(Fecha), casos.mensuales=sum(NUEVOS)) %>% select (Fecha, mesnum, mes, casos.mensuales) %>% 
-  filter(Fecha<as.Date("2021-08-01"))
+Casosmes <- Casosmes %>% group_by(año, mesnum, mes) %>% summarise(Fecha=min(Fecha), casos.mensuales=sum(NUEVOS)) %>% select (Fecha, año, mesnum, mes, casos.mensuales) %>% 
+  filter(Fecha<as.Date("2021-09-01"))
 Casosmes$Fecha[1]<- as.Date("2020-03-01")
 
 Decesosmes <- Decesos %>%mutate(mesnum=month(Fecha), mes = months.Date(Fecha),  año = year(Fecha)) %>% select(año, mesnum, mes, Fecha, NUEVOS)
-Decesosmes <- Decesosmes %>% group_by(año, mesnum, mes) %>% summarise(Fecha=min(Fecha), decesos.mensuales=sum(NUEVOS)) %>% select (Fecha, mesnum, mes, decesos.mensuales)%>% 
-  filter(Fecha<as.Date("2021-08-01"))
+Decesosmes <- Decesosmes %>% group_by(año, mesnum, mes) %>% summarise(Fecha=min(Fecha), decesos.mensuales=sum(NUEVOS)) %>% select (Fecha, año, mesnum, mes, decesos.mensuales)%>% 
+  filter(Fecha<as.Date("2021-09-01"))
 Decesosmes$Fecha[1]<- as.Date("2020-04-01")
 
 
@@ -116,7 +116,7 @@ p3 <- patchwork + plot_annotation(
 ggsave("Gráficos/Mensual.png",p3, width = 5 * (16/9), height = 10, type = "cairo", dpi = 300)
 
 
-Fechahoy <- "Al reporte del 01 de agosto de 2021"
+Fechahoy <- "Al reporte del 01 de septiembre de 2021"
 Fechames <- "Confirmados acumulados por mes"
 fuente <- "Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
 temames <-  theme(axis.line.y = element_line(linetype = "solid"), axis.line.x = element_blank(),
@@ -144,13 +144,13 @@ Decesos <- read_csv("Bases/Decesosdiarios.csv",
                     locale = locale(encoding = "ISO-8859-1"))
 
 Casosmes <- Casos %>%mutate(mesnum=month(Fecha), mes = months.Date(Fecha),  año = year(Fecha)) %>% select(año, mesnum, mes, Fecha, NUEVOS)
-Casosmes <- Casosmes %>% group_by(año, mesnum, mes) %>% summarise(Fecha=min(Fecha), casos.mensuales=sum(NUEVOS)) %>% select (Fecha, mesnum, mes, casos.mensuales) %>% 
-  filter(Fecha<as.Date("2021-08-01"))
+Casosmes <- Casosmes %>% group_by(año, mesnum, mes) %>% summarise(Fecha=min(Fecha), casos.mensuales=sum(NUEVOS)) %>% select (Fecha, mesnum, año, mes, casos.mensuales) %>% 
+  filter(Fecha<as.Date("2021-09-01"))
 Casosmes$Fecha[1]<- as.Date("2020-03-01")
 
 Decesosmes <- Decesos %>%mutate(mesnum=month(Fecha), mes = months.Date(Fecha),  año = year(Fecha)) %>% select(año, mesnum, mes, Fecha, NUEVOS)
-Decesosmes <- Decesosmes %>% group_by(año, mesnum, mes) %>% summarise(Fecha=min(Fecha), decesos.mensuales=sum(NUEVOS)) %>% select (Fecha, mesnum, mes, decesos.mensuales)%>% 
-  filter(Fecha<as.Date("2021-08-01"))
+Decesosmes <- Decesosmes %>% group_by(año, mesnum, mes) %>% summarise(Fecha=min(Fecha), decesos.mensuales=sum(NUEVOS)) %>% select (Fecha, año, mesnum, mes, decesos.mensuales)%>% 
+  filter(Fecha<as.Date("2021-09-01"))
 Decesosmes$Fecha[1]<- as.Date("2020-04-01")
 
 Casosmes <- Casosmes %>% left_join(Decesosmes, by=c("año", "Fecha", "mesnum", "mes"))
@@ -163,7 +163,7 @@ Casosmesson <- ggplot(Casosmes) +
   # geom_text(aes(x = as.Date("2020-04-30"), y = 8000,
   #            label = "69,936 casos acumulados"), stat = "unique", family = "Lato Black",
   #            size = 5, color = "black", hjust =1) +
-  scale_x_date(expand=c(0,0), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), date_breaks = "1 month", date_labels = "%B\n%y") +
   scale_y_continuous(expand=c(0,0))+
   theme_minimal() +
   temames +
@@ -182,7 +182,7 @@ Decesosmesson <- ggplot(Casosmes) +
   # geom_text(aes(x = as.Date("2020-03-30"), y = 800,
   #               label = "5,991 decesos acumulados"), stat = "unique", family = "Lato Black",
   #           size = 5, color = "black", hjust =1) +
-  scale_x_date(expand=c(0,0), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), date_breaks = "1 month", date_labels = "%B\n%y") +
   scale_y_continuous(expand=c(0,0))+
   theme_minimal() +
   temames +
