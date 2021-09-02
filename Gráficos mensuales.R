@@ -23,7 +23,7 @@ library(directlabels)
 library(ggtext)
 library(patchwork)
 
-Fechahoy <- "Al reporte del 01 de septiembre de 2021"
+Fechahoy <- paste0("Al reporte del ", day(Sys.Date()), " de ", months.Date(Sys.Date())," de ", year(Sys.Date()))
 Fechames <- "Confirmados acumulados por mes"
 fuente <- "Elaboración Luis Armando Moreno con información de la Secretaría de Salud del Estado de Sonora\n*Por continuidad, la fecha de corte se asume como la del día anterior al reporte. | www.luisarmandomoreno.com"
 temames <-  theme(axis.line.x = element_line(linetype = "solid"), axis.line.y = element_blank(),

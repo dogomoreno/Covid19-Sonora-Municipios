@@ -65,7 +65,7 @@ paragraf <- theme(plot.title = (element_text(family = "Lato Black", size = 32, c
                   legend.title = element_text(family = "Lato Black", size = 8, color = "black"),
                   plot.caption = element_text(family = "Lato Light", size =10, color = "gray50"),
                   axis.title = element_text(family = "Lato", size = 12))
-subtitulo <- paste0("Incidencia semanal de casos de covid-19\nAl reporte del ", day(Sys.Date()),"/09/2021")
+subtitulo <- paste0("Incidencia semanal de casos de covid-19\nAl reporte del ", day(Sys.Date()),"/",month(Sys.Date()),"/",year(Sys.Date()))
 Semanalab <- paste0("Semanas de ", weekdays(Sys.Date())," a ", weekdays(Sys.Date()-1), " (por fecha de corte)")
 marcas <- c( "Alta (100 o más)", "Substancial (50-99)", "Moderada (10-49)","Baja (+0-9)")
 romp <- c("4", "3", "2", "1")
