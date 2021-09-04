@@ -391,7 +391,7 @@ CasosSon <- ggplot(Sonora.DF) +
            # size = 5, color = "black")+
   theme_bw() + temaejes +
   theme(legend.text = element_text(family = "Lato", size = 7), legend.background = element_rect(fill="transparent"),
-        legend.position = c(0.02,0.85),  legend.justification="left", legend.margin=margin(t = 0, unit='cm'),
+        legend.position = c(0.02,0.90),  legend.justification="left", legend.margin=margin(t = 0, unit='cm'),
         legend.key = element_rect(fill="transparent", color="transparent")) +
   labs(y = NULL, 
        x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#01A2AC';>Casos confirmados diariamente</span>", 
@@ -557,7 +557,7 @@ Hospitalizados <- Sonora.DF %>% ggplot(aes(x= Fecha, y= Hospitalizados)) +
   geom_point( data = subset(Sonora.DF , Fecha == max(Fecha)), fill="white", size=1 , shape=21, color="#F79646", stroke=1) +
   geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(label = Hospitalizados), color="#F79646", method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 1.5, fontfamily= "Lato Black")) +
   scale_y_continuous(expand = c(0, 0), limits= c(0,600), breaks=seq(0,600,50)) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-08-01"), as.Date("2021-09-30")), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-08-01"), as.Date("2021-10-10")), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_bw() +
   temaejes +
@@ -594,17 +594,18 @@ ggsave("Gráficos/diariosActivos.png",Activos,  width = 5 * (16/9), height = 5, 
 
 Activos <- Sonora.DF %>% ggplot() +
   geom_point(aes(x= Fecha, y= Ambulatorios.Activos), fill= "#58BCBC", color= "white", size = 0.9, stroke=0.4, alpha=0.65, shape = 21)+
-  geom_line(aes(x=Fecha, y=Ambulatorios.Activos.7d),color = "#58BCBC", linetype= "solid", size=.75, arrow=arrow(type="open", length=unit(0.10,"cm")))+
+  geom_line(aes(x=Fecha, y=Ambulatorios.Activos.7d, color = "Tendencia promedio móvil 7 días"), linetype= "solid", size=.75, arrow=arrow(type="open", length=unit(0.10,"cm")))+
   geom_area(aes(x=Fecha, y=Ambulatorios.Activos.7d),color= "transparent", fill= "#58BCBC",alpha=0.1)+
   geom_point( data = subset(Sonora.DF , Fecha == max(Fecha)),aes(x= Fecha, y= Ambulatorios.Activos), fill="white", size=1 , shape=21, color="#58BCBC", stroke=1) +
   geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(x= Fecha, y= Ambulatorios.Activos, label = Ambulatorios.Activos), color="#58BCBC", method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 1.5, fontfamily= "Lato Black")) +
+  scale_color_manual(values= c("Tendencia promedio móvil 7 días"= "#58BCBC"))+
   scale_y_continuous(expand = c(0, 0), limits= c(0,6000), breaks=seq(0,6000,1000)) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-06-19"), as.Date("2021-10-10")), date_breaks = "1 month", date_labels = "%B") +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-06-19"), as.Date("2021-10-20")), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_bw() +
-  temaejes +
+  temaejes + 
   theme(legend.text = element_text(family = "Lato", size = 7), legend.background = element_rect(fill="transparent"),
-        legend.position = c(0.5,0.9),  legend.justification="left", legend.margin=margin(t = 0, unit='cm'),
+        legend.position = c(0.02,0.9),  legend.justification="left", legend.margin=margin(t = 0, unit='cm'),
         legend.key = element_rect(fill="transparent", color="transparent")) +
   labs(y = NULL, 
        x = NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#58BCBC';>Pacientes activos con síntomas leves al corte</span>", 
@@ -639,3 +640,48 @@ Pruebasdiasem <- Pruebasemana %>% ggplot(aes(x= diasemana, y= Pruebas)) +
        subtitle= Fechahoy, caption =fuente)  
 Pruebasdiasem
 ggsave("Gráficos/pruebasdiasem.png",Pruebasdiasem,  width = 5 * (16/9), height = 5, type = "cairo", dpi = 400)
+
+Sonora.DF <- Sonora.DF %>% mutate(OLA=if_else(Fecha>as.Date("2021-05-16"), "C",
+                                              if_else(Fecha>as.Date("2020-10-09"), "B", 
+                                                      if_else(Fecha>as.Date("2020-03-15"), "A", "SD")))) %>% 
+                                    mutate(Etapa= if_else(Fecha>as.Date("2021-08-20"), "Descenso",
+                                                              if_else(Fecha>as.Date("2021-05-16"), "Ascenso",
+                                                                      if_else(Fecha>as.Date("2021-01-16"), "Descenso",
+                                                                              if_else(Fecha>as.Date("2020-10-09"), "Ascenso",
+                                                                                      if_else(Fecha>as.Date("2020-08-02"), "Descenso",
+                                                                                              if_else(Fecha>as.Date("2020-03-15"), "Ascenso","SD")))))))
+                                                                              
+                                                                              
+                                                                                                                                    
+                                                                                                         
+write.csv(Sonora.DF, "ResultadoCSV/DFSonora.csv")
+
+O2A <- Sonora.DF %>% filter(Etapa=="Ascenso", OLA=="B") 
+O2A <- O2A %>% mutate(día=rownames(O2A)) %>% select(día, Fecha, Pruebas, Pruebas.diarias,Pruebas.media.7d, Confirmados, Casos.diarios, Casos.media.7d, Decesos, Decesos.diarios, Decesos.media.7d, Hospitalizados)
+
+O3A <- Sonora.DF %>% filter(Etapa=="Ascenso", OLA=="C") 
+O3A <- O3A %>% mutate(día=rownames(O3A)) %>% select(día, Fecha, Pruebas, Pruebas.diarias,Pruebas.media.7d, Confirmados, Casos.diarios, Casos.media.7d, Decesos, Decesos.diarios, Decesos.media.7d, Hospitalizados)
+
+OLAS <- O2A %>% left_join(O3A, by="día") %>% mutate(día=as.numeric(día))
+
+
+
+
+
+OLASG <- ggplot(OLAS) +
+  geom_line(aes(x= día, y= Casos.media.7d.x, color= "OLA 2", group=1), linetype= "solid", size=.75, arrow=arrow(type="open", length=unit(0.10,"cm")))+
+  geom_line(aes(x= día, y= Casos.media.7d.y, color= "OLA 3", group=1), linetype= "solid", size=.75, arrow=arrow(type="open", length=unit(0.10,"cm")))+
+  scale_color_manual(name="", values= c("OLA 2" = "#01787E", "OLA 3" = "#F79646")) +
+  #scale_x_date(expand=c(0,5), date_breaks = "1 month", date_labels = "%B") +
+theme_bw() + temaejes +
+  theme(legend.text = element_text(family = "Lato", size = 7), legend.background = element_rect(fill="transparent"),
+        legend.position = c(0.02,0.90),  legend.justification="left", legend.margin=margin(t = 0, unit='cm'),
+        legend.key = element_rect(fill="transparent", color="transparent")) +
+  labs(y = NULL, 
+       x = "Días desde el inicio de la ola", legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#01A2AC';>Promedio móvil de casos hasta alcanzar el pico<br>en la primera y segunda ola</span>", 
+       subtitle= Fechahoy, caption =fuente)
+
+OLASG
+
+ggsave("Gráficos/OLASG.png",OLASG, width = 5 * (16/9), height = 5, type = "cairo", dpi = 400)
+

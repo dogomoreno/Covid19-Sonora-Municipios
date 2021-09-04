@@ -331,9 +331,9 @@ ggsave("Semanales/s18.png",Indicadores, width = 5 * (16/9), height = 5, type = "
 
 Recuperados <- ggplot() +
   geom_line(data= Casossemana, aes(x=Fecha, y= Casos.semana), color= "#01A2AC", linetype= "solid", size=1, alpha=0.8)+
-  geom_line(data= Casossemana, aes(x=Fecha, y= Recuperados.semana), color= "#005156", linetype= "solid", size=1, alpha=0.8)+
+  geom_line(data= Casossemana, aes(x=Fecha, y= Recuperados.semana), color= "#2D6669", linetype= "solid", size=1, alpha=0.8)+
   geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= Casos.semana), fill="#01A2AC", size=2 , shape=21, color="white", stroke=1) +
-  geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= Recuperados.semana), fill="#005156", size=2 , shape=21, color="white", stroke=1) +
+  geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= Recuperados.semana), fill="#2D6669", size=2 , shape=21, color="white", stroke=1) +
   # geom_dl( data = subset(Casossemana, Fecha == max(Fecha)), aes(x=Fecha, y= mortalidad, label = paste0(mortalidad, " decesos\npor millón de habs.", sep="")), color="#993366", 
   #          method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.8, fontfamily= "Lato Black")) +
   # geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= incidencia,  label = paste0(incidencia," casos\npor 100 mil habs.",  sep="")), color="#01A2AC", 
@@ -344,8 +344,8 @@ Recuperados <- ggplot() +
   theme_bw() +
   temaejes + theme(axis.title.y = element_markdown(family = "Lato", size =6)) +
   labs(y = NULL, 
-       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#005156';>Recuperados</span> y <span style = 'color:#01A2AC';>casos nuevos</span> por semana", 
-       subtitle= Fechahoy, caption =fuente)
+       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#2D6669';>Recuperados</span> y <span style = 'color:#01A2AC';>casos nuevos</span> por semana", 
+       subtitle= Fechasem, caption =fuente)
 Recuperados
 ggsave("Semanales/s22.png",Recuperados, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 
