@@ -658,11 +658,11 @@ write.csv(Sonora.DF, "ResultadoCSV/DFSonora.csv")
 
 O2A <- Sonora.DF %>% filter(Etapa=="Ascenso", OLA=="B") 
 O2A <- O2A %>% mutate(día=rownames(O2A)) %>% select(día, Fecha, Pruebas, Pruebas.diarias,Pruebas.media.7d, Confirmados, Casos.diarios, Casos.media.7d, Decesos, Decesos.diarios, Decesos.media.7d, Hospitalizados) %>% 
-  mutate(Casos.acumulados=cumsum(Confirmados))
+  mutate(Casos.acumulados=cumsum(Casos.diarios))
 
 O3A <- Sonora.DF %>% filter(Etapa=="Ascenso", OLA=="C") 
 O3A <- O3A %>% mutate(día=rownames(O3A)) %>% select(día, Fecha, Pruebas, Pruebas.diarias,Pruebas.media.7d, Confirmados, Casos.diarios, Casos.media.7d, Decesos, Decesos.diarios, Decesos.media.7d, Hospitalizados) %>% 
-mutate(Casos.acumulados=cumsum(Confirmados))
+mutate(Casos.acumulados=cumsum(Casos.diarios))
 
 OLAS <- O2A %>% left_join(O3A, by="día") %>% mutate(día=as.numeric(día))
 
