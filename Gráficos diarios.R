@@ -657,10 +657,12 @@ Sonora.DF <- Sonora.DF %>% mutate(OLA=if_else(Fecha>as.Date("2021-05-16"), "C",
 write.csv(Sonora.DF, "ResultadoCSV/DFSonora.csv")
 
 O2A <- Sonora.DF %>% filter(Etapa=="Ascenso", OLA=="B") 
-O2A <- O2A %>% mutate(día=rownames(O2A)) %>% select(día, Fecha, Pruebas, Pruebas.diarias,Pruebas.media.7d, Confirmados, Casos.diarios, Casos.media.7d, Decesos, Decesos.diarios, Decesos.media.7d, Hospitalizados)
+O2A <- O2A %>% mutate(día=rownames(O2A)) %>% select(día, Fecha, Pruebas, Pruebas.diarias,Pruebas.media.7d, Confirmados, Casos.diarios, Casos.media.7d, Decesos, Decesos.diarios, Decesos.media.7d, Hospitalizados) %>% 
+  mutate(Casos.acumulados=cumsum(Confirmados))
 
 O3A <- Sonora.DF %>% filter(Etapa=="Ascenso", OLA=="C") 
-O3A <- O3A %>% mutate(día=rownames(O3A)) %>% select(día, Fecha, Pruebas, Pruebas.diarias,Pruebas.media.7d, Confirmados, Casos.diarios, Casos.media.7d, Decesos, Decesos.diarios, Decesos.media.7d, Hospitalizados)
+O3A <- O3A %>% mutate(día=rownames(O3A)) %>% select(día, Fecha, Pruebas, Pruebas.diarias,Pruebas.media.7d, Confirmados, Casos.diarios, Casos.media.7d, Decesos, Decesos.diarios, Decesos.media.7d, Hospitalizados) %>% 
+mutate(Casos.acumulados=cumsum(Confirmados))
 
 OLAS <- O2A %>% left_join(O3A, by="día") %>% mutate(día=as.numeric(día))
 
@@ -669,8 +671,8 @@ OLAS <- O2A %>% left_join(O3A, by="día") %>% mutate(día=as.numeric(día))
 
 
 OLASG <- ggplot(OLAS) +
-  geom_line(aes(x= día, y= Casos.media.7d.x, color= "OLA 2", group=1), linetype= "solid", size=.75, arrow=arrow(type="open", length=unit(0.10,"cm")))+
-  geom_line(aes(x= día, y= Casos.media.7d.y, color= "OLA 3", group=1), linetype= "solid", size=.75, arrow=arrow(type="open", length=unit(0.10,"cm")))+
+  geom_line(aes(x= día, y= Casos.acumulados.x, color= "OLA 2", group=1), linetype= "solid", size=.75, arrow=arrow(type="open", length=unit(0.10,"cm")))+
+  geom_line(aes(x= día, y= Casos.acumulados.y, color= "OLA 3", group=1), linetype= "solid", size=.75, arrow=arrow(type="open", length=unit(0.10,"cm")))+
   scale_color_manual(name="", values= c("OLA 2" = "#01787E", "OLA 3" = "#F79646")) +
   #scale_x_date(expand=c(0,5), date_breaks = "1 month", date_labels = "%B") +
 theme_bw() + temaejes +
@@ -678,7 +680,7 @@ theme_bw() + temaejes +
         legend.position = c(0.02,0.90),  legend.justification="left", legend.margin=margin(t = 0, unit='cm'),
         legend.key = element_rect(fill="transparent", color="transparent")) +
   labs(y = NULL, 
-       x = "Días desde el inicio de la ola", legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#01A2AC';>Promedio móvil de casos hasta alcanzar el pico<br>en la primera y segunda ola</span>", 
+       x = "Días desde el inicio de la ola", legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br>Casos acumulados confirmados en las etapas de<br>ascenso de la <span style = 'color:#01787E';>primera</span> y <span style = 'color:#F79646';>segunda</span> ola</span>", 
        subtitle= Fechahoy, caption =fuente)
 
 OLASG

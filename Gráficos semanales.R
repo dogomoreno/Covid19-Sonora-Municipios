@@ -328,23 +328,24 @@ Indicadores
 ggsave("Semanales/s18.png",Indicadores, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 
 
-
+Casos2021 <- Casossemana %>% filter(Fecha>as.Date("2020-12-31"))
 Recuperados <- ggplot() +
-  geom_line(data= Casossemana, aes(x=Fecha, y= Casos.semana), color= "#01A2AC", linetype= "solid", size=1, alpha=0.8)+
-  geom_line(data= Casossemana, aes(x=Fecha, y= Recuperados.semana), color= "#2D6669", linetype= "solid", size=1, alpha=0.8)+
-  geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= Casos.semana), fill="#01A2AC", size=2 , shape=21, color="white", stroke=1) +
-  geom_point( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= Recuperados.semana), fill="#2D6669", size=2 , shape=21, color="white", stroke=1) +
-  # geom_dl( data = subset(Casossemana, Fecha == max(Fecha)), aes(x=Fecha, y= mortalidad, label = paste0(mortalidad, " decesos\npor millón de habs.", sep="")), color="#993366", 
-  #          method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.8, fontfamily= "Lato Black")) +
-  # geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= incidencia,  label = paste0(incidencia," casos\npor 100 mil habs.",  sep="")), color="#01A2AC", 
-  #          method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.8, fontfamily= "Lato Black")) +
-  scale_y_continuous(expand = c(0, 0)) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), (max(as.Date(Casossemana$Fecha)+20))), date_breaks = "1 month", date_labels = "%B") +
+  geom_line(data= Casos2021, aes(x=Fecha, y= Casos.semana), color= "#01A2AC", linetype= "solid", size=1, alpha=0.8)+
+  geom_line(data= Casos2021, aes(x=Fecha, y= Recuperados.semana), color= "#2D6669", linetype= "solid", size=1, alpha=0.8)+
+  geom_point( data = subset(Casos2021 , Fecha == max(Fecha)), aes(x=Fecha, y= Casos.semana), fill="#01A2AC", size=2 , shape=21, color="white", stroke=1) +
+  geom_point( data = subset(Casos2021 , Fecha == max(Fecha)), aes(x=Fecha, y= Recuperados.semana), fill="#2D6669", size=2 , shape=21, color="white", stroke=1) +
+   geom_dl( data = subset(Casossemana, Fecha == max(Fecha)), aes(x=Fecha, y= Recuperados.semana, label = paste0(Recuperados.semana, "\nrecuperados", sep="")), color="#2D6669", 
+            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.8, fontfamily= "Lato Black")) +
+  geom_dl( data = subset(Casossemana , Fecha == max(Fecha)), aes(x=Fecha, y= Casos.semana,  label = paste0(Casos.semana,"\nconfirmados",  sep="")), color="#01A2AC", 
+            method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.8, fontfamily= "Lato Black")) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0,3500)) +
+  scale_x_date(expand=c(0,0), limits = c(as.Date("2021-01-01"), (max(as.Date(Casos2021$Fecha)+40))), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_bw() +
   temaejes + theme(axis.title.y = element_markdown(family = "Lato", size =6)) +
   labs(y = NULL, 
-       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#2D6669';>Recuperados</span> y <span style = 'color:#01A2AC';>casos nuevos</span> por semana", 
+       x = NULL,legend= NULL, 
+       title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br>Casos <span style = 'color:#2D6669';>recuperados</span> y <span style = 'color:#01A2AC';>confirmados</span> por semana", 
        subtitle= Fechasem, caption =fuente)
 Recuperados
 ggsave("Semanales/s22.png",Recuperados, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
