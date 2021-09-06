@@ -351,6 +351,6 @@ Recuperados
 ggsave("Semanales/s22.png",Recuperados, width = 5 * (16/9), height = 5, type = "cairo", dpi = 300)
 
 
-
+write.csv(Casossemana, "ResultadoCSV/Semana.csv")
 
 
