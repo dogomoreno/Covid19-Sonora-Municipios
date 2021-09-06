@@ -1,0 +1,6 @@
+source("scripts/BasesDiarias.R")
+source("scripts/Gráficos diarios.R", encoding="utf-8")
+source("scripts/Gráficos semanales.R", encoding="utf-8")
+source("scripts/Resumenmunicipios.R", encoding="utf-8")
+source("scripts/Incidencia regional semanalCDC.R", encoding="utf-8")
+rmarkdown::render("docs/index.Rmd")
