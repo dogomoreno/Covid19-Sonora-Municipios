@@ -487,7 +487,7 @@ Decesosdiasem <- Decesossemana %>% ggplot(aes(x= diasemana, y= Decesos)) +
   #geom_point( data = subset(Sonora.DF , Fecha == max(Fecha)), fill="#993366", size=2 , shape=21, color="white", stroke=1) +
   #geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(label = Letalidad), color="#993366", method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 1.5, fontfamily= "Lato Black")) +
   geom_label(aes(label=Decesos), color="white", fill="#993366", family="Lato Black", fontface="bold")+
-  scale_y_continuous(expand = c(0, 0), limits= c(600,1200)) +
+  scale_y_continuous(expand = c(0, 0), limits= c(600,1350)) +
   #scale_x_date(expand=c(0,0), limits = c(as.Date("2020-04-01"), as.Date("2021-05-20")), date_breaks = "1 month", date_labels = "%B") +
   coord_cartesian(expand = FALSE, clip = 'off') +
   theme_minimal() + 
@@ -538,27 +538,6 @@ Hospitalizados
 
 ggsave("Gráficos diarios/Hospitalizados 2.png",Hospitalizados,  width = 5 * (16/9), height = 5, type = "cairo", dpi = 400)
 
-
-#Activos
-
-Activos <- Sonora.DF %>% ggplot(aes(x= Fecha, y= Ambulatorios.Activos)) +
-  geom_point(fill= "#58BCBC", color= "transparent", size = 0.9, stroke=0.4, alpha=0.65, shape = 21)+
-  geom_smooth(method ="loess", se = FALSE, span = 0.1, color = "#58BCBC")+
-  # geom_area(color= "transparent", fill= "#58BCBC",alpha=0.1)+
-  geom_point( data = subset(Sonora.DF , Fecha == max(Fecha)), fill="white", size=1 , shape=21, color="#58BCBC", stroke=1) +
-  geom_dl( data = subset(Sonora.DF , Fecha == max(Fecha)), aes(label = Ambulatorios.Activos), color="#58BCBC", method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 1.5, fontfamily= "Lato Black")) +
-  scale_y_continuous(expand = c(0, 0), limits= c(0,4000), breaks=seq(0,4000,1000)) +
-  scale_x_date(expand=c(0,0), limits = c(as.Date("2020-06-19"), as.Date("2021-08-30")), date_breaks = "1 month", date_labels = "%B") +
-  coord_cartesian(expand = FALSE, clip = 'off') +
-  theme_bw() +
-  temaejes +
-  labs(y = NULL, 
-       x = NULL,legend= NULL, title  = "<span style = 'font-size:14pt'>Covid-19 en Sonora:</span><br><span style = 'color:#58BCBC';>Pacientes activos con síntomas leves al corte</span>", 
-       subtitle= Fechahoy, caption =fuente)  
-
-Activos
-
-ggsave("Gráficos diarios/diariosActivos.png",Activos,  width = 5 * (16/9), height = 5, type = "cairo", dpi = 400)
 
 
 Activos <- Sonora.DF %>% ggplot() +
