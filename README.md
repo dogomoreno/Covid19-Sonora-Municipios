@@ -4,4 +4,4 @@ Proyecto personal basado en la información de los reportes diarios de la Secret
 La información de los reportes es procesada en archivos csv para su descarga.
 El tablero interactivo es elaborado en el lenguje R utilizando la plantilla flexdashboard for R. 
 
-![Incidencia semanal](https://raw.githubusercontent.com/dogomoreno/Covid19-Sonora-Municipios/master/Gr%C3%A1ficos/diariomapinci.png)
+![Incidencia semanal](https://raw.githubusercontent.com/dogomoreno/Covid19-Sonora-Municipios/master/Gr%C3%A1ficos%20diarios/diariomapinci.png)
