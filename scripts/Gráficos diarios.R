@@ -568,7 +568,7 @@ Pruebas <- Sonora.DF %>% select (Fecha, Pruebas.diarias)
 Pruebasemana <- Pruebas %>% 
   mutate(diasemana = weekdays(Fecha)) %>% filter(!is.na(Pruebas.diarias)) %>% group_by(diasemana) %>% summarise(Pruebas=sum(Pruebas.diarias)) 
 
-dias <- c(lunes, martes, miércoles, jueves, viernes, sábado, domingo)
+dias <- c("lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo")
 Pruebasemana$diasemana <- factor(Pruebasemana$diasemana , levels= c("lunes", "martes", 
                                                                  "miércoles", "jueves", "viernes", "sábado", "domingo"))
 
