@@ -14,7 +14,9 @@ rm(list=ls())
   library(directlabels)
   library(ggtext)
   library(patchwork)
-  
+ 
+# Función para ejes en números enteros
+int_breaks_rounded <- function(x, n = 5)  pretty(x, n)[round(pretty(x, n),1) %% 1 == 0]  
   
   # Bases municipales
   Casos <- read_csv("Bases/Casosdiarios.csv", 
@@ -72,7 +74,7 @@ rm(list=ls())
       geom_point(aes(x= Fecha, y= Casos.diarios), color = "white", fill= "#01787E", size = 0.9, stroke=0.4, alpha=0.65, shape = 21) +
       scale_fill_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#58BCBC", "Casos diarios" = "#01787E")) + 
       scale_color_manual(name="", values= c("Tendencia promedio móvil 7 días" = "#01787E", "Casos diarios" = "white")) +
-      scale_y_continuous(expand = c(0, 0), limits = c(0, (max(tmp$Casos.diarios)+5))) +
+      scale_y_continuous(expand = c(0, 0), limits = c(0, (max(tmp$Casos.diarios)+5)), breaks = int_breaks_rounded) +
       scale_x_date(expand=c(0,0), date_breaks = "1 month", date_labels = "%B", limits=c(as.Date("2020-03-16"), (Sys.Date()+5))) +
       theme_bw() + temaejes +
       theme(legend.text = element_text(family = "Lato", size = 8), legend.background = element_rect(fill="transparent"),
@@ -88,7 +90,7 @@ rm(list=ls())
       geom_point(aes(x= Fecha, y= Decesos.diarios), color = "white", fill= "#73264D", size = 0.9, stroke=0.4, alpha=0.65, shape = 21) +
       scale_fill_manual(name="", values= c("Decesos diarios" = "#73264D", "Tendencia promedio móvil 7 días" = "#D075A3")) + 
       scale_color_manual(name="", values= c("Decesos diarios" = "white","Tendencia promedio móvil 7 días" = "#73264D")) +
-      scale_y_continuous(expand = c(0, 0), limits = c(0, (max(tmp$Decesos.diarios)+2))) +
+      scale_y_continuous(expand = c(0, 0), limits = c(0, (max(tmp$Decesos.diarios)+2)), breaks = int_breaks_rounded) +
       scale_x_date(expand=c(0,0), date_breaks = "1 month", date_labels = "%B", limits=c(as.Date("2020-03-16"), (Sys.Date()+5))) + 
       theme_bw() + temaejes +
       theme(legend.text = element_text(family = "Lato", size = 8), legend.background = element_rect(fill="transparent"),
